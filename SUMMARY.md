@@ -1,4 +1,4 @@
 # Table of contents
 
-* [Hello world](README.md)
+* [Authgear](README.md)
 
