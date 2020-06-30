@@ -12,4 +12,4 @@
 * [Overview](configuration/overview.md)
 * [Environment Variable](configuration/env.md)
 * [authgear.yaml](configuration/yaml.md)
-* [authgear.secret.yaml](configuration/secret-yaml.md)
+* [authgear.secrets.yaml](configuration/secret-yaml.md)

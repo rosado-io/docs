@@ -1,8 +1,8 @@
 ---
-description: The secret configuration authgear.secret.yaml
+description: The secret configuration authgear.secrets.yaml
 ---
 
-# authgear.secret.yaml
+# authgear.secrets.yaml
 
 This is the configuration file containing various secrets used in Authgear.
 
