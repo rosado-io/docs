@@ -15,12 +15,16 @@ The configuration file is validated against the following JSON Schema.
     "$ref": "#/$defs/AppConfig",
     "$defs": {
         "AppConfig": {
+            "additionalProperties": false,
             "properties": {
                 "authentication": {
                     "$ref": "#/$defs/AuthenticationConfig"
                 },
                 "authenticator": {
                     "$ref": "#/$defs/AuthenticatorConfig"
+                },
+                "database": {
+                    "$ref": "#/$defs/DatabaseConfig"
                 },
                 "forgot_password": {
                     "$ref": "#/$defs/ForgotPasswordConfig"
@@ -40,11 +44,17 @@ The configuration file is validated against the following JSON Schema.
                 "localization": {
                     "$ref": "#/$defs/LocalizationConfig"
                 },
+                "messaging": {
+                    "$ref": "#/$defs/MessagingConfig"
+                },
                 "metadata": {
                     "$ref": "#/$defs/AppMetadata"
                 },
                 "oauth": {
                     "$ref": "#/$defs/OAuthConfig"
+                },
+                "redis": {
+                    "$ref": "#/$defs/RedisConfig"
                 },
                 "session": {
                     "$ref": "#/$defs/SessionConfig"
@@ -65,6 +75,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AppMetadata": {
+            "additionalProperties": false,
             "patternProperties": {
                 "^app_name(#.+)?$": {
                     "type": "string"
@@ -77,6 +88,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticationConfig": {
+            "additionalProperties": false,
             "properties": {
                 "identities": {
                     "items": {
@@ -106,6 +118,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorBearerTokenConfig": {
+            "additionalProperties": false,
             "properties": {
                 "expire_in_days": {
                     "$ref": "#/$defs/DurationDays"
@@ -114,6 +127,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorConfig": {
+            "additionalProperties": false,
             "properties": {
                 "bearer_token": {
                     "$ref": "#/$defs/AuthenticatorBearerTokenConfig"
@@ -134,6 +148,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorOOBConfig": {
+            "additionalProperties": false,
             "properties": {
                 "email": {
                     "$ref": "#/$defs/AuthenticatorOOBEmailConfig"
@@ -145,6 +160,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorOOBEmailConfig": {
+            "additionalProperties": false,
             "properties": {
                 "maximum": {
                     "type": "integer"
@@ -156,6 +172,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorOOBSMSConfig": {
+            "additionalProperties": false,
             "properties": {
                 "maximum": {
                     "type": "integer"
@@ -167,6 +184,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorPasswordConfig": {
+            "additionalProperties": false,
             "properties": {
                 "policy": {
                     "$ref": "#/$defs/PasswordPolicyConfig"
@@ -175,6 +193,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorRecoveryCodeConfig": {
+            "additionalProperties": false,
             "properties": {
                 "count": {
                     "type": "integer"
@@ -186,6 +205,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "AuthenticatorTOTPConfig": {
+            "additionalProperties": false,
             "properties": {
                 "maximum": {
                     "type": "integer"
@@ -202,6 +222,24 @@ The configuration file is validated against the following JSON Schema.
             ],
             "type": "string"
         },
+        "DatabaseConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "max_connection_lifetime_seconds": {
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "max_idle_connection": {
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "max_open_connection": {
+                    "minimum": 0,
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
         "DurationDays": {
             "type": "integer"
         },
@@ -209,6 +247,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "integer"
         },
         "EmailMessageConfig": {
+            "additionalProperties": false,
             "patternProperties": {
                 "^reply_to(#.+)?$": {
                     "format": "email-name-addr",
@@ -225,6 +264,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "ForgotPasswordConfig": {
+            "additionalProperties": false,
             "properties": {
                 "email_message": {
                     "$ref": "#/$defs/EmailMessageConfig"
@@ -239,6 +279,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "HTTPConfig": {
+            "additionalProperties": false,
             "properties": {
                 "allowed_origins": {
                     "items": {
@@ -256,10 +297,11 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "HookConfig": {
+            "additionalProperties": false,
             "properties": {
                 "handlers": {
                     "items": {
-                        "$ref": "HookHandlerConfig"
+                        "$ref": "#/$defs/HookHandlerConfig"
                     },
                     "type": "array"
                 },
@@ -273,6 +315,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "HookHandlerConfig": {
+            "additionalProperties": false,
             "properties": {
                 "event": {
                     "type": "string"
@@ -289,17 +332,22 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "IdentityConfig": {
+            "additionalProperties": false,
             "properties": {
                 "login_id": {
                     "$ref": "#/$defs/LoginIDConfig"
                 },
-                "sso": {
+                "oauth": {
+                    "$ref": "#/$defs/OAuthSSOConfig"
+                },
+                "on_conflict": {
                     "$ref": "#/$defs/IdentityConflictConfig"
                 }
             },
             "type": "object"
         },
         "IdentityConflictConfig": {
+            "additionalProperties": false,
             "properties": {
                 "promotion": {
                     "$ref": "#/$defs/PromotionConflictBehavior"
@@ -316,6 +364,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "string"
         },
         "LocalizationConfig": {
+            "additionalProperties": false,
             "properties": {
                 "fallback_language": {
                     "type": "string"
@@ -324,6 +373,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "LoginIDConfig": {
+            "additionalProperties": false,
             "properties": {
                 "keys": {
                     "items": {
@@ -338,6 +388,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "LoginIDEmailConfig": {
+            "additionalProperties": false,
             "properties": {
                 "block_plus_sign": {
                     "type": "boolean"
@@ -352,6 +403,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "LoginIDKeyConfig": {
+            "additionalProperties": false,
             "properties": {
                 "key": {
                     "type": "string"
@@ -379,6 +431,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "string"
         },
         "LoginIDTypesConfig": {
+            "additionalProperties": false,
             "properties": {
                 "email": {
                     "$ref": "#/$defs/LoginIDEmailConfig"
@@ -390,6 +443,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "LoginIDUsernameConfig": {
+            "additionalProperties": false,
             "properties": {
                 "ascii_only": {
                     "type": "boolean"
@@ -410,6 +464,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "MessagingConfig": {
+            "additionalProperties": false,
             "properties": {
                 "default_email_message": {
                     "$ref": "#/$defs/EmailMessageConfig"
@@ -424,6 +479,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "OAuthClientConfig": {
+            "additionalProperties": false,
             "properties": {
                 "access_token_lifetime_seconds": {
                     "$ref": "#/$defs/DurationSeconds"
@@ -473,6 +529,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "OAuthConfig": {
+            "additionalProperties": false,
             "properties": {
                 "clients": {
                     "items": {
@@ -483,7 +540,20 @@ The configuration file is validated against the following JSON Schema.
             },
             "type": "object"
         },
+        "OAuthSSOConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "providers": {
+                    "items": {
+                        "$ref": "#/$defs/OAuthSSOProviderConfig"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
         "OAuthSSOProviderConfig": {
+            "additionalProperties": false,
             "properties": {
                 "alias": {
                     "type": "string"
@@ -521,6 +591,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "string"
         },
         "PasswordPolicyConfig": {
+            "additionalProperties": false,
             "properties": {
                 "digit_required": {
                     "type": "boolean"
@@ -562,7 +633,30 @@ The configuration file is validated against the following JSON Schema.
             ],
             "type": "string"
         },
+        "RedisConfig": {
+            "additionalProperties": false,
+            "properties": {
+                "idle_connection_timeout_seconds": {
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "max_connection_lifetime_seconds": {
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "max_idle_connection": {
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "max_open_connection": {
+                    "minimum": 0,
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
         "SMSMessageConfig": {
+            "additionalProperties": false,
             "properties": {
                 "^sender(#.+)?$": {
                     "format": "phone",
@@ -578,17 +672,6 @@ The configuration file is validated against the following JSON Schema.
             ],
             "type": "string"
         },
-        "SSOConfig": {
-            "properties": {
-                "oauth_providers": {
-                    "items": {
-                        "$ref": "#/$defs/OAuthSSOProviderConfig"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
         "SecondaryAuthenticationMode": {
             "enum": [
                 "if_requested",
@@ -598,6 +681,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "string"
         },
         "SessionConfig": {
+            "additionalProperties": false,
             "properties": {
                 "cookie_domain": {
                     "type": "string"
@@ -618,6 +702,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "TemplateConfig": {
+            "additionalProperties": false,
             "properties": {
                 "items": {
                     "items": {
@@ -629,6 +714,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "TemplateItem": {
+            "additionalProperties": false,
             "properties": {
                 "key": {
                     "type": "string"
@@ -653,6 +739,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "string"
         },
         "UIConfig": {
+            "additionalProperties": false,
             "properties": {
                 "country_calling_code": {
                     "$ref": "#/$defs/UICountryCallingCodeConfig"
@@ -664,6 +751,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "UICountryCallingCodeConfig": {
+            "additionalProperties": false,
             "properties": {
                 "default": {
                     "type": "string"
@@ -678,6 +766,7 @@ The configuration file is validated against the following JSON Schema.
             "type": "object"
         },
         "WelcomeMessageConfig": {
+            "additionalProperties": false,
             "properties": {
                 "destination": {
                     "$ref": "#/$defs/WelcomeMessageDestination"
@@ -835,8 +924,72 @@ http:
   # Default is empty list.
   hosts:
   - https://accounts.myapp.com
+# Configure default messaging configuration.
+messaging:
+  # Configure default email message configuration.
+  # default_email_message is EmailMessageConfig.
+  default_email_message:
+    reply_to: no-reply@example.com
+    sender: info@example.com
+    subject: App
+  # Configure default SMS configuration.
+  # default_sms_message is SMSMessageConfig.
+  default_sms_message:
+    sender: "+85299887766"
+  # Configure which SMS provider to use.
+  # Valid values are "twilio" and "nexmo".
+  # You must provide the credentials in secret config.
+  sms_provider: "twilio"
+# Configure the database connection
+database:
+  # The maximum open connection to the database.
+  # The default is 2.
+  max_open_connection: 2
+  # The maximum idle connection to the database.
+  # The default is 2.
+  max_idle_connection: 2
+  # The maximum lifetime of the connection.
+  # The connection is discarded when its lifetime reaches the value.
+  # The default is 1800.
+  max_connection_lifetime_seconds: 1800
+# Configure Redis connection
+redis:
+  # The maximum open connection to Redis.
+  # The default is 2.
+  max_open_connection: 2
+  # The maximum idle connection to Redis.
+  # The default is 2.
+  max_idle_connection: 2
+  # The maximum lifetime of the connection.
+  # The connection is discarded when its lifetime reaches the value.
+  # The default is 900.
+  max_connection_lifetime_seconds: 900
+  # Idle connections are closed after remaining idle for this duration.
+  # The default is 300.
+  idle_connection_timeout_seconds: 300
 # Configure different identity behavior.
 identity:
+  on_conflict:
+    # Configure the behavior in anonymous user promotion when the claimed identity
+    # conflicts with an existing identity.
+    #
+    # Valid values are "error" and "login".
+    # Default is "error".
+    #
+    # For example, the user initially signed up as "user@example.com".
+    # Later on the user uninstalled the mobile app.
+    # The user installed the mobile app again and forgot they had signed up before.
+    # The user continued as anonymous user.
+    # The user finally opted to sign up with "user@example.com".
+    # At this point, the user has 2 accounts.
+    #
+    # If the value is "error", an error is shown telling the user that
+    # the identity they are claiming has been claimed by another user.
+    #
+    # If the value is "login", the anonymous user is discarded.
+    # And the user simply authenticates themselves as the original user.
+    # It is up to the developer to handle account merging.
+    promotion: "error"
   # Configure Login ID Identity.
   login_id:
     # Defines the set of accepted login IDs.
