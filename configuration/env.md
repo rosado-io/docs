@@ -6,9 +6,13 @@ description: Environment variable provides global configuration
 
 Environment variable provides global configuration.
 
-## LISTEN_ADDR
+## PUBLIC_LISTEN_ADDR
 
-Sets which interface and port should be listened. Default is `0.0.0.0:3000`.
+Sets the listen address of the public server. Default is `0.0.0.0:3000`.
+
+## INTERNAL_LISTEN_ADDR
+
+Sets the listen address of the internal server. Default is `0.0.0.0:3001`.
 
 ## TRUST_PROXY
 
@@ -17,6 +21,10 @@ Sets whether incoming HTTP headers such as `x-forwarded-host` can be trusted. If
 ## DEV_MODE
 
 Sets whether Authgear should run in development mode. You should never need to set it. Default is `false`.
+
+## LOG_LEVEL
+
+Sets the global log level. Valid values are `debug`, `info`, `warn` and `error`. Default is `warn`.
 
 ## CONFIG_SOURCE_TYPE
 
@@ -28,7 +36,7 @@ Sets the filepath of the app configuration. Default is `authgear.yaml` so `authg
 
 ## CONFIG_SOURCE_SECRET_CONFIG_PATH
 
-Sets the filepath of the secret configuration. Default is `authgear.secret.yaml` so `authgear.secret.yaml` in the working directory is loaded.
+Sets the filepath of the secret configuration. Default is `authgear.secrets.yaml` so `authgear.secrets.yaml` in the working directory is loaded.
 
 ## RESERVED_NAME_FILE_PATH
 
