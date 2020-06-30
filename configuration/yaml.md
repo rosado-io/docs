@@ -1042,22 +1042,24 @@ identity:
     # Denote the type of the identity provider.
     # Valid values are "google", "apple", "facebook", "azureadv2", "linkedin"
     - type: google
+      # alias by default is the same as the value of the type.
+      alias: google
       # Client ID and client secret are the credentials you obtain from the specific provider.
       # Please refer to the documentation of the provider.
+      # You must separately provide the client secret in the secret config file.
       client_id: google_client_id
-      client_secret: google_client_secret
     - type: apple
+      alias: apple
       # The client ID for Apple is the services ID.
-      client_id: apple_services_id
       # The client secret for Apple is the PEM format of the private key.
-      client_secret: private_key
+      client_id: apple_services_id
       # The key ID of the private key.
       key_id: key_id
       # The team ID of your Apple Developer Account.
       team_id: team_id
     - type: azureadv2
+      alias: azure
       client_id: client_id
-      client_secret: client_secret
       # Tenant is either the special value "common", the special value "organizations" or
       # the ID of a Azure AD tenant.
       #

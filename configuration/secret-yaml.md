@@ -44,9 +44,28 @@ secrets:
     db: 0
 ```
 
+### sso.oauth.client
+
+`sso.oauth.client` defines the client secrets.
+
+This is the place where you provide the client secrets of configured external OAuth providers.
+
+```yaml
+secrets:
+- key: sso.oauth.client
+  data:
+    items:
+    - alias: google
+      client_secret: client_secret
+    - alias: apple
+      client_secret: private_key_in_pem_format
+```
+
 ### mail.smtp
 
 `mail.smtp` defines the SMTP credentials.
+
+`mode` is either `ssl` or `normal`. Usually you do not need to set it and the mode is inferred from the port.
 
 ```yaml
 secrets:
@@ -85,7 +104,8 @@ secrets:
 
 ### jwt
 
-`jwt` defines the JWS of generated JWT.
+`jwt` defines the JWK to sign internal use, ephemeral JWT token.
+It must be a octet key.
 
 ```yaml
 secrets:
@@ -93,24 +113,35 @@ secrets:
   data:
     keys:
     - kid: key_id
-      kty: key_type
-      # TODO(jws): Document JWS
+      kty: oct
+      k: key
 ```
 
 ### oidc
 
-`oidc` defines the JWS to sign the generated ID tokens generated.
+`oidc` defines the JWK to sign ID tokens.
+It must be a RSA key.
 
-The format shares with [jwt](#jwt)
+```yaml
+secrets:
+- key: oidc
+  data:
+    keys:
+    - kid: key_id
+      kty: RSA
+      # Other fields specific to RSA.
+```
 
 ### csrf
 
 `csrf` defines the symmetric key to generate CSRF token.
+It must be a octet key.
 
 The format shares with [jwt](#jwt)
 
 ### webhook
 
 `webhook` defines the symmetric key to sign webhook request body.
+It must be a octet key.
 
 The format shares with [jwt](#jwt)
