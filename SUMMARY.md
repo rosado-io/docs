@@ -5,6 +5,7 @@
 ## Getting Started
 
 * [Running locally with Docker](getting-started/local.md)
+* [Authenticating HTTP request with Nginx](getting-started/auth-nginx.md)
 * [Deploying on Kubernetes](getting-started/k8s.md)
 
 ## Configuration
