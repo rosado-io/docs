@@ -12,782 +12,782 @@ The configuration file is validated against the following JSON Schema.
 
 ```json
 {
-    "$ref": "#/$defs/AppConfig",
-    "$defs": {
-        "AppConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "authentication": {
-                    "$ref": "#/$defs/AuthenticationConfig"
-                },
-                "authenticator": {
-                    "$ref": "#/$defs/AuthenticatorConfig"
-                },
-                "database": {
-                    "$ref": "#/$defs/DatabaseConfig"
-                },
-                "forgot_password": {
-                    "$ref": "#/$defs/ForgotPasswordConfig"
-                },
-                "hook": {
-                    "$ref": "#/$defs/HookConfig"
-                },
-                "http": {
-                    "$ref": "#/$defs/HTTPConfig"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "identity": {
-                    "$ref": "#/$defs/IdentityConfig"
-                },
-                "localization": {
-                    "$ref": "#/$defs/LocalizationConfig"
-                },
-                "messaging": {
-                    "$ref": "#/$defs/MessagingConfig"
-                },
-                "metadata": {
-                    "$ref": "#/$defs/AppMetadata"
-                },
-                "oauth": {
-                    "$ref": "#/$defs/OAuthConfig"
-                },
-                "redis": {
-                    "$ref": "#/$defs/RedisConfig"
-                },
-                "session": {
-                    "$ref": "#/$defs/SessionConfig"
-                },
-                "template": {
-                    "$ref": "#/$defs/TemplateConfig"
-                },
-                "ui": {
-                    "$ref": "#/$defs/UIConfig"
-                },
-                "welcome_message": {
-                    "$ref": "#/$defs/WelcomeMessageConfig"
-                }
-            },
-            "required": [
-                "id"
-            ],
-            "type": "object"
+  "$defs": {
+    "AppConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "authentication": {
+          "$ref": "#/$defs/AuthenticationConfig"
         },
-        "AppMetadata": {
-            "additionalProperties": false,
-            "patternProperties": {
-                "^app_name(#.+)?$": {
-                    "type": "string"
-                },
-                "^logo_uri(#.+)?$": {
-                    "format": "uri",
-                    "type": "string"
-                }
-            },
-            "type": "object"
+        "authenticator": {
+          "$ref": "#/$defs/AuthenticatorConfig"
         },
-        "AuthenticationConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "identities": {
-                    "items": {
-                        "$ref": "#/$defs/IdentityType"
-                    },
-                    "type": "array",
-                    "uniqueItems": true
-                },
-                "primary_authenticators": {
-                    "items": {
-                        "$ref": "#/$defs/AuthenticatorType"
-                    },
-                    "type": "array",
-                    "uniqueItems": true
-                },
-                "secondary_authentication_mode": {
-                    "$ref": "#/$defs/SecondaryAuthenticationMode"
-                },
-                "secondary_authenticators": {
-                    "items": {
-                        "$ref": "#/$defs/AuthenticatorType"
-                    },
-                    "type": "array",
-                    "uniqueItems": true
-                }
-            },
-            "type": "object"
+        "database": {
+          "$ref": "#/$defs/DatabaseConfig"
         },
-        "AuthenticatorBearerTokenConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "expire_in_days": {
-                    "$ref": "#/$defs/DurationDays"
-                }
-            },
-            "type": "object"
+        "forgot_password": {
+          "$ref": "#/$defs/ForgotPasswordConfig"
         },
-        "AuthenticatorConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "bearer_token": {
-                    "$ref": "#/$defs/AuthenticatorBearerTokenConfig"
-                },
-                "oob_otp": {
-                    "$ref": "#/$defs/AuthenticatorOOBConfig"
-                },
-                "password": {
-                    "$ref": "#/$defs/AuthenticatorPasswordConfig"
-                },
-                "recovery_code": {
-                    "$ref": "#/$defs/AuthenticatorRecoveryCodeConfig"
-                },
-                "totp": {
-                    "$ref": "#/$defs/AuthenticatorTOTPConfig"
-                }
-            },
-            "type": "object"
+        "hook": {
+          "$ref": "#/$defs/HookConfig"
         },
-        "AuthenticatorOOBConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "email": {
-                    "$ref": "#/$defs/AuthenticatorOOBEmailConfig"
-                },
-                "sms": {
-                    "$ref": "#/$defs/AuthenticatorOOBSMSConfig"
-                }
-            },
-            "type": "object"
+        "http": {
+          "$ref": "#/$defs/HTTPConfig"
         },
-        "AuthenticatorOOBEmailConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "maximum": {
-                    "type": "integer"
-                },
-                "message": {
-                    "$ref": "#/$defs/EmailMessageConfig"
-                }
-            },
-            "type": "object"
+        "id": {
+          "type": "string"
         },
-        "AuthenticatorOOBSMSConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "maximum": {
-                    "type": "integer"
-                },
-                "message": {
-                    "$ref": "#/$defs/SMSMessageConfig"
-                }
-            },
-            "type": "object"
+        "identity": {
+          "$ref": "#/$defs/IdentityConfig"
         },
-        "AuthenticatorPasswordConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "policy": {
-                    "$ref": "#/$defs/PasswordPolicyConfig"
-                }
-            },
-            "type": "object"
+        "localization": {
+          "$ref": "#/$defs/LocalizationConfig"
         },
-        "AuthenticatorRecoveryCodeConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "list_enabled": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
+        "messaging": {
+          "$ref": "#/$defs/MessagingConfig"
         },
-        "AuthenticatorTOTPConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "maximum": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
+        "metadata": {
+          "$ref": "#/$defs/AppMetadata"
         },
-        "AuthenticatorType": {
-            "enum": [
-                "password",
-                "totp",
-                "oob_otp",
-                "bearer_token"
-            ],
-            "type": "string"
+        "oauth": {
+          "$ref": "#/$defs/OAuthConfig"
         },
-        "DatabaseConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "max_connection_lifetime_seconds": {
-                    "minimum": 0,
-                    "type": "integer"
-                },
-                "max_idle_connection": {
-                    "minimum": 0,
-                    "type": "integer"
-                },
-                "max_open_connection": {
-                    "minimum": 0,
-                    "type": "integer"
-                }
-            },
-            "type": "object"
+        "redis": {
+          "$ref": "#/$defs/RedisConfig"
         },
-        "DurationDays": {
-            "type": "integer"
+        "session": {
+          "$ref": "#/$defs/SessionConfig"
         },
-        "DurationSeconds": {
-            "type": "integer"
+        "template": {
+          "$ref": "#/$defs/TemplateConfig"
         },
-        "EmailMessageConfig": {
-            "additionalProperties": false,
-            "patternProperties": {
-                "^reply_to(#.+)?$": {
-                    "format": "email-name-addr",
-                    "type": "string"
-                },
-                "^sender(#.+)?$": {
-                    "format": "email-name-addr",
-                    "type": "string"
-                },
-                "^subject(#.+)?$": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
+        "ui": {
+          "$ref": "#/$defs/UIConfig"
         },
-        "ForgotPasswordConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "email_message": {
-                    "$ref": "#/$defs/EmailMessageConfig"
-                },
-                "reset_code_expiry_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                },
-                "sms_message": {
-                    "$ref": "#/$defs/SMSMessageConfig"
-                }
-            },
-            "type": "object"
-        },
-        "HTTPConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "allowed_origins": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "hosts": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "HookConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "handlers": {
-                    "items": {
-                        "$ref": "#/$defs/HookHandlerConfig"
-                    },
-                    "type": "array"
-                },
-                "sync_hook_timeout_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                },
-                "sync_hook_total_timeout_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                }
-            },
-            "type": "object"
-        },
-        "HookHandlerConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "event": {
-                    "type": "string"
-                },
-                "url": {
-                    "format": "uri",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "event",
-                "url"
-            ],
-            "type": "object"
-        },
-        "IdentityConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "login_id": {
-                    "$ref": "#/$defs/LoginIDConfig"
-                },
-                "oauth": {
-                    "$ref": "#/$defs/OAuthSSOConfig"
-                },
-                "on_conflict": {
-                    "$ref": "#/$defs/IdentityConflictConfig"
-                }
-            },
-            "type": "object"
-        },
-        "IdentityConflictConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "promotion": {
-                    "$ref": "#/$defs/PromotionConflictBehavior"
-                }
-            },
-            "type": "object"
-        },
-        "IdentityType": {
-            "enum": [
-                "login_id",
-                "oauth",
-                "anonymous"
-            ],
-            "type": "string"
-        },
-        "LocalizationConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "fallback_language": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "LoginIDConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "keys": {
-                    "items": {
-                        "$ref": "#/$defs/LoginIDKeyConfig"
-                    },
-                    "type": "array"
-                },
-                "types": {
-                    "$ref": "#/$defs/LoginIDTypesConfig"
-                }
-            },
-            "type": "object"
-        },
-        "LoginIDEmailConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "block_plus_sign": {
-                    "type": "boolean"
-                },
-                "case_sensitive": {
-                    "type": "boolean"
-                },
-                "ignore_dot_sign": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
-        "LoginIDKeyConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "maximum": {
-                    "type": "integer"
-                },
-                "type": {
-                    "$ref": "#/$defs/LoginIDKeyType"
-                }
-            },
-            "required": [
-                "key",
-                "type"
-            ],
-            "type": "object"
-        },
-        "LoginIDKeyType": {
-            "enum": [
-                "raw",
-                "email",
-                "phone",
-                "username"
-            ],
-            "type": "string"
-        },
-        "LoginIDTypesConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "email": {
-                    "$ref": "#/$defs/LoginIDEmailConfig"
-                },
-                "username": {
-                    "$ref": "#/$defs/LoginIDUsernameConfig"
-                }
-            },
-            "type": "object"
-        },
-        "LoginIDUsernameConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "ascii_only": {
-                    "type": "boolean"
-                },
-                "block_reserved_usernames": {
-                    "type": "boolean"
-                },
-                "case_sensitive": {
-                    "type": "boolean"
-                },
-                "excluded_keywords": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "MessagingConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "default_email_message": {
-                    "$ref": "#/$defs/EmailMessageConfig"
-                },
-                "default_sms_message": {
-                    "$ref": "#/$defs/SMSMessageConfig"
-                },
-                "sms_provider": {
-                    "$ref": "#/$defs/SMSProvider"
-                }
-            },
-            "type": "object"
-        },
-        "OAuthClientConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "access_token_lifetime_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                },
-                "client_id": {
-                    "type": "string"
-                },
-                "client_uri": {
-                    "format": "uri",
-                    "type": "string"
-                },
-                "grant_types": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "post_logout_redirect_uris": {
-                    "items": {
-                        "format": "uri",
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "redirect_uris": {
-                    "items": {
-                        "format": "uri",
-                        "type": "string"
-                    },
-                    "minItems": 1,
-                    "type": "array"
-                },
-                "refresh_token_lifetime_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                },
-                "response_types": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "required": [
-                "client_id",
-                "redirect_uris"
-            ],
-            "type": "object"
-        },
-        "OAuthConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "clients": {
-                    "items": {
-                        "$ref": "#/$defs/OAuthClientConfig"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "OAuthSSOConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "providers": {
-                    "items": {
-                        "$ref": "#/$defs/OAuthSSOProviderConfig"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "OAuthSSOProviderConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "alias": {
-                    "type": "string"
-                },
-                "client_id": {
-                    "type": "string"
-                },
-                "key_id": {
-                    "type": "string"
-                },
-                "team_id": {
-                    "type": "string"
-                },
-                "tenant": {
-                    "type": "string"
-                },
-                "type": {
-                    "$ref": "#/$defs/OAuthSSOProviderType"
-                }
-            },
-            "required": [
-                "type",
-                "client_id"
-            ],
-            "type": "object"
-        },
-        "OAuthSSOProviderType": {
-            "enum": [
-                "google",
-                "facebook",
-                "linkedin",
-                "azureadv2",
-                "apple"
-            ],
-            "type": "string"
-        },
-        "PasswordPolicyConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "digit_required": {
-                    "type": "boolean"
-                },
-                "excluded_keywords": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                "history_days": {
-                    "$ref": "#/$defs/DurationDays"
-                },
-                "history_size": {
-                    "type": "integer"
-                },
-                "lowercase_required": {
-                    "type": "boolean"
-                },
-                "min_length": {
-                    "type": "integer"
-                },
-                "minimum_guessable_level": {
-                    "type": "integer"
-                },
-                "symbol_required": {
-                    "type": "boolean"
-                },
-                "uppercase_required": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
-        "PromotionConflictBehavior": {
-            "enum": [
-                "error",
-                "login"
-            ],
-            "type": "string"
-        },
-        "RedisConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "idle_connection_timeout_seconds": {
-                    "minimum": 0,
-                    "type": "integer"
-                },
-                "max_connection_lifetime_seconds": {
-                    "minimum": 0,
-                    "type": "integer"
-                },
-                "max_idle_connection": {
-                    "minimum": 0,
-                    "type": "integer"
-                },
-                "max_open_connection": {
-                    "minimum": 0,
-                    "type": "integer"
-                }
-            },
-            "type": "object"
-        },
-        "SMSMessageConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "^sender(#.+)?$": {
-                    "format": "phone",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "SMSProvider": {
-            "enum": [
-                "nexmo",
-                "twilio"
-            ],
-            "type": "string"
-        },
-        "SecondaryAuthenticationMode": {
-            "enum": [
-                "if_requested",
-                "if_exists",
-                "required"
-            ],
-            "type": "string"
-        },
-        "SessionConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "cookie_domain": {
-                    "type": "string"
-                },
-                "cookie_non_persistent": {
-                    "type": "boolean"
-                },
-                "idle_timeout_enabled": {
-                    "type": "boolean"
-                },
-                "idle_timeout_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                },
-                "lifetime_seconds": {
-                    "$ref": "#/$defs/DurationSeconds"
-                }
-            },
-            "type": "object"
-        },
-        "TemplateConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "items": {
-                    "items": {
-                        "$ref": "#/$defs/TemplateItem"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "TemplateItem": {
-            "additionalProperties": false,
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "language_tag": {
-                    "type": "string"
-                },
-                "type": {
-                    "$ref": "#/$defs/TemplateItemType"
-                },
-                "uri": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "type",
-                "uri"
-            ],
-            "type": "object"
-        },
-        "TemplateItemType": {
-            "type": "string"
-        },
-        "UIConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "country_calling_code": {
-                    "$ref": "#/$defs/UICountryCallingCodeConfig"
-                },
-                "custom_css": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "UICountryCallingCodeConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "default": {
-                    "type": "string"
-                },
-                "values": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "WelcomeMessageConfig": {
-            "additionalProperties": false,
-            "properties": {
-                "destination": {
-                    "$ref": "#/$defs/WelcomeMessageDestination"
-                },
-                "email_message": {
-                    "$ref": "#/$defs/EmailMessageConfig"
-                },
-                "enabled": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
-        "WelcomeMessageDestination": {
-            "enum": [
-                "first",
-                "all"
-            ],
-            "type": "string"
+        "welcome_message": {
+          "$ref": "#/$defs/WelcomeMessageConfig"
         }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "AppMetadata": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^app_name(#.+)?$": {
+          "type": "string"
+        },
+        "^logo_uri(#.+)?$": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/IdentityType"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "primary_authenticators": {
+          "items": {
+            "$ref": "#/$defs/AuthenticatorType"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "secondary_authentication_mode": {
+          "$ref": "#/$defs/SecondaryAuthenticationMode"
+        },
+        "secondary_authenticators": {
+          "items": {
+            "$ref": "#/$defs/AuthenticatorType"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorBearerTokenConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "expire_in_days": {
+          "$ref": "#/$defs/DurationDays"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "bearer_token": {
+          "$ref": "#/$defs/AuthenticatorBearerTokenConfig"
+        },
+        "oob_otp": {
+          "$ref": "#/$defs/AuthenticatorOOBConfig"
+        },
+        "password": {
+          "$ref": "#/$defs/AuthenticatorPasswordConfig"
+        },
+        "recovery_code": {
+          "$ref": "#/$defs/AuthenticatorRecoveryCodeConfig"
+        },
+        "totp": {
+          "$ref": "#/$defs/AuthenticatorTOTPConfig"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorOOBConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/AuthenticatorOOBEmailConfig"
+        },
+        "sms": {
+          "$ref": "#/$defs/AuthenticatorOOBSMSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorOOBEmailConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "type": "integer"
+        },
+        "message": {
+          "$ref": "#/$defs/EmailMessageConfig"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorOOBSMSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "type": "integer"
+        },
+        "message": {
+          "$ref": "#/$defs/SMSMessageConfig"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorPasswordConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "policy": {
+          "$ref": "#/$defs/PasswordPolicyConfig"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorRecoveryCodeConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "list_enabled": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorTOTPConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "AuthenticatorType": {
+      "enum": [
+        "password",
+        "totp",
+        "oob_otp",
+        "bearer_token"
+      ],
+      "type": "string"
+    },
+    "DatabaseConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "max_connection_lifetime_seconds": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "max_idle_connection": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "max_open_connection": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "DurationDays": {
+      "type": "integer"
+    },
+    "DurationSeconds": {
+      "type": "integer"
+    },
+    "EmailMessageConfig": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^reply_to(#.+)?$": {
+          "format": "email-name-addr",
+          "type": "string"
+        },
+        "^sender(#.+)?$": {
+          "format": "email-name-addr",
+          "type": "string"
+        },
+        "^subject(#.+)?$": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ForgotPasswordConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "email_message": {
+          "$ref": "#/$defs/EmailMessageConfig"
+        },
+        "reset_code_expiry_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "sms_message": {
+          "$ref": "#/$defs/SMSMessageConfig"
+        }
+      },
+      "type": "object"
+    },
+    "HTTPConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_origins": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "hosts": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "HookConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "handlers": {
+          "items": {
+            "$ref": "#/$defs/HookHandlerConfig"
+          },
+          "type": "array"
+        },
+        "sync_hook_timeout_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "sync_hook_total_timeout_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        }
+      },
+      "type": "object"
+    },
+    "HookHandlerConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "type": "string"
+        },
+        "url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event",
+        "url"
+      ],
+      "type": "object"
+    },
+    "IdentityConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "login_id": {
+          "$ref": "#/$defs/LoginIDConfig"
+        },
+        "oauth": {
+          "$ref": "#/$defs/OAuthSSOConfig"
+        },
+        "on_conflict": {
+          "$ref": "#/$defs/IdentityConflictConfig"
+        }
+      },
+      "type": "object"
+    },
+    "IdentityConflictConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "promotion": {
+          "$ref": "#/$defs/PromotionConflictBehavior"
+        }
+      },
+      "type": "object"
+    },
+    "IdentityType": {
+      "enum": [
+        "login_id",
+        "oauth",
+        "anonymous"
+      ],
+      "type": "string"
+    },
+    "LocalizationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "fallback_language": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LoginIDConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "keys": {
+          "items": {
+            "$ref": "#/$defs/LoginIDKeyConfig"
+          },
+          "type": "array"
+        },
+        "types": {
+          "$ref": "#/$defs/LoginIDTypesConfig"
+        }
+      },
+      "type": "object"
+    },
+    "LoginIDEmailConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "block_plus_sign": {
+          "type": "boolean"
+        },
+        "case_sensitive": {
+          "type": "boolean"
+        },
+        "ignore_dot_sign": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "LoginIDKeyConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "type": {
+          "$ref": "#/$defs/LoginIDKeyType"
+        }
+      },
+      "required": [
+        "key",
+        "type"
+      ],
+      "type": "object"
+    },
+    "LoginIDKeyType": {
+      "enum": [
+        "raw",
+        "email",
+        "phone",
+        "username"
+      ],
+      "type": "string"
+    },
+    "LoginIDTypesConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/LoginIDEmailConfig"
+        },
+        "username": {
+          "$ref": "#/$defs/LoginIDUsernameConfig"
+        }
+      },
+      "type": "object"
+    },
+    "LoginIDUsernameConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "ascii_only": {
+          "type": "boolean"
+        },
+        "block_reserved_usernames": {
+          "type": "boolean"
+        },
+        "case_sensitive": {
+          "type": "boolean"
+        },
+        "excluded_keywords": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "MessagingConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "default_email_message": {
+          "$ref": "#/$defs/EmailMessageConfig"
+        },
+        "default_sms_message": {
+          "$ref": "#/$defs/SMSMessageConfig"
+        },
+        "sms_provider": {
+          "$ref": "#/$defs/SMSProvider"
+        }
+      },
+      "type": "object"
+    },
+    "OAuthClientConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "access_token_lifetime_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "client_id": {
+          "type": "string"
+        },
+        "client_uri": {
+          "format": "uri",
+          "type": "string"
+        },
+        "grant_types": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "post_logout_redirect_uris": {
+          "items": {
+            "format": "uri",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "redirect_uris": {
+          "items": {
+            "format": "uri",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "refresh_token_lifetime_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "response_types": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "client_id",
+        "redirect_uris"
+      ],
+      "type": "object"
+    },
+    "OAuthConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "clients": {
+          "items": {
+            "$ref": "#/$defs/OAuthClientConfig"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "OAuthSSOConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "providers": {
+          "items": {
+            "$ref": "#/$defs/OAuthSSOProviderConfig"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "OAuthSSOProviderConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "client_id": {
+          "type": "string"
+        },
+        "key_id": {
+          "type": "string"
+        },
+        "team_id": {
+          "type": "string"
+        },
+        "tenant": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/OAuthSSOProviderType"
+        }
+      },
+      "required": [
+        "type",
+        "client_id"
+      ],
+      "type": "object"
+    },
+    "OAuthSSOProviderType": {
+      "enum": [
+        "google",
+        "facebook",
+        "linkedin",
+        "azureadv2",
+        "apple"
+      ],
+      "type": "string"
+    },
+    "PasswordPolicyConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "digit_required": {
+          "type": "boolean"
+        },
+        "excluded_keywords": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "history_days": {
+          "$ref": "#/$defs/DurationDays"
+        },
+        "history_size": {
+          "type": "integer"
+        },
+        "lowercase_required": {
+          "type": "boolean"
+        },
+        "min_length": {
+          "type": "integer"
+        },
+        "minimum_guessable_level": {
+          "type": "integer"
+        },
+        "symbol_required": {
+          "type": "boolean"
+        },
+        "uppercase_required": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "PromotionConflictBehavior": {
+      "enum": [
+        "error",
+        "login"
+      ],
+      "type": "string"
+    },
+    "RedisConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "idle_connection_timeout_seconds": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "max_connection_lifetime_seconds": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "max_idle_connection": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "max_open_connection": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "SMSMessageConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "^sender(#.+)?$": {
+          "format": "phone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SMSProvider": {
+      "enum": [
+        "nexmo",
+        "twilio"
+      ],
+      "type": "string"
+    },
+    "SecondaryAuthenticationMode": {
+      "enum": [
+        "if_requested",
+        "if_exists",
+        "required"
+      ],
+      "type": "string"
+    },
+    "SessionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "cookie_domain": {
+          "type": "string"
+        },
+        "cookie_non_persistent": {
+          "type": "boolean"
+        },
+        "idle_timeout_enabled": {
+          "type": "boolean"
+        },
+        "idle_timeout_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "lifetime_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        }
+      },
+      "type": "object"
+    },
+    "TemplateConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/TemplateItem"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "TemplateItem": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "language_tag": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/TemplateItemType"
+        },
+        "uri": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "uri"
+      ],
+      "type": "object"
+    },
+    "TemplateItemType": {
+      "type": "string"
+    },
+    "UIConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "country_calling_code": {
+          "$ref": "#/$defs/UICountryCallingCodeConfig"
+        },
+        "custom_css": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UICountryCallingCodeConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "WelcomeMessageConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "destination": {
+          "$ref": "#/$defs/WelcomeMessageDestination"
+        },
+        "email_message": {
+          "$ref": "#/$defs/EmailMessageConfig"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "WelcomeMessageDestination": {
+      "enum": [
+        "first",
+        "all"
+      ],
+      "type": "string"
     }
+  },
+  "$ref": "#/$defs/AppConfig"
 }
 ```
 
