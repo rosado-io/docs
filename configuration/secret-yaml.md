@@ -8,9 +8,9 @@ This is the configuration file containing various secrets used in Authgear.
 
 ## JSON Schema
 
-The configuration file is validated against the following JSON Schema.
+The configuration file is validated against the following JSON Schema:
 
-```json
+```javascript
 {
   "$defs": {
     "CSRFKeyMaterials": {
@@ -417,7 +417,7 @@ The configuration file is validated against the following JSON Schema.
 
 ## Structure
 
-Secrets are placed under the key `secrets`. Each item has `key` and `data`. The valid values for `key` are listed below. `data` is key-specific.
+Secrets are placed under the key `secrets`. Each item has `key` and `data`. The valid values for `key` are listed below, where `data` is key-specific.
 
 ```yaml
 secrets:
@@ -474,7 +474,7 @@ secrets:
 
 `mail.smtp` defines the SMTP credentials.
 
-`mode` is either `ssl` or `normal`. Usually you do not need to set it and the mode is inferred from the port.
+`mode` is either `ssl` or `normal`. Usually, you do not need to set it and the mode is inferred from the port.
 
 ```yaml
 secrets:
@@ -513,8 +513,7 @@ secrets:
 
 ### jwt
 
-`jwt` defines the JWK to sign internal use, ephemeral JWT token.
-It must be a octet key.
+`jwt` defines the JSON web key \(JWK\) to sign internal use, ephemeral JWT token. It must be an octet key.
 
 ```yaml
 secrets:
@@ -528,8 +527,7 @@ secrets:
 
 ### oidc
 
-`oidc` defines the JWK to sign ID tokens.
-It must be a RSA key.
+`oidc` defines the JWK to sign ID tokens. It must be an RSA key.
 
 ```yaml
 secrets:
@@ -543,14 +541,13 @@ secrets:
 
 ### csrf
 
-`csrf` defines the symmetric key to generate CSRF token.
-It must be a octet key.
+`csrf` defines the symmetric key to generate a CSRF token. It must be an octet key.
 
-The format shares with [jwt](#jwt)
+The format shares with [jwt](secret-yaml.md#jwt)
 
 ### webhook
 
-`webhook` defines the symmetric key to sign webhook request body.
-It must be a octet key.
+`webhook` defines the symmetric key to sign webhook request body. It must be an octet key.
 
-The format shares with [jwt](#jwt)
+The format is shared with [jwt](secret-yaml.md#jwt).
+

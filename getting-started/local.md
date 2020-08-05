@@ -10,37 +10,36 @@ Authgear is available as a Docker image. It depends on PostgreSQL and Redis. To 
 
 Let's get started with creating a new directory.
 
-```sh
+```bash
 mkdir myapp
 cd myapp
 ```
 
 ## Create authgear.yaml and authgear.secrets.yaml
 
-First we need to create authgear.yaml and authgear.secrets.yaml. Authgear itself is a CLI program capable of generating a minimal configuration file.
+First, we need to create authgear.yaml and authgear.secrets.yaml. Authgear itself is a CLI program capable of generating a minimal configuration file.
 
-Run the following command to generate a minimal authgear.yaml
+Run the following command to generate a minimal authgear.yaml:
 
-```sh
+```bash
 docker run --rm -it -w "/work" -v "$PWD:/work" quay.io/theauthgear/authgear-server authgear init config
 ```
 
 authgear.yaml is generated in your working directory.
 
+Run the following command to generate a minimal authgear.secrets.yaml:
 
-Run the following command to generate a minimal authgear.secrets.yaml
-
-```sh
+```bash
 docker run --rm -it -w "/work" -v "$PWD:/work" quay.io/theauthgear/authgear-server authgear init secrets
 ```
 
-authgear.secrets.yaml is generated in your working directory.
+authgear.secrets.yaml is now generated in your working directory.
 
 ## Create docker-compose.yaml
 
-The next step is to create docker-compose.yaml to setup PostgreSQL, Redis and Authgear.
+The next step is to create docker-compose.yaml to setup PostgreSQL, Redis, and Authgear.
 
-You can start with the following docker-compose.yaml
+You can start with the following docker-compose.yaml:
 
 ```yaml
 version: "3"
@@ -83,9 +82,9 @@ volumes:
 
 ## Edit authgear.secrets.yaml
 
-The 3 services run in the same network. We have to ensure Authgear can connect to PostgreSQL and Redis.
+The three services run in the same network. We have to ensure Authgear can connect to PostgreSQL and Redis.
 
-Check authgear.secrets.yaml and see if it looks like the following.
+Check authgear.secrets.yaml and see if it looks like the following:
 
 ```yaml
 secrets:
@@ -105,26 +104,27 @@ secrets:
 
 Authgear depends on them so they have to be started first.
 
-```sh
+```bash
 docker-compose up -d db redis
 ```
 
 ## Run database migration
 
-Run the database migration
+Run the database migration:
 
-```sh
+```bash
 docker-compose run --rm  authgear authgear migrate up
 ```
 
 ## Get it running
 
-Run everything with
+Run everything with:
 
-```sh
+```bash
 docker-compose up
 ```
 
 ## Verify everything is working
 
-Visit [http://localhost:3000](http://localhost:3000) and try sign up as a new user!
+Visit [http://localhost:3000](http://localhost:3000) and try signing up as a new user!
+

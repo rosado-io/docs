@@ -8,9 +8,9 @@ This is the main configuration file affecting every aspect of Authgear.
 
 ## JSON Schema
 
-The configuration file is validated against the following JSON Schema.
+The configuration file is validated against the following JSON Schema:
 
-```json
+```javascript
 {
   "$defs": {
     "AppConfig": {
@@ -1168,3 +1168,4 @@ welcome_message:
   # email_message is EmailMessageConfig.
   email_message: {}
 ```
+

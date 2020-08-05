@@ -8,7 +8,7 @@ Authgear has an internal endpoint that can authenticate HTTP request.
 
 ## Prerequisite
 
-You must follow [this](./local.md) to get Authgear running first!
+You must follow [this](local.md) to get Authgear running first!
 
 ## Create a simple application server
 
@@ -40,26 +40,26 @@ with make_server('', 8000, app) as httpd:
     httpd.serve_forever()
 ```
 
-Run it with
+Run it with:
 
-```sh
+```bash
 python3 app.py
 ```
 
-And visit [http://localhost:8000](http://localhost:8000) to verify it is working.
+Visit [http://localhost:8000](http://localhost:8000) to verify it is working.
 
 ## Make the application server a service in docker-compose.yaml
 
-So we have to write a Dockerfile for our application server.
+We have to write a Dockerfile for our application server.
 
-```dockerfile
+```text
 FROM python:3.7-slim
 COPY app.py .
 EXPOSE 8000
 CMD ["python3", "app.py"]
 ```
 
-And then we declare it as a new service in docker-compose.yaml
+We then declare it as a new service in docker-compose.yaml:
 
 ```yaml
 services:
@@ -71,9 +71,9 @@ services:
     - "8000:8000"
 ```
 
-Finally run it!
+Finally, run it!
 
-```sh
+```bash
 docker-compose up
 ```
 
@@ -81,9 +81,9 @@ Visit [http://localhost:8000](http://localhost:8000) to verify our application s
 
 ## Add Nginx
 
-Copy the following nginx.conf and save it as nginx.conf
+Copy the following nginx.conf and save it as nginx.conf.
 
-```
+```text
 user  nginx;
 worker_processes  1;
 
@@ -148,7 +148,7 @@ http {
 }
 ```
 
-And then add Nginx in docker-compose.yaml
+Add Nginx in docker-compose.yaml:
 
 ```yaml
 services:
@@ -161,18 +161,17 @@ services:
     - "8080:80"
 ```
 
-From now on, visit [http://localhost:8080](http://localhost:8080) to reach Authgear and the application server.
+Visit [http://localhost:8080](http://localhost:8080) to reach Authgear and the application server.
 
 ## Verify the request is authenticated
 
-Visit [http://localhost:8080](http://localhost:8080) and login.
+Visit [http://localhost:8080](http://localhost:8080) and login, then visit [http://localhost:8080/app](http://localhost:8080/app).
 
-And then visit [http://localhost:8080/app](http://localhost:8080/app).
+You should see the following:
 
-You should see
-
-```
+```text
 x-authgear-session-valid: true
 x-authgear-user-id: acdc0d99-f784-43d5-b53d-70f3506dfbf7
 x-authgear-user-anonymous: false
 ```
+

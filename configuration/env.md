@@ -4,56 +4,59 @@ description: Environment variable provides global configuration
 
 # Environment Variable
 
+## Environment Variable
+
 Environment variable provides global configuration.
 
-## PUBLIC_LISTEN_ADDR
+### PUBLIC\_LISTEN\_ADDR
 
-Sets the listen address of the public server. Default is `0.0.0.0:3000`.
+This sets the listen address of the public server. The default is `0.0.0.0:3000`.
 
-## INTERNAL_LISTEN_ADDR
+### INTERNAL\_LISTEN\_ADDR
 
-Sets the listen address of the internal server. Default is `0.0.0.0:3001`.
+This sets the listen address of the internal server. The default is `0.0.0.0:3001`.
 
-## TRUST_PROXY
+### TRUST\_PROXY
 
-Sets whether incoming HTTP headers such as `x-forwarded-host` can be trusted. If you deploy Authgear behind a reverse proxy capable of writing these headers, you should set the value to `true`. Default is `false`.
+This sets whether incoming HTTP headers such as `x-forwarded-host` can be trusted. If you deploy Authgear behind a reverse proxy capable of writing these headers, you should set the value to `true`. The default is `false`.
 
-## DEV_MODE
+### DEV\_MODE
 
-Sets whether Authgear should run in development mode. You should never need to set it. Default is `false`.
+This sets whether Authgear should run in development mode. You should never need to set it. The default is `false`.
 
-## LOG_LEVEL
+### LOG\_LEVEL
 
-Sets the global log level. Valid values are `debug`, `info`, `warn` and `error`. Default is `warn`.
+This sets the global log level. Valid values are `debug`, `info`, `warn` and `error`. The default is `warn`.
 
-## CONFIG_SOURCE_TYPE
+### CONFIG\_SOURCE\_TYPE
 
-Sets the type of the configuration. The only supported value for now is `local`. Default is `local`. So you should never change it.
+This sets the type of the configuration. The only supported value for now is `local`. The default is `local`, so you should never change it.
 
-## CONFIG_SOURCE_APP_CONFIG_PATH
+### CONFIG\_SOURCE\_APP\_CONFIG\_PATH
 
-Sets the filepath of the app configuration. Default is `authgear.yaml` so `authgear.yaml` in the working directory is loaded.
+This sets the filepath of the app configuration. The default is `authgear.yaml` so `authgear.yaml` in the working directory is loaded.
 
-## CONFIG_SOURCE_SECRET_CONFIG_PATH
+### CONFIG\_SOURCE\_SECRET\_CONFIG\_PATH
 
-Sets the filepath of the secret configuration. Default is `authgear.secrets.yaml` so `authgear.secrets.yaml` in the working directory is loaded.
+This sets the filepath of the secret configuration. The default is `authgear.secrets.yaml` so `authgear.secrets.yaml` in the working directory is loaded.
 
-## RESERVED_NAME_FILE_PATH
+### RESERVED\_NAME\_FILE\_PATH
 
-Sets the filepath of the file containing reserved usernames. Default is `reserved_name.txt`. A default file is bundled along the provided Docker image so you should only change it if you really want to override.
+This sets the filepath of the file containing reserved usernames. The default is `reserved_name.txt`. A default file is bundled along with the provided Docker image so you should only change it if you really want to override.
 
-## STATIC_ASSET_SERVING_ENABLED
+### STATIC\_ASSET\_SERVING\_ENABLED
 
-Sets whether the bundled static asset should be served. Default is `true`. You should never modify it.
+This sets whether the bundled static asset should be served. Default is `true`. You should never modify it.
 
-## STATIC_ASSET_DIR
+### STATIC\_ASSET\_DIR
 
-Sets the filepath of the directory containing the bundled static asset. The default value of the provided Docker image does the right thing so you should never need to set it.
+This sets the filepath of the directory containing the bundled static asset. The default value of the provided Docker image does the right thing so you should never need to set it.
 
-## STATIC_ASSET_URL_PREFIX
+### STATIC\_ASSET\_URL\_PREFIX
 
-Sets the URL prefix of the bundled static asset. The default value includes commit hash so it is cache-friendly.
+This sets the URL prefix of the bundled static asset. The default value includes commit hash so it is cache-friendly.
 
-# TL;DR
+## TL;DR
 
-The only environment variable you should be aware of is [TRUST_PROXY](#trust_proxy).
+The only environment variable you should be aware of is [TRUST\_PROXY](env.md#trust_proxy).
+
