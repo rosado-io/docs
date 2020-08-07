@@ -62,9 +62,6 @@ The configuration file is validated against the following JSON Schema:
       ],
       "type": "object"
     },
-    "JWTKeyMaterials": {
-      "$ref": "#/$defs/JWS"
-    },
     "NexmoCredentials": {
       "additionalProperties": false,
       "properties": {
@@ -239,22 +236,6 @@ The configuration file is validated against the following JSON Schema:
           "if": {
             "properties": {
               "key": {
-                "const": "jwt"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "data": {
-                "$ref": "#/$defs/JWTKeyMaterials"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "key": {
                 "const": "mail.smtp"
               }
             }
@@ -380,7 +361,6 @@ The configuration file is validated against the following JSON Schema:
       "enum": [
         "csrf",
         "db",
-        "jwt",
         "mail.smtp",
         "oidc",
         "redis",

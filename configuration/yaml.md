@@ -64,6 +64,9 @@ The configuration file is validated against the following JSON Schema:
         "ui": {
           "$ref": "#/$defs/UIConfig"
         },
+        "verification": {
+          "$ref": "#/$defs/VerificationConfig"
+        },
         "welcome_message": {
           "$ref": "#/$defs/WelcomeMessageConfig"
         }
@@ -89,6 +92,9 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticationConfig": {
       "additionalProperties": false,
       "properties": {
+        "device_token": {
+          "$ref": "#/$defs/DeviceTokenConfig"
+        },
         "identities": {
           "items": {
             "$ref": "#/$defs/IdentityType"
@@ -98,29 +104,23 @@ The configuration file is validated against the following JSON Schema:
         },
         "primary_authenticators": {
           "items": {
-            "$ref": "#/$defs/AuthenticatorType"
+            "$ref": "#/$defs/PrimaryAuthenticatorType"
           },
           "type": "array",
           "uniqueItems": true
+        },
+        "recovery_code": {
+          "$ref": "#/$defs/RecoveryCodeConfig"
         },
         "secondary_authentication_mode": {
           "$ref": "#/$defs/SecondaryAuthenticationMode"
         },
         "secondary_authenticators": {
           "items": {
-            "$ref": "#/$defs/AuthenticatorType"
+            "$ref": "#/$defs/SecondaryAuthenticatorType"
           },
           "type": "array",
           "uniqueItems": true
-        }
-      },
-      "type": "object"
-    },
-    "AuthenticatorBearerTokenConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "expire_in_days": {
-          "$ref": "#/$defs/DurationDays"
         }
       },
       "type": "object"
@@ -128,17 +128,11 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticatorConfig": {
       "additionalProperties": false,
       "properties": {
-        "bearer_token": {
-          "$ref": "#/$defs/AuthenticatorBearerTokenConfig"
-        },
         "oob_otp": {
           "$ref": "#/$defs/AuthenticatorOOBConfig"
         },
         "password": {
           "$ref": "#/$defs/AuthenticatorPasswordConfig"
-        },
-        "recovery_code": {
-          "$ref": "#/$defs/AuthenticatorRecoveryCodeConfig"
         },
         "totp": {
           "$ref": "#/$defs/AuthenticatorTOTPConfig"
@@ -161,6 +155,11 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticatorOOBEmailConfig": {
       "additionalProperties": false,
       "properties": {
+        "code_digits": {
+          "maximum": 8,
+          "minimum": 4,
+          "type": "integer"
+        },
         "maximum": {
           "type": "integer"
         },
@@ -173,6 +172,11 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticatorOOBSMSConfig": {
       "additionalProperties": false,
       "properties": {
+        "code_digits": {
+          "maximum": 8,
+          "minimum": 4,
+          "type": "integer"
+        },
         "maximum": {
           "type": "integer"
         },
@@ -191,18 +195,6 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "AuthenticatorRecoveryCodeConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "count": {
-          "type": "integer"
-        },
-        "list_enabled": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
     "AuthenticatorTOTPConfig": {
       "additionalProperties": false,
       "properties": {
@@ -211,15 +203,6 @@ The configuration file is validated against the following JSON Schema:
         }
       },
       "type": "object"
-    },
-    "AuthenticatorType": {
-      "enum": [
-        "password",
-        "totp",
-        "oob_otp",
-        "bearer_token"
-      ],
-      "type": "string"
     },
     "DatabaseConfig": {
       "additionalProperties": false,
@@ -235,6 +218,18 @@ The configuration file is validated against the following JSON Schema:
         "max_open_connection": {
           "minimum": 0,
           "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "DeviceTokenConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "expire_in_days": {
+          "$ref": "#/$defs/DurationDays"
         }
       },
       "type": "object"
@@ -267,6 +262,9 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "email_message": {
           "$ref": "#/$defs/EmailMessageConfig"
+        },
+        "enabled": {
+          "type": "boolean"
         },
         "reset_code_expiry_seconds": {
           "$ref": "#/$defs/DurationSeconds"
@@ -412,6 +410,9 @@ The configuration file is validated against the following JSON Schema:
         },
         "type": {
           "$ref": "#/$defs/LoginIDKeyType"
+        },
+        "verification": {
+          "$ref": "#/$defs/VerificationLoginIDKeyConfig"
         }
       },
       "required": [
@@ -625,12 +626,31 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
+    "PrimaryAuthenticatorType": {
+      "enum": [
+        "password",
+        "oob_otp"
+      ],
+      "type": "string"
+    },
     "PromotionConflictBehavior": {
       "enum": [
         "error",
         "login"
       ],
       "type": "string"
+    },
+    "RecoveryCodeConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "list_enabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "RedisConfig": {
       "additionalProperties": false,
@@ -679,6 +699,14 @@ The configuration file is validated against the following JSON Schema:
       ],
       "type": "string"
     },
+    "SecondaryAuthenticatorType": {
+      "enum": [
+        "password",
+        "oob_otp",
+        "totp"
+      ],
+      "type": "string"
+    },
     "SessionConfig": {
       "additionalProperties": false,
       "properties": {
@@ -715,9 +743,6 @@ The configuration file is validated against the following JSON Schema:
     "TemplateItem": {
       "additionalProperties": false,
       "properties": {
-        "key": {
-          "type": "string"
-        },
         "language_tag": {
           "type": "string"
         },
@@ -760,6 +785,61 @@ The configuration file is validated against the following JSON Schema:
             "type": "string"
           },
           "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "code_expiry_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "criteria": {
+          "$ref": "#/$defs/VerificationCriteria"
+        },
+        "email": {
+          "$ref": "#/$defs/VerificationEmailConfig"
+        },
+        "sms": {
+          "$ref": "#/$defs/VerificationSMSConfig"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationCriteria": {
+      "enum": [
+        "any",
+        "all"
+      ],
+      "type": "string"
+    },
+    "VerificationEmailConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "$ref": "#/$defs/EmailMessageConfig"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationLoginIDKeyConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationSMSConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "$ref": "#/$defs/SMSMessageConfig"
         }
       },
       "type": "object"
