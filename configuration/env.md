@@ -24,6 +24,11 @@ This sets whether incoming HTTP headers such as `x-forwarded-host` can be truste
 
 This sets whether Authgear should run in development mode. You should never need to set it. The default is `false`.
 
+When development mode is enabled:
+- TLS certificate is required, to enable secure cookies.
+- All `Host` header values are allowed.
+- External message sending (SMS/Email) is disabled; messages to send are logged instead.
+
 ### LOG\_LEVEL
 
 This sets the global log level. Valid values are `debug`, `info`, `warn` and `error`. The default is `warn`.
@@ -40,6 +45,10 @@ This sets the filepath of the app configuration. The default is `authgear.yaml` 
 
 This sets the filepath of the secret configuration. The default is `authgear.secrets.yaml` so `authgear.secrets.yaml` in the working directory is loaded.
 
+### DEFAULT\_TEMPLATE\_DIRECTORY
+
+This sets the path to directory containing the default template files. The default is `templates`. Default template files are bundled along with the provided Docker image so you should only change it if you really want to override.
+
 ### RESERVED\_NAME\_FILE\_PATH
 
 This sets the filepath of the file containing reserved usernames. The default is `reserved_name.txt`. A default file is bundled along with the provided Docker image so you should only change it if you really want to override.
@@ -55,6 +64,10 @@ This sets the filepath of the directory containing the bundled static asset. The
 ### STATIC\_ASSET\_URL\_PREFIX
 
 This sets the URL prefix of the bundled static asset. The default value includes commit hash so it is cache-friendly.
+
+### SENTRY\_DSN
+
+The sets the Sentry DSN, where errors/logs are reported to.
 
 ## TL;DR
 

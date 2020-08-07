@@ -888,14 +888,13 @@ authentication:
   # By default only "password" is enabled.
   primary_authenticators:
   - password
-  - totp
   - oob_otp
   # Determine which authenticators can be used as secondary authenticator.
-  # By default totp, oob_otp and bearer_token are enabled.
+  # By default totp, oob_otp are enabled.
   secondary_authenticators:
+  - password
   - totp
   - oob_otp
-  - bearer_token
   # Configure the MFA behavior.
   #
   # if_exists: The user can add secondary authenticators.
@@ -908,14 +907,20 @@ authentication:
   #
   # Default is "if_exists"
   secondary_authentication_mode: if_exists
+  # Configure Device Token.
+  # Device token can be generated during MFA.
+  # It is used to skip MFA on the device for future authentication.
+  device_token:
+    # Determine how long the device token is valid.
+    expire_in_days: 30
+  # Configure Recovery Code
+  recovery_code:
+    # The number of recovery codes. Default is 16.
+    count: 16
+    # Whether the user can list the recovery codes again. Default is false.
+    list_enabled: false
 # Configure different authenticator behavior.
 authenticator:
-  # Configure Bearer Token Authenticator.
-  # Bearer token can be generated during MFA.
-  # It is used to skip MFA on the device for future authentication.
-  bearer_token:
-    # Determine how long the bearer token is valid.
-    expire_in_days: 30
   # Configure OOB-OTP Authenticator.
   oob_otp:
     email:
@@ -927,6 +932,8 @@ authenticator:
         reply_to: no-reply@example.com
         sender: System <system@example.com>
         subject: Verify your email
+      # the number of digits in the OTP, default to 6.
+      code_digits: 4
     sms:
       # the maximum number of the authenticator the user can have.
       # default is 1.
@@ -934,6 +941,8 @@ authenticator:
       # message is SMSMessageConfig
       message:
        sender: +85299887766
+      # the number of digits in the OTP, default to 6.
+      code_digits: 4
   # Configure Password Authenticator
   password:
     # Configure password policy
@@ -962,12 +971,6 @@ authenticator:
       history_days: 90
       # Determine how many password history is kept.
       history_size: 10
-  # Configure Recovery Code Authenticator
-  recovery_code:
-    # The number of recovery codes. Default is 16.
-    count: 16
-    # Whether the user can list the recovery codes again. Default is false.
-    list_enabled: false
   # Configure TOTP Authenticator
   totp:
     # the maximum number of the authenticator the user can have.
@@ -1090,6 +1093,12 @@ identity:
       # How many login ID the user can have.
       # Default is 1.
       maximum: 1
+      # Configure verification of this login ID key.
+      verification:
+        # Whether verification is enabled for this login ID key, default to true for email & phone type
+        enabled: true
+        # Whether verification is required for this login ID key, default to true for email & phone type.
+        required: false
     - key: phone
       type: phone
     - key: username
@@ -1160,6 +1169,25 @@ identity:
       # Otherwise the value must be the ID of a Azure AD tenant.
       # In this case, only user in that Azure AD can login.
       tenant: common
+# Configure user verification
+verification:
+  # Determine the verification status criteria.
+  # any: User is verified if any of the verifiable identities is verified
+  # all: User is verified if all of the verifiable identities are verified
+  # Default to any.
+  criteria: any
+  # Lifetime of verification code, default to 3600 (1 hour)
+  code_expiry_seconds: 3600
+  # Configure verification SMS message
+  sms:
+    message:
+       sender: +85299887766
+  # Configure verification email message
+  email:
+    message:
+      reply_to: no-reply@example.com
+      sender: System <system@example.com>
+      subject: Verify your email
 # Configure localization.
 localization:
   # The fallback language when none of the supported languages match the preferred languages.
