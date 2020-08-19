@@ -128,12 +128,14 @@ http {
             auth_request_set $x_authgear_session_valid $upstream_http_x_authgear_session_valid;
             auth_request_set $x_authgear_user_id $upstream_http_x_authgear_user_id;
             auth_request_set $x_authgear_user_anonymous $upstream_http_x_authgear_user_anonymous;
+            auth_request_set $x_authgear_user_verified $upstream_http_x_authgear_user_verified;
             auth_request_set $x_authgear_session_acr $upstream_http_x_authgear_session_acr;
             auth_request_set $x_authgear_session_amr $upstream_http_x_authgear_session_amr;
 
             proxy_set_header x-authgear-session-valid $x_authgear_session_valid;
             proxy_set_header x-authgear-user-id $x_authgear_user_id;
             proxy_set_header x-authgear-user-anonymous $x_authgear_user_anonymous;
+            proxy_set_header x-authgear-user-verified $x_authgear_user_verified;
             proxy_set_header x-authgear-session-acr $x_authgear_session_acr;
             proxy_set_header x-authgear-session-amr $x_authgear_session_amr;
         }
