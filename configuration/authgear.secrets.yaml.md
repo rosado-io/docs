@@ -523,11 +523,11 @@ secrets:
 
 `csrf` defines the symmetric key to generate a CSRF token. It must be an octet key.
 
-The format shares with [jwt](secret-yaml.md#jwt)
+The format shares with [jwt](#jwt)
 
 ### webhook
 
 `webhook` defines the symmetric key to sign webhook request body. It must be an octet key.
 
-The format is shared with [jwt](secret-yaml.md#jwt).
+The format is shared with [jwt](#jwt).
 
