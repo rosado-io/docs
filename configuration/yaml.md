@@ -876,204 +876,8 @@ The configuration file is validated against the following JSON Schema:
 ```yaml
 # The ID of this instance of Authgear.
 id: myapp
-# Configure the authentication behavior.
-authentication:
-  # Determine which identities are enabled.
-  # By default "login_id" and "oauth" are enabled.
-  identities:
-  - login_id
-  - oauth
-  - anonymous
-  # Determine which authenticators can be used as primary authenticator.
-  # By default only "password" is enabled.
-  primary_authenticators:
-  - password
-  - oob_otp
-  # Determine which authenticators can be used as secondary authenticator.
-  # By default totp, oob_otp are enabled.
-  secondary_authenticators:
-  - password
-  - totp
-  - oob_otp
-  # Configure the MFA behavior.
-  #
-  # if_exists: The user can add secondary authenticators.
-  # If the user has at least one secondary authenticator, then MFA must be performed.
-  #
-  # required: The user must add secondary authenticators.
-  # The user must perform MFA during authentication.
-  #
-  # if_requested: MFA is entirely optional even the user has at least one secondary authenticator.
-  #
-  # Default is "if_exists"
-  secondary_authentication_mode: if_exists
-  # Configure Device Token.
-  # Device token can be generated during MFA.
-  # It is used to skip MFA on the device for future authentication.
-  device_token:
-    # Determine how long the device token is valid.
-    expire_in_days: 30
-  # Configure Recovery Code
-  recovery_code:
-    # The number of recovery codes. Default is 16.
-    count: 16
-    # Whether the user can list the recovery codes again. Default is false.
-    list_enabled: false
-# Configure different authenticator behavior.
-authenticator:
-  # Configure OOB-OTP Authenticator.
-  oob_otp:
-    email:
-      # the maximum number of the authenticator the user can have.
-      # default is 1.
-      maximum: 1
-      # message is EmailMessageConfig
-      message:
-        reply_to: no-reply@example.com
-        sender: System <system@example.com>
-        subject: Verify your email
-      # the number of digits in the OTP, default to 6.
-      code_digits: 4
-    sms:
-      # the maximum number of the authenticator the user can have.
-      # default is 1.
-      maximum: 1
-      # message is SMSMessageConfig
-      message:
-       sender: +85299887766
-      # the number of digits in the OTP, default to 6.
-      code_digits: 4
-  # Configure Password Authenticator
-  password:
-    # Configure password policy
-    # All policies are turned off by default.
-    policy:
-      # Set the minimum length of new password.
-      min_length: 10
-      # Require new password to have at least 1 digit.
-      digit_required: true
-      # Require new password to have at least 1 lowercase ASCII character.
-      lowercase_required: true
-      # Require new password to have at least 1 uppercase ASCII character.
-      uppercase_required: true
-      # Require new password to have at least 1 symbol character.
-      symbol_required: true
-      # Disallow password containing the given keywords.
-      excluded_keywords:
-      - secret
-      - admin
-      - password
-      # Require strong password.
-      # The strength of the password is calculated with https://github.com/dropbox/zxcvbn
-      # 1 is the weakest level and 5 is the strongest level.
-      minimum_guessable_level: 5
-      # Determine how long password history is kept.
-      history_days: 90
-      # Determine how many password history is kept.
-      history_size: 10
-  # Configure TOTP Authenticator
-  totp:
-    # the maximum number of the authenticator the user can have.
-    # default is 1.
-    maximum: 1
-# Configure forgot password behavior
-forgot_password:
-  # How long the reset code remains valid. The default is 1200. That is 20 minutes.
-  reset_code_expiry_seconds: 1200
-  # email_message is EmailMessageConfig
-  email_message: {}
-  # sms_message is SMSMessageConfig
-  sms_message: {}
-# Configure webhook
-hook:
-  # How long a single handler can proceed the webhook event before timeout.
-  # Default is 5.
-  sync_hook_timeout_seconds: 5
-  # How long all handlers can proceed the webhook event before timeout.
-  # Default is 10.
-  sync_hook_total_timeout_seconds: 10
-  # Define the list of webhook handlers
-  handlers:
-    # The event name.
-  - event: before_user_create
-    # The endpoint of the webhook handler.
-    url: https://api.example.com/hook/before_user_create
-http:
-  # The allowed origin for the HTTP header access-control-allow-origin
-  # Default is empty list.
-  allowed_origins:
-  - https://trusted-third-party-server.com
-  # The expected host
-  # Default is empty list.
-  hosts:
-  - https://accounts.myapp.com
-# Configure default messaging configuration.
-messaging:
-  # Configure default email message configuration.
-  # default_email_message is EmailMessageConfig.
-  default_email_message:
-    reply_to: no-reply@example.com
-    sender: info@example.com
-    subject: App
-  # Configure default SMS configuration.
-  # default_sms_message is SMSMessageConfig.
-  default_sms_message:
-    sender: "+85299887766"
-  # Configure which SMS provider to use.
-  # Valid values are "twilio" and "nexmo".
-  # You must provide the credentials in secret config.
-  sms_provider: "twilio"
-# Configure the database connection
-database:
-  # The maximum open connection to the database.
-  # The default is 2.
-  max_open_connection: 2
-  # The maximum idle connection to the database.
-  # The default is 2.
-  max_idle_connection: 2
-  # The maximum lifetime of the connection.
-  # The connection is discarded when its lifetime reaches the value.
-  # The default is 1800.
-  max_connection_lifetime_seconds: 1800
-# Configure Redis connection
-redis:
-  # The maximum open connection to Redis.
-  # The default is 2.
-  max_open_connection: 2
-  # The maximum idle connection to Redis.
-  # The default is 2.
-  max_idle_connection: 2
-  # The maximum lifetime of the connection.
-  # The connection is discarded when its lifetime reaches the value.
-  # The default is 900.
-  max_connection_lifetime_seconds: 900
-  # Idle connections are closed after remaining idle for this duration.
-  # The default is 300.
-  idle_connection_timeout_seconds: 300
 # Configure different identity behavior.
 identity:
-  on_conflict:
-    # Configure the behavior in anonymous user promotion when the claimed identity
-    # conflicts with an existing identity.
-    #
-    # Valid values are "error" and "login".
-    # Default is "error".
-    #
-    # For example, the user initially signed up as "user@example.com".
-    # Later on the user uninstalled the mobile app.
-    # The user installed the mobile app again and forgot they had signed up before.
-    # The user continued as anonymous user.
-    # The user finally opted to sign up with "user@example.com".
-    # At this point, the user has 2 accounts.
-    #
-    # If the value is "error", an error is shown telling the user that
-    # the identity they are claiming has been claimed by another user.
-    #
-    # If the value is "login", the anonymous user is discarded.
-    # And the user simply authenticates themselves as the original user.
-    # It is up to the developer to handle account merging.
-    promotion: "error"
-  # Configure Login ID Identity.
   login_id:
     # Defines the set of accepted login IDs.
     # The configuration shown here is the default.
@@ -1169,6 +973,202 @@ identity:
       # Otherwise the value must be the ID of a Azure AD tenant.
       # In this case, only user in that Azure AD can login.
       tenant: common
+  on_conflict:
+    # Configure the behavior in anonymous user promotion when the claimed identity
+    # conflicts with an existing identity.
+    #
+    # Valid values are "error" and "login".
+    # Default is "error".
+    #
+    # For example, the user initially signed up as "user@example.com".
+    # Later on the user uninstalled the mobile app.
+    # The user installed the mobile app again and forgot they had signed up before.
+    # The user continued as anonymous user.
+    # The user finally opted to sign up with "user@example.com".
+    # At this point, the user has 2 accounts.
+    #
+    # If the value is "error", an error is shown telling the user that
+    # the identity they are claiming has been claimed by another user.
+    #
+    # If the value is "login", the anonymous user is discarded.
+    # And the user simply authenticates themselves as the original user.
+    # It is up to the developer to handle account merging.
+    promotion: "error"
+  # Configure Login ID Identity.
+# Configure different authenticator behavior.
+authenticator:
+  # Configure OOB-OTP Authenticator.
+  oob_otp:
+    email:
+      # the maximum number of the authenticator the user can have.
+      # default is 1.
+      maximum: 1
+      # message is EmailMessageConfig
+      message:
+        reply_to: no-reply@example.com
+        sender: System <system@example.com>
+        subject: Verify your email
+      # the number of digits in the OTP, default to 6.
+      code_digits: 4
+    sms:
+      # the maximum number of the authenticator the user can have.
+      # default is 1.
+      maximum: 1
+      # message is SMSMessageConfig
+      message:
+       sender: +85299887766
+      # the number of digits in the OTP, default to 6.
+      code_digits: 4
+  # Configure Password Authenticator
+  password:
+    # Configure password policy
+    # All policies are turned off by default.
+    policy:
+      # Set the minimum length of new password.
+      min_length: 10
+      # Require new password to have at least 1 digit.
+      digit_required: true
+      # Require new password to have at least 1 lowercase ASCII character.
+      lowercase_required: true
+      # Require new password to have at least 1 uppercase ASCII character.
+      uppercase_required: true
+      # Require new password to have at least 1 symbol character.
+      symbol_required: true
+      # Disallow password containing the given keywords.
+      excluded_keywords:
+      - secret
+      - admin
+      - password
+      # Require strong password.
+      # The strength of the password is calculated with https://github.com/dropbox/zxcvbn
+      # 1 is the weakest level and 5 is the strongest level.
+      minimum_guessable_level: 5
+      # Determine how long password history is kept.
+      history_days: 90
+      # Determine how many password history is kept.
+      history_size: 10
+  # Configure TOTP Authenticator
+  totp:
+    # the maximum number of the authenticator the user can have.
+    # default is 1.
+    maximum: 1
+# Configure the authentication behavior.
+authentication:
+  # Determine which identities are enabled.
+  # By default "login_id" and "oauth" are enabled.
+  identities:
+  - login_id
+  - oauth
+  - anonymous
+  # Determine which authenticators can be used as primary authenticator.
+  # By default only "password" is enabled.
+  primary_authenticators:
+  - password
+  - oob_otp
+  # Determine which authenticators can be used as secondary authenticator.
+  # By default totp, oob_otp are enabled.
+  secondary_authenticators:
+  - password
+  - totp
+  - oob_otp
+  # Configure the MFA behavior.
+  #
+  # if_exists: The user can add secondary authenticators.
+  # If the user has at least one secondary authenticator, then MFA must be performed.
+  #
+  # required: The user must add secondary authenticators.
+  # The user must perform MFA during authentication.
+  #
+  # if_requested: MFA is entirely optional even the user has at least one secondary authenticator.
+  #
+  # Default is "if_exists"
+  secondary_authentication_mode: if_exists
+  # Configure Device Token.
+  # Device token can be generated during MFA.
+  # It is used to skip MFA on the device for future authentication.
+  device_token:
+    # Determine how long the device token is valid.
+    expire_in_days: 30
+  # Configure Recovery Code
+  recovery_code:
+    # The number of recovery codes. Default is 16.
+    count: 16
+    # Whether the user can list the recovery codes again. Default is false.
+    list_enabled: false
+# Configure forgot password behavior
+forgot_password:
+  # How long the reset code remains valid. The default is 1200. That is 20 minutes.
+  reset_code_expiry_seconds: 1200
+  # email_message is EmailMessageConfig
+  email_message: {}
+  # sms_message is SMSMessageConfig
+  sms_message: {}
+# Configure webhook
+hook:
+  # How long a single handler can proceed the webhook event before timeout.
+  # Default is 5.
+  sync_hook_timeout_seconds: 5
+  # How long all handlers can proceed the webhook event before timeout.
+  # Default is 10.
+  sync_hook_total_timeout_seconds: 10
+  # Define the list of webhook handlers
+  handlers:
+    # The event name.
+  - event: before_user_create
+    # The endpoint of the webhook handler.
+    url: https://api.example.com/hook/before_user_create
+http:
+  # The allowed origin for the HTTP header access-control-allow-origin
+  # Default is empty list.
+  allowed_origins:
+  - https://trusted-third-party-server.com
+  # The expected host
+  # Default is empty list.
+  hosts:
+  - https://accounts.myapp.com
+# Configure default messaging configuration.
+messaging:
+  # Configure default email message configuration.
+  # default_email_message is EmailMessageConfig.
+  default_email_message:
+    reply_to: no-reply@example.com
+    sender: info@example.com
+    subject: App
+  # Configure default SMS configuration.
+  # default_sms_message is SMSMessageConfig.
+  default_sms_message:
+    sender: "+85299887766"
+  # Configure which SMS provider to use.
+  # Valid values are "twilio" and "nexmo".
+  # You must provide the credentials in secret config.
+  sms_provider: "twilio"
+# Configure the database connection
+database:
+  # The maximum open connection to the database.
+  # The default is 2.
+  max_open_connection: 2
+  # The maximum idle connection to the database.
+  # The default is 2.
+  max_idle_connection: 2
+  # The maximum lifetime of the connection.
+  # The connection is discarded when its lifetime reaches the value.
+  # The default is 1800.
+  max_connection_lifetime_seconds: 1800
+# Configure Redis connection
+redis:
+  # The maximum open connection to Redis.
+  # The default is 2.
+  max_open_connection: 2
+  # The maximum idle connection to Redis.
+  # The default is 2.
+  max_idle_connection: 2
+  # The maximum lifetime of the connection.
+  # The connection is discarded when its lifetime reaches the value.
+  # The default is 900.
+  max_connection_lifetime_seconds: 900
+  # Idle connections are closed after remaining idle for this duration.
+  # The default is 300.
+  idle_connection_timeout_seconds: 300
 # Configure user verification
 verification:
   # Determine the verification status criteria.
