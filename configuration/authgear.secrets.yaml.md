@@ -523,11 +523,11 @@ secrets:
 
 `csrf` defines the symmetric key to generate a CSRF token. It must be an octet key.
 
-The format shares with [jwt](#jwt)
+The format shares with [jwt](authgear.secrets.yaml.md#jwt)
 
 ### webhook
 
 `webhook` defines the symmetric key to sign webhook request body. It must be an octet key.
 
-The format is shared with [jwt](#jwt).
+The format is shared with [jwt](authgear.secrets.yaml.md#jwt).
 

@@ -10,6 +10,10 @@
 * [Multi-tenant mode on Kubernetes](getting-started/k8s-multi-tenant.md)
 * [Integrate with a React Native app](getting-started/react-native.md)
 
+## Concepts
+
+* [User, Identity and Authenticator](concepts/user-identity-and-authenticator.md)
+
 ## Configuration
 
 * [Overview](configuration/overview.md)

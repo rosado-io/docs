@@ -25,9 +25,10 @@ This sets whether incoming HTTP headers such as `x-forwarded-host` can be truste
 This sets whether Authgear should run in development mode. You should never need to set it. The default is `false`.
 
 When development mode is enabled:
-- TLS certificate is required, to enable secure cookies.
-- All `Host` header values are allowed.
-- External message sending (SMS/Email) is disabled; messages to send are logged instead.
+
+* TLS certificate is required, to enable secure cookies.
+* All `Host` header values are allowed.
+* External message sending \(SMS/Email\) is disabled; messages to send are logged instead.
 
 ### LOG\_LEVEL
 

@@ -2,17 +2,19 @@
 description: How to integrate with a React Native app
 ---
 
+# Integrate with a React Native app
+
 > TODO: Add instruction for Android
 
-# Integrate with a React Native app
+## Integrate with a React Native app
 
 The React Native SDK is available as [a npm package](https://www.npmjs.com/package/@authgear/react-native).
 
-## Prerequisite
+### Prerequisite
 
 You must follow [this](local.md) to get Authgear running first!
 
-## Create a React Native app
+### Create a React Native app
 
 Follow the documentation of React Native to see how you can create a new React Native app.
 
@@ -21,7 +23,7 @@ npx react-native init myapp
 cd myapp
 ```
 
-## Install the SDK
+### Install the SDK
 
 ```bash
 # The SDK depends on AsyncStorage.
@@ -30,9 +32,9 @@ yarn add --exact @authgear/react-native
 (cd ios && pod install)
 ```
 
-## Add OAuth client
+### Add OAuth client
 
-In [authgear.yaml](/configuration/authgear.yaml.md), declare an OAuth client for the app.
+In [authgear.yaml](../configuration/authgear.yaml.md), declare an OAuth client for the app.
 
 ```yaml
 oauth:
@@ -49,7 +51,7 @@ oauth:
 
 In `Info.plist`, add the matching redirect URI.
 
-```xml
+```markup
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -70,12 +72,11 @@ In `Info.plist`, add the matching redirect URI.
 </plist>
 ```
 
-## Insert the SDK integration code
+### Insert the SDK integration code
 
 In `AppDelegate.m`, add the following code snippet.
 
-
-```objc
+```text
 // Other imports...
 #import <authgear-react-native/AGAuthgearReactNative.h>
 
@@ -109,7 +110,7 @@ In `AppDelegate.m`, add the following code snippet.
 }
 ```
 
-## Try authenticate
+### Try authenticate
 
 Sample code.
 
@@ -140,3 +141,4 @@ function LoginScreen() {
   );
 }
 ```
+
