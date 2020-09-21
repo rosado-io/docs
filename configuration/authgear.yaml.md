@@ -868,12 +868,9 @@ id: myapp
 identity:
   login_id:
     # Defines the set of accepted login IDs.
-    # The configuration shown here is the default.
-    # So by default the user can have
+    # By default the user can have
     #
     # At most 1 email
-    # At most 1 phone
-    # At most 1 username
     #
     # If you do not want the defaults, define keys yourselves.
     keys:
@@ -884,13 +881,10 @@ identity:
       type: email
       # How many login ID the user can have.
       # Default is 1.
-      maximum: 1
-      # Configure verification of this login ID key.
-      verification:
-        # Whether verification is enabled for this login ID key, default to true for email & phone type
-        enabled: true
-        # Whether verification is required for this login ID key, default to true for email & phone type.
-        required: false
+      max_amount: 1
+      # How long login ID can be
+      # Default is 40.
+      max_length: 40
     - key: phone
       type: phone
     - key: username
@@ -929,6 +923,14 @@ identity:
       # Please refer to the documentation of the provider.
       # You must separately provide the client secret in the secret config file.
       client_id: google_client_id
+      # Configure the verification on the claims derived from the user profile received from the provider.
+      claims:
+        # Configure the claim "email"
+        email:
+          # Whether the claim is assumed to be verified.
+          # Default is true.
+          # That is, by default, all "email" claims from every provider are trusted.
+          assume_verified: true
     - type: apple
       alias: apple
       # The client ID for Apple is the services ID.
@@ -991,20 +993,12 @@ authenticator:
       # the maximum number of the authenticator the user can have.
       # default is 1.
       maximum: 1
-      # message is EmailMessageConfig
-      message:
-        reply_to: no-reply@example.com
-        sender: System <system@example.com>
-        subject: Verify your email
       # the number of digits in the OTP, default to 6.
       code_digits: 4
     sms:
       # the maximum number of the authenticator the user can have.
       # default is 1.
       maximum: 1
-      # message is SMSMessageConfig
-      message:
-       sender: +85299887766
       # the number of digits in the OTP, default to 6.
       code_digits: 4
   # Configure Password Authenticator
@@ -1085,12 +1079,11 @@ authentication:
     list_enabled: false
 # Configure forgot password behavior
 forgot_password:
+  # Which forgot password is enabled.
+  # The default is true.
+  enabled: true
   # How long the reset code remains valid. The default is 1200. That is 20 minutes.
   reset_code_expiry_seconds: 1200
-  # email_message is EmailMessageConfig
-  email_message: {}
-  # sms_message is SMSMessageConfig
-  sms_message: {}
 # Configure webhook
 hook:
   # How long a single handler can proceed the webhook event before timeout.
@@ -1112,20 +1105,15 @@ http:
   - https://trusted-third-party-server.com
   # The expected host
   # Default is empty list.
-  hosts:
-  - https://accounts.myapp.com
+  # The expected origin
+  # It is used to render an absolute URL in templates.
+  public_origin: https://accounts.myapp.com
+  # Set the prefix of the cookies written by Authgear in case
+  # you have cookie name conflicts you want to avoid.
+  # The default prefix is an empty string.
+  cookie_prefix: "my_app_"
 # Configure default messaging configuration.
 messaging:
-  # Configure default email message configuration.
-  # default_email_message is EmailMessageConfig.
-  default_email_message:
-    reply_to: no-reply@example.com
-    sender: info@example.com
-    subject: App
-  # Configure default SMS configuration.
-  # default_sms_message is SMSMessageConfig.
-  default_sms_message:
-    sender: "+85299887766"
   # Configure which SMS provider to use.
   # Valid values are "twilio" and "nexmo".
   # You must provide the credentials in secret config.
@@ -1142,6 +1130,9 @@ database:
   # The connection is discarded when its lifetime reaches the value.
   # The default is 1800.
   max_connection_lifetime_seconds: 1800
+  # Idle connections are closed after remaining idle for this duration.
+  # The default is 300.
+  idle_connection_timeout_seconds: 300
 # Configure Redis connection
 redis:
   # The maximum open connection to Redis.
@@ -1160,22 +1151,26 @@ redis:
 # Configure user verification
 verification:
   # Determine the verification status criteria.
-  # any: User is verified if any of the verifiable identities is verified
-  # all: User is verified if all of the verifiable identities are verified
+  # any: User is verified if any of the verifiable claims is verified
+  # all: User is verified if all of the verifiable claims are verified
   # Default to any.
   criteria: any
   # Lifetime of verification code, default to 3600 (1 hour)
   code_expiry_seconds: 3600
-  # Configure verification SMS message
-  sms:
-    message:
-       sender: +85299887766
-  # Configure verification email message
-  email:
-    message:
-      reply_to: no-reply@example.com
-      sender: System <system@example.com>
-      subject: Verify your email
+  # Configure which claims are verifiable and are required to be verified.
+  claims:
+    # Configure the claim "email"
+    email:
+      # Whether this claim is verifiable.
+      # Default is true.
+      enabled: true
+      # Whether this claim is required to be verified.
+      # Default is true.
+      required: true
+    # Configure the claim "phone_number"
+    phone_number:
+      enabled: true
+      required: true
 # Configure localization.
 localization:
   # The fallback language when none of the supported languages match the preferred languages.
