@@ -400,6 +400,20 @@ secrets:
 
 Note that **ALL** secrets are required.
 
+### admin-api.auth
+
+`admin-api.auth` defines the JWK to verify Admin API token. It must be an RSA key.
+
+```yaml
+secrets:
+- key: admin-api.auth
+  data:
+    keys:
+    - kid: key_id
+      kty: RSA
+      # Other fields specific to RSA.
+```
+
 ### db
 
 `db` defines the database credentials. Only PostgreSQL database is supported.
@@ -420,10 +434,7 @@ secrets:
 secrets:
 - key: redis
   data:
-    host: localhost
-    port: 6379
-    password: password
-    db: 0
+    redis_url: redis://username:password@localhost:6379/0
 ```
 
 ### sso.oauth.client
