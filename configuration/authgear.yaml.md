@@ -10,7 +10,7 @@ This is the main configuration file affecting every aspect of Authgear.
 
 The configuration file is validated against the following JSON Schema:
 
-```javascript
+```json
 {
   "$defs": {
     "AppConfig": {
@@ -46,9 +46,6 @@ The configuration file is validated against the following JSON Schema:
         "messaging": {
           "$ref": "#/$defs/MessagingConfig"
         },
-        "metadata": {
-          "$ref": "#/$defs/AppMetadata"
-        },
         "oauth": {
           "$ref": "#/$defs/OAuthConfig"
         },
@@ -74,19 +71,6 @@ The configuration file is validated against the following JSON Schema:
       "required": [
         "id"
       ],
-      "type": "object"
-    },
-    "AppMetadata": {
-      "additionalProperties": false,
-      "patternProperties": {
-        "^app_name(#.+)?$": {
-          "type": "string"
-        },
-        "^logo_uri(#.+)?$": {
-          "format": "uri",
-          "type": "string"
-        }
-      },
       "type": "object"
     },
     "AuthenticationConfig": {
@@ -162,9 +146,6 @@ The configuration file is validated against the following JSON Schema:
         },
         "maximum": {
           "type": "integer"
-        },
-        "message": {
-          "$ref": "#/$defs/EmailMessageConfig"
         }
       },
       "type": "object"
@@ -179,9 +160,6 @@ The configuration file is validated against the following JSON Schema:
         },
         "maximum": {
           "type": "integer"
-        },
-        "message": {
-          "$ref": "#/$defs/SMSMessageConfig"
         }
       },
       "type": "object"
@@ -207,6 +185,10 @@ The configuration file is validated against the following JSON Schema:
     "DatabaseConfig": {
       "additionalProperties": false,
       "properties": {
+        "idle_connection_timeout_seconds": {
+          "minimum": 0,
+          "type": "integer"
+        },
         "max_connection_lifetime_seconds": {
           "minimum": 0,
           "type": "integer"
@@ -240,37 +222,14 @@ The configuration file is validated against the following JSON Schema:
     "DurationSeconds": {
       "type": "integer"
     },
-    "EmailMessageConfig": {
-      "additionalProperties": false,
-      "patternProperties": {
-        "^reply_to(#.+)?$": {
-          "format": "email-name-addr",
-          "type": "string"
-        },
-        "^sender(#.+)?$": {
-          "format": "email-name-addr",
-          "type": "string"
-        },
-        "^subject(#.+)?$": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "ForgotPasswordConfig": {
       "additionalProperties": false,
       "properties": {
-        "email_message": {
-          "$ref": "#/$defs/EmailMessageConfig"
-        },
         "enabled": {
           "type": "boolean"
         },
         "reset_code_expiry_seconds": {
           "$ref": "#/$defs/DurationSeconds"
-        },
-        "sms_message": {
-          "$ref": "#/$defs/SMSMessageConfig"
         }
       },
       "type": "object"
@@ -284,13 +243,16 @@ The configuration file is validated against the following JSON Schema:
           },
           "type": "array"
         },
-        "hosts": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
+        "cookie_prefix": {
+          "type": "string"
+        },
+        "public_origin": {
+          "type": "string"
         }
       },
+      "required": [
+        "public_origin"
+      ],
       "type": "object"
     },
     "HookConfig": {
@@ -405,25 +367,23 @@ The configuration file is validated against the following JSON Schema:
         "key": {
           "type": "string"
         },
-        "maximum": {
+        "max_amount": {
+          "type": "integer"
+        },
+        "max_length": {
           "type": "integer"
         },
         "type": {
           "$ref": "#/$defs/LoginIDKeyType"
-        },
-        "verification": {
-          "$ref": "#/$defs/VerificationLoginIDKeyConfig"
         }
       },
       "required": [
-        "key",
         "type"
       ],
       "type": "object"
     },
     "LoginIDKeyType": {
       "enum": [
-        "raw",
         "email",
         "phone",
         "username"
@@ -466,12 +426,6 @@ The configuration file is validated against the following JSON Schema:
     "MessagingConfig": {
       "additionalProperties": false,
       "properties": {
-        "default_email_message": {
-          "$ref": "#/$defs/EmailMessageConfig"
-        },
-        "default_sms_message": {
-          "$ref": "#/$defs/SMSMessageConfig"
-        },
         "sms_provider": {
           "$ref": "#/$defs/SMSProvider"
         }
@@ -554,9 +508,47 @@ The configuration file is validated against the following JSON Schema:
     },
     "OAuthSSOProviderConfig": {
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "apple"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "type",
+              "client_id",
+              "key_id",
+              "team_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "azureadv2"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "type",
+              "client_id",
+              "tenant"
+            ]
+          }
+        }
+      ],
       "properties": {
         "alias": {
           "type": "string"
+        },
+        "claims": {
+          "$ref": "#/$defs/VerificationOAuthClaimsConfig"
         },
         "client_id": {
           "type": "string"
@@ -674,16 +666,6 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "SMSMessageConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "^sender(#.+)?$": {
-          "format": "phone",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "SMSProvider": {
       "enum": [
         "nexmo",
@@ -789,41 +771,7 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "VerificationConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "code_expiry_seconds": {
-          "$ref": "#/$defs/DurationSeconds"
-        },
-        "criteria": {
-          "$ref": "#/$defs/VerificationCriteria"
-        },
-        "email": {
-          "$ref": "#/$defs/VerificationEmailConfig"
-        },
-        "sms": {
-          "$ref": "#/$defs/VerificationSMSConfig"
-        }
-      },
-      "type": "object"
-    },
-    "VerificationCriteria": {
-      "enum": [
-        "any",
-        "all"
-      ],
-      "type": "string"
-    },
-    "VerificationEmailConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "message": {
-          "$ref": "#/$defs/EmailMessageConfig"
-        }
-      },
-      "type": "object"
-    },
-    "VerificationLoginIDKeyConfig": {
+    "VerificationClaimConfig": {
       "additionalProperties": false,
       "properties": {
         "enabled": {
@@ -835,11 +783,54 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "VerificationSMSConfig": {
+    "VerificationClaimsConfig": {
       "additionalProperties": false,
       "properties": {
-        "message": {
-          "$ref": "#/$defs/SMSMessageConfig"
+        "email": {
+          "$ref": "#/$defs/VerificationClaimConfig"
+        },
+        "phone_number": {
+          "$ref": "#/$defs/VerificationClaimConfig"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "$ref": "#/$defs/VerificationClaimsConfig"
+        },
+        "code_expiry_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
+        },
+        "criteria": {
+          "$ref": "#/$defs/VerificationCriteria"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationCriteria": {
+      "enum": [
+        "any",
+        "all"
+      ],
+      "type": "string"
+    },
+    "VerificationOAuthClaimConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "assume_verified": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "VerificationOAuthClaimsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/VerificationOAuthClaimConfig"
         }
       },
       "type": "object"
@@ -849,9 +840,6 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "destination": {
           "$ref": "#/$defs/WelcomeMessageDestination"
-        },
-        "email_message": {
-          "$ref": "#/$defs/EmailMessageConfig"
         },
         "enabled": {
           "type": "boolean"
