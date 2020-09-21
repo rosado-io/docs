@@ -13,6 +13,9 @@ The configuration file is validated against the following JSON Schema:
 ```javascript
 {
   "$defs": {
+    "AdminAPIAuthKey": {
+      "$ref": "#/$defs/JWS"
+    },
     "CSRFKeyMaterials": {
       "$ref": "#/$defs/JWS"
     },
@@ -112,40 +115,13 @@ The configuration file is validated against the following JSON Schema:
     "RedisCredentials": {
       "additionalProperties": false,
       "properties": {
-        "db": {
-          "type": "integer"
-        },
-        "host": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer"
-        },
-        "sentinel": {
-          "$ref": "#/$defs/RedisSentinelConfig"
-        }
-      },
-      "type": "object"
-    },
-    "RedisSentinelConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "addrs": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "master_name": {
+        "redis_url": {
           "type": "string"
         }
       },
+      "required": [
+        "redis_url"
+      ],
       "type": "object"
     },
     "SMTPMode": {
@@ -200,6 +176,22 @@ The configuration file is validated against the following JSON Schema:
     "SecretItem": {
       "additionalProperties": false,
       "allOf": [
+        {
+          "if": {
+            "properties": {
+              "key": {
+                "const": "admin-api.auth"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/AdminAPIAuthKey"
+              }
+            }
+          }
+        },
         {
           "if": {
             "properties": {
@@ -359,6 +351,7 @@ The configuration file is validated against the following JSON Schema:
     },
     "SecretKey": {
       "enum": [
+        "admin-api.auth",
         "csrf",
         "db",
         "mail.smtp",
