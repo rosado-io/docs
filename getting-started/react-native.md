@@ -12,7 +12,7 @@ The React Native SDK is available as [a npm package](https://www.npmjs.com/packa
 
 ### Prerequisite
 
-You must follow [this](local.md) to get Authgear running first!
+You must follow [this](../deploy-on-your-cloud/local.md) to get Authgear running first!
 
 ### Create a React Native app
 
@@ -34,7 +34,7 @@ yarn add --exact @authgear/react-native
 
 ### Add OAuth client
 
-In [authgear.yaml](../configuration/authgear.yaml.md), declare an OAuth client for the app.
+In [authgear.yaml](../deploy-on-your-cloud/overview/authgear.yaml.md), declare an OAuth client for the app.
 
 ```yaml
 oauth:

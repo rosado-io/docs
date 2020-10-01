@@ -10,7 +10,7 @@ This is the main configuration file affecting every aspect of Authgear.
 
 The configuration file is validated against the following JSON Schema:
 
-```json
+```javascript
 {
   "$defs": {
     "AppConfig": {

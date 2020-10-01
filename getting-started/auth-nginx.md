@@ -8,7 +8,7 @@ Authgear has an internal endpoint that can authenticate HTTP request.
 
 ## Prerequisite
 
-You must follow [this](local.md) to get Authgear running first!
+You must follow [this](../deploy-on-your-cloud/local.md) to get Authgear running first!
 
 ## Create a simple application server
 

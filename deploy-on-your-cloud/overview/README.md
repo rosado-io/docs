@@ -2,7 +2,7 @@
 description: How Authgear is configured
 ---
 
-# Overview
+# Configurations
 
 The configuration of Authgear comes from three sources:
 
