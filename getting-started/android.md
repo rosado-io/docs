@@ -6,14 +6,22 @@ description: How to use authgear android SDK
 
 ## Get the SDK
 
-### Import the SDK module
-
-1. Git clone `https://github.com/authgear/authgear-sdk-android.git`
-2. In Android Studio, import the `sdk` module in the repository you just cloned via Files -> New -> Import module.
-
-### Artifact
-
-TODO: Support artifact
+1. Add jitpack repository to gradle
+```gradle
+allprojects {
+    repositories {
+        // Other repository
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+2. Add authgear in dependencies. Use `$branch-SNAPSHOT` (e.g. `main-SNAPSHOT`) for latest version in a branch, or a release tag/git commit hash of desired version.
+```gradle
+dependencies {
+    // Other implementations
+    implementation 'com.github.authgear:authgear-sdk-android:SNAPSHOT'
+}
+```
 
 ## Prerequisite
 
