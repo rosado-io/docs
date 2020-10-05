@@ -4,37 +4,21 @@ description: How to integrate with a React Native app
 
 # Integrate with a React Native app
 
-> TODO: Add instruction for Android
+This guide provides instructions to integrate authgear with a react native app. Supported platforms include:
+- Android
+- iOS
 
-## Integrate with a React Native app
+## Get the SDK
 
 The React Native SDK is available as [a npm package](https://www.npmjs.com/package/@authgear/react-native).
 
-### Prerequisite
+## Prerequisite
 
 You must follow [this](../deploy-on-your-cloud/local.md) to get Authgear running first!
 
-### Create a React Native app
+## Add OAuth Client to Authgear
 
-Follow the documentation of React Native to see how you can create a new React Native app.
-
-```bash
-npx react-native init myapp
-cd myapp
-```
-
-### Install the SDK
-
-```bash
-# The SDK depends on AsyncStorage.
-yarn add --exact @react-native-community/async-storage
-yarn add --exact @authgear/react-native
-(cd ios && pod install)
-```
-
-### Add OAuth client
-
-In [authgear.yaml](../deploy-on-your-cloud/overview/authgear.yaml.md), declare an OAuth client for the app.
+In [authgear.yaml](../configuration/authgear.yaml.md), declare an OAuth client for the app. This allows the app to authenticate via this client using the authgear sdk.
 
 ```yaml
 oauth:
@@ -49,9 +33,95 @@ oauth:
     - code
 ```
 
+## Create a React Native app
+
+Follow the documentation of React Native to see how you can create a new React Native app.
+
+```bash
+npx react-native init myapp
+cd myapp
+```
+
+## Install the SDK
+
+```bash
+# The SDK depends on AsyncStorage.
+yarn add --exact @react-native-community/async-storage
+yarn add --exact @authgear/react-native
+(cd ios && pod install)
+```
+
+## Try authenticate
+
+Add this code to your react native app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authorization, and then upon success redirects to the app via the `redirectURI` specified.
+
+```javascript
+import React, { useCallback } from "react";
+import { View, Button } from "react-native";
+import authgear from "@authgear/react-native";
+
+function LoginScreen() {
+  const onPress = useCallback(() => {
+    // Normally you should only configure once when the app launches.
+    authgear.configure({
+      clientID: "a_random_generated_string",
+      endpoint: "http://localhost:3000",
+    }).then(() => {
+      authgear.authorize({
+        redirectURI: "com.myapp://host/path",
+      }).then(({ userInfo }) => {
+        console.log(userInfo);
+      });
+    });
+  }, []);
+
+  return (
+    <View>
+      <Button onPress={onPress} title="Authenticate" />
+    </View>
+  );
+}
+```
+
+## Platform Integration
+
+To finish the integration, setup the app to handle the redirectURI specified in previous section. This part requires platform specific integration.
+
+### Android
+
+Add the following activity entry to the `AndroidManifest.xml` of your app. The intent system would dispatch the redirect URI to `OAuthRedirectActivity` and the sdk would handle the rest.
+
+```xml
+<!-- Your application configuration. Omitted here for brevity -->
+<application>
+  <!-- Other activities or entries -->
+
+  <!-- Add the following activity -->
+  <activity android:name="com.oursky.authgear.reactnative.OAuthRedirectActivity"
+            android:exported="false"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Configure data to be the exact redirect URI your app uses. -->
+                <!-- Here, we are using com.myapp://host/path as configured in authgear.yaml. -->
+                <!-- NOTE: The redirectURI supplied in AuthorizeOptions *has* to match as well -->
+                <data android:scheme="com.myapp"
+                    android:host="host"
+                    android:pathPrefix="/path"/>
+            </intent-filter>
+  </activity>
+</application>
+```
+
+### iOS
+
+#### Declare URL Handling in Info.plist
+
 In `Info.plist`, add the matching redirect URI.
 
-```markup
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -72,11 +142,11 @@ In `Info.plist`, add the matching redirect URI.
 </plist>
 ```
 
-### Insert the SDK integration code
+#### Insert the SDK Integration Code
 
 In `AppDelegate.m`, add the following code snippet.
 
-```text
+```objc
 // Other imports...
 #import <authgear-react-native/AGAuthgearReactNative.h>
 
@@ -109,36 +179,3 @@ In `AppDelegate.m`, add the following code snippet.
                           restorationHandler:restorationHandler];
 }
 ```
-
-### Try authenticate
-
-Sample code.
-
-```javascript
-import React, { useCallback } from "react";
-import { View, Button } from "react-native";
-import authgear from "@authgear/react-native";
-
-function LoginScreen() {
-  const onPress = useCallback(() => {
-    // Normally you should only configure once when the app launches.
-    authgear.configure({
-      clientID: "a_random_generated_string",
-      endpoint: "http://localhost:3000",
-    }).then(() => {
-      authgear.authorize({
-        redirectURI: "com.myapp://host/path",
-      }).then(({ userInfo }) => {
-        console.log(userInfo);
-      });
-    });
-  }, []);
-
-  return (
-    <View>
-      <Button onPress={onPress} title="Authenticate" />
-    </View>
-  );
-}
-```
-
