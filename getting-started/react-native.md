@@ -5,8 +5,9 @@ description: How to integrate with a React Native app
 # Integrate with a React Native app
 
 This guide provides instructions to integrate authgear with a react native app. Supported platforms include:
-- Android
-- iOS
+
+* Android
+* iOS
 
 ## Get the SDK
 
@@ -18,7 +19,7 @@ You must follow [this](../deploy-on-your-cloud/local.md) to get Authgear running
 
 ## Add OAuth Client to Authgear
 
-In [authgear.yaml](../configuration/authgear.yaml.md), declare an OAuth client for the app. This allows the app to authenticate via this client using the authgear sdk.
+In [authgear.yaml](https://github.com/authgear/docs/tree/6a52b949b69188c9e946087c464c5b3b657b5bb4/configuration/authgear.yaml.md), declare an OAuth client for the app. This allows the app to authenticate via this client using the authgear sdk.
 
 ```yaml
 oauth:
@@ -91,7 +92,7 @@ To finish the integration, setup the app to handle the redirectURI specified in 
 
 Add the following activity entry to the `AndroidManifest.xml` of your app. The intent system would dispatch the redirect URI to `OAuthRedirectActivity` and the sdk would handle the rest.
 
-```xml
+```markup
 <!-- Your application configuration. Omitted here for brevity -->
 <application>
   <!-- Other activities or entries -->
@@ -121,7 +122,7 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
 
 In `Info.plist`, add the matching redirect URI.
 
-```xml
+```markup
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -146,7 +147,7 @@ In `Info.plist`, add the matching redirect URI.
 
 In `AppDelegate.m`, add the following code snippet.
 
-```objc
+```text
 // Other imports...
 #import <authgear-react-native/AGAuthgearReactNative.h>
 
@@ -179,3 +180,4 @@ In `AppDelegate.m`, add the following code snippet.
                           restorationHandler:restorationHandler];
 }
 ```
+
