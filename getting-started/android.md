@@ -85,8 +85,8 @@ public class MyAwesomeApplication extends Application {
     private Authgear mAuthgear;
     public void onCreate() {
         super.onCreate();
-        mAuthgear = new Authgear(this);
-        mAuthgear.configure(new ConfigureOptions(CLIENT_ID, AUTHGEAR_ENDPOINT), new OnConfigureListener() {
+        mAuthgear = new Authgear(this, CLIENT_ID, AUTHGEAR_ENDPOINT);
+        mAuthgear.configure(new OnConfigureListener() {
             @Override
             public void onConfigured() {
                 // Authgear can be used.
@@ -171,7 +171,7 @@ class MyAwesomeViewModel(application: MyAwesomeApplication) : AndroidViewModel(a
 
 ## Using the Access Token in HTTP Requests
 
-Since there are many libraries and patterns to perform HTTP requests in android, authgear does *not* provide a centralized request client. Users are encouraged to integrate authgear with their library of choice using the functionalities provided by authgear. Theese functionaltities involve two main parts: getting the access token for use in bearer token, and refreshing the access token when necessary.
+Since there are many libraries and patterns to send HTTP requests in android, authgear does *not* provide a centralized request client. Users are encouraged to integrate authgear with their library of choice using the functionalities provided by authgear. Theese functionaltities involve two parts: getting the access token for use in bearer token, and refreshing the access token when necessary.
 
 The following code demonstrate how this is achieved:
 
@@ -209,8 +209,7 @@ The SDK provides an optional `Okhttp` interceptor which handles everything from 
 
 ### Get the Extension
 
-1. Git clone the SDK repository. If you have not already, refer to the instructions above.
-2. In Android Studio, import the `sdk-okhttp` module in the repository you just cloned via Files -> New -> Import module.
+The extension is included in the SDK. Please refer to the above section for getting the SDK.
 
 ### Usage
 
