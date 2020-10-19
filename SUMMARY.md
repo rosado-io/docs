@@ -14,11 +14,13 @@
 
 ## Client App SDKs
 
----
-
 * [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
 * [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
 * [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
+
+## How tos
+
+* [Social Sign-on Integration](how-tos/how-to-setup-sso-integrations.md)
 
 ## APIs
 
