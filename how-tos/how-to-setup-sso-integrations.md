@@ -1,6 +1,6 @@
 # Social Sign-on Integration
 
-## Sign in with Apple
+### Apple
 
 #### Prerequisite
 
