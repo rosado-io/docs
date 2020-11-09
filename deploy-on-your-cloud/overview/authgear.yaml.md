@@ -55,9 +55,6 @@ The configuration file is validated against the following JSON Schema:
         "session": {
           "$ref": "#/$defs/SessionConfig"
         },
-        "template": {
-          "$ref": "#/$defs/TemplateConfig"
-        },
         "ui": {
           "$ref": "#/$defs/UIConfig"
         },
@@ -69,7 +66,8 @@ The configuration file is validated against the following JSON Schema:
         }
       },
       "required": [
-        "id"
+        "id",
+        "http"
       ],
       "type": "object"
     },
@@ -92,6 +90,9 @@ The configuration file is validated against the following JSON Schema:
           },
           "type": "array",
           "uniqueItems": true
+        },
+        "public_signup_disabled": {
+          "type": "boolean"
         },
         "recovery_code": {
           "$ref": "#/$defs/RecoveryCodeConfig"
@@ -141,7 +142,7 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "code_digits": {
           "maximum": 8,
-          "minimum": 4,
+          "minimum": 6,
           "type": "integer"
         },
         "maximum": {
@@ -155,7 +156,7 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "code_digits": {
           "maximum": 8,
-          "minimum": 4,
+          "minimum": 6,
           "type": "integer"
         },
         "maximum": {
@@ -239,14 +240,19 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "allowed_origins": {
           "items": {
+            "minLength": 1,
             "type": "string"
           },
           "type": "array"
+        },
+        "cookie_domain": {
+          "type": "string"
         },
         "cookie_prefix": {
           "type": "string"
         },
         "public_origin": {
+          "format": "http_origin",
           "type": "string"
         }
       },
@@ -367,9 +373,6 @@ The configuration file is validated against the following JSON Schema:
         "key": {
           "type": "string"
         },
-        "max_amount": {
-          "type": "integer"
-        },
         "max_length": {
           "type": "integer"
         },
@@ -436,7 +439,8 @@ The configuration file is validated against the following JSON Schema:
       "additionalProperties": false,
       "properties": {
         "access_token_lifetime_seconds": {
-          "$ref": "#/$defs/DurationSeconds"
+          "$ref": "#/$defs/DurationSeconds",
+          "minimum": 300
         },
         "client_id": {
           "type": "string"
@@ -450,6 +454,9 @@ The configuration file is validated against the following JSON Schema:
             "type": "string"
           },
           "type": "array"
+        },
+        "name": {
+          "type": "string"
         },
         "post_logout_redirect_uris": {
           "items": {
@@ -477,6 +484,7 @@ The configuration file is validated against the following JSON Schema:
         }
       },
       "required": [
+        "name",
         "client_id",
         "redirect_uris"
       ],
@@ -519,8 +527,6 @@ The configuration file is validated against the following JSON Schema:
           },
           "then": {
             "required": [
-              "type",
-              "client_id",
               "key_id",
               "team_id"
             ]
@@ -536,8 +542,6 @@ The configuration file is validated against the following JSON Schema:
           },
           "then": {
             "required": [
-              "type",
-              "client_id",
               "tenant"
             ]
           }
@@ -567,6 +571,7 @@ The configuration file is validated against the following JSON Schema:
         }
       },
       "required": [
+        "alias",
         "type",
         "client_id"
       ],
@@ -604,6 +609,7 @@ The configuration file is validated against the following JSON Schema:
           "type": "boolean"
         },
         "min_length": {
+          "minimum": 1,
           "type": "integer"
         },
         "minimum_guessable_level": {
@@ -636,6 +642,8 @@ The configuration file is validated against the following JSON Schema:
       "additionalProperties": false,
       "properties": {
         "count": {
+          "maximum": 50,
+          "minimum": 10,
           "type": "integer"
         },
         "list_enabled": {
@@ -692,9 +700,6 @@ The configuration file is validated against the following JSON Schema:
     "SessionConfig": {
       "additionalProperties": false,
       "properties": {
-        "cookie_domain": {
-          "type": "string"
-        },
         "cookie_non_persistent": {
           "type": "boolean"
         },
@@ -710,48 +715,11 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "TemplateConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "items": {
-          "items": {
-            "$ref": "#/$defs/TemplateItem"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "TemplateItem": {
-      "additionalProperties": false,
-      "properties": {
-        "language_tag": {
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/$defs/TemplateItemType"
-        },
-        "uri": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "uri"
-      ],
-      "type": "object"
-    },
-    "TemplateItemType": {
-      "type": "string"
-    },
     "UIConfig": {
       "additionalProperties": false,
       "properties": {
         "country_calling_code": {
           "$ref": "#/$defs/UICountryCallingCodeConfig"
-        },
-        "custom_css": {
-          "type": "string"
         }
       },
       "type": "object"
@@ -759,10 +727,14 @@ The configuration file is validated against the following JSON Schema:
     "UICountryCallingCodeConfig": {
       "additionalProperties": false,
       "properties": {
-        "default": {
-          "type": "string"
+        "allowlist": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
         },
-        "values": {
+        "pinned_list": {
           "items": {
             "type": "string"
           },
@@ -879,9 +851,6 @@ identity:
       # Define the type of login ID.
       # Valid values are "email" "phone" "username" and "raw"
       type: email
-      # How many login ID the user can have.
-      # Default is 1.
-      max_amount: 1
       # How long login ID can be
       # Default is 40.
       max_length: 40
@@ -994,13 +963,13 @@ authenticator:
       # default is 1.
       maximum: 1
       # the number of digits in the OTP, default to 6.
-      code_digits: 4
+      code_digits: 6
     sms:
       # the maximum number of the authenticator the user can have.
       # default is 1.
       maximum: 1
       # the number of digits in the OTP, default to 6.
-      code_digits: 4
+      code_digits: 6
   # Configure Password Authenticator
   password:
     # Configure password policy
@@ -1071,6 +1040,8 @@ authentication:
   device_token:
     # Determine how long the device token is valid.
     expire_in_days: 30
+  # Whether user must be created by admin. Default is false.
+  public_signup_disabled: false
   # Configure Recovery Code
   recovery_code:
     # The number of recovery codes. Default is 16.
@@ -1103,6 +1074,8 @@ http:
   # Default is empty list.
   allowed_origins:
   - https://trusted-third-party-server.com
+  # Explicitly set the cookie domain. Default is eTLD+1.
+  cookie_domain: https://accounts.myapp.com
   # The expected host
   # Default is empty list.
   # The expected origin
@@ -1207,8 +1180,6 @@ oauth:
     refresh_token_lifetime_seconds: 86400
 # Configure session.
 session:
-  # Explicitly set the cookie domain. Default is eTLD+1.
-  cookie_domain: https://accounts.myapp.com
   # Whether the cookie is session cookie. Default is false.
   cookie_non_persistent: false
   # Whether the session becomes invalid after idling.
@@ -1217,28 +1188,15 @@ session:
   idle_timeout_seconds: 300
   # The lifetime of the session. Default is 86400.
   lifetime_seconds: 86400
-# Configure template.
-template:
-  # Override default templates or provide additional translation files.
-  items:
-    # The type of template.
-  - type: auth_ui_translation.json
-    # The language of the template file.
-    language_tag: ja-JP
-    # The URI to load the template.
-    # Only file scheme is supported.
-    uri: file:///app/templates/auth_ui_transation.ja.json
 ui:
-  # Define a custom inline stylesheet to be injected in every pages of the UI.
-  custom_css: |
-    .a { color: red; }
   country_calling_code:
-    # The default selected value of the country calling code.
-    # Default is the first item in values.
-    default: 852
     # The list of country calling code to show in the phone number input widget.
-    values:
-    - 852
+    allowlist:
+      - '1'
+      - '852'
+    # The list of country calling code pinned to the top of the list.
+    pinned_list:
+      - '852'
 # Configure welcome message.
 welcome_message:
   # Whether to send the welcome message.
