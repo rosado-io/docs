@@ -1176,14 +1176,6 @@ localization:
   # The fallback language when none of the supported languages match the preferred languages.
   # Default is en.
   fallback_language: en
-# Configure the metadata of Authgear.
-metadata:
-  # Set the user-facing app name.
-  # It is shown in the web UI.
-  app_name: My App
-  app_name#ja-JP: アプリ
-  # Set the logo URI in the web UI.
-  logo_uri: https://static.example.com/logo.png
 # Configure OAuth.
 oauth:
   # Define the list of known OAuth 2 clients.
@@ -1256,7 +1248,5 @@ welcome_message:
   # Valid values are first and all.
   # Default is first.
   destination: first
-  # email_message is EmailMessageConfig.
-  email_message: {}
 ```
 
