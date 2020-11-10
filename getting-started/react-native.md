@@ -157,6 +157,7 @@ In `AppDelegate.m`, add the following code snippet.
 
 // Other methods...
 
+// For handling deeplink
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:
@@ -164,6 +165,8 @@ In `AppDelegate.m`, add the following code snippet.
     return [AGAuthgearReactNative application:app openURL:url options:options];
 }
 
+// For handling deeplink
+// deprecated, for supporting older devices (iOS < 9.0)
 - (BOOL)application:(UIApplication *)application
               openURL:(NSURL *)url
     sourceApplication:(NSString *)sourceApplication
@@ -174,6 +177,7 @@ In `AppDelegate.m`, add the following code snippet.
                                   annotation:annotation];
 }
 
+// for handling universal link
 - (BOOL)application:(UIApplication *)application
     continueUserActivity:(NSUserActivity *)userActivity
       restorationHandler:
