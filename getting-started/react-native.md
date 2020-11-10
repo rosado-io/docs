@@ -47,7 +47,7 @@ cd myapp
 
 ```bash
 # The SDK depends on AsyncStorage.
-yarn add --exact @react-native-community/async-storage
+yarn add --exact @react-native-async-storage/async-storage
 yarn add --exact @authgear/react-native
 (cd ios && pod install)
 ```
