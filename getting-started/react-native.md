@@ -24,14 +24,14 @@ In [authgear.yaml](https://github.com/authgear/docs/tree/6a52b949b69188c9e946087
 ```yaml
 oauth:
   clients:
-  - client_id: a_random_generated_string
-    redirect_uris:
-    - "com.myapp://host/path"
-    grant_types:
-    - authorization_code
-    - refresh_token
-    response_types:
-    - code
+    - client_id: a_random_generated_string
+      redirect_uris:
+        - "com.authgear.example://host/path"
+      grant_types:
+        - authorization_code
+        - refresh_token
+      response_types:
+        - code
 ```
 
 ## Create a React Native app
@@ -64,16 +64,20 @@ import authgear from "@authgear/react-native";
 function LoginScreen() {
   const onPress = useCallback(() => {
     // Normally you should only configure once when the app launches.
-    authgear.configure({
-      clientID: "a_random_generated_string",
-      endpoint: "http://localhost:3000",
-    }).then(() => {
-      authgear.authorize({
-        redirectURI: "com.myapp://host/path",
-      }).then(({ userInfo }) => {
-        console.log(userInfo);
+    authgear
+      .configure({
+        clientID: "a_random_generated_string",
+        endpoint: "http://localhost:3000",
+      })
+      .then(() => {
+        authgear
+          .authorize({
+            redirectURI: "com.authgear.example://host/path",
+          })
+          .then(({ userInfo }) => {
+            console.log(userInfo);
+          });
       });
-    });
   }, []);
 
   return (
@@ -106,9 +110,9 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Configure data to be the exact redirect URI your app uses. -->
-                <!-- Here, we are using com.myapp://host/path as configured in authgear.yaml. -->
+                <!-- Here, we are using com.authgear.example://host/path as configured in authgear.yaml. -->
                 <!-- NOTE: The redirectURI supplied in AuthorizeOptions *has* to match as well -->
-                <data android:scheme="com.myapp"
+                <data android:scheme="com.authgear.example"
                     android:host="host"
                     android:pathPrefix="/path"/>
             </intent-filter>
@@ -135,7 +139,7 @@ In `Info.plist`, add the matching redirect URI.
                       <string>Editor</string>
                       <key>CFBundleURLSchemes</key>
                       <array>
-                              <string>com.myapp</string>
+                              <string>com.authgear.example</string>
                       </array>
               </dict>
       </array>
@@ -180,4 +184,3 @@ In `AppDelegate.m`, add the following code snippet.
                           restorationHandler:restorationHandler];
 }
 ```
-
