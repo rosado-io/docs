@@ -4,35 +4,9 @@ description: Environment variable provides global configuration
 
 # Environment Variable
 
-## Environment Variable
+## Main Server Environment Variable
 
-Environment variable provides global configuration.
-
-### TRUST\_PROXY
-
-This sets whether incoming HTTP headers such as `x-forwarded-host` can be trusted. If you deploy Authgear behind a reverse proxy capable of writing these headers, you should set the value to `true`. The default is `false`.
-
-### DEV\_MODE
-
-This sets whether Authgear should run in development mode. You should never need to set it. The default is `false`.
-
-When development mode is enabled:
-
-* TLS certificate is required, to enable secure cookies.
-* All `Host` header values are allowed.
-* External message sending \(SMS/Email\) is disabled; messages to send are logged instead.
-
-### LOG\_LEVEL
-
-This sets the global log level. Valid values are `debug`, `info`, `warn` and `error`. The default is `warn`.
-
-### STATIC\_ASSET\_URL\_PREFIX
-
-This sets the URL prefix of the bundled static asset. The default value includes commit hash so it is cache-friendly.
-
-### SENTRY\_DSN
-
-The sets the Sentry DSN, where errors/logs are reported to.
+Main serer environment variable provides global configuration for main server.
 
 ### MAIN\_LISTEN\_ADDR
 
@@ -98,9 +72,33 @@ This sets whether the bundled static asset should be served. Default is `true`. 
 
 This sets the filepath of the directory containing the bundled static asset. The default value of the provided Docker image does the right thing so you should never need to set it.
 
+## Portal Environment Variable
+
+Portal environment variable provides global configuration for Authegar portal.
+
 ### PORTAL\_LISTEN\_ADDR
 
 This sets the listen address of the portal server. The default is `0.0.0.0:3003`.
+
+### CONFIG\_SOURCE\_TYPE
+
+This sets the type of the configuration. Valid values are `local_fs` and `kubernetes`. The default is `local_fs`.
+
+### CONFIG\_SOURCE\_KUBECONFIG
+
+This indicates the path to the `.kubeconfig` config file. It is only used when configuration type is `kubernetes`.
+
+### CONFIG\_SOURCE\_KUBE\_NAMESPACE
+
+This indicates the namespace where Kubernetes resources of all apps reside. It is only used when configuration type is `kubernetes`.
+
+### CONFIG\_SOURCE\_WATCH
+
+This indicates whether the configuration source would watch for changes and reload automatically. The default is `true`.
+
+### CONFIG\_SOURCE\_DIRECTORY
+
+This sets the path to app configuration directory file for local FS sources. The default is `.`.
 
 ### AUTHGEAR\_CLIENT\_ID
 
@@ -182,6 +180,14 @@ This sets the directory for customized resource files.
 
 This sets the maximum number of apps user owned. When the value is `-1`, owned apps limit is disabled. The default is `-1`.
 
+### STATIC\_ASSET\_SERVING\_ENABLED
+
+This sets whether the bundled static asset should be served. Default is `true`. You should never modify it.
+
+### STATIC\_ASSET\_DIR
+
+This sets the filepath of the directory containing the bundled static asset. The default value of the provided Docker image does the right thing so you should never need to set it.
+
 ### DATABASE\_URL
 
 This sets the URL of backend database.
@@ -241,6 +247,36 @@ This sets the directory for built-in resource files. The default is `resources/p
 ### PORTAL\_CUSTOM\_RESOURCE\_DIRECTORY
 
 This sets the directory for customized resource files.
+
+## Common Environment Variable
+
+Common environment variable provides global configuration for both main server and Authgear portal.
+
+### TRUST\_PROXY
+
+This sets whether incoming HTTP headers such as `x-forwarded-host` can be trusted. If you deploy Authgear behind a reverse proxy capable of writing these headers, you should set the value to `true`. The default is `false`.
+
+### DEV\_MODE
+
+This sets whether Authgear should run in development mode. You should never need to set it. The default is `false`.
+
+When development mode is enabled:
+
+* TLS certificate is required, to enable secure cookies.
+* All `Host` header values are allowed.
+* External message sending \(SMS/Email\) is disabled; messages to send are logged instead.
+
+### LOG\_LEVEL
+
+This sets the global log level. Valid values are `debug`, `info`, `warn` and `error`. The default is `warn`.
+
+### STATIC\_ASSET\_URL\_PREFIX
+
+This sets the URL prefix of the bundled static asset. The default value includes commit hash so it is cache-friendly.
+
+### SENTRY\_DSN
+
+The sets the Sentry DSN, where errors/logs are reported to.
 
 ## TL;DR
 
