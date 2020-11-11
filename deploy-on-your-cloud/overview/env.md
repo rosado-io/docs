@@ -72,7 +72,7 @@ This indicates the path to the `.kubeconfig` config file. It is only used when c
 
 ### CONFIG\_SOURCE\_KUBE\_NAMESPACE
 
-This indicates the namespace where the app index & configs resides. It is only used when configuration type is `kubernetes`.
+This indicates the namespace where Kubernetes resources of all apps reside. It is only used when configuration type is `kubernetes`.
 
 ### CONFIG\_SOURCE\_WATCH
 
