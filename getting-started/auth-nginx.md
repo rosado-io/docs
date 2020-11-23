@@ -177,3 +177,25 @@ x-authgear-user-id: acdc0d99-f784-43d5-b53d-70f3506dfbf7
 x-authgear-user-anonymous: false
 ```
 
+## Optional: setting up resolver response caching
+
+Sometimes you may want to cache resolver response in nginx, for example, when
+the reverse proxy and Authgear is in different regions.
+
+You may modify the nginx configuration as following to enable caching:
+```nginx
+http {
+    # ...
+    proxy_cache_path /tmp/cache keys_zone=auth_cache:10m;
+
+    server {
+        # ...
+        location = /_auth {
+            # ...
+            proxy_cache auth_cache;
+            proxy_cache_key "$cookie_session|$http_authorization";
+            proxy_cache_valid 200 10m;  # Adjust cache duration as desired.
+        }
+    }
+}
+```
