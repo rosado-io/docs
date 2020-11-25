@@ -37,3 +37,6 @@
   * [authgear.yaml](deploy-on-your-cloud/overview/authgear.yaml.md)
   * [authgear.secrets.yaml](deploy-on-your-cloud/overview/authgear.secrets.yaml.md)
 
+## Security Concerns
+
+* [Non-HTTP scheme redirect URI](security/redirect-uri.md)
