@@ -21,6 +21,12 @@
 ## How tos
 
 * [Social Sign-on Integration](how-tos/how-to-setup-sso-integrations.md)
+  * [Apple](how-tos/sso/apple.md)
+  * [Google](how-tos/sso/google.md)
+  * [Facebook](how-tos/sso/facebook.md)
+  * [Linkedin](how-tos/sso/linkedin.md)
+  * [Azure Active Directory](how-tos/sso/azureadv2.md)
+  * [WeChat](how-tos/sso/wechat.md)
 * [Add Privacy Policy & Terms of Service Links](how-tos/privacy-policy-terms-of-service.md)
 
 ## APIs
