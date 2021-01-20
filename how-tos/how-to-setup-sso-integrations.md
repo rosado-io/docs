@@ -8,3 +8,4 @@ setup instruction.
 * [Facebook](sso/facebook.md)
 * [Linkedin](sso/linkedin.md)
 * [Azure Active Directory](sso/azureadv2.md)
+* [WeChat](sso/wechat.md)
