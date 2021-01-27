@@ -41,16 +41,7 @@ In the portal, go to "Single-Sign On" page, then do the following:
     ![wechat-mobile-app-id](../../.gitbook/assets/wechat-mobile-app-id.png)
 1. Go to Account Center > Basic information, to obtain the "原始ID".
     ![wechat-account-id](../../.gitbook/assets/wechat-account-id.png)
-
-### Configure Sign in with WeChat through the portal
-
-In the portal, go to "Single-Sign On" page, then do the following:
-
-1. Enable "Sign in with WeChat (Mobile/移动应用)"
-1. Fill in "Client ID" with the "AppID".
-1. Fill in "Client Secret" with the "AppSecret".
-1. Fill in "原始 ID" with the "原始 ID".
-1. Click save.
+1. Save those values, we will need them in the section below.
 
 ### Update code based on platform
 
@@ -83,7 +74,15 @@ In the portal, go to "Single-Sign On" page, then do the following:
     - Fill in "Bundle ID" field with your app bundle id.
     - Fill in "Universal Links" with "WECHAT_UNIVERICAL_LINK" above.
 
-1. Login Authgear portal, go to "Applications". Edit the application, add "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" above into "WeChat redirect URIs" and save.
+1. Login Authgear portal, go to "Single-Sign On" page, then do the following:
+
+    - Enable "Sign in with WeChat (Mobile/移动应用)"
+    - Fill in "Client ID" with the WeChat "AppID".
+    - Fill in "Client Secret" with the WeChat "AppSecret".
+    - Fill in "原始 ID" with the WeChat "原始 ID".
+    - Add "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" above into "WeChat redirect URIs" 
+    - Click save.
+
 1. Update the code
 
     - Setup WeChat SDK when app launch
@@ -205,7 +204,15 @@ In the portal, go to "Single-Sign On" page, then do the following:
 
     - **"WECHAT_REDICRECT_URI_FOR_AUTHGEAR"**: `com.myapp://host/open_wechat_app`
 
-1. Login Authgear portal, go to "Applications". Edit the application, add "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" above into "WeChat redirect URIs" and save.
+1. Login Authgear portal, go to "Single-Sign On" page, then do the following:
+
+    - Enable "Sign in with WeChat (Mobile/移动应用)"
+    - Fill in "Client ID" with the WeChat "AppID".
+    - Fill in "Client Secret" with the WeChat "AppSecret".
+    - Fill in "原始 ID" with the WeChat "原始 ID".
+    - Add "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" above into "WeChat redirect URIs" 
+    - Click save.
+
 1. Update the code
 
     - Update application `AndroidManifest.xml`
@@ -359,7 +366,14 @@ In the portal, go to "Single-Sign On" page, then do the following:
     
     - **ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR**: `com.myapp://host/open_wechat_app`
 
-1. Login Authgear portal, go to "Applications". Edit the application, add "IOS_WECHAT_REDICRECT_URI_FOR_AUTHGEAR" and "ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR" above into "WeChat redirect URIs" and save.
+1. Login Authgear portal, go to "Single-Sign On" page, then do the following:
+
+    - Enable "Sign in with WeChat (Mobile/移动应用)"
+    - Fill in "Client ID" with the WeChat "AppID".
+    - Fill in "Client Secret" with the WeChat "AppSecret".
+    - Fill in "原始 ID" with the WeChat "原始 ID".
+    - Add "IOS_WECHAT_REDICRECT_URI_FOR_AUTHGEAR" and "ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR" above into "WeChat redirect URIs" 
+    - Click save.
 
 1. Update the code
 
