@@ -2,6 +2,11 @@
 
 ## Web
 
+### Setup overview
+
+1. Register an account and create website application in WeChat Open Platform. Approval is needed in this process.
+1. Enable and configure WeChat Login in Authgear portal.
+
 ### Prerequisite
 
 To create a website application in WeChat, you can choose to setup a website application and wait for approval or a sandbox account for testing.
@@ -32,6 +37,16 @@ In the portal, go to "Single-Sign On" page, then do the following:
 1. Click save.
 
 ## Mobile app (Native iOS app, Native Android app and React Native)
+
+### Setup overview
+
+1. Register an account and create mobile application in WeChat Open Platform. Approval is needed in this process.
+1. Enable and configure WeChat Login in Authgear portal.
+1. Integrate Authgear SDK, delegate function will be triggered when user clicks the "Login with WeChat" button during
+   authorization. Developer needs to integrate WeChat SDK to open WeChat app to perform authentication. After obtaining
+   the authorization code from WeChat, call the Authgear callback with the code and complete the "Login With WeChat"
+   process.
+1. Detail steps are listed below based on platform.
 
 ### Prerequisite - Setup the Mobile Application (移动应用)
 
