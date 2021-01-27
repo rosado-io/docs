@@ -178,6 +178,13 @@ In the portal, go to "Single-Sign On" page, then do the following:
             weChatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
         ) { result in
         }
+
+        // Open setting page
+        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
+        container?.open(
+            page: .settings,
+            wechatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
+        )
         ```
 
 1. Here is the completed [example](https://github.com/authgear/authgear-sdk-ios/tree/master/example).
@@ -314,6 +321,12 @@ In the portal, go to "Single-Sign On" page, then do the following:
             public void onPromotionFailed(@NonNull Throwable throwable) {
             }
         });
+
+        // Open setting page
+        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
+        SettingOptions options = new SettingOptions();
+        options.setWeChatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
+        mAuthgear.open(Page.Settings, options);
         ```
 
 1. Here is the completed [example](https://github.com/authgear/authgear-sdk-android/tree/main/javasample).
@@ -418,6 +431,12 @@ In the portal, go to "Single-Sign On" page, then do the following:
                 redirectURI: "REDIRECT_URI",
                 weChatRedirectURI: weChatRedirectURI
             });
+
+        // Open setting page
+        authgear
+            .open(Page.Settings, {
+                weChatRedirectURI: weChatRedirectURI,
+            })
         ```
 
     - Setup Authgear delegate and open WeChat SDK when sendWeChatAuthRequest is triggered
