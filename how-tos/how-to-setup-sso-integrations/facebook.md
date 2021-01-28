@@ -1,4 +1,4 @@
-# Social login with Facebook
+# Facebook
 
 ## Prerequisite
 
@@ -24,3 +24,4 @@ In Authgear portal, go to "Single-Sign On" page, then do the following:
 
 * "alias" is used as the identifier of OAuth provider
 * Redirect URI has the form "/sso/oauth2/callback/:alias"
+

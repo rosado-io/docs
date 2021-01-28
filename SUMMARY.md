@@ -20,13 +20,13 @@
 
 ## How tos
 
-* [Social Sign-on Integration](how-tos/how-to-setup-sso-integrations.md)
-  * [Apple](how-tos/sso/apple.md)
-  * [Google](how-tos/sso/google.md)
-  * [Facebook](how-tos/sso/facebook.md)
-  * [Linkedin](how-tos/sso/linkedin.md)
-  * [Azure Active Directory](how-tos/sso/azureadv2.md)
-  * [WeChat](how-tos/sso/wechat.md)
+* [Social Sign-on Integration](how-tos/how-to-setup-sso-integrations/README.md)
+  * [Apple](how-tos/how-to-setup-sso-integrations/apple.md)
+  * [Google](how-tos/how-to-setup-sso-integrations/google.md)
+  * [Facebook](how-tos/how-to-setup-sso-integrations/facebook.md)
+  * [Linkedin](how-tos/how-to-setup-sso-integrations/linkedin.md)
+  * [Azure Active Directory](how-tos/how-to-setup-sso-integrations/azureadv2.md)
+  * [WeChat](how-tos/how-to-setup-sso-integrations/wechat.md)
 * [Add Privacy Policy & Terms of Service Links](how-tos/privacy-policy-terms-of-service.md)
 
 ## APIs
@@ -46,4 +46,5 @@
 
 ## Security Concerns
 
-* [Non-HTTP scheme redirect URI](security/redirect-uri.md)
+* [Non-HTTP scheme redirect URI](security-concerns/redirect-uri.md)
+

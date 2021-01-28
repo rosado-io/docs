@@ -6,9 +6,10 @@ The keys are `terms-of-service-link` and `privacy-policy-link`. The values will 
 
 For example,
 
-```json
+```javascript
 {
   "terms-of-service-link": "https://mycompany.com/terms-of-service",
   "privacy-policy-link": "https://mycompany.com/privacy-policy"
 }
 ```
+

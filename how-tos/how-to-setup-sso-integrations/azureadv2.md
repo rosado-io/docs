@@ -1,4 +1,4 @@
-# Social login with Azure Active Directory
+# Azure Active Directory
 
 ## Prerequisite
 
@@ -39,3 +39,4 @@ Then in Authgear portal, go to "Single-Sign On" page, and do the following:
 
 * "alias" is used as the identifier of OAuth provider
 * Redirect URI has the form "/sso/oauth2/callback/:alias"
+
