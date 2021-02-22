@@ -7,17 +7,6 @@
 * [Authenticating HTTP request with Nginx](getting-started/auth-nginx.md)
 * [Integrate with a React Native app](getting-started/react-native.md)
 
-## Concepts
-
-* [User, Identity and Authenticator](concepts/user-identity-and-authenticator.md)
-* [How authgear integrate with your applications](concepts/how-authgear-integrate-with-your-applications.md)
-
-## Client App SDKs
-
-* [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
-* [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
-* [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
-
 ## How tos
 
 * [Social Sign-on Integration](how-tos/how-to-setup-sso-integrations/README.md)
@@ -28,6 +17,17 @@
   * [Azure Active Directory](how-tos/how-to-setup-sso-integrations/azureadv2.md)
   * [WeChat](how-tos/how-to-setup-sso-integrations/wechat.md)
 * [Add Privacy Policy & Terms of Service Links](how-tos/privacy-policy-terms-of-service.md)
+
+## Concepts
+
+* [User, Identity and Authenticator](concepts/user-identity-and-authenticator.md)
+* [How authgear integrate with your applications](concepts/how-authgear-integrate-with-your-applications.md)
+
+## Client App SDKs
+
+* [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
+* [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
+* [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
 
 ## APIs
 
@@ -47,4 +47,3 @@
 ## Security Concerns
 
 * [Non-HTTP scheme redirect URI](security-concerns/redirect-uri.md)
-
