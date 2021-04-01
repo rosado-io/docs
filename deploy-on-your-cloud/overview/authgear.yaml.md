@@ -140,11 +140,6 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticatorOOBEmailConfig": {
       "additionalProperties": false,
       "properties": {
-        "code_digits": {
-          "maximum": 8,
-          "minimum": 6,
-          "type": "integer"
-        },
         "maximum": {
           "type": "integer"
         }
@@ -154,11 +149,6 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticatorOOBSMSConfig": {
       "additionalProperties": false,
       "properties": {
-        "code_digits": {
-          "maximum": 8,
-          "minimum": 6,
-          "type": "integer"
-        },
         "maximum": {
           "type": "integer"
         }
@@ -179,6 +169,15 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "maximum": {
           "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "BiometricConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "list_enabled": {
+          "type": "boolean"
         }
       },
       "type": "object"
@@ -251,6 +250,13 @@ The configuration file is validated against the following JSON Schema:
         "cookie_prefix": {
           "type": "string"
         },
+        "csp_directives": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
         "public_origin": {
           "format": "http_origin",
           "type": "string"
@@ -299,6 +305,9 @@ The configuration file is validated against the following JSON Schema:
     "IdentityConfig": {
       "additionalProperties": false,
       "properties": {
+        "biometric": {
+          "$ref": "#/$defs/BiometricConfig"
+        },
         "login_id": {
           "$ref": "#/$defs/LoginIDConfig"
         },
@@ -324,7 +333,8 @@ The configuration file is validated against the following JSON Schema:
       "enum": [
         "login_id",
         "oauth",
-        "anonymous"
+        "anonymous",
+        "biometric"
       ],
       "type": "string"
     },
@@ -332,7 +342,17 @@ The configuration file is validated against the following JSON Schema:
       "additionalProperties": false,
       "properties": {
         "fallback_language": {
+          "format": "bcp47",
           "type": "string"
+        },
+        "supported_languages": {
+          "items": {
+            "format": "bcp47",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
         }
       },
       "type": "object"
@@ -354,11 +374,71 @@ The configuration file is validated against the following JSON Schema:
     },
     "LoginIDEmailConfig": {
       "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "domain_blocklist_enabled": {
+                "enum": [
+                  true
+                ]
+              }
+            },
+            "required": [
+              "domain_blocklist_enabled"
+            ]
+          },
+          "then": {
+            "properties": {
+              "domain_allowlist_enabled": {
+                "enum": [
+                  false
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "block_free_email_provider_domains": {
+                "enum": [
+                  true
+                ]
+              }
+            },
+            "required": [
+              "block_free_email_provider_domains"
+            ]
+          },
+          "then": {
+            "properties": {
+              "domain_blocklist_enabled": {
+                "enum": [
+                  true
+                ]
+              }
+            },
+            "required": [
+              "domain_blocklist_enabled"
+            ]
+          }
+        }
+      ],
       "properties": {
+        "block_free_email_provider_domains": {
+          "type": "boolean"
+        },
         "block_plus_sign": {
           "type": "boolean"
         },
         "case_sensitive": {
+          "type": "boolean"
+        },
+        "domain_allowlist_enabled": {
+          "type": "boolean"
+        },
+        "domain_blocklist_enabled": {
           "type": "boolean"
         },
         "ignore_dot_sign": {
@@ -417,11 +497,8 @@ The configuration file is validated against the following JSON Schema:
         "case_sensitive": {
           "type": "boolean"
         },
-        "excluded_keywords": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
+        "exclude_keywords_enabled": {
+          "type": "boolean"
         }
       },
       "type": "object"
@@ -455,6 +532,12 @@ The configuration file is validated against the following JSON Schema:
           },
           "type": "array"
         },
+        "is_first_party": {
+          "type": "boolean"
+        },
+        "issue_jwt_access_token": {
+          "type": "boolean"
+        },
         "name": {
           "type": "string"
         },
@@ -472,6 +555,12 @@ The configuration file is validated against the following JSON Schema:
           },
           "minItems": 1,
           "type": "array"
+        },
+        "refresh_token_idle_timeout_enabled": {
+          "type": "boolean"
+        },
+        "refresh_token_idle_timeout_seconds": {
+          "$ref": "#/$defs/DurationSeconds"
         },
         "refresh_token_lifetime_seconds": {
           "$ref": "#/$defs/DurationSeconds"
@@ -545,17 +634,42 @@ The configuration file is validated against the following JSON Schema:
               "tenant"
             ]
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "wechat"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "app_type",
+              "account_id"
+            ]
+          }
         }
       ],
       "properties": {
+        "account_id": {
+          "format": "wechat_account_id",
+          "type": "string"
+        },
         "alias": {
           "type": "string"
+        },
+        "app_type": {
+          "$ref": "#/$defs/OAuthSSOWeChatAppType"
         },
         "claims": {
           "$ref": "#/$defs/VerificationOAuthClaimsConfig"
         },
         "client_id": {
           "type": "string"
+        },
+        "is_sandbox_account": {
+          "type": "boolean"
         },
         "key_id": {
           "type": "string"
@@ -568,6 +682,13 @@ The configuration file is validated against the following JSON Schema:
         },
         "type": {
           "$ref": "#/$defs/OAuthSSOProviderType"
+        },
+        "wechat_redirect_uris": {
+          "items": {
+            "format": "uri",
+            "type": "string"
+          },
+          "type": "array"
         }
       },
       "required": [
@@ -583,7 +704,15 @@ The configuration file is validated against the following JSON Schema:
         "facebook",
         "linkedin",
         "azureadv2",
-        "apple"
+        "apple",
+        "wechat"
+      ],
+      "type": "string"
+    },
+    "OAuthSSOWeChatAppType": {
+      "enum": [
+        "mobile",
+        "web"
       ],
       "type": "string"
     },
@@ -627,7 +756,8 @@ The configuration file is validated against the following JSON Schema:
     "PrimaryAuthenticatorType": {
       "enum": [
         "password",
-        "oob_otp"
+        "oob_otp_email",
+        "oob_otp_sms"
       ],
       "type": "string"
     },
@@ -692,7 +822,8 @@ The configuration file is validated against the following JSON Schema:
     "SecondaryAuthenticatorType": {
       "enum": [
         "password",
-        "oob_otp",
+        "oob_otp_email",
+        "oob_otp_sms",
         "totp"
       ],
       "type": "string"
@@ -720,6 +851,21 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "country_calling_code": {
           "$ref": "#/$defs/UICountryCallingCodeConfig"
+        },
+        "dark_theme_disabled": {
+          "type": "boolean"
+        },
+        "default_client_uri": {
+          "format": "uri",
+          "type": "string"
+        },
+        "default_post_logout_redirect_uri": {
+          "format": "uri",
+          "type": "string"
+        },
+        "default_redirect_uri": {
+          "format": "uri",
+          "type": "string"
         }
       },
       "type": "object"
@@ -774,7 +920,8 @@ The configuration file is validated against the following JSON Schema:
           "$ref": "#/$defs/VerificationClaimsConfig"
         },
         "code_expiry_seconds": {
-          "$ref": "#/$defs/DurationSeconds"
+          "$ref": "#/$defs/DurationSeconds",
+          "minimum": 60
         },
         "criteria": {
           "$ref": "#/$defs/VerificationCriteria"
@@ -838,6 +985,7 @@ The configuration file is validated against the following JSON Schema:
 id: myapp
 # Configure different identity behavior.
 identity:
+  # Configure Login ID Identity.
   login_id:
     # Defines the set of accepted login IDs.
     # By default the user can have
@@ -868,6 +1016,22 @@ identity:
         case_sensitive: false
         # Whether . sign should be ignored. Default is false.
         ignore_dot_sign: false
+        # Whether email domain blocklist is enabled. Default is false.
+        # In addition to setting it to true, you also need to provide
+        # `email_domain_blocklist.txt` next to `authgear.yaml`.
+        # It is a plaintext file with one domain per line.
+        # domain_blocklist_enabled and domain_allowlist_enabled is mutually exclusive.
+        domain_blocklist_enabled: false
+        # Whether email domain allowlist is enabled. Default is false.
+        # In addition to setting it to true, you also need to provide
+        # `email_domain_allowlist.txt` next to `authgear.yaml`.
+        # It is a plaintext file with one domain per line.
+        # domain_blocklist_enabled and domain_allowlist_enabled is mutually exclusive.
+        domain_allowlist_enabled: false
+        # Whether free email provider domains are blocked. Default is false.
+        # It is an auxiliary option of domain_blocklist_enabled so
+        # domain_blocklist_enabled must be true for this to take effect.
+        block_free_email_provider_domains: false
       # Configure Username Login ID Identity.
       username:
         # Whether the username can only contain `-a-zA-Z0-9_.`. Default is true.
@@ -876,15 +1040,17 @@ identity:
         block_reserved_usernames: true
         # Whether the username should be treated case sensitively. Default is false.
         case_sensitive: false
-        # Define a list of banned usernames. Default is empty list.
-        excluded_keywords:
-        - admin
+        # Whether exclude keyword list is enabled. Default is false.
+        # In addition to setting it to true, you also need to provide
+        # `reserved_name.txt` next to `authgear.yaml`.
+        # It is a plaintext file with one keyword per line.
+        exclude_keywords_enabled: false
   # Configure OAuth Identity.
   oauth:
     # Configure external OAuth identity providers.
     providers:
     # Denote the type of the identity provider.
-    # Valid values are "google", "apple", "facebook", "azureadv2", "linkedin"
+    # Valid values are "google", "apple", "facebook", "azureadv2", "linkedin", "wechat"
     - type: google
       # alias by default is the same as the value of the type.
       alias: google
@@ -932,6 +1098,17 @@ identity:
       # Otherwise the value must be the ID of a Azure AD tenant.
       # In this case, only user in that Azure AD can login.
       tenant: common
+    - type: wechat
+      alias: wechat
+      client_id: client_id
+      # Wether the given client is bound to an sandbox account.
+      # Default is false.
+      is_sandbox_account: false
+      # The wechat account ID.
+      # Wechat account always starts with `gh_`.
+      account_id: "gh_foobar"
+      # The application type. Valid values are "mobile" and "web".
+      app_type: "mobile"
   on_conflict:
     # Configure the behavior in anonymous user promotion when the claimed identity
     # conflicts with an existing identity.
@@ -953,7 +1130,13 @@ identity:
     # And the user simply authenticates themselves as the original user.
     # It is up to the developer to handle account merging.
     promotion: "error"
-  # Configure Login ID Identity.
+  # Configure biometric identity
+  biometric:
+    # Configure whether biometric identity is shown in the settings page.
+    # If it is true, the user can view the list of biometric identity in the settings page.
+    # They can remove any biometric identity that they will never use again.
+    # Default is false.
+    list_enabled: false
 # Configure different authenticator behavior.
 authenticator:
   # Configure OOB-OTP Authenticator.
@@ -962,14 +1145,10 @@ authenticator:
       # the maximum number of the authenticator the user can have.
       # default is 1.
       maximum: 1
-      # the number of digits in the OTP, default to 6.
-      code_digits: 6
     sms:
       # the maximum number of the authenticator the user can have.
       # default is 1.
       maximum: 1
-      # the number of digits in the OTP, default to 6.
-      code_digits: 6
   # Configure Password Authenticator
   password:
     # Configure password policy
@@ -1006,22 +1185,25 @@ authenticator:
 # Configure the authentication behavior.
 authentication:
   # Determine which identities are enabled.
+  #
+  # To enable anonymous user, add "anonymous".
+  # To enable biometric authentication, add "biometric".
+  #
   # By default "login_id" and "oauth" are enabled.
   identities:
   - login_id
   - oauth
   - anonymous
+  - biometric
   # Determine which authenticators can be used as primary authenticator.
   # By default only "password" is enabled.
   primary_authenticators:
   - password
-  - oob_otp
   # Determine which authenticators can be used as secondary authenticator.
-  # By default totp, oob_otp are enabled.
+  # By default totp, oob_otp_sms are enabled.
   secondary_authenticators:
-  - password
   - totp
-  - oob_otp
+  - oob_otp_sms
   # Configure the MFA behavior.
   #
   # if_exists: The user can add secondary authenticators.
@@ -1081,6 +1263,9 @@ http:
   # The expected origin
   # It is used to render an absolute URL in templates.
   public_origin: https://accounts.myapp.com
+  # The list of items to appear in Content-Security-Policy HTTP header.
+  # The default should work so you should never need to specify it.
+  csp_directives: []
   # Set the prefix of the cookies written by Authgear in case
   # you have cookie name conflicts you want to avoid.
   # The default prefix is an empty string.
@@ -1146,6 +1331,9 @@ verification:
       required: true
 # Configure localization.
 localization:
+  # The list of supported languages.
+  # Default is an singleton array of fallback_language.
+  supported_languages: ["en"]
   # The fallback language when none of the supported languages match the preferred languages.
   # Default is en.
   fallback_language: en
@@ -1156,6 +1344,11 @@ oauth:
     # The OAuth 2 client ID.
     # A reasonably long secure random string is recommended.
   - client_id: client_id
+    # Whether the client is considered as first party.
+    # Default is true.
+    # Anonymous user and biometric authentication requires first party client,
+    # so normally you should leave it as true.
+    is_first_party: true
     # Define a list of allowed redirect URIs.
     # According to OAuth 2 spec, exact match is used.
     # So "http://example.com" does not match "http://example.com/"
@@ -1174,10 +1367,19 @@ oauth:
     # Same as redirect_uris, exact match is used.
     post_logout_redirect_uris:
     - "https://www.myapp.com/post_logout"
-    # The lifetime of the access token. Default is 1800.
+    # The lifetime of the access token. Default is 1800 (30 minutes).
     access_token_lifetime_seconds: 1800
-    # The lifetime of the refresh token. Default is 86400.
-    refresh_token_lifetime_seconds: 86400
+    # The lifetime of the refresh token. Default is 31449600 (52 weeks).
+    refresh_token_lifetime_seconds: 31449600
+    # Whether refresh token idle timeout is enabled. Default is true.
+    refresh_token_idle_timeout_enabled: true
+    # The idle timeout of the refresh token. Default is 2592000 (30 days).
+    refresh_token_idle_timeout_seconds: 2592000
+    # Whether the access token is opaque or an JWT.
+    # Default is false.
+    # Access token as JWT allows you to directly inspect the access token
+    # to determine the user, without forwarding the request to the resolver.
+    issue_jwt_access_token: false
 # Configure session.
 session:
   # Whether the cookie is session cookie. Default is false.
@@ -1197,6 +1399,15 @@ ui:
     # The list of country calling code pinned to the top of the list.
     pinned_list:
       - '852'
+  # Whether dark theme is disabled.
+  # Default is false.
+  dark_theme_disabled: false
+  # If it is provided, the web UI will have a "Back to App" link.
+  default_client_uri: ""
+  # If it is provided, the web UI will redirect to the URI after logout.
+  default_post_logout_redirect_uri: ""
+  # If it is provided, the web UI will redirect to the URI after login.
+  default_redirect_uri: ""
 # Configure welcome message.
 welcome_message:
   # Whether to send the welcome message.
