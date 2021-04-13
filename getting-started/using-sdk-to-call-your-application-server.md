@@ -94,7 +94,91 @@ In the below section, we will explain how to setup SDK to include Authorization 
     }
     ```
 
-### Android
+## Android
+
+
+- Configure Authgear SDK
+
+    ```java
+    ConfigureOptions configureOptions = new ConfigureOptions();
+    Authgear authgear = new Authgear(getApplication(), clientID, endpoint, null);
+    authgear.configure(configureOptions, new OnConfigureListener() {
+        @Override
+        public void onConfigured() {
+            // configured successfully
+        }
+
+        @Override
+        public void onConfigurationFailed(@NonNull Throwable throwable) {
+            // failed to configured
+        }
+    });
+    ```
+
+- `sessionState` reflect the user logged in state. Right after configure, the session state only reflect the SDK local state. That means even `sessionState` is `AUTHENTICATED`, the session maybe invalid if it is revoked remotely. You will only know that after calling the server, call `fetchUserInfo` as soon as it is proper to do so, e.g. when the device goes online.
+
+
+    ```java
+    // value can be NO_SESSION or AUTHENTICATED
+    SessionState sessionState = authgear.getSessionState();
+    
+    if (sessionState == SessionState.AUTHENTICATED) {
+        authgear.fetchUserInfo(new OnFetchUserInfoListener() {
+            @Override
+            public void onFetchedUserInfo(@NonNull UserInfo userInfo) {
+                // sessionState is now up to date
+                // read the userInfo if needed
+            }
+
+            @Override
+            public void onFetchingUserInfoFailed(@NonNull Throwable throwable) {
+                // sessionState is now up to date, it will change to NO_SESSION if the session is invalid
+            }
+        });
+    }
+    ```
+
+
+- Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will refresh the access token only if it has expired. Include the access token into Authorization header of your application request.
+
+    ```java
+    authgear.refreshAccessTokenIfNeeded(new OnRefreshAccessTokenIfNeededListener() {
+        @Override
+        public void onFinished() {
+            // access token is ready to use
+            // if user is not logged in, access token will be empty
+            // if user is logged in, include access token into the Authorization header.
+            String accessToken = authgear.getAccessToken();
+            if (accessToken != null) {
+                // example only, you can use your own networking library
+                HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
+                c.setRequestProperty("Authorization", "Bearer " + accessToken);
+                // ... continue making your request
+            }
+        }
+        @Override
+        public void onFailed(Throwable throwable) {
+            // failed to refresh access token, the refresh token maybe expired or revoked
+        }
+    });
+    ```
+
+- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration). You may want to logout the user in the SDK in this scenario, you can call force logout.
+
+    ```java
+    authgear.logout(true, new OnLogoutListener() {
+        @Override
+        public void onLogout() {
+            // force logout successfully
+            // authgear.getSessionState() becomes NO_SESSION
+        }
+
+        @Override
+        public void onLogoutFailed(@NonNull Throwable throwable) {
+            // failed to force logout
+        }
+    });
+    ```
 
 
 ### Javascript
