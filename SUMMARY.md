@@ -6,6 +6,7 @@
 
 * [Authenticating HTTP request with Nginx](getting-started/auth-nginx.md)
 * [Integrate with a React Native app](getting-started/react-native.md)
+* [Using SDK to call your application server](getting-started/using-sdk-to-call-your-application-server.md)
 
 ## How tos
 
