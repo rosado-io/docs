@@ -181,6 +181,75 @@ In the below section, we will explain how to setup SDK to include Authorization 
     ```
 
 
-### Javascript
+## Javascript
+
+- Configure Authgear SDK
+
+    ```javascript
+    authgear
+        .configure({
+            clientID: "a_random_generated_string",
+            endpoint: "http://localhost:3000",
+        })
+        .then(() => {
+            // configured successfully
+        })
+        .catch((e) => {
+            // failed to configured
+        });
+    ```
+
+- `sessionState` reflect the user logged in state. Right after configure, the session state only reflect the SDK local state. That means even `sessionState` is `AUTHENTICATED`, the session maybe invalid if it is revoked remotely. You will only know that after calling the server, call `fetchUserInfo` as soon as it is proper to do so, e.g. when the device goes online.
 
 
+    ```javascript
+    // value can be NO_SESSION or AUTHENTICATED
+    let sessionState = authgear.sessionState;
+    
+    if (sessionState === "AUTHENTICATED") {
+        authgear
+            .fetchUserInfo()
+            .then((userInfo) => {
+                // sessionState is now up to date
+                // read the userInfo if needed
+            })
+            .catch((e) => {
+                // sessionState is now up to date, it will change to NO_SESSION if the session is invalid
+            });
+    }
+    ```
+
+- Use `authgear.fetch` to call your application server. The fetch function will include Authorization header in your application request, refresh access token will be handled automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org/).
+
+    ```javascript
+    authgear
+        .fetch("YOUR_SERVER_URL")
+        .then(response => response.json())
+        .then(data => console.log(data));
+    ```
+
+- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration). You may want to logout the user in the SDK in this scenario, you can call force logout.
+
+    ```javascript
+    authgear
+        .logout({
+            force: true,
+        })
+        .then(() => {
+            // force logout successfully
+            // authgear.sessionState becomes NO_SESSION
+        })
+        .catch((e) => {
+            // failed to force logout
+        });
+
+    // example only, if your application server return HTTP status code 401 for unauthorized request
+    async function fetchAppServer() {
+        var response = await authgear.fetch("YOUR_SERVER_URL");
+        if (response.status === 401) {
+            await authgear.logout({force: true});
+            throw new Error("user logged out");
+        }
+        // ...
+    }
+    ```
