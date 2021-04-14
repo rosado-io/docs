@@ -10,7 +10,7 @@ In this section, we are going to explain how to make authorized request to your 
 # Setup Overview
 
 1. To determine which user is calling your server, you will need to include Authorization header in every request that send to your application sever.
-1. You will need to setup [Backend integration](../how-tos/backend-integration), Authgear will help you to resolve the Authorization header to determine whether the incoming HTTP request is authenticated or not.
+1. You will need to setup [Backend integration](../how-tos/backend-integration.md), Authgear will help you to resolve the Authorization header to determine whether the incoming HTTP request is authenticated or not.
 
 In the below section, we will explain how to setup SDK to include Authorization header to your application requests.
 
@@ -73,7 +73,7 @@ In the below section, we will explain how to setup SDK to include Authorization 
     }
     ```
 
-- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration). You may want to logout the user in the SDK in this scenario, you can call force logout.
+- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration.md). You may want to logout the user in the SDK in this scenario, you can call force logout.
 
     ```swift
     authgear.logout(force: true) { result in
@@ -117,7 +117,6 @@ In the below section, we will explain how to setup SDK to include Authorization 
 
 - `sessionState` reflect the user logged in state. Right after configure, the session state only reflect the SDK local state. That means even `sessionState` is `AUTHENTICATED`, the session maybe invalid if it is revoked remotely. You will only know that after calling the server, call `fetchUserInfo` as soon as it is proper to do so, e.g. when the device goes online.
 
-
     ```java
     // value can be NO_SESSION or AUTHENTICATED
     SessionState sessionState = authgear.getSessionState();
@@ -137,7 +136,6 @@ In the below section, we will explain how to setup SDK to include Authorization 
         });
     }
     ```
-
 
 - Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will refresh the access token only if it has expired. Include the access token into Authorization header of your application request.
 
@@ -163,7 +161,7 @@ In the below section, we will explain how to setup SDK to include Authorization 
     });
     ```
 
-- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration). You may want to logout the user in the SDK in this scenario, you can call force logout.
+- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration.md). You may want to logout the user in the SDK in this scenario, you can call force logout.
 
     ```java
     authgear.logout(true, new OnLogoutListener() {
@@ -179,7 +177,6 @@ In the below section, we will explain how to setup SDK to include Authorization 
         }
     });
     ```
-
 
 ## Javascript
 
@@ -200,7 +197,6 @@ In the below section, we will explain how to setup SDK to include Authorization 
     ```
 
 - `sessionState` reflect the user logged in state. Right after configure, the session state only reflect the SDK local state. That means even `sessionState` is `AUTHENTICATED`, the session maybe invalid if it is revoked remotely. You will only know that after calling the server, call `fetchUserInfo` as soon as it is proper to do so, e.g. when the device goes online.
-
 
     ```javascript
     // value can be NO_SESSION or AUTHENTICATED
@@ -228,7 +224,7 @@ In the below section, we will explain how to setup SDK to include Authorization 
         .then(data => console.log(data));
     ```
 
-- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration). You may want to logout the user in the SDK in this scenario, you can call force logout.
+- Handle the case that the session is revoked after SDK obtained the access token. In this case the app will call your application server with access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../how-tos/backend-integration.md). You may want to logout the user in the SDK in this scenario, you can call force logout.
 
     ```javascript
     authgear
