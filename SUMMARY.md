@@ -36,6 +36,10 @@
 * [API for Client Applications \(OIDC 2.0\)](apis/api-for-client-applications-oidc-2.0.md)
 * [Admin APIs](apis/admin-apis.md)
 
+## Webhooks
+
+* [Webhooks](webhooks/README.md)
+
 ## Deploy on your Cloud
 
 * [Running locally with Docker](deploy-on-your-cloud/local.md)
