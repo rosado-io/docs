@@ -116,11 +116,13 @@ http {
         listen 80;
 
         location / {
+            # See Note
             proxy_pass http://authgear:3000;
             proxy_set_header Host $host;
         }
 
         location /app {
+            # See Note
             proxy_pass http://app:8000;
             proxy_set_header Host $host;
             auth_request /_auth;
@@ -142,13 +144,20 @@ http {
 
         location = /_auth {
             internal;
-            proxy_pass http://authgear:3001/resolve;
+            # See Note
+            proxy_pass http://authgear:3001/_resolver/resolve;
             proxy_pass_request_body off;
             proxy_set_header Content-Length "";
         }
     }
 }
 ```
+
+> Note: When plain domain is used in proxy_pass directive,
+> the domain is resolved once and then cached indefinite.
+> If the domain is public, then you use use variable in proxy_pass with resolver directive to respect DNS TTL.
+> See https://www.nginx.com/blog/dns-service-discovery-nginx-plus/
+> For instructions on how to setup Nginx for production deployment, see [Using Nginx as the reverse proxy](../how-tos/backend-integration.md#using-nginx-as-the-reverse-proxy).
 
 Add Nginx in docker-compose.yaml:
 

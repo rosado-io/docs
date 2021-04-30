@@ -19,8 +19,14 @@ The trick here is to declare a internal `location` and use `auth_request` to ini
 
 ```text
 server {
+  # Use variable in proxy_pass with resolver to respect DNS TTL.
+  # Note that /etc/hosts and /etc/resolv.conf are NOT consulted if resolver is used.
+  # See https://www.nginx.com/blog/dns-service-discovery-nginx-plus/
+  resolver 8.8.8.8;
+
   location / {
-    proxy_pass http://your-backend;
+    set $backend http://your-backend;
+    proxy_pass $backend;
     proxy_set_header Host $host;
     # Initiate a subrequest to the resolve endpoint.
     # This corresponds to the Step 1.
@@ -51,7 +57,8 @@ server {
 
   location = /_auth {
     internal;
-    proxy_pass https://myapp.authgearapps.com/_resolver/resolve;
+    set $backend https://myapp.authgearapps.com/_resolver/resolve;
+    proxy_pass $backend;
     # The body is supposed to be consumed by your backend server.
     proxy_pass_request_body off;
     proxy_set_header Content-Length "";
