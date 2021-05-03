@@ -8,4 +8,5 @@ Authgear supports following SSO providers. Please click the link below for setup
 * [Linkedin](linkedin.md)
 * [Azure Active Directory](azureadv2.md)
 * [WeChat](wechat.md)
+* [Microsoft AD FS](adfs.md)
 
