@@ -20,6 +20,7 @@
   * [Microsoft AD FS](how-tos/how-to-setup-sso-integrations/adfs.md)
 * [Add Privacy Policy & Terms of Service Links](how-tos/privacy-policy-terms-of-service.md)
 * [Integrate with your backend](how-tos/backend-integration.md)
+* [Biometric login](how-tos/biometrics.md)
 
 ## Concepts
 
