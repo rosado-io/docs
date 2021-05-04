@@ -25,7 +25,7 @@ server {
   resolver 8.8.8.8;
 
   location / {
-    set $backend http://your-backend;
+    set $backend http://www.mycompany.com;
     proxy_pass $backend;
     proxy_set_header Host $host;
     # Initiate a subrequest to the resolve endpoint.
@@ -57,7 +57,7 @@ server {
 
   location = /_auth {
     internal;
-    set $backend https://myapp.authgearapps.com/_resolver/resolve;
+    set $backend https://mycompany.authgearapps.com/_resolver/resolve;
     proxy_pass $backend;
     # The body is supposed to be consumed by your backend server.
     proxy_pass_request_body off;
