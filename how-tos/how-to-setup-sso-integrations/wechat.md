@@ -107,7 +107,7 @@ Here are the detailed steps for iOS, Android and React Native.
        }
      ```
 
-   * Setup Authgear delegate and call WeChat SDK when `sendWeChatAuthRequest` is triggered
+   * Setup Authgear delegate and call WeChat SDK when `sendWechatAuthRequest` is triggered
 
      ```swift
        // Replace self with the object that you implement the AuthgearDelegate
@@ -115,7 +115,7 @@ Here are the detailed steps for iOS, Android and React Native.
 
        // Replace WECHAT_APP_ID with wechat app id
        extension MyClass: AuthgearDelegate {
-           func sendWeChatAuthRequest(_ state: String) {
+           func sendWechatAuthRequest(_ state: String) {
                let req = SendAuthReq()
                req.openID = "WECHAT_APP_ID"
                req.scope = "snsapi_userinfo"
@@ -152,12 +152,12 @@ Here are the detailed steps for iOS, Android and React Native.
            func onReq(_ req: BaseReq) {}
            func onResp(_ resp: BaseResp) {
                // Receive code from WeChat, send callback to authgear
-               // by calling `authgear.weChatAuthCallback`
+               // by calling `authgear.wechatAuthCallback`
                if resp.isKind(of: SendAuthResp.self) {
                    if resp.errCode == 0 {
                        let _resp = resp as! SendAuthResp
                        if let code = _resp.code, let state = _resp.state {
-                           authgear.weChatAuthCallback(code: code, state: state) { result in
+                           authgear.wechatAuthCallback(code: code, state: state) { result in
                                switch result {
                                case .success():
                                    // send wechat auth callback to authgear successfully
@@ -174,14 +174,14 @@ Here are the detailed steps for iOS, Android and React Native.
        }
      ```
 
-   * Provide `weChatRedirectURI` when calling `authorize` and `promoteAnonymousUser` in authgear sdk
+   * Provide `wechatRedirectURI` when calling `authorize` and `promoteAnonymousUser` in authgear sdk
 
      ```swift
        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
        container?.authorize(
            redirectURI: "REDIRECT_URI",
            prompt: "login",
-           weChatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
+           wechatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
        ) { result in
        }
 
@@ -189,7 +189,7 @@ Here are the detailed steps for iOS, Android and React Native.
        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
        container?.promoteAnonymousUser(
            redirectURI: "REDIRECT_URI",
-           weChatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
+           wechatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
        ) { result in
        }
 
@@ -263,11 +263,11 @@ Here are the detailed steps for iOS, Android and React Native.
    * Configure WeChat SDK
 
      ```java
-       private IWXAPI weChatAPI;
+       private IWXAPI wechatAPI;
 
-       private setupWeChatSDK() {
-           weChatAPI = WXAPIFactory.createWXAPI(app, YOUR_WECHAT_APP_ID, true);
-           weChatAPI.registerApp(YOUR_WECHAT_APP_ID);
+       private setupWechatSDK() {
+           wechatAPI = WXAPIFactory.createWXAPI(app, YOUR_WECHAT_APP_ID, true);
+           wechatAPI.registerApp(YOUR_WECHAT_APP_ID);
        }
      ```
 
@@ -276,15 +276,15 @@ Here are the detailed steps for iOS, Android and React Native.
      ```java
        mAuthgear.setDelegate(new AuthgearDelegate() {
            @Override
-           public void sendWeChatAuthRequest(String state) {
-               if (!weChatAPI.isWXAppInstalled()) {
+           public void sendWechatAuthRequest(String state) {
+               if (!wechatAPI.isWXAppInstalled()) {
                    // User have not installed WeChat app, show them the error
                    return;
                }
                SendAuth.Req req = new SendAuth.Req();
                req.scope = "snsapi_userinfo";
                req.state = state;
-               weChatAPI.sendReq(req);
+               wechatAPI.sendReq(req);
            }
        });
      ```
@@ -295,26 +295,26 @@ Here are the detailed steps for iOS, Android and React Native.
        api.handleIntent(getIntent(), this);
      ```
 
-     You will be able to receive the authentication code and state in `onResp` method, call Authgear `weChatAuthCallback` with `code` and `state`.
+     You will be able to receive the authentication code and state in `onResp` method, call Authgear `wechatAuthCallback` with `code` and `state`.
 
      ```java
-       mAuthgear.weChatAuthCallback(code, state, new OnWeChatAuthCallbackListener() {
+       mAuthgear.wechatAuthCallback(code, state, new OnWechatAuthCallbackListener() {
            @Override
-           public void onWeChatAuthCallback() {
+           public void onWechatAuthCallback() {
            }
 
            @Override
-           public void onWeChatAuthCallbackFailed(Throwable throwable) {
+           public void onWechatAuthCallbackFailed(Throwable throwable) {
            }
        });
      ```
 
-   * Provide `weChatRedirectURI` when calling `authorize` and `promoteAnonymousUser` in Authgear SDK.
+   * Provide `wechatRedirectURI` when calling `authorize` and `promoteAnonymousUser` in Authgear SDK.
 
      ```java
        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
        AuthorizeOptions options = new AuthorizeOptions(AUTHGEAR_REDIRECT_URI);
-       options.setWeChatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
+       options.setWechatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
        mAuthgear.authorize(options, new OnAuthorizeListener() {
            @Override
            public void onAuthorized(@Nullable AuthorizeResult result) {
@@ -328,7 +328,7 @@ Here are the detailed steps for iOS, Android and React Native.
        // For anonymous user support only
        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
        PromoteOptions options = new PromoteOptions(AUTHGEAR_REDIRECT_URI);
-       options.setWeChatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
+       options.setWechatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
        mAuthgear.promoteAnonymousUser(options, new OnPromoteAnonymousUserListener() {
            @Override
            public void onPromoted(@NonNull AuthorizeResult result) {
@@ -342,7 +342,7 @@ Here are the detailed steps for iOS, Android and React Native.
        // Open setting page
        // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
        SettingOptions options = new SettingOptions();
-       options.setWeChatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
+       options.setWechatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
        mAuthgear.open(Page.Settings, options);
      ```
 7. Here is the completed [example](https://github.com/authgear/authgear-sdk-android/tree/main/javasample).
@@ -423,11 +423,11 @@ Here are the detailed steps for iOS, Android and React Native.
        }
      ```
 
-   * Provide `weChatRedirectURI` when calling Authgear SDK `authorize` and `promoteAnonymousUser` in js
+   * Provide `wechatRedirectURI` when calling Authgear SDK `authorize` and `promoteAnonymousUser` in js
 
      ```javascript
        // REPLACE IOS_WECHAT_REDICRECT_URI_FOR_AUTHGEAR and ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR
-       const weChatRedirectURI = Platform.select<string>({
+       const wechatRedirectURI = Platform.select<string>({
            android: 'ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR',
            ios: 'IOS_WECHAT_REDICRECT_URI_FOR_AUTHGEAR',
        });
@@ -435,7 +435,7 @@ Here are the detailed steps for iOS, Android and React Native.
        authgear
            .authorize({
                redirectURI: "REDIRECT_URI",
-               weChatRedirectURI: weChatRedirectURI
+               wechatRedirectURI: wechatRedirectURI
 
            });
 
@@ -443,32 +443,32 @@ Here are the detailed steps for iOS, Android and React Native.
        authgear
            .promoteAnonymousUser({
                redirectURI: "REDIRECT_URI",
-               weChatRedirectURI: weChatRedirectURI
+               wechatRedirectURI: wechatRedirectURI
            });
 
        // Open setting page
        authgear
            .open(Page.Settings, {
-               weChatRedirectURI: weChatRedirectURI,
+               wechatRedirectURI: wechatRedirectURI,
            })
      ```
 
-   * Setup Authgear delegate and open WeChat SDK when sendWeChatAuthRequest is triggered
+   * Setup Authgear delegate and open WeChat SDK when sendWechatAuthRequest is triggered
 
      ```javascript
        authgear.delegate = {
-           sendWeChatAuthRequest: (state) => {
+           sendWechatAuthRequest: (state) => {
                // User click login with WeChat
                // Implement native modules to use WeChat SDK to open 
                // WeChat app for authorization.
-               // After obtaining authorization code, call Authgear.weChatAuthCallback
+               // After obtaining authorization code, call Authgear.wechatAuthCallback
                // to complete the authorization.
-               const {WeChatAuth} = NativeModules;
-               WeChatAuth.sendWeChatAuthRequest(state)
+               const {WechatAuth} = NativeModules;
+               WechatAuth.sendWechatAuthRequest(state)
                .then((result: {code: string; state: string}) => {
                    // Native module sending back the code after login with
-                   // WeChat app. Call Authgear.weChatAuthCallback
-                   return authgear.weChatAuthCallback(result.code, result.state);
+                   // WeChat app. Call Authgear.wechatAuthCallback
+                   return authgear.wechatAuthCallback(result.code, result.state);
                })
                .then(() => {
                    // Send WeChat callback to authgear successfully
