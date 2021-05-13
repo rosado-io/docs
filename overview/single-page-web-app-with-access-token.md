@@ -1,0 +1,28 @@
+---
+description: Add login to your single page application
+---
+
+# Single-page app with access token
+
+By using Authgear, you can add a login to your single-page application easily. Authgear supports various authentication methods, that you can easily turn on and configure in the portal.
+
+Authgear also helps you to protect your server from unauthorized access.
+
+### How it works
+
+![](https://mermaid.ink/img/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgY2xpZW50W1NpbmdsZSBQYWdlIEFwcF1cbiAgICBhdXRoZ2VhcltBdXRoZ2Vhcl1cbiAgICBhcHBbWW91ciBXZWIgU2VydmVyXVxuICAgIFxuICAgIGNsaWVudCAtLT4gfDEuIFVzZXIgYXV0aGVuY2lhdGUgPGJyLz4gd2l0aCBBdXRoZ2VhcnwgYXV0aGdlYXJcbiAgICBjbGllbnQgLS0-IHwyLiBSZXF1ZXN0IHlvdXIgYXBwbGljYXRpb24gc2VydmVyfCBhcHBcbiAgICBhcHAgLS0-IHwzLiBDaGVjayByZXF1ZXN0IGF1dGhlbnRpY2F0aW9uIGJ5IDxici8-IHJlc2VydmUgcHJveHkgZm9yd2FyZCBhdXRoIDxici8-IG9yIHZlcmlmeSBKV1QgIHwgYXV0aGdlYXJcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+
+1. User authenticates with Authgear and Authgear responds with refresh token and access token.
+2. The app calls your web server with the Authgear access token.
+3. In your backend, check if the request is authenticated by setting up Auth forward in your reverse proxy \(e.g. Nginx\) or verify JSON Web Token \(JWT\).
+
+### Setup Overview
+
+1. [Setup Authgear and adding login with Authgear JS SDK](../getting-started/website.md)
+2. [Integrate your backend with Authgear to authenticate the request](../getting-started/backend-integration/)
+3. [Using SDK to call your application server](../getting-started/using-sdk-to-call-your-application-server.md)
+
+
+
+
+
