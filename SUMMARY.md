@@ -6,7 +6,7 @@
 
 * [Native mobile app \(iOS, Android or React Native\)](overview/native-mobile-app-ios-android-or-react-native.md)
 * [Single-page app with access token](overview/single-page-web-app-with-access-token.md)
-* [Website with cookies \(e.g. Server side rendered app, regular website, single page app\)](overview/website-with-cookies.md)
+* [Website with cookies \(e.g. Server-side rendered app, regular website, single-page app\)](overview/website-with-cookies.md)
 
 ## Getting Started
 
