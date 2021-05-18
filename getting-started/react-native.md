@@ -9,30 +9,24 @@ This guide provides instructions to integrate authgear with a react native app. 
 * Android
 * iOS
 
-## Get the SDK
+## Setup Application in Authgear
 
-The React Native SDK is available as [a npm package](https://www.npmjs.com/package/@authgear/react-native).
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
 
-## Prerequisite
+After that, we will need to create an application in Authgear.
 
-You must follow [this](../deploy-on-your-cloud/local.md) to get Authgear running first!
+{% tabs %}
+{% tab title="Portal" %}
+**Create an application**
 
-## Add OAuth Client to Authgear
-
-In [authgear.yaml](https://github.com/authgear/docs/tree/6a52b949b69188c9e946087c464c5b3b657b5bb4/configuration/authgear.yaml.md), declare an OAuth client for the app. This allows the app to authenticate via this client using the authgear sdk.
-
-```yaml
-oauth:
-  clients:
-    - client_id: a_random_generated_string
-      redirect_uris:
-        - "com.authgear.example://host/path"
-      grant_types:
-        - authorization_code
-        - refresh_token
-      response_types:
-        - code
-```
+1. Go to "Applications".
+2. Click "Add Application" in the top right corner
+3. Input name of your application, this is for reference only
+4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp://host/path_\).
+5. If you want Authgear to issue JWT access token, select the "Issue JWT as access token". If you will use a reserve proxy to authenticate requests, keep this unchecked. Detail see [Integrate with your backend](backend-integration/).
+6. Click "Save" and keep the client id. You can also obtain the client id from the list later.
+{% endtab %}
+{% endtabs %}
 
 ## Create a React Native app
 
@@ -52,45 +46,9 @@ yarn add --exact @authgear/react-native
 (cd ios && pod install)
 ```
 
-## Try authenticate
-
-Add this code to your react native app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authorization, and then upon success redirects to the app via the `redirectURI` specified.
-
-```javascript
-import React, { useCallback } from "react";
-import { View, Button } from "react-native";
-import authgear from "@authgear/react-native";
-
-function LoginScreen() {
-  const onPress = useCallback(() => {
-    // Normally you should only configure once when the app launches.
-    authgear
-      .configure({
-        clientID: "a_random_generated_string",
-        endpoint: "http://localhost:3000",
-      })
-      .then(() => {
-        authgear
-          .authorize({
-            redirectURI: "com.authgear.example://host/path",
-          })
-          .then(({ userInfo }) => {
-            console.log(userInfo);
-          });
-      });
-  }, []);
-
-  return (
-    <View>
-      <Button onPress={onPress} title="Authenticate" />
-    </View>
-  );
-}
-```
-
 ## Platform Integration
 
-To finish the integration, setup the app to handle the redirectURI specified in previous section. This part requires platform specific integration.
+To finish the integration, setup the app to handle the redirectURI specified in the application. This part requires platform specific integration.
 
 ### Android
 
@@ -111,7 +69,7 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
                 <!-- Configure data to be the exact redirect URI your app uses. -->
                 <!-- Here, we are using com.authgear.example://host/path as configured in authgear.yaml. -->
                 <!-- NOTE: The redirectURI supplied in AuthorizeOptions *has* to match as well -->
-                <data android:scheme="com.authgear.example"
+                <data android:scheme="com.myapp.example"
                     android:host="host"
                     android:pathPrefix="/path"/>
             </intent-filter>
@@ -138,7 +96,7 @@ In `Info.plist`, add the matching redirect URI.
                       <string>Editor</string>
                       <key>CFBundleURLSchemes</key>
                       <array>
-                              <string>com.authgear.example</string>
+                              <string>com.myapp.example</string>
                       </array>
               </dict>
       </array>
@@ -150,7 +108,7 @@ In `Info.plist`, add the matching redirect URI.
 
 In `AppDelegate.m`, add the following code snippet.
 
-```text
+```objectivec
 // Other imports...
 #import <authgear-react-native/AGAuthgearReactNative.h>
 
@@ -187,4 +145,60 @@ In `AppDelegate.m`, add the following code snippet.
                           restorationHandler:restorationHandler];
 }
 ```
+
+## Try authenticate
+
+Add this code to your react native app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authorization, and then upon success redirects to the app via the `redirectURI` specified.
+
+```javascript
+import React, { useCallback } from "react";
+import { View, Button } from "react-native";
+import authgear from "@authgear/react-native";
+
+function LoginScreen() {
+  const onPress = useCallback(() => {
+    // Normally you should only configure once when the app launches.
+    authgear
+      .configure({
+        clientID: "a_random_generated_string",
+        endpoint: "http://<myapp>.authgearapps.com",
+      })
+      .then(() => {
+        authgear
+          .authorize({
+            redirectURI: "com.myapp.example://host/path",
+          })
+          .then(({ userInfo }) => {
+            console.log(userInfo);
+          });
+      });
+  }, []);
+
+  return (
+    <View>
+      <Button onPress={onPress} title="Authenticate" />
+    </View>
+  );
+}
+```
+
+## Logout
+
+To log out the user from the current app session, you need to invoke the`logout`function.
+
+```javascript
+authgear
+  .logout()
+  .then(() => {
+    // logout successfully
+  });
+```
+
+## Next steps
+
+To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear** and **using SDK to call your application server**. In the next section, we will go through the step one by one.
+
+{% page-ref page="backend-integration/" %}
+
+
 
