@@ -11,7 +11,9 @@
 ## Getting Started
 
 * [Integrate with a React Native app](getting-started/react-native.md)
-* [Integrate with an Android App](getting-started/android.md)
+* [Integrate with an Android App](getting-started/android/README.md)
+  * [Android Kotlin coroutine support](getting-started/android/coroutine-support.md)
+  * [Android OKHttp Interceptor Extension \(Optional\)](getting-started/android/okhttp-interceptor-extension.md)
 * [Integrate with an iOS App](getting-started/ios.md)
 * [Integrate with a Website](getting-started/website.md)
 * [Integrate with your backend](getting-started/backend-integration/README.md)

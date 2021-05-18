@@ -205,29 +205,27 @@ authgear.refreshAccessTokenIfNeeded() { result in
 
 {% tab title="Android" %}
 ```java
-authgear.refreshAccessTokenIfNeeded(new OnRefreshAccessTokenIfNeededListener() {
-    @Override
-    public void onFinished() {
-        // access token is ready to use
-        // accessToken can be empty
-        // it will be empty if user is not logged in or session is invalid
+// Suppose we are preparing an http request in a background thread.
 
-        // include Authorization header in your application request
-        String accessToken = authgear.getAccessToken();
-        if (accessToken != null) {
-            // example only, you can use your own networking library
-            URL url = new URL("YOUR_SERVER_URL");
-            HttpURLConnection c = (HttpURLConnection) url.openConnection();
-            c.setRequestProperty("Authorization", "Bearer " + accessToken);
-            // ... continue making your request
-        }
-    }
-    @Override
-    public void onFailed(Throwable throwable) {
-        // failed to refresh access toke
-        // the refresh token maybe expired or revoked
-    }
-});
+// Setting up the request, e.g. preparing a URLConnection
+
+try {
+    authgear.refreshAccessTokenIfNeededSync();
+} catch (OauthException e) {
+    // The token is expired.
+}
+String accessToken = authgear.getAccessToken();
+if (accessToken == null) {
+    // The user is not logged in, or the token is expired.
+    // It is up to the caller to decide how to handle this situation. Typically, the request could be aborted
+    // immediately as the response would be 401 anyways.
+    return;
+}
+
+HashMap<String, String> headers = new HashMap<>();
+headers.put("authorization", "bearer " + accessToken);
+
+// Submit the request with the headers...
 ```
 {% endtab %}
 {% endtabs %}

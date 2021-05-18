@@ -18,8 +18,8 @@ By using Authgear, you can add a login to your native mobile application easily.
 
 1. Setup Authgear and integrate your application with Authgear SDK
    1. [React-Native](../getting-started/react-native.md)
-   2. iOS
-   3. Android
+   2. [iOS](../getting-started/ios.md)
+   3. [Android](../getting-started/android/)
 2. [Integrate your backend with Authgear to authenticate the request](../getting-started/backend-integration/)
 3. [Using SDK to call your application server](../getting-started/using-sdk-to-call-your-application-server.md)
 
