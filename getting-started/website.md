@@ -4,7 +4,25 @@ description: Integrate your website with Authgear JS SDK
 
 # Web SDK
 
-Authgear provides **cookie-based** or **token-based** authentication.
+Authgear provides **token-based** or **cookie-based** authentication for web applications. You will need to decide which approach you are going to use before starting the setup.
+
+### **Token-based authentication**
+
+In token-based authentication, Authgear returns the `access token` and `refresh token` to the client app after authentication. 
+
+The client SDK will automatically renew the `access token` with the `refresh token` for you, so you don't have to worry about it.
+
+Your client app should call your backend with the access token on the Authorization header, and you can verify the access token by integrating Authgear with your backend.
+
+This approach is suitable for **mobile apps** or **single-page web applications**.
+
+### **Cookie-based authentication**
+
+In cookie-based authentication, Authgear returns `Set-Cookie` headers and sets cookies to the browser. The cookies are HTTP only and share under the same root domains. So you will need to setup the **custom domain** for Authgear, such as `identity.yourdomain.com`. 
+
+In this setting, if you have multiple applications under `yourdomain.com`, all applications would share the same session cookies automatically. After that, you can verify the cookies by integrating Authgear with your backend. 
+
+This approach is suitable for all types of websites, including server-side rendered applications.
 
 ## Setup Application in Authgear
 
