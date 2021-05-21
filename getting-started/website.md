@@ -179,7 +179,7 @@ authgear
 
         // include Authorization header in your application request
         const headers = {
-            Authorization: `bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`
         };
     });
 ```

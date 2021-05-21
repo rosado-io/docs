@@ -182,7 +182,7 @@ if (accessToken == null) {
 }
 
 HashMap<String, String> headers = new HashMap<>();
-headers.put("authorization", "bearer " + accessToken);
+headers.put("authorization", "Bearer " + accessToken);
 
 // Submit the request with the headers...
 ```
