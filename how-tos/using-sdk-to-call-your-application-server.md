@@ -13,7 +13,7 @@ In this section, we are going to explain how to make an authorized request to yo
 ## Setup Overview
 
 1. To determine which user is calling your server, you will need to include the Authorization header in every request that send to your application server.
-2. You will need to set up [Backend integration](backend-integration/nginx.md), Authgear will help you to resolve the Authorization header to determine whether the incoming HTTP request is authenticated or not.
+2. You will need to set up [Backend integration](../getting-started/backend-integration/nginx.md), Authgear will help you to resolve the Authorization header to determine whether the incoming HTTP request is authenticated or not.
 
 In the below section, we will explain how to set up SDK to include Authorization header to your application requests.
 
@@ -230,7 +230,7 @@ headers.put("authorization", "bearer " + accessToken);
 {% endtab %}
 {% endtabs %}
 
-* Handle the case that the session is revoked after SDK obtained the access token. In this case, the app will call your application server with the access token. But your application server will find that the access token is invalid, by checking the [resolve headers](backend-integration/nginx.md). Depending on your application flow, you may want to show your user login page again or reset the SDK `sessionState` to `NO_SESSION` locally. To clear the `sessionState`, you can use `clearSessionState` function.
+* Handle the case that the session is revoked after SDK obtained the access token. In this case, the app will call your application server with the access token. But your application server will find that the access token is invalid, by checking the [resolve headers](../getting-started/backend-integration/nginx.md). Depending on your application flow, you may want to show your user login page again or reset the SDK `sessionState` to `NO_SESSION` locally. To clear the `sessionState`, you can use `clearSessionState` function.
 
 {% tabs %}
 {% tab title="Javascript" %}

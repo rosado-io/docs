@@ -2,11 +2,11 @@
 
 The Authgear Android SDK provides an optional `Okhttp` interceptor which handles everything from refreshing the access token to putting the access token in the header.
 
-### Get the Extension
+## Get the Extension
 
 The extension is included in the SDK. Please refer to the above section for getting the SDK.
 
-### Usage
+## Usage
 
 Configure `OkHttpClient` to use `AuthgearInterceptor` as follows:
 

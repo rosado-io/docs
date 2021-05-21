@@ -175,7 +175,6 @@ if token:
         audience=base_address,
         options={"verify_exp": True},
     )
-
 ```
 {% endtab %}
 {% endtabs %}

@@ -14,5 +14,3 @@ description: Authgear is an authentication server for web and mobile apps.
 
 {% page-ref page="overview/website-with-cookies.md" %}
 
-
-

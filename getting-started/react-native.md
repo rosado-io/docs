@@ -2,7 +2,7 @@
 description: How to integrate with a React Native app
 ---
 
-# Integrate with a React Native app
+# React Native SDK
 
 This guide provides instructions to integrate authgear with a react native app. Supported platforms include:
 
@@ -182,6 +182,41 @@ function LoginScreen() {
 }
 ```
 
+## Using the Access Token in HTTP Requests
+
+To include the access token to the HTTP requests to your application server, there are two ways to achieve this.
+
+### Option 1: Using fetch function provided by Authgear SDK
+
+Authgear SDK provides the `fetch` function for you to call your application server. The `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org/).
+
+```javascript
+authgear
+    .fetch("YOUR_SERVER_URL")
+    .then(response => response.json())
+    .then(data => console.log(data));
+```
+
+### Option 2: Add the access token to your HTTP
+
+You can access the access token through `authgear.accessToken`. Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of your application request.
+
+```javascript
+authgear
+    .refreshAccessTokenIfNeeded()
+    .then(() => {
+        // access token is ready to use
+        // accessToken can be string or undefined
+        // it will be empty if user is not logged in or session is invalid
+        const accessToken = authgear.accessToken;
+
+        // include Authorization header in your application request
+        const headers = {
+            Authorization: `bearer ${accessToken}`
+        };
+    });
+```
+
 ## Logout
 
 To log out the user from the current app session, you need to invoke the`logout`function.
@@ -196,9 +231,7 @@ authgear
 
 ## Next steps
 
-To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear** and **using SDK to call your application server**. In the next section, we will go through the step one by one.
+To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
 {% page-ref page="backend-integration/" %}
-
-
 

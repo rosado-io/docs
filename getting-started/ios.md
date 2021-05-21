@@ -2,7 +2,7 @@
 description: Integrate your iOS application with Authgear iOS SDK
 ---
 
-# Integrate with an iOS App
+# iOS SDK
 
 ## Setup Application in Authgear
 
@@ -118,6 +118,33 @@ authgear.authorize(redirectURI: "{your_redirect_uri}", handler: { result in
 
 Your user is now logged in!
 
+## Using the Access Token in HTTP Requests
+
+Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of your application request.
+
+```swift
+authgear.refreshAccessTokenIfNeeded() { result in
+    switch result {
+    case .success():
+        // access token is ready to use
+        // accessToken can be empty
+        // it will be empty if user is not logged in or session is invalid
+
+        // include Authorization header in your application request
+        if let accessToken = authgear.accessToken {
+            // example only, you can use your own networking library
+            var urlRequest = URLRequest(url: "YOUR_SERVER_URL")
+            urlRequest.setValue(
+                "Bearer \(accessToken)", forHTTPHeaderField: "authorization")
+            // ... continue making your request
+        }
+    case let .failure(error):
+        // failed to refresh access token
+        // the refresh token maybe expired or revoked
+    }
+}
+```
+
 ## Logout
 
 To log out the user from the current app session, you need to invoke the`logout`function.
@@ -133,12 +160,12 @@ authgear.logout { result in
 }
 ```
 
-## **Next steps**  <a id="secure-your-application-server-with-authgear"></a>
+## Next steps
 
-To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear** and **using SDK to call your application server**. In the next section, we will go through the step one by one.
+To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
 {% page-ref page="backend-integration/" %}
 
-[  
+[    
 ](https://kmlaucow.gitbook.io/tes/getting-started/backend-integration)
 

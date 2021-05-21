@@ -2,7 +2,7 @@
 description: How to use authgear android SDK
 ---
 
-# Integrate with an Android App
+# Android SDK
 
 ## Setup Application in Authgear
 
@@ -158,6 +158,35 @@ class MyAwesomeViewModel extends AndroidViewModel {
 
 The above call of `authorize` passes in the exact redirect URI as configured in the applications and manifest, the callback then indicates authorization success or failure. By default, the callback is called on the main thread.
 
+## Using the Access Token in HTTP Requests
+
+Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of your application request. If you are using OKHttp in your project, you can also use the interceptor extension provided by the SDK, see [detail](okhttp-interceptor-extension.md).
+
+```java
+// Suppose we are preparing an http request in a background thread.
+
+// Setting up the request, e.g. preparing a URLConnection
+
+try {
+    authgear.refreshAccessTokenIfNeededSync();
+} catch (OauthException e) {
+    // The token is expired.
+}
+String accessToken = authgear.getAccessToken();
+if (accessToken == null) {
+    // The user is not logged in, or the token is expired.
+    // It is up to the caller to decide how to handle this situation.
+    // Typically, the request could be aborted
+    // immediately as the response would be 401 anyways.
+    return;
+}
+
+HashMap<String, String> headers = new HashMap<>();
+headers.put("authorization", "bearer " + accessToken);
+
+// Submit the request with the headers...
+```
+
 ## Logout
 
 To log out the user from the current app session, you need to invoke the`logout`function.
@@ -186,7 +215,7 @@ class MyAwesomeViewModel extends AndroidViewModel {
 
 ## **Next steps** <a id="secure-your-application-server-with-authgear"></a>
 
-To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear** and **using SDK to call your application server**. In the next section, we will go through the step one by one.
+To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
 {% page-ref page="../backend-integration/" %}
 

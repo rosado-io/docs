@@ -14,8 +14,8 @@ With this option turn on in your application, Authgear will issue JWT as the acc
 
 |  | **Forward authentication with reserve proxy** | **Validate JSON Web Token \(JWT\) in your application server** |
 | :--- | :--- | :--- |
-| Integration difficulties | ☹Medium, need setup extra reserve proxy to resolve authentication information | 😀Easy, you only need to add code in your application to validate and decode JWT |
-| Reliability | 😀Update near real-time, based on your reserve proxy cache setting | ☹JWT only updates when expire, that means before the token expiry, your application may see the user is valid even s/he has been disabled |
+| Integration difficulties | 😟 Medium, need setup extra reserve proxy to resolve authentication information | 🙂 Easy, you only need to add code in your application to validate and decode JWT |
+| Reliability | 🙂 Update near real-time, based on your reserve proxy cache setting | 😟 JWT only updates when expire, that means before the token expiry, your application may see the user is valid even s/he has been disabled |
 
 ## Setup guides
 
@@ -26,12 +26,6 @@ With this option turn on in your application, Authgear will issue JWT as the acc
 **Validate JSON Web Token \(JWT\) in your application server**
 
 {% page-ref page="jwt.md" %}
-
-
-
-\*\*\*\*
-
-\*\*\*\*
 
 
 

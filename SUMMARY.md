@@ -10,16 +10,15 @@
 
 ## Getting Started
 
-* [Integrate with a React Native app](getting-started/react-native.md)
-* [Integrate with an Android App](getting-started/android/README.md)
+* [React Native SDK](getting-started/react-native.md)
+* [Android SDK](getting-started/android/README.md)
   * [Android Kotlin coroutine support](getting-started/android/coroutine-support.md)
   * [Android OKHttp Interceptor Extension \(Optional\)](getting-started/android/okhttp-interceptor-extension.md)
-* [Integrate with an iOS App](getting-started/ios.md)
-* [Integrate with a Website](getting-started/website.md)
+* [iOS SDK](getting-started/ios.md)
+* [Web SDK](getting-started/website.md)
 * [Integrate with your backend](getting-started/backend-integration/README.md)
   * [Forward Authentication With Nginx](getting-started/backend-integration/nginx.md)
   * [Authenticate With JWT](getting-started/backend-integration/jwt.md)
-* [Using SDK to call your application server](getting-started/using-sdk-to-call-your-application-server.md)
 
 ## How tos
 
@@ -33,6 +32,7 @@
   * [Microsoft AD FS](how-tos/how-to-setup-sso-integrations/adfs.md)
 * [Biometric login](how-tos/biometric.md)
 * [Add Privacy Policy & Terms of Service Links](how-tos/privacy-policy-terms-of-service.md)
+* [Using SDK to call your application server](how-tos/using-sdk-to-call-your-application-server.md)
 
 ## Concepts
 

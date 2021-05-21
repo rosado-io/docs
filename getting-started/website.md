@@ -2,9 +2,11 @@
 description: Integrate your website with Authgear JS SDK
 ---
 
-# Integrate with a Website
+# Web SDK
 
-## Prerequisite
+Authgear provides **cookie-based** or **token-based** authentication.
+
+## Setup Application in Authgear
 
 Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
 
@@ -17,9 +19,9 @@ After that, we will need to create applications in Authgear.
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input name of your application, this is for reference only
-4. Decide a path that users will be redirected to after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. https://yourdomain.com/auth-redirect\).
+4. Decide a path that users will be redirected to after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _https://yourdomain.com/auth-redirect_\).
 5. If you want Authgear to issue JWT access token, select the "Issue JWT as access token". If you will use a reserve proxy to authenticate requests, keep this unchecked. Detail see [Integrate with your backend](backend-integration/).
-6. \(Optional\) If you are using cookies, you can decide the path that the user redirects to after logout. Add the URI to "Post Logout Redirect URIs".
+6. \(Cookie-based authentication only\) If you are using cookies, you can decide the path that the user redirects to after logout. Add the URI to "Post Logout Redirect URIs".
 7. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 
 **Add website to allowed origins**
@@ -28,10 +30,10 @@ After that, we will need to create applications in Authgear.
 2. Add your website origin to the allowed origins \(e.g. _yourdomain.com_, _localhost:4000_ for local development example\).
 3. Click "Save".
 
-**Setup custom domain for Authgear \(Required by using cookies only\)**
+**Setup custom domain for Authgear \(Required by cookie-based authentication only\)**
 
 1. Go to "Custom Domains"
-2. You will need to have a subdomain under your website so your users will log in via, e.g. "identity.yourdomain.com". In this case, a session cookie of domain "yourdomain.com" is written so that your websites can share the session cookies under "yourdomain.com" and all "\*.yourdomain.com" for better customer experiences.
+2. You will need to have a subdomain under your website so your users will log in via. \(e.g. _identity.yourdomain.com_\). In this case, a session cookie of domain "_yourdomain.com_" is written so that your websites can share the session cookies under "_yourdomain.com_" and all "_\*.yourdomain.com_" for better customer experiences.
 3. Fill in your custom domain to the "Input New Domain" field and click "Add"; and follow the instruction to complete the custom domain setup.
 4. Your custom domain status should be "Configured" after setup, click "Activate" to change it to "Active". The custom domain will be your new Authgear endpoint.
 {% endtab %}
@@ -93,12 +95,11 @@ authgear
       // failed to configure.
     }
   );
-
 ```
 
 ## Trigger authenticate
 
-When the user clicks login/signup on your website, you can use the following code to start authorization. 
+When the user clicks login/signup on your website, you can use the following code to start authorization.
 
 ```javascript
 import authgear from "@authgear/web";
@@ -108,13 +109,13 @@ authgear
     // configure redirectURI which users will be redirected to
     // after they have authenticated with Authgear
     // you can use any path in your website
-    // make sure it is in the "Redirect URIs" list of the OAuth client
+    // make sure it is in the "Redirect URIs" list of the Application
     redirectURI: "https://yourdomain.com/auth-redirect",
     // prompt is optional
     // by default Authgear will not ask user to login again if user has logged in
-    // Authgear and the session is still valid
-    // if you want user always reach the login and login again when you call
-    // startAuthorization, set promote to login like this
+    // if you want the user always reach the login page
+    // and login again when you call startAuthorization
+    // set promote to login like this
     prompt: "login",
   })
   .then(
@@ -125,7 +126,6 @@ authgear
       // failed to start authorization
     }
   );
-
 ```
 
 ## After user authenticate
@@ -143,10 +143,46 @@ authgear.finishAuthorization().then(
     // failed to finish authorization
   },
 );
-
 ```
 
-Now, your user is now logged in! 
+Now, your user is now logged in!
+
+## Using the Access Token in HTTP Requests \(Token-based authentication only\)
+
+If you are using cookies, you can skip this section.
+
+To include the access token to the HTTP requests to your application server, there are two ways to achieve this.
+
+### Option 1: Using fetch function provided by Authgear SDK
+
+Authgear SDK provides the `fetch` function for you to call your application server. The `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org/).
+
+```javascript
+authgear
+    .fetch("YOUR_SERVER_URL")
+    .then(response => response.json())
+    .then(data => console.log(data));
+```
+
+### Option 2: Add the access token to your HTTP
+
+You can access the access token through `authgear.accessToken`. Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of your application request.
+
+```javascript
+authgear
+    .refreshAccessTokenIfNeeded()
+    .then(() => {
+        // access token is ready to use
+        // accessToken can be string or undefined
+        // it will be empty if user is not logged in or session is invalid
+        const accessToken = authgear.accessToken;
+
+        // include Authorization header in your application request
+        const headers = {
+            Authorization: `bearer ${accessToken}`
+        };
+    });
+```
 
 ## Logout
 
@@ -170,16 +206,11 @@ authgear
       // failed to logout
     }
   );
-
 ```
 
-## Secure your application server with Authgear
+## Next steps
 
-To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear** and **using SDK to call your application server**. In the next section, we will go through the step one by one.
+To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
 {% page-ref page="backend-integration/" %}
-
-
-
-
 

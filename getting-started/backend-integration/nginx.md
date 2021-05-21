@@ -102,13 +102,3 @@ http {
 
 See [https://github.com/authgear/authgear-server/blob/master/docs/specs/api-resolver.md](https://github.com/authgear/authgear-server/blob/master/docs/specs/api-resolver.md)
 
-## Using SDK to call your application server
-
-After setting up the reserve proxy, you will need to update your client application to send the request to your application server. 
-
-If you are using cookies, the browser will include the cookies header in your application request automatically if you have set up the custom domain correctly \(both Authgear and your server are in the same root domain\).
-
-If you are using refresh token \(e.g. native mobile app, single-page app\), you can follow the below guide to include the access token to your request by using Authgear SDK.
-
-{% page-ref page="../using-sdk-to-call-your-application-server.md" %}
-
