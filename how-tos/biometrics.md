@@ -1,20 +1,21 @@
-# Biometrics login
+# Biometric login
 
 ## Overview
 
-Authgear supports enabling biometrics login in native mobile application. To set this up, you will need to
+Authgear supports enabling biometric login in the native mobile application. To set this up, you will need to
 
-1. Enable biometrics login in your application.
-1. Sign up or login an user in your mobile application, use the mobile SDK to enable biometrics login.
+1. Enable biometric login in your application.
+2. Sign up or log in a user in your mobile application, use the mobile SDK to enable biometric login.
 
-## Enable biometrics login in your application
+## Enable biometric login in your application
 
 {% tabs %}
 {% tab title="Portal" %}
-1. In portal, go to "Biometric Authentication".
-1. Turn on "Enable biometric authentication".
-1. Click save.
+1. In the portal, go to "Biometric Authentication".
+2. Turn on "Enable biometric authentication".
+3. Click "Save".
 {% endtab %}
+
 {% tab title="authgear.yaml" %}
 ```yaml
 authentication:
@@ -24,22 +25,22 @@ authentication:
     - biometric
 identity:
   biometric:
-    # Enable listing biometrics login in user setting page, default false
+    # Enable listing biometric login in user setting page, default false
     list_enabled: true
 ```
 {% endtab %}
 {% endtabs %}
 
-## Enable biometrics login in mobile SDK
+## Enable biometric login in mobile SDK
 
-In the following section, we will show you how to use biometrics login in the SDK. In the SDK code snippet, `authgear` is referring to the configured Authgear container.
+In the following section, we will show you how to use biometric login in the SDK. In the SDK code snippet, `authgear` is referring to the configured Authgear container.
 
-- Check if current device supports biometrics login before calling any biometric api.
+* Check if the current device supports biometric login before calling any biometric API.
 
 {% tabs %}
 {% tab title="iOS" %}
 ```swift
-// check if current device supports biometrics login
+// check if current device supports biometric login
 var supported = false
 do {
     try authgear.checkBiometricSupported()
@@ -47,17 +48,18 @@ do {
 } catch {}
 
 if supported {
-    // biometrics login is supported
+    // biometric login is supported
 }
 ```
 {% endtab %}
+
 {% tab title="Android" %}
 ```java
 boolean supported = false;
 try {
     // biometric login is supported SDK_INT >= 23 (Marshmallow)
     if (Build.VERSION.SDK_INT >= 23) {
-        // check if current device supports biometrics login
+        // check if current device supports biometric login
         authgear.checkBiometricSupported(
                 this.getApplication(),
                 ALLOWED
@@ -66,10 +68,11 @@ try {
     }
 } catch (Exception e) {}
 if (supported) {
-    // biometrics login is supported
+    // biometric login is supported
 }
 ```
 {% endtab %}
+
 {% tab title="React Native" %}
 ```javascript
 // We will need the options for the other biometric api
@@ -87,20 +90,20 @@ const biometricOptions = {
     invalidatedByBiometricEnrollment: true,
   },
 };
-// check if current device supports biometrics login
+// check if current device supports biometric login
 authgear
     .checkBiometricSupported(biometricOptions)
     .then(() => {
-        // biometrics login is supported
+        // biometric login is supported
     })
     .catch(() => {
-        // biometrics login is not supported
+        // biometric login is not supported
     });
 ```
 {% endtab %}
 {% endtabs %}
 
-- Enable biometrics login for logged in user
+* Enable biometric login for logged in user
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -119,6 +122,7 @@ authgear.enableBiometric(
 }
 ```
 {% endtab %}
+
 {% tab title="Android" %}
 ```java
 // We will need the options for the other biometric api
@@ -136,7 +140,7 @@ authgear.enableBiometric(
     new OnEnableBiometricListener() {
         @Override
         public void onEnabled() {
-            // enabled biometrics login successfully
+            // enabled biometric login successfully
         }
 
         @Override
@@ -147,12 +151,13 @@ authgear.enableBiometric(
 );
 ```
 {% endtab %}
+
 {% tab title="React Native" %}
 ```javascript
 authgear
     .enableBiometric(biometricOptions)
     .then(() => {
-        // enabled biometrics login successfully
+        // enabled biometric login successfully
     })
     .catch((err) => {
         // failed to enable biometric with error
@@ -161,7 +166,7 @@ authgear
 {% endtab %}
 {% endtabs %}
 
-- Check if current device enabled biometrics login, we should check this before asking user to login with biometrics credentials
+* Check if the current device enabled biometric login, we should check this before asking the user to log in with biometric credentials
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -169,6 +174,7 @@ authgear
 var enabled = (try? authgear.isBiometricEnabled()) ?? false
 ```
 {% endtab %}
+
 {% tab title="Android" %}
 ```java
 boolean enabled = false;
@@ -177,12 +183,13 @@ try {
 } catch (Exception e) {}
 ```
 {% endtab %}
+
 {% tab title="React Native" %}
 ```javascript
 authgear
     .isBiometricEnabled()
     .then((enabled) => {
-        // show if biometrics login is enabled
+        // show if biometric login is enabled
     })
     .catch(() => {
         // failed to check the enabled status
@@ -191,7 +198,7 @@ authgear
 {% endtab %}
 {% endtabs %}
 
-- Login with biometrics credentials
+* Login with biometric credentials
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -207,6 +214,7 @@ authgear.authenticateBiometric { result in
 }
 ```
 {% endtab %}
+
 {% tab title="Android" %}
 ```java
 authgear.authenticateBiometric(
@@ -225,6 +233,7 @@ authgear.authenticateBiometric(
 );
 ```
 {% endtab %}
+
 {% tab title="React Native" %}
 ```javascript
 authgear
@@ -239,39 +248,135 @@ authgear
 {% endtab %}
 {% endtabs %}
 
-- Disable biometrics login in the current device
+* Disable biometric login in the current device
 
 {% tabs %}
 {% tab title="iOS" %}
 ```swift
 do {
     try authgear.disableBiometric()
-    // disabled biometrics login successfully
+    // disabled biometric login successfully
 } catch {
-    // failed to disable biometrics login
+    // failed to disable biometric login
 }
 ```
 {% endtab %}
+
 {% tab title="Android" %}
 ```java
 try {
     authgear.disableBiometric();
-    // disabled biometrics login successfully
+    // disabled biometric login successfully
 } catch (Exception e) {
-    // failed to disable biometrics login
+    // failed to disable biometric login
 }
 ```
 {% endtab %}
+
 {% tab title="React Native" %}
 ```javascript
 authgear
     .disableBiometric()
     .then(() => {
-        // disabled biometrics login successfully
+        // disabled biometric login successfully
     })
     .catch((err) => {
-        // failed to disable biometrics login
+        // failed to disable biometric login
     });
 ```
 {% endtab %}
 {% endtabs %}
+
+* Error handling
+
+{% tabs %}
+{% tab title="iOS" %}
+```swift
+if let authgearError = error as? AuthgearError {
+    switch authgearError {
+    case .cancel:
+        // user cancel
+    case .biometricPrivateKeyNotFound:
+        // biometric info has changed. e.g. Touch ID or Face ID has changed.
+        // user have to set up biometric authentication again
+    case .biometricNotSupportedOrPermissionDenied:
+        // user has denied the permission of using Face ID
+    case .biometricNoPasscode:
+        // device does not have passcode set up
+    case .biometricNoEnrollment:
+        // device does not have Face ID or Touch ID set up
+    case .biometricLockout:
+        // the biometric is locked out due to too many failed attempts
+    default:
+        // other error
+        // you may consider showing a generic error message to the user
+    }
+}
+```
+{% endtab %}
+
+{% tab title="Android" %}
+```java
+import com.oursky.authgear.BiometricLockoutException;
+import com.oursky.authgear.BiometricNoEnrollmentException;
+import com.oursky.authgear.BiometricNoPasscodeException;
+import com.oursky.authgear.BiometricNotSupportedOrPermissionDeniedException;
+import com.oursky.authgear.BiometricPrivateKeyNotFoundException;
+import com.oursky.authgear.CancelException;
+
+
+if (e instanceof CancelException) {
+    // user cancel
+} else if (e instanceof BiometricPrivateKeyNotFoundException) {
+    // biometric info has changed
+    // user have to set up biometric authentication again
+} else if (e instanceof BiometricNoEnrollmentException) {
+    // device does not have biometric set up
+} else if (e instanceof BiometricNotSupportedOrPermissionDeniedException) {
+    // biometric is not supported in the current device
+    // or user has denied the permission of using biometric
+} else if (e instanceof BiometricNoPasscodeException) {
+    // device does not have unlock credential set up
+} else if (e instanceof BiometricLockoutException) {
+    // the biometric is locked out due to too many failed attempts
+} else {
+    // other error
+    // you may consider showing a generic error message to the user
+}
+```
+{% endtab %}
+
+{% tab title="React Native" %}
+```javascript
+import {
+    CancelError,
+    BiometricPrivateKeyNotFoundError,
+    BiometricNotSupportedOrPermissionDeniedError,
+    BiometricNoEnrollmentError,
+    BiometricNoPasscodeError,
+    BiometricLockoutError,
+} from '@authgear/react-native'
+
+if (e instanceof CancelError) {
+    // user cancel
+} else if (e instanceof BiometricPrivateKeyNotFoundError) {
+    // biometric info has changed. e.g. Touch ID or Face ID has changed.
+    // user have to set up biometric authentication again
+} else if (e instanceof BiometricNoEnrollmentError) {
+    // device does not have biometric set up
+    // e.g. have not set up Face ID or Touch ID in the device
+} else if (e instanceof BiometricNotSupportedOrPermissionDeniedError) {
+    // biometric is not supported in the current device
+    // or user has denied the permission of using Face ID
+} else if (e instanceof BiometricNoPasscodeError) {
+    // device does not have unlock credential or passcode set up
+} else if (e instanceof BiometricLockoutError) {
+    // the biometric is locked out due to too many failed attempts
+} else {
+    // other error
+    // you may consider showing a generic error message to the user
+}
+```
+{% endtab %}
+{% endtabs %}
+
