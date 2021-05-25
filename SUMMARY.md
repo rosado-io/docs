@@ -16,7 +16,7 @@
   * [Android OKHttp Interceptor Extension \(Optional\)](getting-started/android/okhttp-interceptor-extension.md)
 * [iOS SDK](getting-started/ios.md)
 * [Web SDK](getting-started/website.md)
-* [Integrate with your backend](getting-started/backend-integration/README.md)
+* [Backend Integration](getting-started/backend-integration/README.md)
   * [Forward Authentication With Nginx](getting-started/backend-integration/nginx.md)
   * [Authenticate With JWT](getting-started/backend-integration/jwt.md)
 

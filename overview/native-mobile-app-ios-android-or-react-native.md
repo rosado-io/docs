@@ -22,7 +22,7 @@ The following tutorials show you how to add user login to your single app using 
 
 Choose your platforms below:
 
-{% page-ref page="native-mobile-app-ios-android-or-react-native.md" %}
+{% page-ref page="../getting-started/react-native.md" %}
 
 {% page-ref page="../getting-started/android/" %}
 

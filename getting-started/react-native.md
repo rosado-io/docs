@@ -26,6 +26,23 @@ After that, we will need to create an application in Authgear.
 5. If you want Authgear to issue JWT access token, select the "Issue JWT as access token". If you will use a reserve proxy to authenticate requests, keep this unchecked. Detail see [Integrate with your backend](backend-integration/).
 6. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 {% endtab %}
+
+{% tab title="authgear.yaml \(self-deployed\)" %}
+```javascript
+oauth:
+  clients:
+    - name: your_app_name
+      client_id: a_random_generated_string
+      redirect_uris:
+        - "com.myapp://host/path"
+      grant_types:
+        - authorization_code
+        - refresh_token
+      response_types:
+        - code
+        - none
+```
+{% endtab %}
 {% endtabs %}
 
 ## Create a React Native app
@@ -40,8 +57,6 @@ cd myapp
 ## Install the SDK
 
 ```bash
-# The SDK depends on AsyncStorage.
-yarn add --exact @react-native-async-storage/async-storage
 yarn add --exact @authgear/react-native
 (cd ios && pod install)
 ```
