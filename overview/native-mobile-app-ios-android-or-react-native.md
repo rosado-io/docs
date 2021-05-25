@@ -6,17 +6,25 @@ description: Add login to your native mobile application
 
 By using Authgear, you can add a login to your native mobile application easily. Authgear supports various authentication methods, that you can easily turn on and configure in the portal.
 
-## Overview of application flow
+## **Overview**
 
-![](https://mermaid.ink/img/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgY2xpZW50W01vYmlsZSBBcHBdXG4gICAgYXV0aGdlYXJbQXV0aGdlYXJdXG4gICAgYXBwW1lvdXIgQXBwIFNlcnZlcl1cbiAgICBcbiAgICBjbGllbnQgLS0-IHwxLiBVc2VyIGF1dGhlbmNpYXRlIDxici8-IHdpdGggQXV0aGdlYXJ8IGF1dGhnZWFyXG4gICAgY2xpZW50IC0tPiB8Mi4gUmVxdWVzdCB5b3VyIGFwcCBzZXJ2ZXJ8IGFwcFxuICAgIGFwcCAtLT4gfDMuIE9wdGlvbiAxOiBSZXZlcnNlIHByb3h5IGRlbGVnYXRlcyA8YnIvPiBhdXRoZW50aWNhdGlvbiB0byBBdXRoZ2VhciByZXNvbHZlciB8IGF1dGhnZWFyXG4gICAgYXBwIC0tPiB8My4gT3B0aW9uIDI6IFZlcmlmeSBKV1QgdG9rZW4gfCBhcHBcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+### **How it works**
 
-1. User authenticates with Authgear and Authgear responds with refresh token and access token.
-2. The app calls your web server with the Authgear access token.
-3. In your backend, check if the request is authenticated by setting up Auth forward in your reverse proxy \(e.g. Nginx\) or verify JSON Web Token \(JWT\) in your app server.
+Your app server will receive a request with the access token
+
+![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQ2xpZW50QXBwIGFzIE1vYmlsZSBBcHBcbiAgICBwYXJ0aWNpcGFudCBBdXRoZ2VhciBhcyBBdXRoZ2VhclxuICAgIHBhcnRpY2lwYW50IEFwcEJhY2tlbmQgYXMgWW91ciBBcHAgU2VydmVyXG4gICAgQ2xpZW50QXBwLT4-QXV0aGdlYXI6IDEuIFVzZXIgYXV0aGVudGljYXRlcyB3aXRoIEF1dGhnZWFyXG4gICAgQXV0aGdlYXItPj5DbGllbnRBcHA6IDIuIEF1dGhnZWFyIHJlc3BvbmRzIHdpdGggdGhlIGFjY2VzcyB0b2tlbiBhbmQgcmVmcmVzaCB0b2tlblxuICAgIENsaWVudEFwcC0-PkFwcEJhY2tlbmQ6IDMuIFJlcXVlc3Qgd2l0aCBhY2Nlc3MgdG9rZW5cbiAgICBBcHBCYWNrZW5kLT4-QXBwQmFja2VuZDogNC4gVmVyaWZ5IFJlcXVlc3RcbiAgICBBcHBCYWNrZW5kLT4-Q2xpZW50QXBwOiA1LiBTZXJ2ZXIgcmVzcG9uZHMgd2l0aCB0aGUgcmVxdWVzdGVkIGluZm9ybWF0aW9uXG4gICAgICAgICAgICAiLCJtZXJtYWlkIjp7fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
+
+### **Verify request in your app server**
+
+To verify the request in your app server, you can choose **Forwarding authentication to Authgear Resolver Endpoint** or **Verify JSON Web Token \(JWT\) in your app server.**
+
+![Forwarding authentication to Authgear Resolver Endpoint](https://mermaid.ink/img/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgYXV0aGdlYXJbQXV0aGdlYXJdXG4gICAgYXBwW1lvdXIgQXBwIFNlcnZlcl1cbiAgICBcbiAgICBhcHAgLS0-IHwgRm9yd2FyZCBhdXRoZW50aWNhdGlvbiB0byA8YnIvPiBBdXRoZ2VhciByZXNvbHZlciBlbmRwb2ludCB8IGF1dGhnZWFyXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+
+![Verify JSON Web Token \(JWT\) in your app server](https://mermaid.ink/img/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgYXBwW1lvdXIgQXBwIFNlcnZlcl1cbiAgICBcbiAgICBhcHAgLS0-IHxWZXJpZnkgSldUIHRva2VuIHwgYXBwXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 ## Get Started <a id="get-started"></a>
 
-The following tutorials show you how to add user login to your single app using Authgear.
+The following tutorials show you how to add user login to your mobile app using Authgear.
 
 ### 1. Frontend Integration <a id="1-frontend-integration"></a>
 

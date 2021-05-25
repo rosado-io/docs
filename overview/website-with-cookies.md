@@ -12,17 +12,23 @@ To authenticate with cookies, you will need to set up a custom domain for Authge
 
 In this setting, if you have multiple applications under `yourdomain.com`, all applications would share the same session cookies automatically.
 
-## Overview of application flow
+## **Overview**
 
-![](https://mermaid.ink/img/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgY2xpZW50W1VzZXIgQnJvd2VyXVxuICAgIGF1dGhnZWFyW0F1dGhnZWFyXVxuICAgIGFwcFtZb3VyIFdlYiBTZXJ2ZXJdXG4gICAgXG4gICAgY2xpZW50IC0tPiB8MS4gVXNlciBhdXRoZW5jaWF0ZSA8YnIvPiB3aXRoIEF1dGhnZWFyfCBhdXRoZ2VhclxuICAgIGNsaWVudCAtLT4gfDIuIFJlcXVlc3QgeW91ciBhcHBsaWNhdGlvbiBzZXJ2ZXJ8IGFwcFxuICAgIGFwcCAtLT4gfDMuIFJldmVyc2UgcHJveHkgZGVsZWdhdGVzIDxici8-IGF1dGhlbnRpY2F0aW9uIHRvIEF1dGhnZWFyIHJlc29sdmVyICB8IGF1dGhnZWFyXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+### **How it works**
 
-1. User authenticates with Authgear and Authgear responds and sets cookies to the root domain.
-2. User requests your server when browses your website, cookies will be included automatically.
-3. In your backend, check if the request is authenticated by setting up Auth forward in your reverse proxy \(e.g. Nginx\).
+Your app server will receive a request with the cookie
 
-## Get Started
+![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgcGFydGljaXBhbnQgQ2xpZW50QXBwIGFzIEJyb3dzZXJcbiAgICBwYXJ0aWNpcGFudCBBdXRoZ2VhciBhcyBBdXRoZ2VhclxuICAgIHBhcnRpY2lwYW50IEFwcEJhY2tlbmQgYXMgWW91ciBBcHAgU2VydmVyXG4gICAgQ2xpZW50QXBwLT4-QXV0aGdlYXI6IDEuIFVzZXIgYXV0aGVudGljYXRlcyB3aXRoIEF1dGhnZWFyXG4gICAgQXV0aGdlYXItPj5DbGllbnRBcHA6IDIuIEF1dGhnZWFyIHNldHMgY29va2llXG4gICAgQ2xpZW50QXBwLT4-QXBwQmFja2VuZDogMy4gUmVxdWVzdCB3aXRoIGNvb2tpZVxuICAgIEFwcEJhY2tlbmQtPj5BcHBCYWNrZW5kOiA0LiBWZXJpZnkgUmVxdWVzdFxuICAgIEFwcEJhY2tlbmQtPj5DbGllbnRBcHA6IDUuIFNlcnZlciByZXNwb25kcyB3aXRoIHRoZSByZXF1ZXN0ZWQgaW5mb3JtYXRpb25cbiAgICAgICAgICAgICIsIm1lcm1haWQiOnt9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
-The following tutorials show you how to add user login to your single app using Authgear.
+### **Verify request in your app server**
+
+To verify the request in your app server, you can **Forwarding authentication to Authgear Resolver Endpoint.**
+
+![Forwarding authentication to Authgear Resolver Endpoint](https://mermaid.ink/img/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG4gICAgYXV0aGdlYXJbQXV0aGdlYXJdXG4gICAgYXBwW1lvdXIgQXBwIFNlcnZlcl1cbiAgICBcbiAgICBhcHAgLS0-IHwgRm9yd2FyZCBhdXRoZW50aWNhdGlvbiB0byA8YnIvPiBBdXRoZ2VhciByZXNvbHZlciBlbmRwb2ludCB8IGF1dGhnZWFyXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+
+## Get Started <a id="get-started"></a>
+
+The following tutorials show you how to add user login to your website using Authgear.
 
 ### 1. Frontend Integration
 

@@ -16,6 +16,14 @@ Your client app should call your backend with the access token on the Authorizat
 
 This approach is suitable for **mobile apps** or **single-page web applications**.
 
+Request example:
+
+```bash
+> GET /api_path HTTP/1.1
+> Host: yourdomain.com
+> Authorization: Bearer <AUTHGEAR_ACCESS_TOKEN>
+```
+
 ### **Cookie-based authentication**
 
 In cookie-based authentication, Authgear returns `Set-Cookie` headers and sets cookies to the browser. The cookies are HTTP only and share under the same root domains. So you will need to setup the **custom domain** for Authgear, such as `identity.yourdomain.com`. 
@@ -23,6 +31,14 @@ In cookie-based authentication, Authgear returns `Set-Cookie` headers and sets c
 In this setting, if you have multiple applications under `yourdomain.com`, all applications would share the same session cookies automatically. After that, you can verify the cookies by integrating Authgear with your backend. 
 
 This approach is suitable for all types of websites, including server-side rendered applications.
+
+Request example:
+
+```javascript
+> GET /api_path HTTP/1.1
+> Host: yourdomain.com
+> cookie: session=<AUTHGEAR_SESSION_ID>
+```
 
 ## Setup Application in Authgear
 
