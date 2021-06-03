@@ -48,12 +48,12 @@ After that, we will need to create applications in Authgear.
 
 {% tabs %}
 {% tab title="Portal" %}
-**Create OAuth Client**
+**Create an application in the portal**
 
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input name of your application, this is for reference only
-4. Decide a path that users will be redirected to after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _https://yourdomain.com/auth-redirect_\).
+4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _https://yourdomain.com/auth-redirect_\).
 5. If you want Authgear to issue JWT access token, select the "Issue JWT as access token". If you will use a reserve proxy to authenticate requests, keep this unchecked. Detail see [Integrate with your backend](backend-integration/).
 6. \(Cookie-based authentication only\) If you are using cookies, you can decide the path that the user redirects to after logout. Add the URI to "Post Logout Redirect URIs".
 7. Click "Save" and keep the client id. You can also obtain the client id from the list later.
