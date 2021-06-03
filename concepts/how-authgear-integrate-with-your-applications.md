@@ -6,7 +6,7 @@ The SDKs are actually a simple wrapper -- behind the scene, there are two recomm
 
 This concept documents are to explain how it works.
 
-### Mobile or Single Page Web Applications
+## Mobile or Single Page Web Applications
 
 The JS and Mobile SDKs authenticate with Authgear at `[your app name].authgear.com/oauth2/authorize?...`, according to the OIDC 2.0 standard.
 
@@ -27,7 +27,7 @@ Hence, here are a few implications you need to understand when using this type o
 * Some features, such as disable or logout a session from management portal, would only be effective when the access token expire next time, and hence you may want to set a smaller value for "Access Token Lifetime".
 * You may want to verify the JWT access token to avoid the latency to the `/resolve` endpoint
 
-### Web Applications \(Server side rendered\) under the same root domains
+## Web Applications \(Server side rendered\) under the same root domains
 
 If you host a Web Application which is server side rendered, such as Ruby on Rails, PHP, ASP .NET etc, under `yourdomain.com`, you are recommended to set up a custom domain for Authgear, such as `identity.yourdomain.com`
 
@@ -37,7 +37,7 @@ To login, you would redirect users to `identity.yourdomain.com/oauth2/authroize?
 
 Similar to Web/Mobile application, your backend could verify the session access token via `/resolve` or as a JWT token.
 
-### Web Applications \(Server side rendered\) under a different domains.
+## Web Applications \(Server side rendered\) under a different domains.
 
 If your server side rendered Web Application is hosted under`otherapp.com`, but you wish to authenticate users under `identity.yourdomain.com` instead of setting another custom domain at `identity.otherapp.com` for a better signle sign on user experience, conceptually you need to do the following:
 

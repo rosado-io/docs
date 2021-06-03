@@ -8,7 +8,7 @@ Authgear has an internal endpoint that can authenticate HTTP request.
 
 ## Prerequisite
 
-You must follow [this](../deploy-on-your-cloud/local.md) to get Authgear running first!
+You must follow [this](local.md) to get Authgear running first!
 
 ## Create a simple application server
 
@@ -153,11 +153,7 @@ http {
 }
 ```
 
-> Note: When plain domain is used in proxy_pass directive,
-> the domain is resolved once and then cached indefinite.
-> If the domain is public, then you use use variable in proxy_pass with resolver directive to respect DNS TTL.
-> See https://www.nginx.com/blog/dns-service-discovery-nginx-plus/
-> For instructions on how to setup Nginx for production deployment, see [Using Nginx as the reverse proxy](../how-tos/backend-integration.md#using-nginx-as-the-reverse-proxy).
+> Note: When plain domain is used in proxy\_pass directive, the domain is resolved once and then cached indefinite. If the domain is public, then you use use variable in proxy\_pass with resolver directive to respect DNS TTL. See [https://www.nginx.com/blog/dns-service-discovery-nginx-plus/](https://www.nginx.com/blog/dns-service-discovery-nginx-plus/) For instructions on how to setup Nginx for production deployment, see [Using Nginx as the reverse proxy](../getting-started/backend-integration/nginx.md#using-nginx-as-the-reverse-proxy).
 
 Add Nginx in docker-compose.yaml:
 

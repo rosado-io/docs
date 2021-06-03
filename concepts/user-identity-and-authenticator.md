@@ -18,7 +18,7 @@ Combining identity and authenticators, Authgear can support a lot of different a
 * Phone sign in with Password as the 2nd factor like telegram or whatsapp
 * A lot more.
 
-### Identity
+## Identity
 
 Currently, Authgear support the following identity:
 
@@ -37,7 +37,7 @@ Each identities have its configuration. For example email could be configured to
 
 Email, Phone and Username identities automatically create the `email`, `phone_number` and `preferred_username` claims. OAuth Provider might create a `email` claim depends on if the user's email is provided.
 
-### Authenticator
+## Authenticator
 
 Each user could have multiple primary and secondary authenticators, currently Authgear support the following authenticators:
 
@@ -50,6 +50,4 @@ Each user could have multiple primary and secondary authenticators, currently Au
   * One Time Passcode via Email or SMS \(oob\_otp\)
 
 Secondary authentication could be optional \(only if the user configured it\) or required for all users.
-
-
 
