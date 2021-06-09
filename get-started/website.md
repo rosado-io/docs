@@ -17,11 +17,13 @@ After that, we will need to create an Application in the Project Portal.
 **Step 1: Create an application in the Portal**
 
 1. Go to **Applications** in your project portal.
-2. Click **Add Application** in the top right corner. ![](../.gitbook/assets/add-application.png)![](../.gitbook/assets/create-application.png) 
+2. Click **Add Application** in the top right corner.
 3. Input the name of your application. This is for reference only. 
 4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://yourdomain.com/auth-redirect`
 5. If you are using [cookie-based authentication](authentication-approach/cookie-based.md), you can decide the path that the user redirects to after logout. Add the URI to **Post Logout Redirect URIs**.
 6. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
+
+![](../.gitbook/assets/create-application.png)
 
 {% hint style="info" %}
 If you want to validate JWT access token in your server, select **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
