@@ -19,7 +19,7 @@ After that, we will need to create an Application in the Project Portal.
 1. Go to **Applications** in your project portal.
 2. Click **Add Application** in the top right corner.
 3. Input the name of your application. This is for reference only. 
-4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://localhost:3000/auth-redirect`  for this tutorial.
+4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`http://localhost:3000/auth-redirect`  for this tutorial.
 5. Select the **Issue JWT as access token** option. We will use Token-based authentication for this tutorial. 
 6. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
 
