@@ -61,6 +61,6 @@ npm install --save --save-exact @authgear/web
 ## Calling an API
 
 {% hint style="warning" %}
-This page is working in progress
+This page is working in progress, please see [Get Started: Web SDK ](../../get-started/website.md)for general guides of using the Authgear Web SDK
 {% endhint %}
 
