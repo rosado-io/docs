@@ -25,6 +25,78 @@ The JSON Web Key Sets \(JWKS\) endpoint can be found in `jwk_url` in the configu
 Follow this step-by-step example to verify and decode the JWT token.
 
 {% tabs %}
+{% tab title="Python" %}
+### Step 1: Install packages
+
+```bash
+pip install cryptography
+pip install PyJWT
+```
+
+### Step 2: Find the JSON Web Key Sets \(JWKS\) endpoint
+
+Define a function to find the JWKS endpoint from the OpenID Connect configuration. Use your Authgear endpoint as `base_address`
+
+```python
+import json
+from contextlib import closing
+from urllib.request import urlopen
+
+base_address = "https://<your_app_endpoint>"
+
+def fetch_jwks_uri(base_address):
+    doc_url = base_address + "/.well-known/openid-configuration"
+    with closing(urlopen(doc_url)) as f:
+        doc = json.load(f)
+    jwks_uri = doc["jwks_uri"]
+    if not jwks_uri:
+        raise Exception('Failed to fetch jwks uri.')
+    return jwks_uri
+```
+
+### Step 3: Get JWT token from the Authorization header
+
+Define a function to extract the access token from the Authorization header in the incoming request. It should look like `Authorization: Bearer <access_token>`.
+
+```python
+def parse_header(authz_header):
+    parts = authz_header.split(" ")
+    if len(parts) != 2:
+        return
+
+    scheme = parts[0]
+    if scheme.lower() != "bearer":
+        return
+
+    return parts[1]
+
+authz_header = headers.get("Authorization")
+# get jwt token from Authorization header
+token = parse_header(authz_header)
+```
+
+### Step 4: Verify and decode the JWT token
+
+```python
+import jwt
+from jwt import PyJWKClient
+
+if token:
+    # fetch jwks_uri from the Authgear Discovery Endpoint
+    jwks_uri = fetch_jwks_uri(base_address)
+    # Reuse PyJWKClient for better performance
+    jwks_client = PyJWKClient(jwks_uri)
+    signing_key = jwks_client.get_signing_key_from_jwt(token)
+    user_data = jwt.decode(
+        token,
+        signing_key.key,
+        algorithms=["RS256"],
+        audience=base_address,
+        options={"verify_exp": True},
+    )
+```
+{% endtab %}
+
 {% tab title="Go" %}
 Use your Authgear endpoint as `base_address`
 
@@ -44,7 +116,7 @@ import (
 
 var (
     authzHeaderRegexp = regexp.MustCompile("(?i)^Bearer (.*)$")
-    baseAddress       = "https://<YOUR_AUTHGEAR_ENDPOINT>"
+    baseAddress       = "https://<your_app_endpoint>"
 )
 
 type OIDCDiscoveryDocument struct {
@@ -134,80 +206,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 ```
 {% endtab %}
 
-{% tab title="Python" %}
-### Step 1: Install packages
+{% tab title="Node.js" %}
+{% hint style="success" %}
+TODO: Node.js example is coming soon
+{% endhint %}
+
+Here is an example demonstrates how to add authorization to an Express.js API
+
+### Step 1: Install dependencies
 
 ```bash
-pip install cryptography
-pip install PyJWT
+npm install --save express-jwt jwks-rsa
 ```
 
-### Step 2: Find the JSON Web Key Sets \(JWKS\) endpoint
+### Step 2: Configure the middleware
 
-Define a function to find the JWKS endpoint from the OpenID Connect configuration. Use your Authgear endpoint as `base_address`
-
-```python
-import json
-from contextlib import closing
-from urllib.request import urlopen
-
-base_address = "https://<YOUR_AUTHGEAR_ENDPOINT>"
-
-def fetch_jwks_uri(base_address):
-    doc_url = base_address + "/.well-known/openid-configuration"
-    with closing(urlopen(doc_url)) as f:
-        doc = json.load(f)
-    jwks_uri = doc["jwks_uri"]
-    if not jwks_uri:
-        raise Exception('Failed to fetch jwks uri.')
-    return jwks_uri
-```
-
-### Step 3: Get JWT token from the Authorization header
-
-Define a function to extract the access token from the Authorization header in the incoming request. It should look like `Authorization: Bearer <access_token>`.
-
-```python
-def parse_header(authz_header):
-    parts = authz_header.split(" ")
-    if len(parts) != 2:
-        return
-
-    scheme = parts[0]
-    if scheme.lower() != "bearer":
-        return
-
-    return parts[1]
-
-authz_header = headers.get("Authorization")
-# get jwt token from Authorization header
-token = parse_header(authz_header)
-```
-
-### Step 4: Verify and decode the JWT token
-
-```python
-import jwt
-from jwt import PyJWKClient
-
-if token:
-    # fetch jwks_uri from the Authgear Discovery Endpoint
-    jwks_uri = fetch_jwks_uri(base_address)
-    # Reuse PyJWKClient for better performance
-    jwks_client = PyJWKClient(jwks_uri)
-    signing_key = jwks_client.get_signing_key_from_jwt(token)
-    user_data = jwt.decode(
-        token,
-        signing_key.key,
-        algorithms=["RS256"],
-        audience=base_address,
-        options={"verify_exp": True},
-    )
-```
-{% endtab %}
-
-{% tab title="Node.js" %}
-
+### Step 3: Protect API Endpoints
 {% endtab %}
 {% endtabs %}
 

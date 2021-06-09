@@ -96,7 +96,7 @@ server {
 ```
 
 {% hint style="info" %}
-See docs for `ngx_http_auth_request_module` in NGINX for more details. [http://nginx.org/en/docs/http/ngx\_http\_auth\_request\_module.html](http://nginx.org/en/docs/http/ngx_http_auth_request_module.html)
+See docs for `auth_request` in NGINX for more details. [http://nginx.org/en/docs/http/ngx\_http\_auth\_request\_module.html](http://nginx.org/en/docs/http/ngx_http_auth_request_module.html)
 {% endhint %}
 
 ## Optimizing the performance
