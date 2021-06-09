@@ -2,53 +2,54 @@
 
 * [Authgear](README.md)
 
-## Overview
+## Get Started
 
-* [Native mobile app \(iOS, Android or React Native\)](overview/native-mobile-app-ios-android-or-react-native.md)
-* [Single-page app with access token](overview/single-page-web-app-with-access-token.md)
-* [Website with cookies \(e.g. Server-side rendered app, regular website, single-page app\)](overview/website-with-cookies.md)
+* [Choose your authentication approach](get-started/authentication-approach/README.md)
+  * [Token-based \(Native mobile or Single-page app\)](get-started/authentication-approach/token-based.md)
+  * [Cookie-based \(Website or Single-page app\)](get-started/authentication-approach/cookie-based.md)
+* [Web SDK](get-started/website.md)
+* [React Native SDK](get-started/react-native.md)
+* [Android SDK](get-started/android/README.md)
+  * [Android Kotlin coroutine support](get-started/android/coroutine-support.md)
+  * [Android OKHttp Interceptor Extension \(Optional\)](get-started/android/okhttp-interceptor-extension.md)
+* [iOS SDK](get-started/ios.md)
+* [Backend Integration](get-started/backend-integration/README.md)
+  * [Validate JWT in your application server](get-started/backend-integration/jwt.md)
+  * [Forward Authentication to Authgear Resolver Endpoint](get-started/backend-integration/nginx.md)
 
-## Getting Started
+## Strategies
 
-* [React Native SDK](getting-started/react-native.md)
-* [Android SDK](getting-started/android/README.md)
-  * [Android Kotlin coroutine support](getting-started/android/coroutine-support.md)
-  * [Android OKHttp Interceptor Extension \(Optional\)](getting-started/android/okhttp-interceptor-extension.md)
-* [iOS SDK](getting-started/ios.md)
-* [Web SDK](getting-started/website.md)
-* [Backend Integration](getting-started/backend-integration/README.md)
-  * [Forward Authentication With Nginx](getting-started/backend-integration/nginx.md)
-  * [Authenticate With JWT](getting-started/backend-integration/jwt.md)
+* [User, Identity and Authenticator](strategies/user-identity-and-authenticator.md)
+* [Social Sign-on Integration](strategies/how-to-setup-sso-integrations/README.md)
+  * [Apple](strategies/how-to-setup-sso-integrations/apple.md)
+  * [Google](strategies/how-to-setup-sso-integrations/google.md)
+  * [Facebook](strategies/how-to-setup-sso-integrations/facebook.md)
+  * [Linkedin](strategies/how-to-setup-sso-integrations/linkedin.md)
+  * [Azure Active Directory](strategies/how-to-setup-sso-integrations/azureadv2.md)
+  * [WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
+  * [Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
+* [Biometric login](strategies/biometric.md)
 
-## How tos
+## Customize
 
-* [Social Sign-on Integration](how-tos/how-to-setup-sso-integrations/README.md)
-  * [Apple](how-tos/how-to-setup-sso-integrations/apple.md)
-  * [Google](how-tos/how-to-setup-sso-integrations/google.md)
-  * [Facebook](how-tos/how-to-setup-sso-integrations/facebook.md)
-  * [Linkedin](how-tos/how-to-setup-sso-integrations/linkedin.md)
-  * [Azure Active Directory](how-tos/how-to-setup-sso-integrations/azureadv2.md)
-  * [WeChat](how-tos/how-to-setup-sso-integrations/wechat.md)
-  * [Microsoft AD FS](how-tos/how-to-setup-sso-integrations/adfs.md)
-* [Biometric login](how-tos/biometric.md)
-* [Add Privacy Policy & Terms of Service Links](how-tos/privacy-policy-terms-of-service.md)
-* [Using SDK to call your application server](how-tos/using-sdk-to-call-your-application-server.md)
+* [Privacy Policy & Terms of Service Links](customize/privacy-policy-terms-of-service.md)
 
-## Concepts
+## Integrate
 
-* [User, Identity and Authenticator](concepts/user-identity-and-authenticator.md)
-* [How authgear integrate with your applications](concepts/how-authgear-integrate-with-your-applications.md)
+* [Using SDK to call your application server](integrate/using-sdk-to-call-your-application-server.md)
+* [Auth UI](integrate/auth-ui.md)
+* [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
+
+## APIs
+
+* [API for Client Applications \(OIDC 2.0\)](apis/api-for-client-applications-oidc-2.0.md)
+* [Admin APIs](apis/admin-apis.md)
 
 ## Client App SDKs
 
 * [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
 * [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
 * [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
-
-## APIs
-
-* [API for Client Applications \(OIDC 2.0\)](apis/api-for-client-applications-oidc-2.0.md)
-* [Admin APIs](apis/admin-apis.md)
 
 ## Webhooks
 

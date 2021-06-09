@@ -1,6 +1,6 @@
 # API for Client Applications \(OIDC 2.0\)
 
-If your app is `myapp`, the endpoint of your app is [https://myapp.authgearapps.com](https://myapp.authgearapps.com).
+If your app is `myapp`, the endpoint of your app is `https://myapp.authgearapps.com`.
 
 Unless otherwise specified, all paths mentioned here are relative to the endpoint of your app.
 
@@ -10,7 +10,19 @@ This endpoint serves a JSON document containing the OpenID Connect configuration
 
 Here is [an example of how it looks](https://accounts.portal.authgearapps.com/.well-known/openid-configuration).
 
+## /\_resolver/resolve
+
+The endpoint serves as a resolver to check the access token or cookie in the request headers. Forward incoming HTTP requests to this endpoint and the resolver will adds the `x-authgear-` headers the to response. 
+
+See the list of `x-authgear-` headers in the specs [here](https://github.com/authgear/authgear-server/blob/master/docs/specs/api-resolver.md).
+
+See implementation examples [here](../get-started/backend-integration/nginx.md).
+
 ## /
 
 This endpoint is the entrypoint of the Web UI. You can visit it if you want to try your configuration. However, this is NOT the authorization endpoint. You must use our SDK to initiate the authentication.
+
+## /settings
+
+User settings UI
 

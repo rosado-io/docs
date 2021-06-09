@@ -8,9 +8,7 @@ description: Authgear is an authentication server for web and mobile apps.
 
 ## Choose the application type to get started
 
-{% page-ref page="overview/native-mobile-app-ios-android-or-react-native.md" %}
+{% page-ref page="get-started/authentication-approach/token-based.md" %}
 
-{% page-ref page="overview/single-page-web-app-with-access-token.md" %}
-
-{% page-ref page="overview/website-with-cookies.md" %}
+{% page-ref page="get-started/authentication-approach/cookie-based.md" %}
 
