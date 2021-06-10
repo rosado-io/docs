@@ -60,6 +60,39 @@ npm install --save --save-exact @authgear/web
 
 ## Calling an API
 
+To access restricted resources on your application server, the HTTP requests should include the access token in their Authorization headers. The Web SDK provides a `fetch` function which automatically handle this, or you can get the token with `authgear.accessToken`.
+
+#### Option 1: Using fetch function provided by Authgear SDK
+
+Authgear SDK provides the `fetch` function for you to call your application server. This `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. The `authgear.fetch` implements [fetch](https://fetch.spec.whatwg.org/).
+
+```javascript
+authgear
+    .fetch("YOUR_SERVER_URL")
+    .then(response => response.json())
+    .then(data => console.log(data));
+```
+
+#### Option 2: Add the access token to the HTTP request header
+
+You can get the access token through `authgear.accessToken`. Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of the application request.
+
+```javascript
+authgear
+    .refreshAccessTokenIfNeeded()
+    .then(() => {
+        // access token is ready to use
+        // accessToken can be string or undefined
+        // it will be empty if user is not logged in or session is invalid
+        const accessToken = authgear.accessToken;
+
+        // include Authorization header in your application request
+        const headers = {
+            Authorization: `Bearer ${accessToken}`
+        };
+    });
+```
+
 {% hint style="warning" %}
 This page is working in progress, please see [Get Started: Web SDK ](../../get-started/website.md)for general guides of using the Authgear Web SDK
 {% endhint %}
