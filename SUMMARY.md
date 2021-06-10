@@ -30,15 +30,16 @@
   * [Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
 * [Biometric login](strategies/biometric.md)
 
-## Customize
-
-* [Privacy Policy & Terms of Service Links](customize/privacy-policy-terms-of-service.md)
-
 ## Integrate
 
 * [Using SDK to call your application server](integrate/using-sdk-to-call-your-application-server.md)
-* [Auth UI](integrate/auth-ui.md)
+* [User settings from Auth UI](integrate/auth-ui.md)
+* [User Info](integrate/user-info.md)
 * [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
+
+## Customize
+
+* [Privacy Policy & Terms of Service Links](customize/privacy-policy-terms-of-service.md)
 
 ## APIs
 

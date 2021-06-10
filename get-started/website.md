@@ -142,7 +142,7 @@ authgear
 
 By default, Authgear will not ask user to login again if user has already logged in. You can optionally set `prompt` to `login` if you you want the user always reach the login page and login again.
 
-After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. The [`UserInfo`](https://authgear.github.io/authgear-sdk-js/docs/web/interfaces/userinfo) is resolved from the promise.
+After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. The [`UserInfo`](../integrate/user-info.md) is resolved from the promise.
 
 Once authorization succeed, the application should redirect the user to other URL such as the user's home page and remove the query parameters.
 
@@ -182,6 +182,8 @@ if (sessionState === "AUTHENTICATED") {
         });
 }
 ```
+
+The `UserInfo` object provides the unique identifier of the user from your Authgear project. See more details [here](../integrate/user-info.md).
 
 ## Log the user out
 
