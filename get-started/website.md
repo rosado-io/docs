@@ -152,6 +152,7 @@ import authgear from "@authgear/web";
 authgear.finishAuthorization().then(
   (userInfo) => {
     // authorized successfully
+    // you should redirect the user to another path
   },
   (err) => {
     // failed to finish authorization
@@ -187,7 +188,9 @@ The `UserInfo` object provides the unique identifier of the user from your Authg
 
 ## Log the user out
 
-If you are using Token-based authentication, the `logout` API will revoke the user app session only. The promise will be resolved after logout and no redirection will occur. If you are using Cookie-based authentication , the user will be redirected to your Authgear endpoint to log out their session. You should provide the `redirectURI` to which user will be redirected after logout.
+If you are using **Token-based** authentication, the `logout` API will revoke the user app session only. The promise will be resolved after logout and no redirection will occur.
+
+If you are using **Cookie-based** authentication , the user will be redirected to your Authgear endpoint to log out their session. You should provide the `redirectURI` to which user will be redirected after logout.
 
 ```javascript
 import authgear from "@authgear/web";
@@ -197,7 +200,7 @@ authgear
     // redirectURI is useful only when sessionType is cookie
     // to which users will be redirected after logout
     // make sure it is in the "Post Logout Redirect URIs" in the application portal
-    redirectURI: "https://yourdomain.com",
+    // redirectURI: "https://yourdomain.com",
   })
   .then(
     () => {
