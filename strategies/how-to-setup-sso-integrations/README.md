@@ -1,3 +1,7 @@
+---
+description: Add SSO to enable frictionless sign in for your users
+---
+
 # Social Sign-on Integration
 
 Authgear supports following SSO providers. Please click the link below for setup instruction.
