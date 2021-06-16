@@ -69,31 +69,53 @@ def parse_header(authz_header):
         return
 
     return parts[1]
-
-authz_header = headers.get("Authorization")
-# get jwt token from Authorization header
-token = parse_header(authz_header)
 ```
 
 ### Step 4: Verify and decode the JWT token
 
+Here show an example of using Flask web framework to guard a path. You may need to adjust some of the codes to suit your technologies.
+
 ```python
+from flask import request
 import jwt
 from jwt import PyJWKClient
 
-if token:
-    # fetch jwks_uri from the Authgear Discovery Endpoint
-    jwks_uri = fetch_jwks_uri(base_address)
-    # Reuse PyJWKClient for better performance
-    jwks_client = PyJWKClient(jwks_uri)
-    signing_key = jwks_client.get_signing_key_from_jwt(token)
-    user_data = jwt.decode(
-        token,
-        signing_key.key,
-        algorithms=["RS256"],
-        audience=base_address,
-        options={"verify_exp": True},
-    )
+@app.route("/hello")
+def hello():
+    authz_header = request.headers.get("Authorization")
+    if not authz_header:
+        return {
+            "message": "authz header not found"
+        }
+
+    # get jwt token from Authorization header
+    token = parse_header(authz_header)
+    if token:
+        try:
+            # fetch jwks_uri from the Authgear Discovery Endpoint
+            jwks_uri = fetch_jwks_uri(base_address)
+            # Reuse PyJWKClient for better performance
+            jwks_client = PyJWKClient(jwks_uri)
+            signing_key = jwks_client.get_signing_key_from_jwt(token)
+            user_data = jwt.decode(
+                token,
+                signing_key.key,
+                algorithms=["RS256"],
+                audience=base_address,
+                options={"verify_exp": True},
+            )
+            return {
+                "message": "Hello!",
+                "user_data": user_data
+            }
+        except:
+            return {
+                "message": "JWT decode failed"
+            }
+    else:
+        return {
+            "message": "no token"
+        }
 ```
 {% endtab %}
 
