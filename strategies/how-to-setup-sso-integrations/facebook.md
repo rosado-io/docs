@@ -2,7 +2,7 @@
 description: Add Facebook Sign in to your apps in less than 5 minutes.
 ---
 
-# Facebook
+# Connect Apps to Facebook
 
 ## Create an App in Facebook for Developers
 

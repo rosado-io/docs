@@ -21,13 +21,13 @@
 
 * [User, Identity and Authenticator](strategies/user-identity-and-authenticator.md)
 * [Social Identity Providers](strategies/how-to-setup-sso-integrations/README.md)
-  * [Apple](strategies/how-to-setup-sso-integrations/apple.md)
-  * [Google](strategies/how-to-setup-sso-integrations/google.md)
-  * [Facebook](strategies/how-to-setup-sso-integrations/facebook.md)
-  * [Linkedin](strategies/how-to-setup-sso-integrations/linkedin.md)
-  * [Azure Active Directory](strategies/how-to-setup-sso-integrations/azureadv2.md)
-  * [WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
-  * [Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
+  * [Connect Apps to Apple](strategies/how-to-setup-sso-integrations/apple.md)
+  * [Connect Apps to Google](strategies/how-to-setup-sso-integrations/google.md)
+  * [Connect Apps to Facebook](strategies/how-to-setup-sso-integrations/facebook.md)
+  * [Connect Apps to LinkedIn](strategies/how-to-setup-sso-integrations/linkedin.md)
+  * [Connect Apps to Azure Active Directory](strategies/how-to-setup-sso-integrations/azureadv2.md)
+  * [Connect Apps to WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
+  * [Connect Apps to Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
 * [Biometric login](strategies/biometric.md)
 
 ## Integrate

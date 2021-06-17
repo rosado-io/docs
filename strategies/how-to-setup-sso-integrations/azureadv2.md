@@ -1,4 +1,4 @@
-# Azure Active Directory
+# Connect Apps to Azure Active Directory
 
 ## Prerequisite
 

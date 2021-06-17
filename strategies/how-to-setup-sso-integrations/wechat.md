@@ -1,4 +1,4 @@
-# WeChat
+# Connect Apps to WeChat
 
 ## Web
 

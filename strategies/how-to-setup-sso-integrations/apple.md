@@ -1,4 +1,4 @@
-# Apple
+# Connect Apps to Apple
 
 ## Prerequisite
 

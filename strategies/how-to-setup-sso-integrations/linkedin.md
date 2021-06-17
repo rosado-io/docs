@@ -1,4 +1,4 @@
-# Linkedin
+# Connect Apps to LinkedIn
 
 ## Prerequisite
 

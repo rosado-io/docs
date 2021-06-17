@@ -2,7 +2,7 @@
 description: Add Google Sign in to your apps in less than 5 minutes.
 ---
 
-# Google
+# Connect Apps to Google
 
 ## Set up OAuth client on Google Cloud Platform
 

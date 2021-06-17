@@ -1,4 +1,4 @@
-# Microsoft AD FS
+# Connect Apps to Microsoft AD FS
 
 ## Prerequisite
 
