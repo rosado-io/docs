@@ -51,7 +51,7 @@ You will need the values of **Client ID**, **Client secret** to configure Google
 
 🎉Done! You have just added Google Sign In to your apps!
 
-Your end-users can now sign in with Google on Authgear pre-built Log In and Sign Up page. Existing end-users can connect their account to Google in [User Settings](../../integrate/auth-ui.md) page.
+Your end-users can now sign in with Google on Authgear pre-built Log In and Sign Up page. Existing end-users can connect their account to Google in the [User Settings](../../integrate/auth-ui.md) page.
 
 ![&quot;Sign in with Google&quot; in Log in and Sign up page](../../.gitbook/assets/google_sign_in.png)
 
