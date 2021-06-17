@@ -21,10 +21,8 @@ Redirect URI has the form of `/sso/oauth2/callback/:alias`. The `alias` is used 
 
 ## Configure Sign in with Apple in Authgear Portal
 
-In the portal, go to "Single-Sign On" page, then do the following:
-
 1. In the portal, go to **Single-Sign On** page in your project
-2. Enable **Sign in with Google**
+2. Enable **Sign in with Apple**
 3. Fill in the **Client ID** with the **Service ID** obtained above.
 4. In **Apple Developer Portal**, view key information of the "Key" created above
 5. Jot down the **Key ID** and download the key text file \(`.p8` file\)
