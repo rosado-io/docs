@@ -12,26 +12,29 @@ To configure "Sign in with Apple" for Authgear, you will need to fulfil the foll
 6. Create an "App ID" by adding a new "Identifier" [here](https://developer.apple.com/account/resources/identifiers/list), choose app IDs, enable "Sign in with Apple" enabled.
 7. Create a "Services ID" by adding a new "Identifier" [here](https://developer.apple.com/account/resources/identifiers/list), choose service IDs, enable "Sign in with Apple".
 8. Click "Configure" the Next to "Sign in with Apple". In "Primary App ID" field, select app ID created above.
-9. Fill in and verify the domain created above, add `https://{your domain}/sso/oauth2/callback/{alias}` to "Return URLs" \(`alias` can be configured in Authgear portal\)
+9. Fill in and verify the domain created above, add `https://<YOUR_AUTHGEAR_ENDPOINT>/sso/oauth2/callback/apple` to **Return URLs**
 10. Create a "Key" following [this guide](https://help.apple.com/developer-account/#/devcdfbb56a3) with "Sign in with Apple" enabled. Click "Configure" next to "Sign in with Apple" and select "Primary App ID" with app ID created above. Keep the private key safe, you need to provide this later.
 
-## Configure "Sign in with Apple" through the portal
+{% hint style="info" %}
+Redirect URI has the form of `/sso/oauth2/callback/:alias`. The `alias` is used as the identifier of OAuth provider. You can configure the `alias` in Authgear Portal.
+{% endhint %}
+
+## Configure Sign in with Apple in Authgear Portal
 
 In the portal, go to "Single-Sign On" page, then do the following:
 
-1. Enable "Sign in with Apple"
-2. Fill in "Alias" with alias used in redirect URI
-3. Fill in "Client ID" field with "Service ID" above
-4. In Apple Developer Portal, view key information of the "Key" created above
-5. Jot down the "Key ID" and download the key text file \(`.p8` file\)
-6. Copy the content in the key file to "Client Secret" text area in Authgear portal
-7. Fill in "Key ID" field using "Key ID" from step 4
-8. In Apple Developer Portal, click username on the top right corner, click "View Membership"
-9. Find the "Team ID" from "Membership Information", fill in "Team ID" field in Authgear portal
-10. Scroll to the bottom, and click save
+1. In the portal, go to **Single-Sign On** page in your project
+2. Enable **Sign in with Google**
+3. Fill in the **Client ID** with the **Service ID** obtained above.
+4. In **Apple Developer Portal**, view key information of the "Key" created above
+5. Jot down the **Key ID** and download the key text file \(`.p8` file\)
+6. Copy the content in the key text file to **Client Secret** text area in **Authgear Portal.**
+7. Fill in **Key ID** field using the **Key ID** obtained from step 5
+8. In **Apple Developer Portal**, click username on the top right corner, click **View Membership**
+9. Find the **Team ID** from **Membership Information**, fill in **Team ID** field in Authgear portal
+10. **Save** the settings
 
-## Notes
+🎉Done! You have just added Sign in with Apple to your apps!
 
-* "alias" is used as the identifier of OAuth provider
-* Redirect URI has the form "/sso/oauth2/callback/:alias"
+
 
