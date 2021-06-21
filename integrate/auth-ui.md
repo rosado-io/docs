@@ -19,9 +19,5 @@ The user can perform the following actions from the setting page:
 * Change, Add or Remove Identity
 * Biometric settings
 
-## Theming
-
-The look and feel of the UI be customized by providing a CSS stylesheet. The pages can also be overridden with your own templates.
-
 
 
