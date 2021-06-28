@@ -46,15 +46,15 @@
 * [API for Client Applications \(OIDC 2.0\)](apis/api-for-client-applications-oidc-2.0.md)
 * [Admin APIs](apis/admin-apis.md)
 
+## Webhooks
+
+* [Webhooks](webhooks/webhooks.md)
+
 ## Client App SDKs
 
 * [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
 * [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
 * [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
-
-## Webhooks
-
-* [Webhooks](webhooks/webhooks.md)
 
 ## Deploy on your Cloud
 
