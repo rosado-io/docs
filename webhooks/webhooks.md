@@ -75,6 +75,8 @@ To forbid the operation, respond with `is_allowed` being set to `false` and a no
 
 If any handler fails the operation, the operation is halted. The `title` and `reason` will be shown to the end-user as an error message.
 
+Each blocking event webhook handler must response within 5 seconds. And all blocking handlers in total should take less than 10 seconds to complete. Otherwise it would be considered as a failed delivery.
+
 ## Non-blocking Events
 
 Non-blocking events are delivered to webhook handlers asynchronously after the operation is performed \(i.e. committed into the database\).
@@ -338,4 +340,8 @@ Occurs when user disconnected from an OAuth provider. It can be done by user dis
 Each webhook event request is signed with a secret key shared between Authgear and the webhook handler. The developer must validate the signature and reject requests with invalid signature to ensure the request originates from Authgear.
 
 The signature is calculated as the hex encoded value of HMAC-SHA256 of the request body and included in the header `x-authgear-body-signature`.
+
+{% hint style="info" %}
+Getting the secret key in the Portal is in our roadmap. [Track the issue here.](https://github.com/authgear/authgear-server/issues/912)
+{% endhint %}
 
