@@ -29,6 +29,7 @@
   * [Connect Apps to WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
   * [Connect Apps to Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
 * [Biometric login](strategies/biometric.md)
+* [Reauthentication](strategies/reauthentication.md)
 
 ## Integrate
 
