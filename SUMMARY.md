@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Authgear](README.md)
+* [Authgear Docs](README.md)
 
 ## Get Started
 
