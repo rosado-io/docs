@@ -29,13 +29,13 @@
   * [Connect Apps to WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
   * [Connect Apps to Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
 * [Biometric login](strategies/biometric.md)
-* [Reauthentication](strategies/reauthentication.md)
 
 ## Integrate
 
 * [Using SDK to call your application server](integrate/using-sdk-to-call-your-application-server.md)
-* [User settings from Auth UI](integrate/auth-ui.md)
+* [User Settings](integrate/auth-ui.md)
 * [User Info](integrate/user-info.md)
+* [Reauthentication](integrate/reauthentication.md)
 * [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
 
 ## Customize

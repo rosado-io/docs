@@ -4,7 +4,7 @@ description: >-
   related features of your apps
 ---
 
-# User settings from Auth UI
+# User Settings
 
 ## User Settings
 
@@ -16,7 +16,7 @@ The user can perform the following actions from the setting page:
 
 * Forgot Password
 * Reset Password
-* Change, Add or Remove Identity
+* Connect or disconnect to social identity providers
 * Biometric settings
 
 
