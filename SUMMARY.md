@@ -41,6 +41,7 @@
 ## Customize
 
 * [Privacy Policy & Terms of Service Links](customize/privacy-policy-terms-of-service.md)
+* [Customer Support Link](customize/customer-support-link.md)
 
 ## APIs
 
