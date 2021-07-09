@@ -6,6 +6,8 @@ description: >-
 
 # Reauthentication
 
+## Overview
+
 Reauthentication in Authgear is built on top of the [OIDC ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken). The ID token is a JWT.
 
 Your sensitive operation server endpoint **MUST** require the ID token. When you receive the ID token, you **MUST** verify the signature of it. If the signature is valid, you can trust the claims inside the ID token.
@@ -18,10 +20,12 @@ The `https://authgear.com/claims/user/can_reauthenticate` claim in the ID token 
 
 ![Sequence diagram for end-user who CAN reauthenticate](../.gitbook/assets/reauthentication-possible.png)
 
+## SDK Integration
+
 The following code snippets illustrate the interaction between the SDK and Authgear.
 
 {% tabs %}
-{% tab title="JavaScript" %}
+{% tab title="React Native" %}
 ```typescript
 async function onClickPerformSensitiveOperation() {
   // Step 1: Refresh the ID token to ensure the claims are up-to-date.
@@ -51,6 +55,49 @@ async function onClickPerformSensitiveOperation() {
   // The ID token have up-to-date auth_time claim.
   const idTokenHint = authgear.getIDTokenHint();
 
+  return callMySensitiveEndpoint(idTokenHint);
+}
+```
+{% endtab %}
+
+{% tab title="Web" %}
+```typescript
+async function onClickPerformSensitiveOperation() {
+  // Step 1: Refresh the ID token to ensure the claims are up-to-date.
+  await authgear.refreshIDToken();
+
+  // Step 2: Check if the end-user can be reauthenticated.
+  const canReauthenticate = authgear.canReauthenticate();
+  if (!canReauthenticate) {
+    // Step 2.1: Depending on your business need, you may want to allow
+    // the end-user to proceed.
+    // Here we assume you want to proceed.
+
+    const idTokenHint = authgear.getIDTokenHint();
+
+    // Step 2.2: Call the sensitive endpoint with the ID token.
+    // It is still required to pass the ID token to the endpoint so that
+    // the endpoint can know the end-user CANNOT be reauthenticated.
+    return callMySensitiveEndpoint(idTokenHint);
+  }
+
+  // Step 3: The end-user can be reauthenticated.
+  // The end-user will be redirected to Authgear.
+  // When the reauthentication finishes,
+  // The end-user will be redirected back to the given redirect URI.
+  await authgear.startReauthentication({
+    redirectURI: THE_REDIRECT_URI
+  });
+}
+
+// Suppose the following function is run when the end-user is redirected to
+// the redirect URI
+async function onRedirectAfterReauthentication() {
+  // You HAVE to configure authgear again
+  // because your website have been visited freshly.
+  await authgear.finishReauthentication();
+  await authgear.refreshIDToken();
+  const idTokenHint = authgear.getIDTokenHint();
   return callMySensitiveEndpoint(idTokenHint);
 }
 ```
@@ -96,7 +143,6 @@ func onClickPerformSensitiveOperation() {
         }
     }
 }
-
 ```
 {% endtab %}
 
