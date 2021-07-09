@@ -196,6 +196,87 @@ public void onClickPerformSensitiveOperation() {
 {% endtab %}
 {% endtabs %}
 
+### UX Improvement
+
+If the end-users in your application often perform a series of sensitive operation, it is annoying that they have to reauthenticate themselves repeatedly before every operation. To allow the end-users to skip reauthentication if they have just reauthenticated themselves recently, the SDK allows you to inspect the last authentication time of the end-user.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```typescript
+async function onClickPerformSensitiveOperation() {
+  await authgear.refreshIDToken();
+  // Before you trigger reauthentication, check authTime first.
+  const authTime = authgear.getAuthTime();
+  if (authTime != null) {
+    const now = new Date();
+    const timeDelta = now.getTime() - authTime.getTime();
+    if (timeDelta < 5 * 60 * 1000 /* 5 minutes */) {
+      const idTokenHint = authgear.getIDTokenHint();
+      return callMySensitiveEndpoint(idTokenHint);
+    }
+  }
+
+  // Otherwise trigger authentication.
+}
+```
+{% endtab %}
+
+{% tab title="iOS" %}
+```swift
+func onClickPerformSensitiveOperation() {
+    authgear.refreshIDToken() { result in
+        switch result {
+        case .success:
+            // Before you trigger reauthentication, check authTime first.
+            if let authTime = authgear.authTime {
+                let now = Date()
+                let timeDelta = now.timeIntervalSince(authTime)
+                if timeDelta < 5 * 60 {
+                    let idTokenHint = authgear.idTokenHint
+                    callMySensitiveEndpoint(idTokenHint)
+                    return
+                }
+            }
+            // Otherwise trigger authentication.
+        case let .failure(error):
+            // Handle the error
+        }
+    }
+}
+```
+{% endtab %}
+
+{% tab title="Android" %}
+```java
+public void onClickPerformSensitiveOperation() {
+    authgear.refreshIDToken(new OnRefreshIDTokenListener() {
+        @Override
+        public void onFailed(Throwable throwable) {
+            // Handle error
+        }
+        @Override
+        public void onFinished() {
+            // Before you trigger reauthentication, check authTime first.
+            Date authTime = authgear.getAuthTime();
+            if (authTime != null) {
+                Date now = new Date();
+                long timedelta = now.getTime() - authTime.getTime();
+                if (timedelta < 5 * 60 * 1000) {
+                    String idTokenHint = authgear.getIDTokenHint();
+                    callMySensitiveEndpoint(idTokenHint);
+                    return;
+                }
+            }
+            // Otherwise trigger authentication.
+        }
+    });
+}
+```
+{% endtab %}
+{% endtabs %}
+
+## Backend Integration
+
 Finally in your backend, you have to verify the signature of the ID token, and then validate the claims inside.
 
 {% tabs %}
