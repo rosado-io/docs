@@ -196,7 +196,7 @@ public void onClickPerformSensitiveOperation() {
 {% endtab %}
 {% endtabs %}
 
-### UX Improvement
+### Reauthenticate conditionally by the last authentication time
 
 If the end-users in your application often perform a series of sensitive operation, it is annoying that they have to reauthenticate themselves repeatedly before every operation. To allow the end-users to skip reauthentication if they have just reauthenticated themselves recently, the SDK allows you to inspect the last authentication time of the end-user.
 
@@ -332,104 +332,103 @@ def my_endpoint():
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"net/http"
-	"time"
+    "context"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "time"
 
-	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/lestrrat-go/jwx/jwt"
+    "github.com/lestrrat-go/jwx/jwk"
+    "github.com/lestrrat-go/jwx/jwt"
 )
 
 var (
-	baseAddress = "https://<your_app_endpoint>"
+    baseAddress = "https://<your_app_endpoint>"
 )
 
 type OIDCDiscoveryDocument struct {
-	JWKSURI string `json:"jwks_uri"`
+    JWKSURI string `json:"jwks_uri"`
 }
 
 func FetchOIDCDiscoveryDocument(endpoint string) (*OIDCDiscoveryDocument, error) {
-	resp, err := http.DefaultClient.Get(endpoint)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
+    resp, err := http.DefaultClient.Get(endpoint)
+    if err != nil {
+        return nil, err
+    }
+    defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf(
-			"failed to fetch discovery document: unexpected status code: %d",
-			resp.StatusCode,
-		)
-	}
+    if resp.StatusCode != http.StatusOK {
+        return nil, fmt.Errorf(
+            "failed to fetch discovery document: unexpected status code: %d",
+            resp.StatusCode,
+        )
+    }
 
-	var document OIDCDiscoveryDocument
-	err = json.NewDecoder(resp.Body).Decode(&document)
-	if err != nil {
-		return nil, err
-	}
-	return &document, nil
+    var document OIDCDiscoveryDocument
+    err = json.NewDecoder(resp.Body).Decode(&document)
+    if err != nil {
+        return nil, err
+    }
+    return &document, nil
 }
 
 func FetchJWK(baseAddress string) (jwk.Set, error) {
-	doc, err := FetchOIDCDiscoveryDocument(
-		baseAddress + "/.well-known/openid-configuration",
-	)
-	if err != nil {
-		return nil, err
-	}
+    doc, err := FetchOIDCDiscoveryDocument(
+        baseAddress + "/.well-known/openid-configuration",
+    )
+    if err != nil {
+        return nil, err
+    }
 
-	set, err := jwk.Fetch(context.Background(), doc.JWKSURI)
-	return set, err
+    set, err := jwk.Fetch(context.Background(), doc.JWKSURI)
+    return set, err
 }
 
 func CheckIDToken(idToken string) error {
-	// fetch jwks_uri from Authgear
-	// you can cache the value of jwks to have better performance
-	set, err := FetchJWK(baseAddress)
-	if err != nil {
-		return fmt.Errorf("failed to fetch JWK: %s", err)
-	}
+    // fetch jwks_uri from Authgear
+    // you can cache the value of jwks to have better performance
+    set, err := FetchJWK(baseAddress)
+    if err != nil {
+        return fmt.Errorf("failed to fetch JWK: %s", err)
+    }
 
-	// parse jwt token
-	token, err := jwt.ParseString(idToken, jwt.WithKeySet(set))
-	if err != nil {
-		return fmt.Errorf("invalid token: %s", err)
-	}
+    // parse jwt token
+    token, err := jwt.ParseString(idToken, jwt.WithKeySet(set))
+    if err != nil {
+        return fmt.Errorf("invalid token: %s", err)
+    }
 
-	// validate jwt token
-	err = jwt.Validate(token,
-		jwt.WithClock(jwt.ClockFunc(
-			func() time.Time { return time.Now().UTC() },
-		)),
-		jwt.WithIssuer(baseAddress),
-	)
-	if err != nil {
-		return fmt.Errorf("invalid token: %s", err)
-	}
+    // validate jwt token
+    err = jwt.Validate(token,
+        jwt.WithClock(jwt.ClockFunc(
+            func() time.Time { return time.Now().UTC() },
+        )),
+        jwt.WithIssuer(baseAddress),
+    )
+    if err != nil {
+        return fmt.Errorf("invalid token: %s", err)
+    }
 
-	authTimeAny, ok := token.Get("auth_time")
-	if !ok {
-		return fmt.Errorf("no auth_time")
-	}
+    authTimeAny, ok := token.Get("auth_time")
+    if !ok {
+        return fmt.Errorf("no auth_time")
+    }
 
-	authTimeUnix, ok := authTimeAny.(float64)
-	if !ok {
-		return fmt.Errorf("auth_time is not number")
-	}
+    authTimeUnix, ok := authTimeAny.(float64)
+    if !ok {
+        return fmt.Errorf("auth_time is not number")
+    }
 
-	authTime := time.Unix(int64(authTimeUnix), 0)
-	now := time.Now().UTC()
+    authTime := time.Unix(int64(authTimeUnix), 0)
+    now := time.Now().UTC()
 
-	diff := now.Sub(authTime)
-	if diff > 5*time.Minute {
-		return fmt.Errorf("auth_time is not recent enough")
-	}
+    diff := now.Sub(authTime)
+    if diff > 5*time.Minute {
+        return fmt.Errorf("auth_time is not recent enough")
+    }
 
-	return nil
+    return nil
 }
-
 ```
 {% endtab %}
 {% endtabs %}

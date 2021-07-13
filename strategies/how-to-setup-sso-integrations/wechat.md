@@ -83,7 +83,7 @@ Here are the detailed steps for iOS, Android and React Native.
   * **WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR**: `https://{YOUR_DOMAIN}/open_wechat_app`
 * Login WeChat Open platform, open the application detail page, update the development information iOS section.
 
-![](../../.gitbook/assets/wechat-development-information.png)
+![](../../.gitbook/assets/wechat-development-information%20%285%29.png)
 
 * Fill in "Bundle ID" field with your app bundle id.
 * Fill in "Universal Links" with "WECHAT\_UNIVERICAL\_LINK" above.
@@ -207,7 +207,7 @@ Here are the detailed steps for iOS, Android and React Native.
 * Follow [Android接入指南](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/Android.html) to setup Wechat SDK. For the coding part, we will further explain in the below steps.
 * Login WeChat Open platform, open the application detail page, update the development information Android section.
 
-![](../../.gitbook/assets/wechat-development-information.png)
+![](../../.gitbook/assets/wechat-development-information%20%285%29.png)
 
 * Fill in application signature, you can obtain it with command `keytool -list -v -keystore YOUR_KEYSTORE_FILE_PATH`. WeChat needs the certificate fingerprint in MD5, remove `:` in the fingerprint. It should be string in length 32.
 * Fill in your package name
@@ -355,7 +355,7 @@ Here are the detailed steps for iOS, Android and React Native.
 * In android, you need to sign your app to use WeChat SDK. Obtain your application signature by running command `keytool -list -v -keystore YOUR_KEYSTORE_FILE_PATH` with your keystore file. WeChat needs the certificate fingerprint in MD5, remove `:` in the fingerprint. It should be string in length 32.
 * Login WeChat Open platform, open the application detail page, update the development information iOS and Android sections.
 
-![](../../.gitbook/assets/wechat-development-information.png)
+![](../../.gitbook/assets/wechat-development-information%20%285%29.png)
 
 * In iOS
   * Fill in "Bundle ID" field with your app bundle id.
