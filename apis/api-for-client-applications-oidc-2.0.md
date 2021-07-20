@@ -10,6 +10,12 @@ This endpoint serves a JSON document containing the OpenID Connect configuration
 
 Here is [an example of how it looks](https://accounts.portal.authgearapps.com/.well-known/openid-configuration).
 
+## /.well-known/oauth-authorization-server
+
+This endpoint serves a JSON document containing the authorization server metadata of your app. That includes the authorization endpoint, the token endpoint and the JWKs endpoint.
+
+Here is [an example of how it looks](https://accounts.portal.authgearapps.com/.well-known/oauth-authorization-server).
+
 ## /\_resolver/resolve
 
 The endpoint serves as a resolver to check the access token or cookie in the request headers. Forward incoming HTTP requests to this endpoint and the resolver will adds the `x-authgear-` headers the to response. 
@@ -26,3 +32,6 @@ This endpoint is the entrypoint of the Web UI. You can visit it if you want to t
 
 User settings UI
 
+## /_api/admin/graphql
+
+Admin GraphQL API endpoint. For usage details, please check [Admin APIs](admin-apis.md).
