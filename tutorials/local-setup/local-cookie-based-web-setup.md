@@ -3,7 +3,7 @@
 [Running a local Authgear server](../../deploy-on-your-cloud/local.md) is not trivial. This guide provides a simple way to bootstrap your local application that communicates with the production Authgear server.
 
 {% hint style="warning" %}
-This page is only for **cookie-based** authorization in **local development** setup. **DO NOT** follow this guide if you are using token-based authorization or setting up your production environment.
+This guide is only for cookie-based authentication in local development setup. A typical scenario is developing website. If you are developing mobile application which uses token-based authentication, you can just skip this guide and continue with as usual.
 {% endhint %}
 
 ## Problems using localhost as local website domain
@@ -16,7 +16,7 @@ You can learn more [here](../../get-started/authentication-approach/cookie-based
 
 > For local development, it is highly recommended to create a new application on Authgear before continuing to the rest of the guide.
 
-1. Log in and create a new project on [https://portal.authgearapps.com/projects](https://portal.authgearapps.com)
+1. Log in and create a new project on [https://portal.authgearapps.com](https://portal.authgearapps.com)
 2. Go to the **Application** tab in your dashboard
 3. Add your local application domain `{SUBDOMAIN}.{PROJECT_NAME}.authgearapps.com` under the **Allowed Origins** list 
 4. Add an application, name it whatever you want. **DO NOT check the Issue JWT as access token** box because we are using cookie-based authorization. 
@@ -26,7 +26,7 @@ You can learn more [here](../../get-started/authentication-approach/cookie-based
 
 To make the cookies visible to the browser, the local website domain has to be inside the domain where the cookies are set.
 
-You can fake the browser that you are using a subdomain of the project domain by manually mapping our local application domain to your loopback address in the `hosts` file, adding the following line:
+By adding the following line to the `/etc/hosts` file on the local machine, we can point the application domain name to localhost.
 ```
 127.0.0.1 {SUBDOMAIN}.{PROJECT_NAME}.authgearapps.com
 ```
@@ -86,7 +86,7 @@ server {
   location /_auth {
     internal;
     resolver 8.8.8.8;
-    set $resolver https://getchatbutton.authgearapps.com/_resolver/resolve;
+    set $resolver https://{PROJECT_NAME}.authgearapps.com/_resolver/resolve;
     proxy_pass $resolver;
     proxy_pass_request_body off;
     proxy_set_header Content-Length "";
@@ -132,7 +132,7 @@ server {
   location /_auth {
     internal;
     resolver 8.8.8.8;
-    set $resolver https://getchatbutton.authgearapps.com/_resolver/resolve;
+    set $resolver https://{PROJECT_NAME}.authgearapps.com/_resolver/resolve;
     proxy_pass $resolver;
     proxy_pass_request_body off;
     proxy_set_header Content-Length "";
