@@ -19,7 +19,7 @@ A paid subscription is required for setting up a custom domain.
 
 ![Setup DNS records and verify](../.gitbook/assets/custom-domain-verification.png)
 
-## 3. Activate your custom domain 
+## 3. Activate your custom domain
 
 * You will return to the custom domain list after verifying your custom domain. Click **Activate** to use your custom domain.
 * Now you can access Authgear pages with your custom domain, your default Authgear generated domain \(e.g. `<YOUR_APP>.authgearapps.com`\) cannot be used anymore. **Update your SDK endpoint to use the new custom domain**.

@@ -18,7 +18,7 @@ Here is [an example of how it looks](https://accounts.portal.authgearapps.com/.w
 
 ## /\_resolver/resolve
 
-The endpoint serves as a resolver to check the access token or cookie in the request headers. Forward incoming HTTP requests to this endpoint and the resolver will adds the `x-authgear-` headers the to response. 
+The endpoint serves as a resolver to check the access token or cookie in the request headers. Forward incoming HTTP requests to this endpoint and the resolver will adds the `x-authgear-` headers the to response.
 
 See the list of `x-authgear-` headers in the specs [here](https://github.com/authgear/authgear-server/blob/master/docs/specs/api-resolver.md).
 
@@ -32,6 +32,7 @@ This endpoint is the entrypoint of the Web UI. You can visit it if you want to t
 
 User settings UI
 
-## /_api/admin/graphql
+## /\_api/admin/graphql
 
 Admin GraphQL API endpoint. For usage details, please check [Admin APIs](admin-apis.md).
+

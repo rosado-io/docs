@@ -1,14 +1,20 @@
-# Local Development Setup for cookie-based Authorization
+---
+description: >-
+  Setting up the local development enviroment for websites that use cookie-based
+  authorization.
+---
+
+# Cookie-based Authorization
 
 [Running a local Authgear server](../../deploy-on-your-cloud/local.md) is not trivial. This guide provides a simple way to bootstrap your local application that communicates with the production Authgear server.
 
 {% hint style="warning" %}
-This guide is only for cookie-based authentication in local development setup. A typical scenario is developing website. If you are developing mobile application which uses token-based authentication, you can just skip this guide and continue with as usual.
+This guide is only for cookie-based authentication in local development setup. A typical scenario is developing websites. If you are developing mobile applications which use token-based authentication, you can just skip this guide and continue with it as usual.
 {% endhint %}
 
-## Problems using localhost as local website domain
+## Problems using localhost as a local website domain
 
-Authgear sets cookie in the browser inside the project domain. When running your application on `localhost`, the browser will not see the cookies because the website is not in the subdomain of the domain in which the cookies are set. Therefore, the browser will not be able to authenticate itself.
+Authgear sets a cookie in the browser inside the project domain. When running your application on `localhost`, the browser will not see the cookies because the website is not in the subdomain of the domain in which the cookies are set. Therefore, the browser will not be able to authenticate itself.
 
 You can learn more [here](../../get-started/authentication-approach/cookie-based.md#how-it-works).
 
@@ -27,18 +33,22 @@ You can learn more [here](../../get-started/authentication-approach/cookie-based
 To make the cookies visible to the browser, the local website domain has to be inside the domain where the cookies are set.
 
 By adding the following line to the `/etc/hosts` file on the local machine, we can point the application domain name to localhost.
-```
+
+```text
 127.0.0.1 {SUBDOMAIN}.{PROJECT_NAME}.authgearapps.com
 ```
 
 The browser will be able to see the auth cookies if visiting the website via this domain.
 
 ## Use HTTPS
-Although you can see the cookies now, the cookies have the **Secure** attribute set. To include them in an HTTP request, the request has to be transmitted over a secure channel (**HTTPS** in most browsers). Therefore, we also need to establish **HTTPS** connections for our browser with the server.
+
+Although you can see the cookies now, the cookies have the **Secure** attribute set. To include them in an HTTP request, the request has to be transmitted over a secure channel \(**HTTPS** in most browsers\). Therefore, we also need to establish **HTTPS** connections for our browser with the server.
 
 ### Generate certificates
+
 One quick simple way to do this is to use [mkcert](https://github.com/FiloSottile/mkcert), you may follow the installation steps [here](https://github.com/FiloSottile/mkcert#installation). After installing mkcert, generate a certificate with the following command:
-```
+
+```text
 mkcert *.{PROJECT_NAME}.authgearapps.com
 ```
 
@@ -48,17 +58,17 @@ A key file and a cert file will be generated. They will be used in the next part
 
 We will need an **nginx** server to serve the certificate and enable SSL.
 
-Add the following config file to your `nginx/conf.d` directory, or mount it to a volume together with the cert and key if you are using nginx in docker. 
+Add the following config file to your `nginx/conf.d` directory, or mount it to a volume together with the cert and key if you are using nginx in docker.
 
-Below examples show the nginx config files for nginx in host and nginx in docker.
+The examples below show the nginx config files for nginx in host and nginx in docker.
 
 {% tabs %}
 {% tab title="nginx in host" %}
-```
+```text
 server {
   listen       443 ssl;
   server_name  {SUBDOMAIN}.{PROJECT_NAME}.authgearapps.com;
-  
+
   ssl_certificate      /path/to/your/cert;
   ssl_certificate_key  /path/to/your/key;
 
@@ -94,16 +104,17 @@ server {
 }
 ```
 {% endtab %}
+
 {% tab title="nginx in docker" %}
 {% hint style="info" %}
-Docker `host` network driver is not supported in Docker Desktop, it has to be in a `bridge` network. If your nginx in docker needs to proxy requests to services in your host network, it needs to resolve `host.docker.intenrnal` through `127.0.0.11`. If your services are also in the same docker bridge network (i.e. same docker-compose without specifying multiple networks), the destination domain will be the container name.
+Docker `host` network driver is not supported in Docker Desktop, it has to be in a `bridge` network. If your nginx in docker needs to proxy requests to services in your host network, it needs to resolve `host.docker.intenrnal` through `127.0.0.11`. If your services are also in the same docker bridge network \(i.e. same docker-compose without specifying multiple networks\), the destination domain will be the container name.
 {% endhint %}
 
-```
+```text
 server {
   listen       443 ssl;
   server_name  {SUBDOMAIN}.{PROJECT_NAME}.authgearapps.com;
-  
+
   ssl_certificate      /path/to/your/cert;
   ssl_certificate_key  /path/to/your/key;
 
@@ -149,3 +160,4 @@ In the above examples, nginx will also authenticate requests by creating sub-req
 Now visit the website through `https://{SUBDOMAIN}.{PROJECT_NAME}.authgearapps.com`, the browser will be able to send requests with the authorization cookies.
 
 For implementing login and logout logic in your website, please refer to [Web SDK](../../get-started/website.md).
+
