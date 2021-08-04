@@ -103,15 +103,14 @@ As you can see in the sample code, you expiration time of the JWT is 5 minutes. 
 ## Trying out the Admin API GraphQL endpoint
 
 {% hint style="danger" %}
-The playground is NOT a sandbox and changes will be made on real data. Use with care!
+The GraphiQL tool is NOT a sandbox environment and all changes will be made on real data. Use with care!
 {% endhint %}
 
-The above instruction is for server side integration. If you want to explore what it can do, you can go to the playground.
+The above instruction is for server side integration. If you want to explore what it can do, you can visit the GraphiQL tool.
 
 * Go to **Settings** -&gt; **Admin API**
-* Click on the **GraphiQL Playground** link
+* Click on the **GraphiQL tool** link
 
 ### Inspecting the GraphQL schema
 
-In the playground, you can toggle the schema documentation by pressing the Docs button in the top right corner.
-
+In the GraphiQL tool, you can toggle the schema documentation by pressing the Docs button in the top right corner.
