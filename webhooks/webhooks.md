@@ -341,7 +341,63 @@ Each webhook event request is signed with a secret key shared between Authgear a
 
 The signature is calculated as the hex encoded value of HMAC-SHA256 of the request body and included in the header `x-authgear-body-signature`.
 
-{% hint style="info" %}
-Getting the secret key in the Portal is in our roadmap. [Track the issue here.](https://github.com/authgear/authgear-server/issues/912)
-{% endhint %}
+To obtain the secret key, visit the portal and go to **Advanced** -> **Webhooks** -> **Webhook Signature**.
+You may need to reauthenticate yourselves before you can reveal the secret key.
+
+Here is the sample code of how to calculate the signature and verify it.
+
+{% tabs %}
+{% tab title="Go" %}
+```go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/hex"
+	"fmt"
+	"io"
+	"net/http"
+)
+
+// Obtain the secret in the portal.
+const Secret = "SECRET"
+
+// HMACSHA256String returns the hex-encoded string of HMAC-SHA256 code of body using secret as key.
+func HMACSHA256String(data []byte, secret []byte) (sig string) {
+	hasher := hmac.New(sha256.New, secret)
+	_, _ = hasher.Write(data)
+	signature := hasher.Sum(nil)
+	sig = hex.EncodeToString(signature)
+	return
+}
+
+func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		b, err := io.ReadAll(r.Body)
+		if err != nil {
+			// Handle the error properly
+			panic(err)
+		}
+		defer r.Body.Close()
+
+		sigInHeader := []byte(r.Header.Get("X-Authgear-Body-Signature"))
+		sig := []byte(HMACSHA256String(b, []byte(Secret)))
+
+		// Prefer constant time comparison over == operator.
+		if subtle.ConstantTimeCompare(sigInHeader, sig) != 1 {
+			// The signature does not match
+			// Do NOT trust the content of this webhook!!!
+			panic(fmt.Errorf("%v != %v", string(sigInHeader), string(sig)))
+		}
+
+		// Continue your logic here.
+	})
+	http.ListenAndServe(":9999", nil)
+}
+
+```
+{% endtab %}
+{% endtabs %}
 
