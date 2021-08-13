@@ -15,7 +15,7 @@ A paid subscription is required for setting up a custom domain.
 ## 2. Verify domain ownership
 
 * Go to your domain provider's site, add DNS records based on the values shown on the portal page.  
-* Click **Verify** after adding the DNS records, you may need to wait for propagation of your updated DNS records.  
+* Click **Verify** after adding the DNS records, you may need to wait for the propagation of your updated DNS records.  
 
 ![Setup DNS records and verify](../.gitbook/assets/custom-domain-verification.png)
 

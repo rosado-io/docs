@@ -20,7 +20,7 @@
 ## Strategies
 
 * [User, Identity and Authenticator](strategies/user-identity-and-authenticator.md)
-* [Social Identity Providers](strategies/how-to-setup-sso-integrations/README.md)
+* [Social & Enterprise Identity Providers](strategies/how-to-setup-sso-integrations/README.md)
   * [Connect Apps to Apple](strategies/how-to-setup-sso-integrations/apple.md)
   * [Connect Apps to Google](strategies/how-to-setup-sso-integrations/google.md)
   * [Connect Apps to Facebook](strategies/how-to-setup-sso-integrations/facebook.md)

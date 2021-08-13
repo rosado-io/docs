@@ -26,15 +26,15 @@ Here is the sample code of how to generate the JWT with the private key.
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
-	"time"
+    "encoding/json"
+    "fmt"
+    "os"
+    "time"
 
-	"github.com/lestrrat-go/jwx/jwa"
-	"github.com/lestrrat-go/jwx/jwk"
-	"github.com/lestrrat-go/jwx/jws"
-	"github.com/lestrrat-go/jwx/jwt"
+    "github.com/lestrrat-go/jwx/jwa"
+    "github.com/lestrrat-go/jwx/jwk"
+    "github.com/lestrrat-go/jwx/jws"
+    "github.com/lestrrat-go/jwx/jwt"
 )
 
 // Replace "myapp" with your app ID here.
@@ -44,51 +44,50 @@ const AppID = "myapp"
 const KeyID = "mykid"
 
 func main() {
-	// Replace the following call with your own way to get the private key.
-	f, err := os.Open("private-key.pem")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-	jwkSet, err := jwk.ParseReader(f, jwk.WithPEM(true))
-	if err != nil {
-		panic(err)
-	}
-	key, _ := jwkSet.Get(0)
+    // Replace the following call with your own way to get the private key.
+    f, err := os.Open("private-key.pem")
+    if err != nil {
+        panic(err)
+    }
+    defer f.Close()
+    jwkSet, err := jwk.ParseReader(f, jwk.WithPEM(true))
+    if err != nil {
+        panic(err)
+    }
+    key, _ := jwkSet.Get(0)
 
-	now := time.Now().UTC()
-	payload := jwt.New()
-	_ = payload.Set(jwt.AudienceKey, AppID)
-	_ = payload.Set(jwt.IssuedAtKey, now.Unix())
-	_ = payload.Set(jwt.ExpirationKey, now.Add(5*time.Minute).Unix())
+    now := time.Now().UTC()
+    payload := jwt.New()
+    _ = payload.Set(jwt.AudienceKey, AppID)
+    _ = payload.Set(jwt.IssuedAtKey, now.Unix())
+    _ = payload.Set(jwt.ExpirationKey, now.Add(5*time.Minute).Unix())
 
-	// The alg MUST be RS256.
-	alg := jwa.RS256
-	hdr := jws.NewHeaders()
-	hdr.Set("typ", "JWT")
-	hdr.Set("alg", alg.String())
-	hdr.Set("kid", KeyID)
+    // The alg MUST be RS256.
+    alg := jwa.RS256
+    hdr := jws.NewHeaders()
+    hdr.Set("typ", "JWT")
+    hdr.Set("alg", alg.String())
+    hdr.Set("kid", KeyID)
 
-	buf, err := json.Marshal(payload)
-	if err != nil {
-		panic(err)
-	}
+    buf, err := json.Marshal(payload)
+    if err != nil {
+        panic(err)
+    }
 
-	token, err := jws.Sign(buf, alg, key, jws.WithHeaders(hdr))
-	if err != nil {
-		panic(err)
-	}
+    token, err := jws.Sign(buf, alg, key, jws.WithHeaders(hdr))
+    if err != nil {
+        panic(err)
+    }
 
-	fmt.Printf("%v\n", string(token))
+    fmt.Printf("%v\n", string(token))
 }
-
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Including the JWT in the HTTP request
 
-After generating the JWT, you must include in **EVERY** request you send to the Admin API endpoint. Here is how it looks like
+After generating the JWT, you must include it in **EVERY** request you send to the Admin API endpoint. Here is how it looks like
 
 ```text
 Authorization: Bearer <JWT>
@@ -106,7 +105,7 @@ As you can see in the sample code, you expiration time of the JWT is 5 minutes. 
 The GraphiQL tool is NOT a sandbox environment and all changes will be made on real data. Use with care!
 {% endhint %}
 
-The above instruction is for server side integration. If you want to explore what it can do, you can visit the GraphiQL tool.
+The above instruction is for server-side integration. If you want to explore what it can do, you can visit the GraphiQL tool.
 
 * Go to **Settings** -&gt; **Admin API**
 * Click on the **GraphiQL tool** link
@@ -114,3 +113,4 @@ The above instruction is for server side integration. If you want to explore wha
 ### Inspecting the GraphQL schema
 
 In the GraphiQL tool, you can toggle the schema documentation by pressing the Docs button in the top right corner.
+

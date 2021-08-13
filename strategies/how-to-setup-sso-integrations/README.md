@@ -1,10 +1,12 @@
 ---
-description: Add SSO to enable frictionless sign in for your users
+description: >-
+  Add third-party identity providers to enable frictionless sign in for your
+  users
 ---
 
-# Social Identity Providers
+# Social & Enterprise Identity Providers
 
-Authgear supports following SSO providers. Please click the link below for setup instruction.
+Authgear supports the following social and enterprise identity providers. Please click the link below for setup instructions.
 
 * [Apple](apple.md)
 * [Google](google.md)
