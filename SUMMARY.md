@@ -37,6 +37,8 @@
 * [User Info](integrate/user-info.md)
 * [Reauthentication](integrate/reauthentication.md)
 * [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
+* [Single Sign-on on mobile device](integrate/single-sign-on-on-mobile-device.md)
+* [Force authentication on app launch](integrate/force-authentication-on-app-launch.md)
 
 ## Customize
 
