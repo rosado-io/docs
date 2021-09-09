@@ -6,7 +6,7 @@ description: >-
 
 # User Settings
 
-## Open the settings page with SDK
+## Open the settings page with the SDK
 
 When the end-user has signed in, the SDK provides a method to open the settings page in a webview.
 
@@ -70,7 +70,7 @@ In case your application is a website, the web SDK does not provide a method to 
 
 `https://<your-app-endpoint>/settings`
 
-And then you can just set this as the href of your anchor tag
+And then you can just set this as the `href` of your anchor tag
 
 {% tabs %}
 {% tab title="Web" %}
@@ -88,7 +88,7 @@ function SettingsScreen() {
 
 ## Actions in the settings page
 
-The end-user can perform the following actions in the setting page:
+The end-user can perform the following actions on the setting page:
 
 * Change their password.
 * Add or change their email, phone number or username.
@@ -96,6 +96,4 @@ The end-user can perform the following actions in the setting page:
 * Manage the signed in sessions.
 * Enable or disable 2-step verification.
 * and many more.
-
-
 

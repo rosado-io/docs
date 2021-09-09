@@ -1,10 +1,10 @@
 # Force authentication on app launch
 
-If your mobile app has some security requirements similar to that of banking mobile applications, you wish your end-users to authenticate themselves every time they use your app.
+If your mobile app has security requirements similar to that of mobile banking applications, you may want the end-users to authenticate themselves every time they use your app.
 
-By default, the SDK stores the refresh token in a persistent storage specific to your app. Your app works like social apps like Facebook, the end-user signed in once and the session lasts for a long period.
+By default, the SDK stores the refresh token in a persistent storage specific to your app. The end-user signs in once and their session lasts for a long period, even if they quit the app.
 
-You can alter this behavior by switching to a transient storage.
+You can alter this behavior by switching to a transient storage by setting the `tokenStorage` option to `TransientTokenStorage()` when configuring the SDK. The refresh token will be removed after the app is cleared, therefore authentication will be required on every app launch.
 
 {% tabs %}
 {% tab title="React Native" %}
@@ -35,8 +35,9 @@ new Authgear(
     application,
     CLIENT_ID,
     ENDPOINT,
-    new TransientTokenStorage()
+    new TransientTokenStorage() //tokenStorage
 );
 ```
 {% endtab %}
 {% endtabs %}
+
