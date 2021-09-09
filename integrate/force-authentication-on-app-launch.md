@@ -12,6 +12,8 @@ You can alter this behavior by switching to a transient storage.
 import authgear, { TransientTokenStorage } from "@authgear/react-native";
 
 authgear.configure({
+    clientID: CLIENT_ID,
+    endpoint: ENDPOINT,
     tokenStorage: new TransientTokenStorage(),
 });
 ```

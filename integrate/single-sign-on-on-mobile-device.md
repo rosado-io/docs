@@ -11,6 +11,8 @@ You can turn on this feature when you configure the SDK.
 {% tab title="React Native" %}
 ```typescript
 authgear.configure({
+    clientID: CLIENT_ID,
+    endpoint: ENDPOINT,
     shareSessionWithSystemBrowser: true,
 });
 ```
