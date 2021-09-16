@@ -22,6 +22,71 @@ To create a website application in WeChat, you can choose to setup a website app
 
 ![](../../.gitbook/assets/wechat-sandbox-account-id.png)
 
+* Fill in 接口配置信息. The URL must be pointing at a publicly reachable server. The token is a string of your choice.
+* Implement the 接口配置信息 server. Here is an example written in Golang.
+
+```golang
+package main
+
+import (
+	"crypto/sha1"
+	"crypto/subtle"
+	"encoding/hex"
+	"fmt"
+	"io"
+	"net/http"
+	"sort"
+	"strings"
+)
+
+type WechatVerifyHandler struct {
+	Token string
+}
+
+func (h *WechatVerifyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	signature := r.Form.Get("signature")
+	timestamp := r.Form.Get("timestamp")
+	nonce := r.Form.Get("nonce")
+	echostr := r.Form.Get("echostr")
+
+	token := h.Token
+
+	tmpArr := []string{token, timestamp, nonce}
+	sort.Strings(tmpArr)
+
+	tmpStr := strings.Join(tmpArr, "")
+
+	hasher := sha1.New()
+	io.WriteString(hasher, tmpStr)
+	computedHash := hasher.Sum(nil)
+	computedhashInHex := hex.EncodeToString(computedHash)
+
+	if subtle.ConstantTimeCompare([]byte(signature), []byte(computedhashInHex)) == 1 {
+		w.Write([]byte(echostr))
+		return
+	}
+
+	http.Error(w, fmt.Sprintf("%v != %v", signature, computedhashInHex), http.StatusBadRequest)
+}
+
+func main() {
+	http.Handle("/", &WechatVerifyHandler{
+		Token: "TOKEN", // Change this value to the value you told Wechat!
+	})
+	http.ListenAndServe(":9999", nil)
+}
+```
+
+* Fill in JS接口安全域名. The value is your Authgear domain name plus port, e.g. `192.168.2.88:3000` or `myapp.authgearapps.com`
+* Fill in 网页授权获取用户基本信息. The value is your Authgear domain name plus port, e.g. `192.168.2.88:3000` or `myapp.authgearapps.com`
+* Look for an QR code in the sandbox settings page. You must scan it with your Wechat app and follow the sandbox account.
+
 ### Configure Sign in with WeChat through the Authgear portal
 
 In the portal, go to "Single-Sign On" page, then do the following:
