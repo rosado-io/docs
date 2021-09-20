@@ -10,7 +10,7 @@ In this section, we will explain how to set up reverse proxy in NGINX to protect
 
 You can also use the forward authentication features of the other popular reverse proxy. e.g.
 
-* [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/forwardauth/)
+* [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/v2.0/middlewares/forwardauth/)
 
 ## Authgear Resolver Endpoint
 

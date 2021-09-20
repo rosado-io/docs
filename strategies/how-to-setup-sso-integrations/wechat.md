@@ -25,61 +25,61 @@ To create a website application in WeChat, you can choose to setup a website app
 * Fill in 接口配置信息. The URL must be pointing at a publicly reachable server. The token is a string of your choice.
 * Implement the 接口配置信息 server. Here is an example written in Golang.
 
-```golang
+```go
 package main
 
 import (
-	"crypto/sha1"
-	"crypto/subtle"
-	"encoding/hex"
-	"fmt"
-	"io"
-	"net/http"
-	"sort"
-	"strings"
+    "crypto/sha1"
+    "crypto/subtle"
+    "encoding/hex"
+    "fmt"
+    "io"
+    "net/http"
+    "sort"
+    "strings"
 )
 
 type WechatVerifyHandler struct {
-	Token string
+    Token string
 }
 
 func (h *WechatVerifyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
+    err := r.ParseForm()
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
 
-	signature := r.Form.Get("signature")
-	timestamp := r.Form.Get("timestamp")
-	nonce := r.Form.Get("nonce")
-	echostr := r.Form.Get("echostr")
+    signature := r.Form.Get("signature")
+    timestamp := r.Form.Get("timestamp")
+    nonce := r.Form.Get("nonce")
+    echostr := r.Form.Get("echostr")
 
-	token := h.Token
+    token := h.Token
 
-	tmpArr := []string{token, timestamp, nonce}
-	sort.Strings(tmpArr)
+    tmpArr := []string{token, timestamp, nonce}
+    sort.Strings(tmpArr)
 
-	tmpStr := strings.Join(tmpArr, "")
+    tmpStr := strings.Join(tmpArr, "")
 
-	hasher := sha1.New()
-	io.WriteString(hasher, tmpStr)
-	computedHash := hasher.Sum(nil)
-	computedhashInHex := hex.EncodeToString(computedHash)
+    hasher := sha1.New()
+    io.WriteString(hasher, tmpStr)
+    computedHash := hasher.Sum(nil)
+    computedhashInHex := hex.EncodeToString(computedHash)
 
-	if subtle.ConstantTimeCompare([]byte(signature), []byte(computedhashInHex)) == 1 {
-		w.Write([]byte(echostr))
-		return
-	}
+    if subtle.ConstantTimeCompare([]byte(signature), []byte(computedhashInHex)) == 1 {
+        w.Write([]byte(echostr))
+        return
+    }
 
-	http.Error(w, fmt.Sprintf("%v != %v", signature, computedhashInHex), http.StatusBadRequest)
+    http.Error(w, fmt.Sprintf("%v != %v", signature, computedhashInHex), http.StatusBadRequest)
 }
 
 func main() {
-	http.Handle("/", &WechatVerifyHandler{
-		Token: "TOKEN", // Change this value to the value you told Wechat!
-	})
-	http.ListenAndServe(":9999", nil)
+    http.Handle("/", &WechatVerifyHandler{
+        Token: "TOKEN", // Change this value to the value you told Wechat!
+    })
+    http.ListenAndServe(":9999", nil)
 }
 ```
 
@@ -272,7 +272,7 @@ Here are the detailed steps for iOS, Android and React Native.
 * Follow [Android接入指南](https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/Android.html) to setup Wechat SDK. For the coding part, we will further explain in the below steps.
 * Login WeChat Open platform, open the application detail page, update the development information Android section.
 
-![](../../.gitbook/assets/wechat-development-information%20%285%29%20%285%29%20%285%29%20%285%29.png)
+![](../../.gitbook/assets/wechat-development-information%20%285%29%20%285%29%20%285%29%20%285%29%20%282%29.png)
 
 * Fill in application signature, you can obtain it with command `keytool -list -v -keystore YOUR_KEYSTORE_FILE_PATH`. WeChat needs the certificate fingerprint in MD5, remove `:` in the fingerprint. It should be string in length 32.
 * Fill in your package name
@@ -420,7 +420,7 @@ Here are the detailed steps for iOS, Android and React Native.
 * In android, you need to sign your app to use WeChat SDK. Obtain your application signature by running command `keytool -list -v -keystore YOUR_KEYSTORE_FILE_PATH` with your keystore file. WeChat needs the certificate fingerprint in MD5, remove `:` in the fingerprint. It should be string in length 32.
 * Login WeChat Open platform, open the application detail page, update the development information iOS and Android sections.
 
-![](../../.gitbook/assets/wechat-development-information%20%285%29%20%285%29%20%285%29%20%285%29.png)
+![](../../.gitbook/assets/wechat-development-information%20%285%29%20%285%29%20%285%29%20%285%29%20%281%29.png)
 
 * In iOS
   * Fill in "Bundle ID" field with your app bundle id.
