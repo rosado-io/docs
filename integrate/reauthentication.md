@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-Reauthentication in Authgear is built on top of the [OIDC ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken). The ID token is a JWT.
+Reauthentication in Authgear is built on top of the [OIDC ID token](https://openid.net/specs/openid-connect-core-1\_0.html#IDToken). The ID token is a JWT.
 
 Your sensitive operation server endpoint **MUST** require the ID token. When you receive the ID token, you **MUST** verify the signature of it. If the signature is valid, you can trust the claims inside the ID token.
 
@@ -432,4 +432,3 @@ func CheckIDToken(idToken string) error {
 ```
 {% endtab %}
 {% endtabs %}
-

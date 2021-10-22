@@ -52,7 +52,7 @@ Visit [http://localhost:8000](http://localhost:8000) to verify it is working.
 
 We have to write a Dockerfile for our application server.
 
-```text
+```
 FROM python:3.7-slim
 COPY app.py .
 EXPOSE 8000
@@ -83,7 +83,7 @@ Visit [http://localhost:8000](http://localhost:8000) to verify our application s
 
 Copy the following nginx.conf and save it as nginx.conf.
 
-```text
+```
 user  nginx;
 worker_processes  1;
 
@@ -176,7 +176,7 @@ Visit [http://localhost:8080](http://localhost:8080) and login, then visit [http
 
 You should see the following:
 
-```text
+```
 x-authgear-session-valid: true
 x-authgear-user-id: acdc0d99-f784-43d5-b53d-70f3506dfbf7
 x-authgear-user-anonymous: false
@@ -188,7 +188,7 @@ Sometimes you may want to cache resolver response in nginx, for example, when th
 
 You may modify the nginx configuration as following to enable caching:
 
-```text
+```
 http {
     # ...
     proxy_cache_path /tmp/cache keys_zone=auth_cache:10m;
@@ -204,4 +204,3 @@ http {
     }
 }
 ```
-

@@ -6,7 +6,7 @@ description: Integrate your iOS application with Authgear iOS SDK
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a project. Or you can use your self-deployed Authgear.
 
 After that, we will need to create an application in Authgear.
 
@@ -17,7 +17,7 @@ After that, we will need to create an application in Authgear.
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input name of your application, this is for reference only
-4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp://host/path_\).
+4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". (e.g. _com.myapp://host/path_).
 5. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 
 {% hint style="info" %}
@@ -25,8 +25,8 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 {% endhint %}
 {% endtab %}
 
-{% tab title="authgear.yaml \(self-deployed\)" %}
-```text
+{% tab title="authgear.yaml (self-deployed)" %}
+```
 oauth:
   clients:
     - name: your_app_name
@@ -61,7 +61,7 @@ dependencies: [
 
 ## Register URL Scheme for Redirect URI
 
-In your application's `Info.plist` , register your custom URL scheme, \(e.g. `com.myapp`\).
+In your application's `Info.plist` , register your custom URL scheme, (e.g. `com.myapp`).
 
 ```markup
 <?xml version="1.0" encoding="UTF-8"?>
@@ -167,8 +167,9 @@ authgear.logout { result in
 
 To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
-{% page-ref page="backend-integration/" %}
+{% content-ref url="backend-integration/" %}
+[backend-integration](backend-integration/)
+{% endcontent-ref %}
 
-[    
+[  \
 ](https://kmlaucow.gitbook.io/tes/getting-started/backend-integration)
-

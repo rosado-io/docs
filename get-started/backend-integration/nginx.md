@@ -44,7 +44,7 @@ The trick here is to declare an internal `location` and use `auth_request` to in
 
 ### Example configuration
 
-```text
+```
 server {
   # Use variable in proxy_pass with resolver to respect DNS TTL.
   # Note that /etc/hosts and /etc/resolv.conf are NOT consulted if resolver is used.
@@ -96,7 +96,7 @@ server {
 ```
 
 {% hint style="info" %}
-See docs for `auth_request` in NGINX for more details. [http://nginx.org/en/docs/http/ngx\_http\_auth\_request\_module.html](http://nginx.org/en/docs/http/ngx_http_auth_request_module.html)
+See docs for `auth_request` in NGINX for more details. [http://nginx.org/en/docs/http/ngx\_http\_auth\_request\_module.html](http://nginx.org/en/docs/http/ngx\_http\_auth\_request\_module.html)
 {% endhint %}
 
 ## Optimizing the performance
@@ -105,7 +105,7 @@ If the reverse proxy, Authgear, and your backend server are in different regions
 
 You may consider enabling caching.
 
-```text
+```
 http {
   # ...
   proxy_cache_path /tmp/cache keys_zone=auth_cache:10m;
@@ -126,4 +126,3 @@ http {
 ## Reference on the headers
 
 See the list of `x-authgear-` headers in the specs: [https://github.com/authgear/authgear-server/blob/master/docs/specs/api-resolver.md](https://github.com/authgear/authgear-server/blob/master/docs/specs/api-resolver.md)
-

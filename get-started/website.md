@@ -6,7 +6,7 @@ description: Integrate Authgear to your website with the Web SDK
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a Project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a Project. Or you can use your self-deployed Authgear.
 
 ![Continue to Portal to create a new Application in the Project](../.gitbook/assets/continue-to-portal.png)
 
@@ -16,9 +16,9 @@ After that, we will need to create an Application in the Project Portal.
 {% tab title="Portal" %}
 **Step 1: Create an application in the Portal**
 
-1. Go to **Applications** in your project portal.
+1. Go to **Applications **in your project portal.
 2. Click **Add Application** in the top right corner.
-3. Input the name of your application. This is for reference only. 
+3. Input the name of your application. This is for reference only.&#x20;
 4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://yourdomain.com/auth-redirect`
 5. If you are using [cookie-based authentication](authentication-approach/cookie-based.md), you can decide the path that the user redirects to after logout. Add the URI to **Post Logout Redirect URIs**.
 6. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
@@ -31,11 +31,11 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 
 **Step 2: Add your website to allowed origins**
 
-1. Go to **Applications** &gt; **Allowed Origins**.
+1. Go to **Applications** > **Allowed Origins**.
 2. Add your website origin to the allowed origins. e.g. `yourdomain.com` or `localhost:4000` for local development.
 3. Click "Save".
 
-**Step 3: Setup a custom domain \(Required for** [**Cookie-based authentication**](authentication-approach/cookie-based.md)**\)**
+**Step 3: Setup a custom domain (Required for **[**Cookie-based authentication**](authentication-approach/cookie-based.md)**)**
 
 1. Go to **Custom Domains**
 2. Add your custom domain in **Input New Domain**
@@ -43,12 +43,12 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 4. Click "Activate" to change the domain status to "Active". The custom domain will be your new Authgear endpoint.
 
 {% hint style="info" %}
-For cookie-based authentication, users will log in via the custom domain e.g. _"auth.yourdomain.com"_ . So that a session cookie of your domain is set for the client and all your websites under _"\*.yourdomain.com"_ would share the same session cookies automatically. 
+For cookie-based authentication, users will log in via the custom domain e.g. _"auth.yourdomain.com"_ . So that a session cookie of your domain is set for the client and all your websites under _"\*.yourdomain.com" _would share the same session cookies automatically.&#x20;
 {% endhint %}
 {% endtab %}
 
-{% tab title="authgear.yaml \(self-deployed\)" %}
-```text
+{% tab title="authgear.yaml (self-deployed)" %}
+```
 http:
   allowed_origins:
     - "yourdomain.com"
@@ -160,7 +160,7 @@ authgear.finishAuthorization().then(
 );
 ```
 
-Now, your user is now logged in! 
+Now, your user is now logged in!&#x20;
 
 ## Get the Logged In State
 
@@ -224,7 +224,7 @@ To include the access token to the HTTP requests to your application server, the
 
 #### Option 1: Using fetch function provided by Authgear SDK
 
-Authgear SDK provides the `fetch` function for you to call your application server. This `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. The `authgear.fetch` implements [fetch](https://fetch.spec.whatwg.org/).
+Authgear SDK provides the `fetch` function for you to call your application server. This `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. The `authgear.fetch` implements [fetch](https://fetch.spec.whatwg.org).
 
 ```javascript
 authgear
@@ -257,5 +257,6 @@ authgear
 
 To protect your application server from unauthorized access. You will need to **integrate Authgear to your backend**.
 
-{% page-ref page="backend-integration/" %}
-
+{% content-ref url="backend-integration/" %}
+[backend-integration](backend-integration/)
+{% endcontent-ref %}

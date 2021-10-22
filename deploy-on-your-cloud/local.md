@@ -127,4 +127,3 @@ docker-compose up
 ## Verify everything is working
 
 Visit [http://localhost:3000](http://localhost:3000) and try signing up as a new user!
-

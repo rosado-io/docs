@@ -10,11 +10,11 @@ You can change how the end-users see Authgear in the **UI Settings** page in the
 
 Authgear provides 7 theme color presets. You can also input color codes that match your brand.
 
-| Settings | Controls |
-| :--- | :--- |
-| Primary Color | Color of the buttons and links. The should match your brand's primary color. |
-| Text Color | Headings and paragraph text. |
-| Background Color | Background color of the Signup, Login and Settings page. |
+| Settings         | Controls                                                                     |
+| ---------------- | ---------------------------------------------------------------------------- |
+| Primary Color    | Color of the buttons and links. The should match your brand's primary color. |
+| Text Color       | Headings and paragraph text.                                                 |
+| Background Color | Background color of the Signup, Login and Settings page.                     |
 
 ## Dark mode
 
@@ -27,4 +27,3 @@ The app logo helps the end-users to identify your app, and it is shown in all pa
 ## Favicon
 
 Change the favicon to match with your web or mobile app to provide a coherent experience for the end-users.
-

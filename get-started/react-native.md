@@ -11,7 +11,7 @@ This guide provides instructions to integrate authgear with a react native app. 
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a project. Or you can use your self-deployed Authgear.
 
 After that, we will need to create an application in Authgear.
 
@@ -22,7 +22,7 @@ After that, we will need to create an application in Authgear.
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input the name of your application, this is for reference only
-4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp://host/path_\).
+4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". (e.g. _com.myapp://host/path_).
 5. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 
 {% hint style="info" %}
@@ -30,7 +30,7 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 {% endhint %}
 {% endtab %}
 
-{% tab title="authgear.yaml \(self-deployed\)" %}
+{% tab title="authgear.yaml (self-deployed)" %}
 ```javascript
 oauth:
   clients:
@@ -206,7 +206,7 @@ To include the access token to the HTTP requests to your application server, the
 
 ### Option 1: Using fetch function provided by Authgear SDK
 
-Authgear SDK provides the `fetch` function for you to call your application server. The `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org/).
+Authgear SDK provides the `fetch` function for you to call your application server. The `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org).
 
 ```javascript
 authgear
@@ -251,5 +251,6 @@ authgear
 
 To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
-{% page-ref page="backend-integration/" %}
-
+{% content-ref url="backend-integration/" %}
+[backend-integration](backend-integration/)
+{% endcontent-ref %}

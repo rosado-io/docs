@@ -497,7 +497,7 @@ secrets:
 
 ### jwt
 
-`jwt` defines the JSON web key \(JWK\) to sign internal use, ephemeral JWT token. It must be an octet key.
+`jwt` defines the JSON web key (JWK) to sign internal use, ephemeral JWT token. It must be an octet key.
 
 ```yaml
 secrets:
@@ -534,4 +534,3 @@ The format shares with [jwt](authgear.secrets.yaml.md#jwt)
 `webhook` defines the symmetric key to sign webhook request body. It must be an octet key.
 
 The format is shared with [jwt](authgear.secrets.yaml.md#jwt).
-

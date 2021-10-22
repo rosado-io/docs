@@ -96,4 +96,3 @@ stringData:
       data:
         redis_url: redis://localhost
 ```
-

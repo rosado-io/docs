@@ -8,10 +8,10 @@ description: >-
 
 Authgear provides token-based or cookie-based authentication. You will need to decide which approach you are going to use before starting the setup.
 
-|  | **Token-based** | Cookie-based |
-| :--- | :--- | :--- |
-| Suitable for | **mobile apps** or **single-page web applications** | **Websites** in the same root domain \(e.g. Server-side rendered applications\) |
-| Transport of session | **Access Token** in `Authorization` header | **Session ID** in Cookies |
+|                      | **Token-based**                                     | Cookie-based                                                                  |
+| -------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Suitable for         | **mobile apps **or **single-page web applications** | **Websites** in the same root domain (e.g. Server-side rendered applications) |
+| Transport of session | **Access Token** in `Authorization` header          | **Session ID** in Cookies                                                     |
 
 ## Token-based authentication
 
@@ -21,7 +21,7 @@ In Token-based authentication, Authgear returns the `access token` and `refresh 
 
 The client SDK will automatically renew the `access token` with the `refresh token` for you, so you don't have to worry about it.
 
-Your client app should call your backend with the access token in the Authorization header, and you can verify the access token by integrating Authgear with your backend. The HTTP requests can be authenticated by [**Forwarding to Authgear Resolver Endpoint**](../backend-integration/nginx.md) ****or ****[**Validating JWT in your application server**](../backend-integration/jwt.md).
+Your client app should call your backend with the access token in the Authorization header, and you can verify the access token by integrating Authgear with your backend. The HTTP requests can be authenticated by [**Forwarding to Authgear Resolver Endpoint**](../backend-integration/nginx.md)** **or** **[**Validating JWT in your application server**](../backend-integration/jwt.md).
 
 Request example:
 
@@ -31,7 +31,9 @@ Request example:
 > Authorization: Bearer <AUTHGEAR_ACCESS_TOKEN>
 ```
 
-{% page-ref page="token-based.md" %}
+{% content-ref url="token-based.md" %}
+[token-based.md](token-based.md)
+{% endcontent-ref %}
 
 ## Cookie-based authentication
 
@@ -49,7 +51,7 @@ Request example:
 > cookie: session=<AUTHGEAR_SESSION_ID>
 ```
 
-{% page-ref page="cookie-based.md" %}
-
-
+{% content-ref url="cookie-based.md" %}
+[cookie-based.md](cookie-based.md)
+{% endcontent-ref %}
 

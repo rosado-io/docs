@@ -20,7 +20,7 @@ There are two kinds of events, **Blocking** and **Non-blocking** events.
 
 {% tabs %}
 {% tab title="Portal" %}
-1. In portal, go to **Settings** &gt; **Webhooks**.
+1. In portal, go to **Settings** > **Webhooks**.
 2. Add your webhooks endpoint in **Blocking Events** and **Non-Blocking Events**, depending on which event you want to listen to.
 3. Click **Save**.
 {% endtab %}
@@ -79,7 +79,7 @@ Each blocking event webhook handler must response within 5 seconds. And all bloc
 
 ## Non-blocking Events
 
-Non-blocking events are delivered to webhook handlers asynchronously after the operation is performed \(i.e. committed into the database\).
+Non-blocking events are delivered to webhook handlers asynchronously after the operation is performed (i.e. committed into the database).
 
 The webhook handlers must response a status code within the `2xx` range within 60 seconds. Otherwise it would be considered as a failed delivery.
 
@@ -117,7 +117,7 @@ All webhook events have the following shape:
 
 #### Blocking Events
 
-* [user.pre\_create](webhooks.md#userpre_create)
+* [user.pre\_create](webhooks.md#userpre\_create)
 
 #### Non-blocking Events
 
@@ -341,7 +341,7 @@ Each webhook event request is signed with a secret key shared between Authgear a
 
 The signature is calculated as the hex encoded value of HMAC-SHA256 of the request body and included in the header `x-authgear-body-signature`.
 
-To obtain the secret key, visit the portal and go to **Advanced** -&gt; **Webhooks** -&gt; **Webhook Signature**. You may need to reauthenticate yourselves before you can reveal the secret key.
+To obtain the secret key, visit the portal and go to **Advanced** -> **Webhooks** -> **Webhook Signature**. You may need to reauthenticate yourselves before you can reveal the secret key.
 
 Here is the sample code of how to calculate the signature and verify it.
 
@@ -398,4 +398,3 @@ func main() {
 ```
 {% endtab %}
 {% endtabs %}
-

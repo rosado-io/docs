@@ -12,7 +12,7 @@ Authgear currently supports **SendGrid** and other custom SMTP Providers.
 
 ## Send from an email address under your domain
 
-The sender address can be configured by changing the value of the`email.default.sender` key in the localization JSON. Go to **Portal** &gt; **Localization** &gt; **Translations** and add/change the value of `email.default.sender` to your own email address, for example `no-replay@myapp.com`, and **Save** the settings. The value can be set separately for each locale. 
+The sender address can be configured by changing the value of the`email.default.sender` key in the localization JSON. Go to **Portal** > **Localization** > **Translations** and add/change the value of `email.default.sender` to your own email address, for example `no-replay@myapp.com`, and **Save** the settings. The value can be set separately for each locale.&#x20;
 
 ![](../.gitbook/assets/email-default-sender.png)
 
@@ -26,17 +26,17 @@ Follow the instructions from the email service provider for setting up your doma
 
 ## Configure the external SMTP provider
 
-The external SMTP provider can be set up in **Portal** &gt; **Custom Email Provider**. Enable the **Use my own provider** toggle to see the fields.
+The external SMTP provider can be set up in **Portal** > **Custom Email Provider**. Enable the **Use my own provider** toggle to see the fields.
 
 ### Use SendGrid as external SMTP provider
 
 1. Log in to your SendGrid account
-2. Create API Key in **Settings** &gt; **API Keys**
+2. Create API Key in **Settings** > **API Keys**
 3. Set the **API Key Name** for your reference the choose **Restricted Access** under **API Key Permissions**
 4. Under **Access Details,** expand **Mail Send** and give **Full Access** to the **Mail Send** permission
 5. Click **Create & View.** Copy the API key created and save it somewhere safe
-6. In Authgear **Portal**, navigate to **Custom Email Provider** 
-7. Enable **Use my own provider**. 
+6. In Authgear **Portal**, navigate to **Custom Email Provider**&#x20;
+7. Enable **Use my own provider**.&#x20;
 8. Choose **SendGrid** and paste the API key you copied, and **Save**
 9. You can send a test email to check the configuration
 
@@ -44,7 +44,6 @@ The external SMTP provider can be set up in **Portal** &gt; **Custom Email Provi
 
 ### Using other SMTP Providers
 
-Other SMTP providers can be set manually by providing the **Host**, **Port**, **Username**, and **Password**. They can be obtained from the documentation or instructions from your email service provider.
+Other SMTP providers can be set manually by providing the **Host**, **Port**, **Username**, and** Password**. They can be obtained from the documentation or instructions from your email service provider.
 
 ![](../.gitbook/assets/smtp-manual.png)
-

@@ -1,8 +1,8 @@
 # Privacy Policy & Terms of Service Links
 
-You can add a privacy policy and a terms of service link to the sign up page. 
+You can add a privacy policy and a terms of service link to the sign up page.&#x20;
 
-![](../.gitbook/assets/privacy-terms-links-signup.png) 
+![](../.gitbook/assets/privacy-terms-links-signup.png)&#x20;
 
 ## Change in the Portal
 
@@ -30,4 +30,3 @@ For example,
 ```
 
 If you wish to hide the whole paragraph, set BOTH to empty string.
-

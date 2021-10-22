@@ -6,7 +6,7 @@ description: How to use authgear android SDK
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a project. Or you can use your self-deployed Authgear.
 
 After that, we will need to create an application in Authgear.
 
@@ -17,7 +17,7 @@ After that, we will need to create an application in Authgear.
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input name of your application, this is for reference only
-4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp://host/path_\).
+4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". (e.g. _com.myapp://host/path_).
 5. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 
 {% hint style="info" %}
@@ -25,7 +25,7 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 {% endhint %}
 {% endtab %}
 
-{% tab title=" authgear.yaml \(self-deployed\)" %}
+{% tab title=" authgear.yaml (self-deployed)" %}
 ```yaml
 oauth:
   clients:
@@ -45,25 +45,24 @@ oauth:
 
 ## Get the SDK
 
-1. Add `jitpack` repository to `gradle`
+1.  Add `jitpack` repository to `gradle`
 
-   ```text
-   allprojects {
-       repositories {
-           // Other repository
-           maven { url 'https://jitpack.io' }
-       }
-   }
-   ```
+    ```
+    allprojects {
+        repositories {
+            // Other repository
+            maven { url 'https://jitpack.io' }
+        }
+    }
+    ```
+2.  Add authgear in dependencies. Use `$branch-SNAPSHOT` (e.g. `main-SNAPSHOT`) for the latest version in a branch or a release tag/git commit hash of the desired version.
 
-2. Add authgear in dependencies. Use `$branch-SNAPSHOT` \(e.g. `main-SNAPSHOT`\) for the latest version in a branch or a release tag/git commit hash of the desired version.
-
-   ```text
-   dependencies {
-       // Other implementations
-       implementation 'com.github.authgear:authgear-sdk-android:SNAPSHOT'
-   }
-   ```
+    ```
+    dependencies {
+        // Other implementations
+        implementation 'com.github.authgear:authgear-sdk-android:SNAPSHOT'
+    }
+    ```
 
 ## Setup Redirect URI for Your Android App
 
@@ -216,9 +215,10 @@ class MyAwesomeViewModel extends AndroidViewModel {
 }
 ```
 
-## **Next steps** <a id="secure-your-application-server-with-authgear"></a>
+## **Next steps** <a href="secure-your-application-server-with-authgear" id="secure-your-application-server-with-authgear"></a>
 
 To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
-{% page-ref page="../backend-integration/" %}
-
+{% content-ref url="../backend-integration/" %}
+[backend-integration](../backend-integration/)
+{% endcontent-ref %}

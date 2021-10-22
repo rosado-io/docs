@@ -6,13 +6,13 @@ Ability to get user details like their email addresses directly from the client 
 
 ## UserInfo
 
-At the meantime, the `userInfo` object is returned from calling **fetch user info** function which contains a unique identifier of the user.
+At the meantime, the `userInfo` object is returned from calling **fetch user info **function which contains a unique identifier of the user.
 
-| Key | Type | Description |
-| :--- | :--- | :--- |
+| Key         | Type      | Description                                                                                                                                                                                                     |
+| ----------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | isAnonymous | _boolean_ | Indicate if the user is anonymous, i.e. no [identity](../strategies/user-identity-and-authenticator.md#identity) or [authenticator](../strategies/user-identity-and-authenticator.md#authenticator) is provided |
-| isVerified | _boolean_ | Indicate if the user completed the verification requirement |
-| sub | _string_ | Unique identifier of the user in your Authgear project |
+| isVerified  | _boolean_ | Indicate if the user completed the verification requirement                                                                                                                                                     |
+| sub         | _string_  | Unique identifier of the user in your Authgear project                                                                                                                                                          |
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -61,6 +61,4 @@ authgear.fetchUserInfo(new OnFetchUserInfoListener() {
 ```
 {% endtab %}
 {% endtabs %}
-
-
 

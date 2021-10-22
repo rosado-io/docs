@@ -30,4 +30,3 @@ You can also modify the text shown to the end-users by including two special tra
     "enter-recovery-code-instead-with-customer-support-v1": "Having Trouble? <button class=\"btn secondary-btn\" type=\"submit\">Use recovery code</button> or <a class=\"link\" target=\"_blank\" href={customerSupportLink}>contact customer support</a>",
 }
 ```
-

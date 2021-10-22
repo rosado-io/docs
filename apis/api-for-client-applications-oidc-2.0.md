@@ -1,4 +1,4 @@
-# API for Client Applications \(OIDC 2.0\)
+# API for Client Applications (OIDC 2.0)
 
 If your app is `myapp`, the endpoint of your app is `https://myapp.authgearapps.com`.
 
@@ -35,4 +35,3 @@ User settings UI
 ## /\_api/admin/graphql
 
 Admin GraphQL API endpoint. For usage details, please check [Admin APIs](admin-apis.md).
-
