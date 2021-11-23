@@ -6,6 +6,10 @@ description: >-
 
 # Webhooks
 
+{% hint style="info" %}
+`user.profile.pre_update` and `user.profile.updated` will be available in the next release, to be launched together with the new **User Profile** feature.
+{% endhint %}
+
 Authgear uses webhooks to notify your application server when events happen in your Authgear project. To use webhooks you will need to:
 
 1. Create a webhook handler endpoint in your application server.
@@ -16,12 +20,12 @@ There are two kinds of events, **Blocking** and **Non-blocking** events.
 * Blocking event is triggered before the operation is performed. The operation can be aborted by your webhook endpoint response.
 * Non-blocking event is triggered after the operation is performed.
 
-## Configure Authgear to send event to your webhook endpoint
+## Configure Authgear to send events to your webhook endpoint
 
 {% tabs %}
 {% tab title="Portal" %}
-1. In portal, go to **Settings** > **Webhooks**.
-2. Add your webhooks endpoint in **Blocking Events** and **Non-Blocking Events**, depending on which event you want to listen to.
+1. In the portal, go to **Settings** > **Webhooks**.
+2. Add your webhook endpoints in **Blocking Events** and **Non-Blocking Events**, depending on which event you want to listen to.
 3. Click **Save**.
 {% endtab %}
 
@@ -43,11 +47,11 @@ hook:
 
 ## Webhook Delivery
 
-Webhook handlers must be in **HTTPS**. This ensures integrity and confidentiality of the delivery.
+Webhook handlers must be in **HTTPS**. This ensures the integrity and confidentiality of the delivery.
 
-The webhook handler endpoint must be an absolute URL. The webhook events are sent to the webhook handler endpoint via `POST` requests. The webhook handlers must return a status code within the `2xx` range. Other status code is considered as a failed delivery.
+The webhook handler endpoint must be an absolute URL. The webhook events are sent to the webhook handler endpoint via `POST` requests. The webhook handlers must return a status code within the `2xx` range. Other status codes are considered as a failed delivery.
 
-Each event can have multiple handlers. The order of delivery is unspecified for non-blocking event. Blocking events are delivered in the source order as in the configuration.
+Each event can have multiple handlers. The order of delivery is unspecified for non-blocking events. Blocking events are delivered in the source order as in the configuration.
 
 ## Blocking Events
 
@@ -55,7 +59,7 @@ Blocking events are delivered to webhook handlers synchronously, right before co
 
 Webhook handler must respond with a JSON body to indicate whether the operation should continue.
 
-To let the operation to proceed, respond with `is_allowed` being set to `true`.
+To let the operation proceed, respond with `is_allowed` being set to `true`.
 
 ```javascript
 {
@@ -75,21 +79,62 @@ To forbid the operation, respond with `is_allowed` being set to `false` and a no
 
 If any handler fails the operation, the operation is halted. The `title` and `reason` will be shown to the end-user as an error message.
 
-Each blocking event webhook handler must response within 5 seconds. And all blocking handlers in total should take less than 10 seconds to complete. Otherwise it would be considered as a failed delivery.
+Each blocking event webhook handler must respond within 5 seconds. And all blocking handlers in total should take less than 10 seconds to complete. Otherwise, it would be considered a failed delivery.
+
+### Webhook Blocking Event Mutations
+
+The webhook handler can optionally mutate the object in the payload. The webhook handlers should specify the mutations in their responses. If the operation is failed, i.e. `"is_allowed": false` , the mutation will be discarded.&#x20;
+
+Given the event
+
+```json
+{
+  "payload": {
+    "user": {
+      "standard_attributes": {
+        "name": "John"
+      }
+    }
+  }
+}
+```
+
+The webhook handler can mutate the user with the following response.
+
+```json
+{
+  "is_allowed": true,
+  "mutations": {
+    "user": {
+      "standard_attributes": {
+        "name": "Jane"
+      }
+    }
+  }
+}
+```
+
+Objects not appearing in `mutations` are left intact. The mutated objects will NOT be merged with the original ones.
+
+The mutated payloads are NOT validated and are propagated along the handler chain. The payload will only be validated after traversing the handler chain.
+
+Mutations do NOT generate extra events to avoid infinite loops.
+
+Currently, only the `standard_attributes` of the user object are mutable.
 
 ## Non-blocking Events
 
 Non-blocking events are delivered to webhook handlers asynchronously after the operation is performed (i.e. committed into the database).
 
-The webhook handlers must response a status code within the `2xx` range within 60 seconds. Otherwise it would be considered as a failed delivery.
+The webhook handlers must respond with a status code within the `2xx` range within 60 seconds. Otherwise, it would be considered a failed delivery.
 
-The response body of non-blocking event webhook handler is ignored.
+The response body of a non-blocking event webhook handler is ignored.
 
 ## Webhook Request Body
 
 All webhook events have the following shape:
 
-```javascript
+```json
 {
   "id": "0E1E9537-DF4F-4AF6-8B48-3DB4574D4F24",
   "seq": 435,
@@ -101,15 +146,15 @@ All webhook events have the following shape:
 
 * `id`: The ID of the event.
 * `seq`: A monotonically increasing signed 64-bit integer.
-* `type`: The type of the webhook event.
+* `type`: The type of webhook event.
 * `payload`: The payload of the webhook event, varies with type.
 * `context`: The context of the webhook event.
 
 ### Webhook Event Context
 
 * `timestamp`: signed 64-bit UNIX timestamp of when this event is generated. Retried deliveries do not affect this field.
-* `user_id`: The ID of the user associated with the event. It may be absent. For example, the user has not authenticated yet.
-* `preferred_languages`: User preferred languages which are inferred from the request. Return values of `ui_locales` query if it is provided in auth ui, otherwise return languages in `Accept-Language` request header.
+* `user_id`: The ID of the user associated with the event. It may be absent. For example, the user has not been authenticated yet.
+* `preferred_languages`: User preferred languages, which are inferred from the request. Return values of the `ui_locales` query if it is provided in the Auth UI, otherwise return languages in the `Accept-Language` request header.
 * `language`: User locale which is derived based on user's preferred languages and app's languages config.
 * `triggered_by`: Triggered by indicates who triggered the events, values can be `user` or `admin_api`. `user` means it is triggered by user in auth ui. `admin_api` means it is triggered by admin api or admin portal.
 
@@ -118,10 +163,12 @@ All webhook events have the following shape:
 #### Blocking Events
 
 * [user.pre\_create](webhooks.md#userpre\_create)
+* user.profile.pre\_update
 
 #### Non-blocking Events
 
 * [user.created](webhooks.md#usercreated)
+* user.profile.updated
 * [user.authenticated](webhooks.md#userauthenticated)
 * [user.anonymous.promoted](webhooks.md#useranonymouspromoted)
 * [identity.email.added](webhooks.md#identityemailadded)
@@ -138,22 +185,39 @@ All webhook events have the following shape:
 
 #### user.pre\_create
 
-Occurs right before the user creation. User can be created by user signup, user signup as anonymous user, or created by the admin via the Portal or API. Operation can be aborted by providing specific response in your webhook, details see [Webhook Blocking Events](webhooks.md#blocking-events).
+Occurs right before the user creation. User can be created by user signup, user signup as an anonymous user, or created by the admin via the Portal or API. The operation can be aborted by providing a specific response in your webhook, details see [Webhook Blocking Events](webhooks.md#blocking-events).
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
     "identities": [ { /* ... */ } ]
+  }
+}
+```
+
+#### **user.profile.pre\_update**
+
+Occurs right before the update of the user profile.
+
+```json
+{
+  "payload": {
+    "user": {
+      "standard_attributes": {
+        /* ... */ 
+      }
+      /* ... */ 
+    }
   }
 }
 ```
 
 #### user.created
 
-Occurs after a new user is created. User can be created by user signup, user signup as anonymous user, or created by the admin via the Portal or API.
+Occurs after a new user is created. User can be created by user signup, user signup as an anonymous user, or created by the admin via the Portal or API.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -162,11 +226,28 @@ Occurs after a new user is created. User can be created by user signup, user sig
 }
 ```
 
+#### user.profile.updated
+
+Occurs when the user profile is updated.
+
+```json
+{
+  "payload": {
+    "user" : { 
+      "standard_attributes": {
+        /* ... */ 
+      }
+      /* ... */ 
+    }
+  }
+}
+```
+
 #### user.authenticated
 
-Occurs after user logged in.
+Occurs after the user logged in.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -177,9 +258,9 @@ Occurs after user logged in.
 
 #### user.anonymous.promoted
 
-Occurs whenever an anonymous user is promoted to normal user.
+Occurs whenever an anonymous user is promoted to a normal user.
 
-```javascript
+```json
 {
   "payload": {
     "anonymous_user": { /* ... */ },
@@ -191,9 +272,9 @@ Occurs whenever an anonymous user is promoted to normal user.
 
 #### identity.email.added
 
-Occurs when a new email is added to existing user. Email can be added by user in setting page, added by admin through admin api or portal.
+Occurs when a new email is added to an existing user. Email can be added by the user in the setting page, added by the admin through the admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -204,9 +285,9 @@ Occurs when a new email is added to existing user. Email can be added by user in
 
 #### identity.email.removed
 
-Occurs when email is removed from existing user. Email can be removed by user in setting page, removed by admin through admin api or portal.
+Occurs when an email address is removed from an existing user. Email can be removed by the user in the setting page, removed by admin through admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -217,9 +298,9 @@ Occurs when email is removed from existing user. Email can be removed by user in
 
 #### identity.email.updated
 
-Occurs when email is updated. Email can be updated by user in setting page.
+Occurs when an email address is updated. Email can be updated by the user on the setting page.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -231,9 +312,9 @@ Occurs when email is updated. Email can be updated by user in setting page.
 
 #### identity.phone.added
 
-Occurs when a new phone number is added to existing user. Phone number can be added by user in setting page, added by admin through admin api or portal.
+Occurs when a new phone number is added to an existing user. Phone numbers can be added by the user in the setting page, added by admin through admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -244,9 +325,9 @@ Occurs when a new phone number is added to existing user. Phone number can be ad
 
 #### identity.phone.removed
 
-Occurs when phone number is removed from existing user. Phone number can be removed by user in setting page, removed by admin through admin api or portal.
+Occurs when a phone number is removed from an existing user. Phone numbers can be removed by the user on the setting page, removed by admin through admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -257,9 +338,9 @@ Occurs when phone number is removed from existing user. Phone number can be remo
 
 #### identity.phone.updated
 
-Occurs when phone number is updated. Phone number can be updated by user in setting page.
+Occurs when a phone number is updated. Phone numbers can be updated by the user on the setting page.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -271,9 +352,9 @@ Occurs when phone number is updated. Phone number can be updated by user in sett
 
 #### identity.username.added
 
-Occurs when a new username is added to existing user. Username can be added by user in setting page, added by admin through admin api or portal.
+Occurs when a new username is added to an existing user. Username can be added by the user in setting page, added by admin through Admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -284,9 +365,9 @@ Occurs when a new username is added to existing user. Username can be added by u
 
 #### identity.username.removed
 
-Occurs when username is removed from existing user. Username can be removed by user in setting page, removed by admin through admin api or portal.
+Occurs when the username is removed from an existing user. The username can be removed by the user on the setting page, removed by admin through admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -297,9 +378,9 @@ Occurs when username is removed from existing user. Username can be removed by u
 
 #### identity.username.updated
 
-Occurs when username is updated. Username can be updated by user in setting page.
+Occurs when the username is updated. The username can be updated by the user on the setting page.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -311,9 +392,9 @@ Occurs when username is updated. Username can be updated by user in setting page
 
 #### identity.oauth.connected
 
-Occurs when user connected to a new OAuth provider.
+Occurs when a user has connected to a new OAuth provider.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -324,9 +405,9 @@ Occurs when user connected to a new OAuth provider.
 
 #### identity.oauth.disconnected
 
-Occurs when user disconnected from an OAuth provider. It can be done by user disconnected OAuth provider in the setting page, or admin removed OAuth identity through admin api or portal.
+Occurs when a user is disconnected from an OAuth provider. It can be done by the user disconnecting their OAuth provider in the setting page, or the admin removing the OAuth identity through admin API or Portal.
 
-```javascript
+```json
 {
   "payload": {
     "user": { /* ... */ },
@@ -337,7 +418,7 @@ Occurs when user disconnected from an OAuth provider. It can be done by user dis
 
 ## Check the webhook signatures
 
-Each webhook event request is signed with a secret key shared between Authgear and the webhook handler. The developer must validate the signature and reject requests with invalid signature to ensure the request originates from Authgear.
+Each webhook event request is signed with a secret key shared between Authgear and the webhook handler. The developer must validate the signature and reject requests with invalid signatures to ensure the request originates from Authgear.
 
 The signature is calculated as the hex encoded value of HMAC-SHA256 of the request body and included in the header `x-authgear-body-signature`.
 

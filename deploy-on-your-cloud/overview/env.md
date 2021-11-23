@@ -264,7 +264,7 @@ When development mode is enabled:
 
 * TLS certificate is required, to enable secure cookies.
 * All `Host` header values are allowed.
-* External message sending (SMS/Email) is disabled; messages to send are logged instead.
+* External message sending \(SMS/Email\) is disabled; messages to send are logged instead.
 
 ### LOG\_LEVEL
 
@@ -280,4 +280,5 @@ The sets the Sentry DSN, where errors/logs are reported to.
 
 ## TL;DR
 
-The only environment variable you should be aware of is [TRUST\_PROXY](env.md#trust\_proxy).
+The only environment variable you should be aware of is [TRUST\_PROXY](env.md#trust_proxy).
+

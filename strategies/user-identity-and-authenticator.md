@@ -47,10 +47,11 @@ Currently Authgear support the following authenticators:
 
 * Primary Authenticators:
   * Password
-  * One Time Passcode via Email or SMS (oob\_otp)
+  * One Time Passcode via Email or SMS \(oob\_otp\)
 * Secondary Authenticators:
   * Password
-  * TOTP (2FA token)
-  * One Time Passcode via Email or SMS (oob\_otp)
+  * TOTP \(2FA token\)
+  * One Time Passcode via Email or SMS \(oob\_otp\)
 
-Secondary authentication could be optional (only if the user configured it) or required for all users.
+Secondary authentication could be optional \(only if the user configured it\) or required for all users.
+

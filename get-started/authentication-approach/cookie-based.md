@@ -2,7 +2,7 @@
 description: Authenticate incoming request by cookie in the HTTP header.
 ---
 
-# Cookie-based (Website or Single-page app)
+# Cookie-based \(Website or Single-page app\)
 
 By using Authgear, you can add a login to your website easily. Authgear supports various authentication methods, that you can easily turn on and configure in the portal.
 
@@ -34,18 +34,15 @@ To verify the requests in your app server, you must **Forward authentication to 
 > cookie: session=<AUTHGEAR_SESSION_ID>
 ```
 
-## Get Started <a href="get-started" id="get-started"></a>
+## Get Started <a id="get-started"></a>
 
 The following tutorials show you how to add user login to your website using Authgear.
 
 ### 1. Frontend Integration
 
-{% content-ref url="../website.md" %}
-[website.md](../website.md)
-{% endcontent-ref %}
+{% page-ref page="../website.md" %}
 
 ### 2. Backend Integration
 
-{% content-ref url="../backend-integration/" %}
-[backend-integration](../backend-integration/)
-{% endcontent-ref %}
+{% page-ref page="../backend-integration/" %}
+

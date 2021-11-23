@@ -5,13 +5,13 @@
 ## Get Started
 
 * [Choose your authentication approach](get-started/authentication-approach/README.md)
-  * [Token-based \(Native mobile or Single-page app\)](get-started/authentication-approach/token-based.md)
-  * [Cookie-based \(Website or Single-page app\)](get-started/authentication-approach/cookie-based.md)
+  * [Token-based (Native mobile or Single-page app)](get-started/authentication-approach/token-based.md)
+  * [Cookie-based (Website or Single-page app)](get-started/authentication-approach/cookie-based.md)
 * [Web SDK](get-started/website.md)
 * [React Native SDK](get-started/react-native.md)
 * [Android SDK](get-started/android/README.md)
   * [Android Kotlin coroutine support](get-started/android/coroutine-support.md)
-  * [Android OKHttp Interceptor Extension \(Optional\)](get-started/android/okhttp-interceptor-extension.md)
+  * [Android OKHttp Interceptor Extension (Optional)](get-started/android/okhttp-interceptor-extension.md)
 * [iOS SDK](get-started/ios.md)
 * [Backend Integration](get-started/backend-integration/README.md)
   * [Validate JWT in your application server](get-started/backend-integration/jwt.md)
@@ -34,7 +34,7 @@
 
 * [Using SDK to call your application server](integrate/using-sdk-to-call-your-application-server.md)
 * [User Settings](integrate/auth-ui.md)
-* [User Info](integrate/user-info.md)
+* [User Profile](integrate/user-info.md)
 * [Reauthentication](integrate/reauthentication.md)
 * [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
 * [Single Sign-on on mobile devices](integrate/single-sign-on.md)
@@ -50,7 +50,7 @@
 
 ## APIs
 
-* [API for Client Applications \(OIDC 2.0\)](apis/api-for-client-applications-oidc-2.0.md)
+* [API for Client Applications (OIDC 2.0)](apis/api-for-client-applications-oidc-2.0.md)
 * [Admin APIs](apis/admin-apis.md)
 
 ## Webhooks
@@ -84,4 +84,3 @@
   * [React](tutorials/spa/react.md)
 * [Local Development Setup](tutorials/local-setup/README.md)
   * [Cookie-based Authorization](tutorials/local-setup/local-cookie-based-web-setup.md)
-

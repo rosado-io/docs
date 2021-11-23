@@ -2,7 +2,7 @@
 
 ## Select the framework you are using for your web app
 
-{% content-ref url="react.md" %}
-[react.md](react.md)
-{% endcontent-ref %}
+{% page-ref page="react.md" %}
+
+
 

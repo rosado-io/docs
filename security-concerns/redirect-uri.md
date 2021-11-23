@@ -16,4 +16,5 @@ The whole attack is as follows:
 
 It is impossible to prevent malicious applications being installed on the user's device. However, we can mitigate this attack by not using custom URI scheme.
 
-To do so, you can use [Apple Universal Links](https://developer.apple.com/documentation/xcode/allowing\_apps\_and\_websites\_to\_link\_to\_your\_content) and [Android App Links](https://developer.android.com/training/app-links).
+To do so, you can use [Apple Universal Links](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content) and [Android App Links](https://developer.android.com/training/app-links).
+

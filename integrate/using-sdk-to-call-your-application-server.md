@@ -150,9 +150,9 @@ if (sessionState == SessionState.AUTHENTICATED) {
 
 ## Calling an API
 
-### **Use `fetch` function from the SDK (JavaScript Only)**
+### **Use `fetch` function from the SDK \(JavaScript Only\)**
 
-**Javascript Only**. Authgear SDK provides `fetch` function for you to call your application server. The `fetch` function will include Authorization header in your application request, and handle refresh access token automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org). If you are using another networking library and want to include the Authorization header yourself. You can skip this and go to the next step.
+**Javascript Only**. Authgear SDK provides `fetch` function for you to call your application server. The `fetch` function will include Authorization header in your application request, and handle refresh access token automatically. `authgear.fetch` implement [fetch](https://fetch.spec.whatwg.org/). If you are using another networking library and want to include the Authorization header yourself. You can skip this and go to the next step.
 
 {% tabs %}
 {% tab title="Javascript" %}
@@ -242,7 +242,7 @@ headers.put("authorization", "Bearer " + accessToken);
 
 ### Handle revoked sessions
 
-If the session is revoked from the management portal, the client will call your application server with an invalid access token. Your application server can check that by looking at the [resolver headers](../get-started/backend-integration/nginx.md).&#x20;
+If the session is revoked from the management portal, the client will call your application server with an invalid access token. Your application server can check that by looking at the [resolver headers](../get-started/backend-integration/nginx.md). 
 
 For example, you application may return HTTP status code 401 for unauthorized requests. Depending on your application flow, you may want to show your user login page again or reset the SDK `sessionState` to `NO_SESSION` locally. To clear the `sessionState`, you can use `clearSessionState` function.
 
@@ -302,3 +302,4 @@ if (responseCode != HttpURLConnection.Unauthorized) {
 ```
 {% endtab %}
 {% endtabs %}
+

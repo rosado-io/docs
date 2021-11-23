@@ -29,3 +29,4 @@ It contains secrets and credentials so it should be a Secret.
 ## Scalability
 
 Authgear stores the state in PostgreSQL and Redis so it can be easily horizontally scaled. Refer to [the documentation of Kubernetes on scaling](https://kubernetes.io/docs/tutorials/kubernetes-basics/scale/scale-intro/) for more details.
+

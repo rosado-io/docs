@@ -1,10 +1,12 @@
-# User Info
+# User Profile
 
 {% hint style="info" %}
 Ability to get user details like their email addresses directly from the client API and the SDKs is on our roadmap. You can keep track of the issue here: [https://github.com/authgear/authgear-server/issues/260](https://github.com/authgear/authgear-server/issues/260)
 {% endhint %}
 
-## UserInfo
+## UserInfo Endpoint
+
+The UserInfo endpoint returns the Claims about the authenticated end-user, including the standard profile and custom attributes.&#x20;
 
 At the meantime, the `userInfo` object is returned from calling **fetch user info **function which contains a unique identifier of the user.
 

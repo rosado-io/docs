@@ -96,3 +96,4 @@ The end-user can perform the following actions on the setting page:
 * Manage the signed in sessions.
 * Enable or disable 2-step verification.
 * and many more.
+

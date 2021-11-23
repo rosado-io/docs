@@ -8,17 +8,17 @@ description: >-
 
 In this section, we will go through how to decode the JWT token to obtain the currently logged-in user.
 
-Before we start, make sure the option **Issue JWT as access token** is enabled in your Application settings in the Portal.&#x20;
+Before we start, make sure the option **Issue JWT as access token** is enabled in your Application settings in the Portal. 
 
-## Find the JSON Web Key Sets (JWKS) endpoint
+## Find the JSON Web Key Sets \(JWKS\) endpoint
 
 This Discovery endpoint serves a JSON document containing the OpenID Connect configuration of your app. It includes the authorization endpoint, the token endpoint and the JWKS endpoint.
 
-`https://<YOUR_AUTHGEAR_ENDPOINT>/.well-known/openid-configuration`&#x20;
+`https://<YOUR_AUTHGEAR_ENDPOINT>/.well-known/openid-configuration` 
 
 Here is [an example of how it looks](https://accounts.portal.authgearapps.com/.well-known/openid-configuration).
 
-The JSON Web Key Sets (JWKS) endpoint can be found in `jwk_url` in the configuration.
+The JSON Web Key Sets \(JWKS\) endpoint can be found in `jwk_url` in the configuration.
 
 ## Decode user from an access token
 
@@ -33,7 +33,7 @@ pip install cryptography
 pip install PyJWT
 ```
 
-### Step 2: Find the JSON Web Key Sets (JWKS) endpoint
+### Step 2: Find the JSON Web Key Sets \(JWKS\) endpoint
 
 Define a function to find the JWKS endpoint from the OpenID Connect configuration. Use your Authgear endpoint as `base_address`
 
@@ -254,3 +254,4 @@ Validating JWT in your application server is _currently_ only available for **To
 {% hint style="info" %}
 For Cookie-based authentication, JWT in cookies is not supported yet. [You can track the issue here](https://github.com/authgear/authgear-server/issues/1180).
 {% endhint %}
+

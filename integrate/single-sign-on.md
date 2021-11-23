@@ -46,3 +46,4 @@ new Authgear(
 ```
 {% endtab %}
 {% endtabs %}
+

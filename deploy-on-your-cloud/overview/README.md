@@ -11,3 +11,4 @@ The configuration of Authgear comes from three sources:
 * [authgear.secrets.yaml](authgear.secrets.yaml.md)
 
 The three sources do not overlap with each other so all of them are required.
+

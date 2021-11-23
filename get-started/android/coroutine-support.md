@@ -26,3 +26,4 @@ class MyAwesomeViewModel(application: MyAwesomeApplication) : AndroidViewModel(a
     }
 }
 ```
+

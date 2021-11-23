@@ -1,4 +1,4 @@
-# Android OKHttp Interceptor Extension (Optional)
+# Android OKHttp Interceptor Extension \(Optional\)
 
 The Authgear Android SDK provides an optional `Okhttp` interceptor which handles everything from refreshing the access token to putting the access token in the header.
 
@@ -18,3 +18,4 @@ OKHttpClient client = new OkHttpClient.Builder()
 ```
 
 The client would then include the access token in every request and refresh the access token when necessary before the requests.
+
