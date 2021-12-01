@@ -34,7 +34,7 @@
 
 * [Using SDK to call your application server](integrate/using-sdk-to-call-your-application-server.md)
 * [User Settings](integrate/auth-ui.md)
-* [User Profile](integrate/user-info.md)
+* [User Profile](integrate/user-profile.md)
 * [Reauthentication](integrate/reauthentication.md)
 * [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
 * [Single Sign-on on mobile devices](integrate/single-sign-on.md)

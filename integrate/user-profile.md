@@ -10,7 +10,7 @@ The user profiles contain information about your end-users such as name, email, 
 
 The UserInfo endpoint returns the Claims about the authenticated end-user, including the standard profile and custom attributes.&#x20;
 
-In the meantime, the `userInfo` object is returned from calling **fetch user info **function which contains a unique identifier of the user.
+In the meantime, the `userInfo` object is returned from calling **fetch user info** function which contains a unique identifier of the user.
 
 | Key         | Type      | Description                                                                                                                                                                                                     |
 | ----------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -112,7 +112,7 @@ The admin user can view or edit the standard attributes via the Authgear Portal.
 
 ### The Session Bearer
 
-The session bearer is someone who has a valid session cookie or a valid access token. The standard attributes of the end-user whom the session represents can be viewed by accessing [the UserInfo endpoint](user-info.md#userinfo-endpoint) and [the resolver endpoint](https://docs.authgear.com/get-started/backend-integration/nginx). The session bearer can be the end-user, the client mobile app, or the client website.&#x20;
+The session bearer is someone who has a valid session cookie or a valid access token. The standard attributes of the end-user whom the session represents can be viewed by accessing [the UserInfo endpoint](user-profile.md#userinfo-endpoint) and [the resolver endpoint](https://docs.authgear.com/get-started/backend-integration/nginx). The session bearer can be the end-user, the client mobile app, or the client website.&#x20;
 
 ### The End-user
 
