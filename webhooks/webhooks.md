@@ -6,10 +6,6 @@ description: >-
 
 # Webhooks
 
-{% hint style="info" %}
-`user.profile.pre_update` and `user.profile.updated` will be available in the next release, to be launched together with the new **User Profile** feature.
-{% endhint %}
-
 Authgear uses webhooks to notify your application server when events happen in your Authgear project. To use webhooks you will need to:
 
 1. Create a webhook handler endpoint in your application server.
@@ -83,7 +79,7 @@ Each blocking event webhook handler must respond within 5 seconds. And all block
 
 ### Webhook Blocking Event Mutations
 
-The webhook handler can optionally mutate the object in the payload. The webhook handlers should specify the mutations in their responses. If the operation is failed, i.e. `"is_allowed": false` , the mutation will be discarded.&#x20;
+The webhook handler can optionally mutate the object in the payload. The webhook handlers should specify the mutations in their responses. If the operation is failed, i.e. `"is_allowed": false` , the mutation will be discarded.
 
 Given the event
 

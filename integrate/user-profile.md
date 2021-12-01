@@ -1,7 +1,7 @@
 # User Profile
 
 {% hint style="info" %}
-The user profile features, which include Standard Attributes and Custom Attributes is under development. You can keep track of the issue here: [https://github.com/authgear/authgear-server/issues/1510](https://github.com/authgear/authgear-server/issues/1510)
+The support for custom attributes is under development. You can keep track of the issue here: [https://github.com/authgear/authgear-server/issues/1510](https://github.com/authgear/authgear-server/issues/1510)
 {% endhint %}
 
 The user profiles contain information about your end-users such as name, email, addresses, and unique identifier. You can manage the profiles via the Portal & Admin API. The end-users can also manage their own profile through the Profile section in the [User Setting page](auth-ui.md) provided by the AuthUI.
