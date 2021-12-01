@@ -47,6 +47,7 @@
 * [Custom domain](customize/custom-domain.md)
 * [Custom Email Provider](customize/custom-email-provider.md)
 * [Customer Support Link](customize/customer-support-link.md)
+* [Localization & UI Text](customize/localization.md)
 
 ## APIs
 
