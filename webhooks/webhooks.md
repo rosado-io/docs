@@ -163,12 +163,12 @@ All webhook events have the following shape:
 #### Blocking Events
 
 * [user.pre\_create](webhooks.md#userpre\_create)
-* user.profile.pre\_update
+* [user.profile.pre\_update](webhooks.md#userprofilepre\_update)
 
 #### Non-blocking Events
 
 * [user.created](webhooks.md#usercreated)
-* user.profile.updated
+* [user.profile.updated](webhooks.md#userprofileupdated)
 * [user.authenticated](webhooks.md#userauthenticated)
 * [user.anonymous.promoted](webhooks.md#useranonymouspromoted)
 * [identity.email.added](webhooks.md#identityemailadded)
@@ -196,7 +196,7 @@ Occurs right before the user creation. User can be created by user signup, user 
 }
 ```
 
-#### **user.profile.pre\_update**
+#### user.profile.pre\_update
 
 Occurs right before the update of the user profile.
 
