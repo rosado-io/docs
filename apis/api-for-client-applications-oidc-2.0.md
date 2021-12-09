@@ -1,4 +1,4 @@
-# API for Client Applications \(OIDC 2.0\)
+# API for Client Applications (OIDC 2.0)
 
 If your app is `myapp`, the endpoint of your app is `https://myapp.authgearapps.com`.
 
@@ -36,3 +36,6 @@ User settings UI
 
 Admin GraphQL API endpoint. For usage details, please check [Admin APIs](admin-apis.md).
 
+## /oauth2/userinfo
+
+The UserInfo Endpoint is an OAuth 2.0 Protected Resource that returns Claims about the authenticated End-User. When the client presents with a valid Access Token, the endpoint responds with the claims packaged in a JSON object. The claims are also the attributes of the [User Profile](../integrate/user-profile.md).&#x20;
