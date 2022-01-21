@@ -12,6 +12,10 @@ You can use the create an Anonymous User account for the guests in your apps, so
 
 This improves the app experience because the user do not need to set up authenticators until further down the user journey, while still enjoying most of the app features. For app developers, the ability to create and assign Anonymous User also makes it easier to link the activities of an individual before and after sign-up.&#x20;
 
+{% hint style="warning" %}
+This page is WIP, sample code will be added.
+{% endhint %}
+
 ## Enable Anonymous User in your application
 
 1. In the **Portal** , go to the **Anonymous Users** page
