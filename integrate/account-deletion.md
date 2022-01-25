@@ -6,15 +6,13 @@ description: Allow end-users to initiate account deletion within the apps.
 
 In Oct 2021, [Apple announced](https://developer.apple.com/news/?id=mdkbobfo) that all apps allowing users to create accounts should also provide ways for them to **initiate account deletion within the apps,** starting from January 31, 2022. It is also a good design to give your end-users more control over their data.
 
-{% hint style="info" %}
-This feature is WIP. You can track the progress in [this GitHub issue](https://github.com/authgear/authgear-server/issues/1736).
-{% endhint %}
+On Jan 22, 2022 [Apple decided](https://developer.apple.com/news/?id=i71db0mv) to extend the deadline to June 30 2022.
 
 ## Show "Delete Account" button in User Settings
 
 In the pre-built [**User Settings**](auth-ui.md) page, you can show a button for the end-users to initiate account deletion.
 
-Enable this button in the **Account Deletion** page in the **Portal**
+Enable this button in the **Advanced** -> **Account Deletion** page in the **Portal**
 
 !["Delete your account" button in the User Settings page](<../.gitbook/assets/Delete Your Account Button.jpg>)
 
@@ -34,8 +32,24 @@ An end-user account can also be deleted using the **Portal**. In the **User Mana
 
 ## Initiate Deletion from Admin API
 
+Alternatively, if you do not enable the "Delete Account" button in User Settings, you can implement the button in your app by yourself.
+Your backend server can invoke the mutation `scheduleAccountDeletion` to initiate the account deletion.
+
+Here is an example of how to invoke the mutation.
+
 ```graphql
-{
+mutation {
+  scheduleAccountDeletion(input: {
+    userID: "USER_ID"
+  }) {
+    user {
+      id
+      isDisabled
+      isDeactivated
+      disableReason
+      deleteAt
+    }
+  }
 }
 ```
 
