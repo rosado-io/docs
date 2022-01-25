@@ -158,26 +158,32 @@ All webhook events have the following shape:
 
 #### Blocking Events
 
-* [user.pre\_create](webhooks.md#userpre\_create)
-* [user.profile.pre\_update](webhooks.md#userprofilepre\_update)
+* [user.pre\_create](webhooks.md#user.pre_create)
+* [user.profile.pre\_update](webhooks.md#user.profile.pre_update)
+* [user.pre\_schedule\_deletion](webhooks.md#user.pre_schedule_deletion)
 
 #### Non-blocking Events
 
-* [user.created](webhooks.md#usercreated)
-* [user.profile.updated](webhooks.md#userprofileupdated)
-* [user.authenticated](webhooks.md#userauthenticated)
-* [user.anonymous.promoted](webhooks.md#useranonymouspromoted)
-* [identity.email.added](webhooks.md#identityemailadded)
-* [identity.email.removed](webhooks.md#identityemailremoved)
-* [identity.email.updated](webhooks.md#identityemailupdated)
-* [identity.phone.added](webhooks.md#identityphoneadded)
-* [identity.phone.removed](webhooks.md#identityphoneremoved)
-* [identity.phone.updated](webhooks.md#identityphoneupdated)
-* [identity.username.added](webhooks.md#identityusernameadded)
-* [identity.username.removed](webhooks.md#identityusernameremoved)
-* [identity.username.updated](webhooks.md#identityusernameupdated)
-* [identity.oauth.connected](webhooks.md#identityoauthconnected)
-* [identity.oauth.disconnected](webhooks.md#identityoauthdisconnected)
+* [user.created](webhooks.md#user.created)
+* [user.profile.updated](webhooks.md#user.profile.updated)
+* [user.authenticated](webhooks.md#user.authenticated)
+* [user.disabled](webhooks.md#user.disabled)
+* [user.reenabled](webhooks.md#user.reenabled)
+* [user.anonymous.promoted](webhooks.md#user.anonymous.promoted)
+* [user.deletion\_scheduled](webhooks.md#user.deletion_scheduled)
+* [user.deletion\_unscheduled](webhooks.md#user.deletion_unscheduled)
+* [user.deleted](webhooks.md#user.deleted)
+* [identity.email.added](webhooks.md#identity.email.added)
+* [identity.email.removed](webhooks.md#identity.email.removed)
+* [identity.email.updated](webhooks.md#identity.email.updated)
+* [identity.phone.added](webhooks.md#identity.phone.added)
+* [identity.phone.removed](webhooks.md#identity.phone.removed)
+* [identity.phone.updated](webhooks.md#identity.phone.updated)
+* [identity.username.added](webhooks.md#identity.username.added)
+* [identity.username.removed](webhooks.md#identity.username.removed)
+* [identity.username.updated](webhooks.md#identity.username.updated)
+* [identity.oauth.connected](webhooks.md#identity.oauth.connected)
+* [identity.oauth.disconnected](webhooks.md#identity.oauth.disconnected)
 
 #### user.pre\_create
 
@@ -205,6 +211,18 @@ Occurs right before the update of the user profile.
       }
       /* ... */ 
     }
+  }
+}
+```
+
+#### user.pre\_schedule\_deletion
+
+Occurs right before account deletion is scheduled.
+
+```json
+{
+  "payload": {
+    "user": { /* ... */ }
   }
 }
 ```
@@ -252,6 +270,30 @@ Occurs after the user logged in.
 }
 ```
 
+#### user.disabled
+
+Occurs when the user was disabled.
+
+```json5
+{
+  "payload": {
+    "user": { /* ... */ }
+  }
+}
+```
+
+#### user.reenabled
+
+Occurs when the user was re-enabled.
+
+```json5
+{
+  "payload": {
+    "user": { /* ... */ }
+  }
+}
+```
+
 #### user.anonymous.promoted
 
 Occurs whenever an anonymous user is promoted to a normal user.
@@ -262,6 +304,42 @@ Occurs whenever an anonymous user is promoted to a normal user.
     "anonymous_user": { /* ... */ },
     "user": { /* ... */ },
     "identities": [{ /* ... */ }]
+  }
+}
+```
+
+#### user.deletion\_scheduled
+
+Occurs when an account deletion was scheduled.
+
+```json5
+{
+  "payload": {
+    "user": { /* ... */ }
+  }
+}
+```
+
+#### user.deletion\_unscheduled
+
+Occurs when an account deletion was unscheduled.
+
+```json5
+{
+  "payload": {
+    "user": { /* ... */ }
+  }
+}
+```
+
+#### user.deleted
+
+Occurs when the user was deleted.
+
+```json5
+{
+  "payload": {
+    "user": { /* ... */ }
   }
 }
 ```
