@@ -12,10 +12,6 @@ You can use the create an Anonymous User account for the guests in your apps, so
 
 This improves the app experience because the user do not need to set up authenticators until further down the user journey, while still enjoying most of the app features. For app developers, the ability to create and assign Anonymous User also makes it easier to link the activities of an individual before and after sign-up.&#x20;
 
-{% hint style="warning" %}
-This page is WIP, sample code will be added.
-{% endhint %}
-
 ## Enable Anonymous User in your application
 
 1. In the **Portal** , go to the **Anonymous Users** page
@@ -29,19 +25,61 @@ This will create an Anonymous User for the session. Subsequent requests from the
 
 {% tabs %}
 {% tab title="React Native" %}
+```typescript
+authgear
+    .authenticateAnonymously()
+    .then(({userInfo}) => {
+        // Logged in as anonymous user successfully
+    })
+    .catch((err) => {
+        // Handle the error
+    });
+```
 
 {% endtab %}
 
 {% tab title="iOS" %}
-
+```swift
+authgear.authenticateAnonymously { result in
+    switch result {
+    case let .success(authResult):
+        let userInfo = authResult.userInfo
+        // Logged in as anonymous user successfully
+    case let .failure(error):
+        // Handle the error
+    }
+}
+```
 {% endtab %}
 
 {% tab title="Android" %}
+```java
+mAuthgear.authenticateAnonymously(new OnAuthenticateAnonymouslyListener() {
+    @Override
+    public void onAuthenticated(@NonNull UserInfo userInfo) {
+        // Logged in as anonymous user successfully
+    }
+
+    @Override
+    public void onAuthenticationFailed(@NonNull Throwable throwable) {
+        // Handle the error
+    }
+});
+```
 
 {% endtab %}
 
 {% tab title="Web" %}
-
+```typescript
+authgear
+    .authenticateAnonymously()
+    .then(({userInfo}) => {
+        // Logged in as anonymous user successfully
+    })
+    .catch((err) => {
+        // Handle the error
+    });
+```
 {% endtab %}
 {% endtabs %}
 
@@ -65,19 +103,95 @@ After "signing up" as an anonymous user, you can [retrieve the "UserInfo" object
 
 {% tabs %}
 {% tab title="React Native" %}
-
+```javascript
+authgear
+    .promoteAnonymousUser({
+        redirectURI: THE_REDIRECT_URI,
+    })
+    .then(({userInfo}) => {
+        // Promote anonymous user successfully
+    })
+    .catch((e) => {
+        // Handle the error
+    });
+```
 {% endtab %}
 
 {% tab title="iOS" %}
-
+```swift
+authgear.promoteAnonymousUser(
+    redirectURI: THE_REDIRECT_URI
+) { result in
+    switch result {
+    case let .success(authResult):
+        let userInfo = authResult.userInfo
+        // Promote anonymous user successfully
+    case let .failure(error):
+        // Handle the error
+    }
+}
+```
 {% endtab %}
 
 {% tab title="Android" %}
-
+```java
+PromoteOptions options = new PromoteOptions(THE_REDIRECT_URI);
+authgear.promoteAnonymousUser(options, new OnPromoteAnonymousUserListener() {
+    @Override
+    public void onPromoted(@NonNull AuthorizeResult result) {
+        // Promote anonymous user successfully
+    }
+    @Override
+    public void onPromotionFailed(@NonNull Throwable throwable) {
+        // Handle the error
+    }
+});
+```
 {% endtab %}
 
 {% tab title="Web" %}
 
+**Step 1: Start the promotion flow**
+
+When the user clicks promote on your website, make a **start promotion** call to redirect them to the promotion page.
+
+```typescript
+authgear
+    .startPromoteAnonymousUser({
+        // Configure redirectURI which users will be redirected to
+        // after they have promoted with Authgear.
+        // You can use any path in your website.
+        // Make sure it is in the "Redirect URIs" list of the Application.
+        // The redirect uri for anonymous user promotion should be
+        // different from the one for normal user authentication.
+        // e.g. "https://yourdomain.com/promote-redirect"
+        redirectURI: THE_REDIRECT_URI,
+    })
+    .then(({userInfo}) => {
+        // Started the promotion flow
+    })
+    .catch((err) => {
+        // Failed to start the promotion flow
+    });
+```
+
+**Step 2: Handle the promotion result**
+
+After the user promotes on the promotion page, the user will be redirected to the
+`redirectURL` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish promotion** call to handle the promotion result.
+
+```typescript
+authgear
+    .finishPromoteAnonymousUser()
+    .then(({userInfo}) => {
+        // Promoted successfully
+        // You should redirect the user to another path
+    })
+    .catch((err) => {
+        // Failed to finish promotion
+    });
+);
+```
 {% endtab %}
 {% endtabs %}
 
