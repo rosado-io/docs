@@ -16,20 +16,20 @@ Enable this button in the **Advanced** -> **Account Deletion** page in the **Por
 
 !["Delete your account" button in the User Settings page](<../.gitbook/assets/Delete Your Account Button.jpg>)
 
-Note that if you enable this feature, you have to prepare for encountering invalid session every time your users close User Settings.
-If your users unfortunately decide to delete their account in User Settings, their sessions will become invalid.
-You must verify the validity of the session every time User Settings is closed.
-The following code snippet demonstrates this idea.
+Note that if you enable this feature, you have to prepare for encountering invalid session every time your users close User Settings in your mobile apps. If your users unfortunately decided to delete their account in User Settings, all their sessions will become invalid immediately.
+
+You must verify the validity of the session every time the User Settings is closed. The `open` method in the SDK is blocking. You can verify if the user session is still valid when the method resolves. Here is an example with the React Native SDK:
 
 {% tabs %}
 {% tab title="React Native" %}
-```typescript
+```tsx
 // This method blocks until the user closes User Settings.
 await authgear.open(Page.Settings);
 // One way to verify the validity of the session is to get User Info once.
 await authgear.fetchUserInfo();
 ```
 {% endtab %}
+{% endtabs %}
 
 ## Deactivated User
 
@@ -47,10 +47,11 @@ An end-user account can also be deleted using the **Portal**. In the **User Mana
 
 ## Initiate Deletion from Admin API
 
-Alternatively, if you do not enable the "Delete Account" button in User Settings, you can implement the button in your app by yourself.
-Your backend server can invoke the mutation `scheduleAccountDeletion` to initiate the account deletion.
+Alternatively, if you did not enable the "Delete Account" button in **User Settings**, you can implement the button in your app by yourself. Your backend server can invoke the mutation `scheduleAccountDeletion` with the [Admin API](../apis/admin-apis.md) to initiate the account deletion.
 
 Here is an example of how to invoke the mutation.
+
+**GraphQL**
 
 ```graphql
 mutation {
@@ -76,7 +77,7 @@ You may listen to the following events to integrate the deletion behavior to you
 
 * `user.disabled`
 * `user.reenabled`
-* `user.deletion_scheduled`&#x20;
+* `user.deletion_scheduled`
 * `user.deletion_unscheduled`
 * `user.deleted`
 
