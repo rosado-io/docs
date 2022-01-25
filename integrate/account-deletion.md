@@ -16,6 +16,21 @@ Enable this button in the **Advanced** -> **Account Deletion** page in the **Por
 
 !["Delete your account" button in the User Settings page](<../.gitbook/assets/Delete Your Account Button.jpg>)
 
+Note that if you enable this feature, you have to prepare for encountering invalid session every time your users close User Settings.
+If your users unfortunately decide to delete their account in User Settings, their sessions will become invalid.
+You must verify the validity of the session every time User Settings is closed.
+The following code snippet demonstrates this idea.
+
+{% tabs %}
+{% tab title="React Native" %}
+```typescript
+// This method blocks until the user closes User Settings.
+await authgear.open(Page.Settings);
+// One way to verify the validity of the session is to get User Info once.
+await authgear.fetchUserInfo();
+```
+{% endtab %}
+
 ## Deactivated User
 
 When the end-user has initiated the account deletion. Their account will be **deactivated** and scheduled for deletion after the grace period.
