@@ -1,16 +1,12 @@
 # User Profile
 
-{% hint style="info" %}
-The support for custom attributes is under development. You can keep track of the issue here: [https://github.com/authgear/authgear-server/issues/1510](https://github.com/authgear/authgear-server/issues/1510)
-{% endhint %}
-
 The user profiles contain information about your end-users such as name, email, addresses, and unique identifier. You can manage the profiles via the Portal & Admin API. The end-users can also manage their own profile through the Profile section in the [User Setting page](auth-ui.md) provided by the AuthUI.
 
 ## UserInfo Endpoint
 
 The UserInfo endpoint returns the Claims about the authenticated end-user, including the standard profile and custom attributes.&#x20;
 
-In the meantime, the `userInfo` object is returned from calling **fetch user info** function which contains a unique identifier of the user.
+The `userInfo` object is returned from calling **fetch user info** function which contains a unique identifier of the user.
 
 | Key         | Type      | Description                                                                                                                                                                                                     |
 | ----------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,6 +91,50 @@ The following attributes are coupled with the [identities](../strategies/user-id
 * `phone_number`
 * `phone_number_verified`
 * `preferred_username`
+
+## Custom Attributes
+
+You can define a set of custom attributes in the user profile. They are returned as a JSON object in under the `custom_attributes` key in `userInfo`.
+
+```json5
+{
+    "sub": "...",
+    "isAnonymous": false,
+    "isVerified": true,
+    "custom_attributes": {
+        ...
+    }
+}
+```
+
+### Add new attributes
+
+Go to **Portal** > **User Profile** > **Custom Attributes** and click **Add New Attribute**
+
+The attribute name consist of lowercase letters (a-z), digits (0-9) and underscore (\_) only. It must start with lowercase letters (a-z), and NOT ended with an underscore (_\__). The default display name will be the attribute name split with underscore and in title case. e.g. `my_string` will render as `My String` in the [AuthUI Settings page](auth-ui.md).
+
+Authgear supports the following attribute types:
+
+* String
+* Number
+* Integer
+* Dropdown
+* Phone Number
+* Email Address
+* URL
+* Country Code
+
+### Modify attributes
+
+You can change the attribute name and validation settings such as min and max value. The attribute type cannot be changed once it's set. To migrate the attribute into a new type, create a new attribute, migrate the values from the old to the new one, and then change the name and access right of the old attribute to make it obsolete.
+
+### Delete attributes
+
+Deleting attribute is not supported. You can change the name and access rights to make an attribute obsolete.
+
+### Attribute Order
+
+You can arrange the attribute order by drag-and-drop the handle in the custom attribute configuration in the Portal. This will control the order of how the attributes are shown to the end-users in the [AuthUI User Settings page](auth-ui.md).
 
 ## User Profile Configuration
 
