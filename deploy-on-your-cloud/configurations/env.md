@@ -1,12 +1,12 @@
 ---
-description: Environment variable provides global configuration
+description: Environment variables provides global configuration
 ---
 
-# Environment Variable
+# Environment Variables
 
-## Main Server Environment Variable
+## Main Server Environment Variables
 
-Main serer environment variable provides global configuration for main server.
+Main server environment variable provides global configuration for main server.
 
 ### MAIN\_LISTEN\_ADDR
 
@@ -264,7 +264,7 @@ When development mode is enabled:
 
 * TLS certificate is required, to enable secure cookies.
 * All `Host` header values are allowed.
-* External message sending \(SMS/Email\) is disabled; messages to send are logged instead.
+* External message sending (SMS/Email) is disabled; messages to send are logged instead.
 
 ### LOG\_LEVEL
 
@@ -280,5 +280,4 @@ The sets the Sentry DSN, where errors/logs are reported to.
 
 ## TL;DR
 
-The only environment variable you should be aware of is [TRUST\_PROXY](env.md#trust_proxy).
-
+The only environment variable you should be aware of is [TRUST\_PROXY](env.md#trust\_proxy).

@@ -72,10 +72,10 @@
 * [Deploying on Kubernetes](deploy-on-your-cloud/k8s.md)
 * [Multi-tenant mode on Kubernetes](deploy-on-your-cloud/k8s-multi-tenant.md)
 * [Authenticating HTTP request with Nginx](deploy-on-your-cloud/auth-nginx.md)
-* [Configurations](deploy-on-your-cloud/overview/README.md)
-  * [Environment Variable](deploy-on-your-cloud/overview/env.md)
-  * [authgear.yaml](deploy-on-your-cloud/overview/authgear.yaml.md)
-  * [authgear.secrets.yaml](deploy-on-your-cloud/overview/authgear.secrets.yaml.md)
+* [Configurations](deploy-on-your-cloud/configurations/README.md)
+  * [Environment Variables](deploy-on-your-cloud/configurations/env.md)
+  * [authgear.yaml](deploy-on-your-cloud/configurations/authgear.yaml.md)
+  * [authgear.secrets.yaml](deploy-on-your-cloud/configurations/authgear.secrets.yaml.md)
 
 ## Security Concerns
 
