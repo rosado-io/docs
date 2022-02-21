@@ -69,8 +69,6 @@
 ## Deploy on your Cloud
 
 * [Running locally with Docker](deploy-on-your-cloud/local.md)
-* [Deploying on Kubernetes](deploy-on-your-cloud/k8s.md)
-* [Multi-tenant mode on Kubernetes](deploy-on-your-cloud/k8s-multi-tenant.md)
 * [Authenticating HTTP request with Nginx](deploy-on-your-cloud/auth-nginx.md)
 * [Configurations](deploy-on-your-cloud/configurations/README.md)
   * [Environment Variables](deploy-on-your-cloud/configurations/env.md)
