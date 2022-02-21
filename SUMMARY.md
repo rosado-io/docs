@@ -69,6 +69,7 @@
 ## Deploy on your Cloud
 
 * [Running locally with Docker](deploy-on-your-cloud/local.md)
+* [Deploy with Helm chart](deploy-on-your-cloud/helm.md)
 * [Authenticating HTTP request with Nginx](deploy-on-your-cloud/auth-nginx.md)
 * [Configurations](deploy-on-your-cloud/configurations/README.md)
   * [Environment Variables](deploy-on-your-cloud/configurations/env.md)
