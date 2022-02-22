@@ -18,13 +18,13 @@ It stores data in a PostgreSQL database and a Redis.
 ### CPU requirements
 
 The CPU requirements depend on the number of users, workload and how active the users are.
-There are 4 running pods in the basic setup.
-Each pod has a limit of `500m` CPU.
+There are 4 scalable pods plus 1 non-scalable pod in the basic setup.
+The scalable pods have a limit of `500m` CPU, while the non-scalable one has `300m`.
 2 Cores is recommended for the basic setup.
 
 ### Memory requirements
 
-Each pod has a limit of `256MB` of memory.
+The scalable pods have a limit of `256MiB` of memory, while the non-scalable one has `64MiB`.
 1 GB of memory is recommended for the basic setup.
 
 ### Database requirements
