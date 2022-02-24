@@ -158,9 +158,9 @@ All webhook events have the following shape:
 
 #### Blocking Events
 
-* [user.pre\_create](webhooks.md#user.pre_create)
-* [user.profile.pre\_update](webhooks.md#user.profile.pre_update)
-* [user.pre\_schedule\_deletion](webhooks.md#user.pre_schedule_deletion)
+* [user.pre\_create](webhooks.md#user.pre\_create)
+* [user.profile.pre\_update](webhooks.md#user.profile.pre\_update)
+* [user.pre\_schedule\_deletion](webhooks.md#user.pre\_schedule\_deletion)
 
 #### Non-blocking Events
 
@@ -170,8 +170,8 @@ All webhook events have the following shape:
 * [user.disabled](webhooks.md#user.disabled)
 * [user.reenabled](webhooks.md#user.reenabled)
 * [user.anonymous.promoted](webhooks.md#user.anonymous.promoted)
-* [user.deletion\_scheduled](webhooks.md#user.deletion_scheduled)
-* [user.deletion\_unscheduled](webhooks.md#user.deletion_unscheduled)
+* [user.deletion\_scheduled](webhooks.md#user.deletion\_scheduled)
+* [user.deletion\_unscheduled](webhooks.md#user.deletion\_unscheduled)
 * [user.deleted](webhooks.md#user.deleted)
 * [identity.email.added](webhooks.md#identity.email.added)
 * [identity.email.removed](webhooks.md#identity.email.removed)
@@ -553,3 +553,33 @@ func main() {
 ```
 {% endtab %}
 {% endtabs %}
+
+## Payload Reference
+
+The payloads in the webhook events may contain different objects. You can refer to the below for their attributes.
+
+### User Object
+
+`user` in payload have the following attributes.
+
+```json5
+"payload":{
+  "user": {
+    "id": "string",
+    "created_at": "timestamp",
+    "updated_at": "timestamp",
+    "last_login_at": "timestamp",
+    "is_anonymous": boolean,
+    "is_verified": boolean,
+    "is_disabled": boolean,
+    "is_deactivated": boolean,
+    "can_reauthenticate": boolean,
+    "standard_attributes": {
+      ...
+    },
+    "custom_attributes": {
+      ...
+    }
+  }
+}
+```
