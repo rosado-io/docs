@@ -71,15 +71,23 @@ oauth:
 
 ## Install the Authgear Web SDK
 
-The Web JS SDK is available as [an npm package](https://www.npmjs.com/package/@authgear/web).
+The Web JS SDK is available as [an npm package](https://www.npmjs.com/package/@authgear/web). Install the package in your project directory
+
+#### NPM
 
 ```bash
 npm install --save --save-exact @authgear/web
 ```
 
+#### Yarn
+
+```bash
+yarn add @authgear/web --exact
+```
+
 ## Initialize the Authgear SDK
 
-The SDK must be properly configured before use.
+The SDK must be properly configured before use. Call the following `configure` method every time your page loads up.
 
 ```javascript
 import authgear from "@authgear/web";
@@ -107,11 +115,11 @@ authgear
 
 The SDK should be [configured](https://authgear.github.io/authgear-sdk-js/docs/web/interfaces/configureoptions) according to the authentication approach of your choice
 
+* **Token-based authentication**
+  * `sessionType` should be set to `refresh_token`
 * **Cookie-based authentication**
   * `endpoint` must be a custom domain endpoint
   * `sessionType` should be set to `cookie`
-* **Token-based authentication**
-  * `sessionType` should be set to `refresh_token`
 
 ## Login to the application
 
@@ -214,10 +222,6 @@ authgear
 
 ## Calling an API
 
-### Cookie-based authentication
-
-If you are using cookies, all requests from your applications under `*.yourdomain.com` to your application server will include the session cookie automatically. You can skip this section and see the next step: [Backend Integration](backend-integration/)
-
 ### Token-based authentication
 
 To include the access token to the HTTP requests to your application server, there are two ways to achieve this.
@@ -252,6 +256,10 @@ authgear
         };
     });
 ```
+
+### Cookie-based authentication
+
+If you are using cookies, all requests from your applications under `*.yourdomain.com` to your application server will include the session cookie automatically. You can skip this section and see the next step: [Backend Integration](backend-integration/)
 
 ## Next steps
 
