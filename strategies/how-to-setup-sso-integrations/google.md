@@ -10,19 +10,19 @@ To configure Google OAuth client for Authgear, you will need to create an OAuth 
 
 ### Create a new project
 
-Create a project on Google Cloud Platform through [console](https://console.cloud.google.com/). If you are adding Authgear to your existing Google Cloud Platform projects, you may skip to the next step to create the OAuth client. 
+Create a project on Google Cloud Platform through [console](https://console.cloud.google.com). If you are adding Authgear to your existing Google Cloud Platform projects, you may skip to the next step to create the OAuth client.&#x20;
 
-After creating a new project, you will need to configure the OAuth consent screen. Press the ![](../../.gitbook/assets/google-hamburger-menu.png) button on the top-left and go to **APIs & Services** -&gt; **OAuth consent screen** and follow the instruction to create the consent screen.
+After creating a new project, you will need to configure the OAuth consent screen. Press the ![](../../.gitbook/assets/Google-hamburger-menu.png) button on the top-left and go to **APIs & Services** -> **OAuth consent screen** and follow the instruction to create the consent screen.
 
 ### Create OAuth client ID
 
-1. Go to ![](../../.gitbook/assets/google-hamburger-menu.png) -&gt; **APIs & services** -&gt; **Credentials**
-2. Click **Create Credentials** -&gt; **OAuth client ID**
+1. Go to ![](../../.gitbook/assets/Google-hamburger-menu.png) -> **APIs & services** -> **Credentials**
+2. Click **Create Credentials** -> **OAuth client ID**
 3. Choose **Web application** in **Application type** and assign a name as reference. You should _always choose Web application_ here regardless of the platform of the app you are creating. It is because this OAuth Client ID is used by your Authgear services, which is a web application in Google’s classification.
 4. Add `https://<YOUR_AUTHGEAR_ENDPOINT>/sso/oauth2/callback/google` to **redirect URIs**.
 5. After creating a client ID, you will see the client ID under the **OAuth 2.0 Client IDs** section of the **Credentials** page.
 
-![OAuth Client ID in the Credentials page](../../.gitbook/assets/gcp_create_client_id.png)
+![OAuth Client ID in the Credentials page](../../.gitbook/assets/GCP\_create\_client\_id.png)
 
 {% hint style="info" %}
 Redirect URI has the form of `/sso/oauth2/callback/:alias`. The `alias` is used as the identifier of OAuth provider. You can configure the `alias` in Authgear Portal.
@@ -36,13 +36,13 @@ You can find more details in [official Google Cloud Platform doc](https://suppor
 
 After creating an OAuth client, click the name of OAuth client to view the details.
 
-![Get your OAuth Client ID and Secret in the details page](../../.gitbook/assets/gcp_client_details.png)
+![Get your OAuth Client ID and Secret in the details page](../../.gitbook/assets/gcp\_client\_details.png)
 
 You will need the values of **Client ID**, **Client secret** to configure Google Sign In.
 
 ### Configure in Authgear Portal
 
-![](../../.gitbook/assets/authgear_sso_google.png)
+![](../../.gitbook/assets/authgear\_sso\_google.png)
 
 1. In the portal, go to **Single-Sign On** page in your project
 2. Enable **Sign in with Google**
@@ -53,9 +53,7 @@ You will need the values of **Client ID**, **Client secret** to configure Google
 
 Your end-users can now sign in with Google on Authgear pre-built Log In and Sign Up page. Existing end-users can connect their account to Google in the [User Settings](../../integrate/auth-ui.md) page.
 
-![&quot;Sign in with Google&quot; in Log in and Sign up page](../../.gitbook/assets/google_sign_in.png)
+!["Sign in with Google" in Log in and Sign up page](../../.gitbook/assets/google\_sign\_in.png)
 
-![Your end-users can connect to their Google account in User Settings page](../../.gitbook/assets/connect_with_google.png)
-
-
+![Your end-users can connect to their Google account in User Settings page](../../.gitbook/assets/connect\_with\_google.png)
 

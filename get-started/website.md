@@ -123,7 +123,7 @@ The SDK should be [configured](https://authgear.github.io/authgear-sdk-js/docs/w
 
 ## Login to the application
 
-### Start the auth flow
+### Step 1: Start the auth flow
 
 When the user clicks login/signup on your website, make a **start authorization** call to redirect them to the login/signup page.
 
@@ -152,7 +152,7 @@ authgear
 
 By default, Authgear will not ask user to login again if user has already logged in. You can optionally set `prompt` to `login` if you you want the user always reach the login page and login again.
 
-### Handling auth result in the redirectURI
+### Step 2: Handling auth result in the redirectURI
 
 After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. This will attempt to exchange the `code` for the access token and user info. The [`UserInfo`](../integrate/user-profile.md) is resolved from the promise.
 
