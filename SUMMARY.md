@@ -25,9 +25,9 @@
   * [Connect Apps to Google](strategies/how-to-setup-sso-integrations/google.md)
   * [Connect Apps to Facebook](strategies/how-to-setup-sso-integrations/facebook.md)
   * [Connect Apps to LinkedIn](strategies/how-to-setup-sso-integrations/linkedin.md)
-  * [Connect Apps to Azure Active Directory](strategies/how-to-setup-sso-integrations/azureadv2.md)
   * [Connect Apps to WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
   * [Connect Apps to Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)
+  * [Connect Apps to Azure Active Directory](strategies/how-to-setup-sso-integrations/azureadv2.md)
 * [Biometric login](strategies/biometric.md)
 * [Anonymous Users](strategies/anonymous-users.md)
 
