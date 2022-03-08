@@ -168,7 +168,3 @@ authgear.logout { result in
 To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
 {% page-ref page="backend-integration/" %}
-
-[    
-](https://kmlaucow.gitbook.io/tes/getting-started/backend-integration)
-
