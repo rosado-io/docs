@@ -12,6 +12,8 @@ To configure Google OAuth client for Authgear, you will need to create an OAuth 
 
 Create a project on Google Cloud Platform through [console](https://console.cloud.google.com). If you are adding Authgear to your existing Google Cloud Platform projects, you may skip to the next step to create the OAuth client.&#x20;
 
+### Create OAuth Consent Screen
+
 After creating a new project, you will need to configure the OAuth consent screen. Press the ![](../../.gitbook/assets/Google-hamburger-menu.png) button on the top-left and go to **APIs & Services** -> **OAuth consent screen** and follow the instruction to create the consent screen.
 
 ### Create OAuth client ID

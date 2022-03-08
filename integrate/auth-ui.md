@@ -27,7 +27,7 @@ And then you can just set this as the `href` of your anchor tag
 
 ```html
 <div>
-    <a href="{SETTINGS_PAGE_URL}">Open Settings Page</a>
+    <a href="https://<your-app-endpoint>/settings">Open Settings Page</a>
 </div>
 ```
 

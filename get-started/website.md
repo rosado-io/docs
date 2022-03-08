@@ -8,8 +8,6 @@ description: Integrate Authgear to your website with the Web SDK
 
 Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a Project. Or you can use your self-deployed Authgear.
 
-![Continue to Portal to create a new Application in the Project](../.gitbook/assets/continue-to-portal.png)
-
 After that, we will need to create an Application in the Project Portal.
 
 {% tabs %}
@@ -17,9 +15,9 @@ After that, we will need to create an Application in the Project Portal.
 **Step 1: Create an application in the Portal**
 
 1. Go to **Applications** in your project portal.
-2. Click **Add Application** in the top right corner.
+2. Click **Add Application** in the top command bar.
 3. Input the name of your application. This is for reference only.&#x20;
-4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://yourdomain.com/auth-redirect`
+4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://yourdomain.com/auth-redirect` , or `http://localhost:4000/auth-redirect` for local development.
 5. If you are using [cookie-based authentication](authentication-approach/cookie-based.md), you can decide the path that the user redirects to after logout. Add the URI to **Post Logout Redirect URIs**.
 6. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
 
@@ -154,9 +152,9 @@ By default, Authgear will not ask user to login again if user has already logged
 
 ### Step 2: Handling auth result in the redirectURI
 
-After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. This will attempt to exchange the `code` for the access token and user info. The [`UserInfo`](../integrate/user-profile.md) is resolved from the promise.
+After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. This will attempt to exchange the `code` for the access token and user info.&#x20;
 
-Once authorization succeed, the application should redirect the user to other URL such as the user's home page and remove the query parameters.
+Once authorization succeed, the application should navigate the user to other URL such as the user's home page and remove the `code` query parameters.
 
 ```javascript
 import authgear from "@authgear/web";
@@ -164,7 +162,7 @@ import authgear from "@authgear/web";
 authgear.finishAuthorization().then(
   (userInfo) => {
     // authorized successfully
-    // you should redirect the user to another path
+    // you should navigate the user to another path
   },
   (err) => {
     // failed to finish authorization
@@ -196,7 +194,7 @@ if (sessionState === "AUTHENTICATED") {
 }
 ```
 
-The `UserInfo` object provides the unique identifier of the user from your Authgear project. See more details [here](../integrate/user-profile.md).
+The [`UserInfo`](../integrate/user-profile.md) object provides the unique identifier of the user from your Authgear project. See more details [here](../integrate/user-profile.md).
 
 ## Log the user out
 
