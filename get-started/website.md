@@ -18,22 +18,24 @@ After that, we will need to create an Application in the Project Portal.
 2. Click **Add Application** in the top command bar.
 3. Input the name of your application. This is for reference only.&#x20;
 4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://yourdomain.com/auth-redirect` , or `http://localhost:4000/auth-redirect` for local development.
-5. If you are using [cookie-based authentication](authentication-approach/cookie-based.md), you can decide the path that the user redirects to after logout. Add the URI to **Post Logout Redirect URIs**.
-6. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
+5. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
 
-![](../.gitbook/assets/create-application.png)
+![](<../.gitbook/assets/create-application (1).png>)
 
-{% hint style="info" %}
-If you want to validate JWT access token in your server, select **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
-{% endhint %}
+**Step 2: Configure the application**
 
-**Step 2: Add your website to allowed origins**
+1. In **Edit Application**, if you are using [cookie-based authentication](authentication-approach/cookie-based.md), you can decide the path that the user redirects to after logout. Add the URI to **Post Logout Redirect URIs.**
+2. If you want to validate JWT access token in your server, under **Token Settings**, select **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
+
+![](<../.gitbook/assets/edit-application (1).png>)
+
+**Step 3: Add your website to allowed origins**
 
 1. Go to **Applications** > **Allowed Origins**.
 2. Add your website origin to the allowed origins. e.g. `yourdomain.com` or `localhost:4000` for local development.
 3. Click "Save".
 
-**Step 3: Setup a custom domain (Required for** [**Cookie-based authentication**](authentication-approach/cookie-based.md)**)**
+**Step 4: Setup a custom domain (Required for** [**Cookie-based authentication**](authentication-approach/cookie-based.md)**)**
 
 1. Go to **Custom Domains**
 2. Add your custom domain in **Input New Domain**
