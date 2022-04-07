@@ -14,5 +14,5 @@ Authgear supports the following social and enterprise identity providers. Please
 * [Linkedin](linkedin.md)
 * [Azure Active Directory](azureadv2.md)
 * [Azure AD B2C](azureadb2c.md)
-* [WeChat](wechat.md)
 * [Microsoft AD FS](adfs.md)
+* [WeChat](wechat.md)
