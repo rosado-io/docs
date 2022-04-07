@@ -24,6 +24,7 @@
   * [Connect Apps to Apple](strategies/how-to-setup-sso-integrations/apple.md)
   * [Connect Apps to Google](strategies/how-to-setup-sso-integrations/google.md)
   * [Connect Apps to Facebook](strategies/how-to-setup-sso-integrations/facebook.md)
+  * [Connect Apps to GitHub](strategies/how-to-setup-sso-integrations/github.md)
   * [Connect Apps to LinkedIn](strategies/how-to-setup-sso-integrations/linkedin.md)
   * [Connect Apps to Azure Active Directory](strategies/how-to-setup-sso-integrations/azureadv2.md)
   * [Connect Apps to Microsoft AD FS](strategies/how-to-setup-sso-integrations/adfs.md)

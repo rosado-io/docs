@@ -11,6 +11,7 @@ Authgear supports the following social and enterprise identity providers. Please
 * [Apple](apple.md)
 * [Google](google.md)
 * [Facebook](facebook.md)
+* [GitHub](github.md)
 * [Linkedin](linkedin.md)
 * [Azure Active Directory](azureadv2.md)
 * [Azure AD B2C](azureadb2c.md)
