@@ -13,20 +13,45 @@ The configuration file is validated against the following JSON Schema:
 ```javascript
 {
   "$defs": {
+    "AccessControlLevelString": {
+      "enum": [
+        "hidden",
+        "readonly",
+        "readwrite"
+      ],
+      "type": "string"
+    },
+    "AccountDeletionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "grace_period_days": {
+          "$ref": "#/$defs/DurationDays",
+          "maximum": 180,
+          "minimum": 1
+        },
+        "scheduled_by_end_user_enabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
     "AppConfig": {
       "additionalProperties": false,
       "properties": {
+        "account_deletion": {
+          "$ref": "#/$defs/AccountDeletionConfig"
+        },
         "authentication": {
           "$ref": "#/$defs/AuthenticationConfig"
         },
         "authenticator": {
           "$ref": "#/$defs/AuthenticatorConfig"
         },
-        "database": {
-          "$ref": "#/$defs/DatabaseConfig"
-        },
         "forgot_password": {
           "$ref": "#/$defs/ForgotPasswordConfig"
+        },
+        "google_tag_manager": {
+          "$ref": "#/$defs/GoogleTagManagerConfig"
         },
         "hook": {
           "$ref": "#/$defs/HookConfig"
@@ -49,14 +74,14 @@ The configuration file is validated against the following JSON Schema:
         "oauth": {
           "$ref": "#/$defs/OAuthConfig"
         },
-        "redis": {
-          "$ref": "#/$defs/RedisConfig"
-        },
         "session": {
           "$ref": "#/$defs/SessionConfig"
         },
         "ui": {
           "$ref": "#/$defs/UIConfig"
+        },
+        "user_profile": {
+          "$ref": "#/$defs/UserProfileConfig"
         },
         "verification": {
           "$ref": "#/$defs/VerificationConfig"
@@ -158,6 +183,9 @@ The configuration file is validated against the following JSON Schema:
     "AuthenticatorPasswordConfig": {
       "additionalProperties": false,
       "properties": {
+        "force_change": {
+          "type": "boolean"
+        },
         "policy": {
           "$ref": "#/$defs/PasswordPolicyConfig"
         }
@@ -182,24 +210,183 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "DatabaseConfig": {
+    "BlockingHookHandlersConfig": {
       "additionalProperties": false,
       "properties": {
-        "idle_connection_timeout_seconds": {
-          "minimum": 0,
-          "type": "integer"
+        "event": {
+          "enum": [
+            "user.pre_create",
+            "user.profile.pre_update",
+            "user.pre_schedule_deletion"
+          ],
+          "type": "string"
         },
-        "max_connection_lifetime_seconds": {
-          "minimum": 0,
-          "type": "integer"
+        "url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event",
+        "url"
+      ],
+      "type": "object"
+    },
+    "CustomAttributesAttributeConfig": {
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "number"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "maximum": {
+                "type": "number"
+              },
+              "minimum": {
+                "type": "number"
+              }
+            }
+          }
         },
-        "max_idle_connection": {
-          "minimum": 0,
-          "type": "integer"
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "integer"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "maximum": {
+                "type": "integer"
+              },
+              "minimum": {
+                "type": "integer"
+              }
+            }
+          }
         },
-        "max_open_connection": {
-          "minimum": 0,
-          "type": "integer"
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "enum"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "enum": {
+                "items": {
+                  "minLength": 1,
+                  "pattern": "^[a-zA-Z0-9_]*$",
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "enum"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "not": {
+                  "enum": [
+                    "number",
+                    "integer",
+                    "enum"
+                  ]
+                }
+              }
+            }
+          },
+          "then": true
+        }
+      ],
+      "properties": {
+        "access_control": {
+          "$ref": "#/$defs/UserProfileAttributesAccessControl"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pointer": {
+          "format": "x_custom_attribute_pointer",
+          "not": {
+            "enum": [
+              "/iss",
+              "/sub",
+              "/aud",
+              "/exp",
+              "/nbf",
+              "/iat",
+              "/jti",
+              "/sub",
+              "/email",
+              "/email_verified",
+              "/phone_number",
+              "/phone_number_verified",
+              "/preferred_username",
+              "/family_name",
+              "/given_name",
+              "/picture",
+              "/gender",
+              "/birthdate",
+              "/zoneinfo",
+              "/locale",
+              "/name",
+              "/nickname",
+              "/middle_name",
+              "/profile",
+              "/website",
+              "/address",
+              "/updated_at"
+            ]
+          },
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "number",
+            "integer",
+            "enum",
+            "phone_number",
+            "email",
+            "url",
+            "country_code"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "pointer",
+        "type"
+      ],
+      "type": "object"
+    },
+    "CustomAttributesConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes": {
+          "items": {
+            "$ref": "#/$defs/CustomAttributesAttributeConfig"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -234,11 +421,22 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
+    "GoogleTagManagerConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "container_id": {
+          "format": "google_tag_manager_container_id",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "HTTPConfig": {
       "additionalProperties": false,
       "properties": {
         "allowed_origins": {
           "items": {
+            "format": "http_origin_spec",
             "minLength": 1,
             "type": "string"
           },
@@ -249,13 +447,6 @@ The configuration file is validated against the following JSON Schema:
         },
         "cookie_prefix": {
           "type": "string"
-        },
-        "csp_directives": {
-          "items": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "type": "array"
         },
         "public_origin": {
           "format": "http_origin",
@@ -270,9 +461,15 @@ The configuration file is validated against the following JSON Schema:
     "HookConfig": {
       "additionalProperties": false,
       "properties": {
-        "handlers": {
+        "blocking_handlers": {
           "items": {
-            "$ref": "#/$defs/HookHandlerConfig"
+            "$ref": "#/$defs/BlockingHookHandlersConfig"
+          },
+          "type": "array"
+        },
+        "non_blocking_handlers": {
+          "items": {
+            "$ref": "#/$defs/NonBlockingHookHandlersConfig"
           },
           "type": "array"
         },
@@ -285,22 +482,253 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "HookHandlerConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "event": {
-          "type": "string"
-        },
-        "url": {
-          "format": "uri",
-          "type": "string"
-        }
-      },
-      "required": [
-        "event",
-        "url"
+    "ISO31661Alpha2": {
+      "enum": [
+        "AD",
+        "AE",
+        "AF",
+        "AG",
+        "AI",
+        "AL",
+        "AM",
+        "AO",
+        "AR",
+        "AS",
+        "AT",
+        "AU",
+        "AW",
+        "AX",
+        "AZ",
+        "BA",
+        "BB",
+        "BD",
+        "BE",
+        "BF",
+        "BG",
+        "BH",
+        "BI",
+        "BJ",
+        "BL",
+        "BM",
+        "BN",
+        "BO",
+        "BQ",
+        "BR",
+        "BS",
+        "BT",
+        "BW",
+        "BY",
+        "BZ",
+        "CA",
+        "CC",
+        "CD",
+        "CF",
+        "CG",
+        "CH",
+        "CI",
+        "CK",
+        "CL",
+        "CM",
+        "CN",
+        "CO",
+        "CR",
+        "CU",
+        "CV",
+        "CW",
+        "CX",
+        "CY",
+        "CZ",
+        "DE",
+        "DJ",
+        "DK",
+        "DM",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "EG",
+        "EH",
+        "ER",
+        "ES",
+        "ET",
+        "FI",
+        "FJ",
+        "FK",
+        "FM",
+        "FO",
+        "FR",
+        "GA",
+        "GB",
+        "GD",
+        "GE",
+        "GF",
+        "GG",
+        "GH",
+        "GI",
+        "GL",
+        "GM",
+        "GN",
+        "GP",
+        "GQ",
+        "GR",
+        "GT",
+        "GU",
+        "GW",
+        "GY",
+        "HK",
+        "HN",
+        "HR",
+        "HT",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IM",
+        "IN",
+        "IO",
+        "IQ",
+        "IR",
+        "IS",
+        "IT",
+        "JE",
+        "JM",
+        "JO",
+        "JP",
+        "KE",
+        "KG",
+        "KH",
+        "KI",
+        "KM",
+        "KN",
+        "KP",
+        "KR",
+        "KW",
+        "KY",
+        "KZ",
+        "LA",
+        "LB",
+        "LC",
+        "LI",
+        "LK",
+        "LR",
+        "LS",
+        "LT",
+        "LU",
+        "LV",
+        "LY",
+        "MA",
+        "MC",
+        "MD",
+        "ME",
+        "MF",
+        "MG",
+        "MH",
+        "MK",
+        "ML",
+        "MM",
+        "MN",
+        "MO",
+        "MP",
+        "MQ",
+        "MR",
+        "MS",
+        "MT",
+        "MU",
+        "MV",
+        "MW",
+        "MX",
+        "MY",
+        "MZ",
+        "NA",
+        "NC",
+        "NE",
+        "NF",
+        "NG",
+        "NI",
+        "NL",
+        "NO",
+        "NP",
+        "NR",
+        "NU",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PF",
+        "PG",
+        "PH",
+        "PK",
+        "PL",
+        "PM",
+        "PR",
+        "PS",
+        "PT",
+        "PW",
+        "PY",
+        "QA",
+        "RE",
+        "RO",
+        "RS",
+        "RU",
+        "RW",
+        "SA",
+        "SB",
+        "SC",
+        "SD",
+        "SE",
+        "SG",
+        "SH",
+        "SI",
+        "SJ",
+        "SK",
+        "SL",
+        "SM",
+        "SN",
+        "SO",
+        "SR",
+        "SS",
+        "ST",
+        "SV",
+        "SX",
+        "SY",
+        "SZ",
+        "TC",
+        "TD",
+        "TG",
+        "TH",
+        "TJ",
+        "TK",
+        "TL",
+        "TM",
+        "TN",
+        "TO",
+        "TR",
+        "TT",
+        "TV",
+        "TW",
+        "TZ",
+        "UA",
+        "UG",
+        "US",
+        "UY",
+        "UZ",
+        "VA",
+        "VC",
+        "VE",
+        "VG",
+        "VI",
+        "VN",
+        "VU",
+        "WF",
+        "WS",
+        "XK",
+        "YE",
+        "YT",
+        "ZA",
+        "ZM",
+        "ZW"
       ],
-      "type": "object"
+      "type": "string"
     },
     "IdentityConfig": {
       "additionalProperties": false,
@@ -456,6 +884,9 @@ The configuration file is validated against the following JSON Schema:
         "max_length": {
           "type": "integer"
         },
+        "modify_disabled": {
+          "type": "boolean"
+        },
         "type": {
           "$ref": "#/$defs/LoginIDKeyType"
         }
@@ -508,6 +939,70 @@ The configuration file is validated against the following JSON Schema:
       "properties": {
         "sms_provider": {
           "$ref": "#/$defs/SMSProvider"
+        }
+      },
+      "type": "object"
+    },
+    "NonBlockingHookHandlersConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "items": {
+            "enum": [
+              "*",
+              "user.created",
+              "user.authenticated",
+              "user.profile.updated",
+              "user.disabled",
+              "user.reenabled",
+              "user.anonymous.promoted",
+              "user.deletion_scheduled",
+              "user.deletion_unscheduled",
+              "user.deleted",
+              "identity.email.added",
+              "identity.email.removed",
+              "identity.email.updated",
+              "identity.phone.added",
+              "identity.phone.removed",
+              "identity.phone.updated",
+              "identity.username.added",
+              "identity.username.removed",
+              "identity.username.updated",
+              "identity.oauth.connected",
+              "identity.oauth.disconnected"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "events",
+        "url"
+      ],
+      "type": "object"
+    },
+    "OAuthClaimConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "assume_verified": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "OAuthClaimsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/OAuthClaimConfig"
         }
       },
       "type": "object"
@@ -649,6 +1144,35 @@ The configuration file is validated against the following JSON Schema:
               "account_id"
             ]
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "adfs"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "discovery_document_endpoint"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "azureadb2c"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "tenant",
+              "policy"
+            ]
+          }
         }
       ],
       "properties": {
@@ -663,15 +1187,25 @@ The configuration file is validated against the following JSON Schema:
           "$ref": "#/$defs/OAuthSSOWeChatAppType"
         },
         "claims": {
-          "$ref": "#/$defs/VerificationOAuthClaimsConfig"
+          "$ref": "#/$defs/OAuthClaimsConfig"
         },
         "client_id": {
+          "type": "string"
+        },
+        "discovery_document_endpoint": {
+          "format": "uri",
           "type": "string"
         },
         "is_sandbox_account": {
           "type": "boolean"
         },
         "key_id": {
+          "type": "string"
+        },
+        "modify_disabled": {
+          "type": "boolean"
+        },
+        "policy": {
           "type": "string"
         },
         "team_id": {
@@ -702,8 +1236,11 @@ The configuration file is validated against the following JSON Schema:
       "enum": [
         "google",
         "facebook",
+        "github",
         "linkedin",
         "azureadv2",
+        "azureadb2c",
+        "adfs",
         "apple",
         "wechat"
       ],
@@ -753,6 +1290,28 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
+    "PhoneInputConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "allowlist": {
+          "items": {
+            "$ref": "#/$defs/ISO31661Alpha2"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "pinned_list": {
+          "items": {
+            "$ref": "#/$defs/ISO31661Alpha2"
+          },
+          "type": "array"
+        },
+        "preselect_by_ip_disabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
     "PrimaryAuthenticatorType": {
       "enum": [
         "password",
@@ -782,28 +1341,6 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
-    "RedisConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "idle_connection_timeout_seconds": {
-          "minimum": 0,
-          "type": "integer"
-        },
-        "max_connection_lifetime_seconds": {
-          "minimum": 0,
-          "type": "integer"
-        },
-        "max_idle_connection": {
-          "minimum": 0,
-          "type": "integer"
-        },
-        "max_open_connection": {
-          "minimum": 0,
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
     "SMSProvider": {
       "enum": [
         "nexmo",
@@ -813,7 +1350,7 @@ The configuration file is validated against the following JSON Schema:
     },
     "SecondaryAuthenticationMode": {
       "enum": [
-        "if_requested",
+        "disabled",
         "if_exists",
         "required"
       ],
@@ -846,12 +1383,68 @@ The configuration file is validated against the following JSON Schema:
       },
       "type": "object"
     },
+    "StandardAttributesAccessControlConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "access_control": {
+          "$ref": "#/$defs/UserProfileAttributesAccessControl"
+        },
+        "pointer": {
+          "enum": [
+            "/email",
+            "/phone_number",
+            "/preferred_username",
+            "/family_name",
+            "/given_name",
+            "/picture",
+            "/gender",
+            "/birthdate",
+            "/zoneinfo",
+            "/locale",
+            "/name",
+            "/nickname",
+            "/middle_name",
+            "/profile",
+            "/website",
+            "/address"
+          ],
+          "format": "json-pointer",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "StandardAttributesConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "access_control": {
+          "items": {
+            "$ref": "#/$defs/StandardAttributesAccessControlConfig"
+          },
+          "type": "array"
+        },
+        "population": {
+          "$ref": "#/$defs/StandardAttributesPopulationConfig"
+        }
+      },
+      "type": "object"
+    },
+    "StandardAttributesPopulationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "strategy": {
+          "enum": [
+            "none",
+            "on_signup"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "UIConfig": {
       "additionalProperties": false,
       "properties": {
-        "country_calling_code": {
-          "$ref": "#/$defs/UICountryCallingCodeConfig"
-        },
         "dark_theme_disabled": {
           "type": "boolean"
         },
@@ -866,25 +1459,81 @@ The configuration file is validated against the following JSON Schema:
         "default_redirect_uri": {
           "format": "uri",
           "type": "string"
+        },
+        "phone_input": {
+          "$ref": "#/$defs/PhoneInputConfig"
+        },
+        "watermark_disabled": {
+          "type": "boolean"
         }
       },
       "type": "object"
     },
-    "UICountryCallingCodeConfig": {
+    "UserProfileAttributesAccessControl": {
+      "additionalProperties": false,
+      "enum": [
+        {
+          "bearer": "hidden",
+          "end_user": "hidden",
+          "portal_ui": "hidden"
+        },
+        {
+          "bearer": "hidden",
+          "end_user": "hidden",
+          "portal_ui": "readonly"
+        },
+        {
+          "bearer": "hidden",
+          "end_user": "hidden",
+          "portal_ui": "readwrite"
+        },
+        {
+          "bearer": "readonly",
+          "end_user": "hidden",
+          "portal_ui": "readonly"
+        },
+        {
+          "bearer": "readonly",
+          "end_user": "hidden",
+          "portal_ui": "readwrite"
+        },
+        {
+          "bearer": "readonly",
+          "end_user": "readonly",
+          "portal_ui": "readonly"
+        },
+        {
+          "bearer": "readonly",
+          "end_user": "readonly",
+          "portal_ui": "readwrite"
+        },
+        {
+          "bearer": "readonly",
+          "end_user": "readwrite",
+          "portal_ui": "readwrite"
+        }
+      ],
+      "properties": {
+        "bearer": {
+          "$ref": "#/$defs/AccessControlLevelString"
+        },
+        "end_user": {
+          "$ref": "#/$defs/AccessControlLevelString"
+        },
+        "portal_ui": {
+          "$ref": "#/$defs/AccessControlLevelString"
+        }
+      },
+      "type": "object"
+    },
+    "UserProfileConfig": {
       "additionalProperties": false,
       "properties": {
-        "allowlist": {
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1,
-          "type": "array"
+        "custom_attributes": {
+          "$ref": "#/$defs/CustomAttributesConfig"
         },
-        "pinned_list": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
+        "standard_attributes": {
+          "$ref": "#/$defs/StandardAttributesConfig"
         }
       },
       "type": "object"
@@ -936,24 +1585,6 @@ The configuration file is validated against the following JSON Schema:
       ],
       "type": "string"
     },
-    "VerificationOAuthClaimConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "assume_verified": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    "VerificationOAuthClaimsConfig": {
-      "additionalProperties": false,
-      "properties": {
-        "email": {
-          "$ref": "#/$defs/VerificationOAuthClaimConfig"
-        }
-      },
-      "type": "object"
-    },
     "WelcomeMessageConfig": {
       "additionalProperties": false,
       "properties": {
@@ -994,18 +1625,16 @@ identity:
     #
     # If you do not want the defaults, define keys yourselves.
     keys:
-      # Define the key of the login ID.
-    - key: email
       # Define the type of login ID.
-      # Valid values are "email" "phone" "username" and "raw"
-      type: email
+      # Valid values are "email" "phone" and "username"
+    - type: email
       # How long login ID can be
       # Default is 40.
       max_length: 40
-    - key: phone
-      type: phone
-    - key: username
-      type: username
+      # Whether the login ID can be modified by the end-user in the settings page.
+      modify_disabled: false
+    - type: phone
+    - type: username
     # Configure the characteristics of some login IDs.
     types:
       # Configure Email Login ID Identity.
@@ -1050,7 +1679,6 @@ identity:
     # Configure external OAuth identity providers.
     providers:
     # Denote the type of the identity provider.
-    # Valid values are "google", "apple", "facebook", "azureadv2", "linkedin", "wechat"
     - type: google
       # alias by default is the same as the value of the type.
       alias: google
@@ -1200,10 +1828,9 @@ authentication:
   primary_authenticators:
   - password
   # Determine which authenticators can be used as secondary authenticator.
-  # By default totp, oob_otp_sms are enabled.
+  # By default only "totp" is enabled.
   secondary_authenticators:
   - totp
-  - oob_otp_sms
   # Configure the MFA behavior.
   #
   # if_exists: The user can add secondary authenticators.
@@ -1212,7 +1839,7 @@ authentication:
   # required: The user must add secondary authenticators.
   # The user must perform MFA during authentication.
   #
-  # if_requested: MFA is entirely optional even the user has at least one secondary authenticator.
+  # disabled: The user cannot add any secondary authenticators.
   #
   # Default is "if_exists"
   secondary_authentication_mode: if_exists
@@ -1258,14 +1885,9 @@ http:
   - https://trusted-third-party-server.com
   # Explicitly set the cookie domain. Default is eTLD+1.
   cookie_domain: https://accounts.myapp.com
-  # The expected host
-  # Default is empty list.
   # The expected origin
   # It is used to render an absolute URL in templates.
   public_origin: https://accounts.myapp.com
-  # The list of items to appear in Content-Security-Policy HTTP header.
-  # The default should work so you should never need to specify it.
-  csp_directives: []
   # Set the prefix of the cookies written by Authgear in case
   # you have cookie name conflicts you want to avoid.
   # The default prefix is an empty string.
@@ -1276,36 +1898,6 @@ messaging:
   # Valid values are "twilio" and "nexmo".
   # You must provide the credentials in secret config.
   sms_provider: "twilio"
-# Configure the database connection
-database:
-  # The maximum open connection to the database.
-  # The default is 2.
-  max_open_connection: 2
-  # The maximum idle connection to the database.
-  # The default is 2.
-  max_idle_connection: 2
-  # The maximum lifetime of the connection.
-  # The connection is discarded when its lifetime reaches the value.
-  # The default is 1800.
-  max_connection_lifetime_seconds: 1800
-  # Idle connections are closed after remaining idle for this duration.
-  # The default is 300.
-  idle_connection_timeout_seconds: 300
-# Configure Redis connection
-redis:
-  # The maximum open connection to Redis.
-  # The default is 2.
-  max_open_connection: 2
-  # The maximum idle connection to Redis.
-  # The default is 2.
-  max_idle_connection: 2
-  # The maximum lifetime of the connection.
-  # The connection is discarded when its lifetime reaches the value.
-  # The default is 900.
-  max_connection_lifetime_seconds: 900
-  # Idle connections are closed after remaining idle for this duration.
-  # The default is 300.
-  idle_connection_timeout_seconds: 300
 # Configure user verification
 verification:
   # Determine the verification status criteria.
@@ -1391,17 +1983,23 @@ session:
   # The lifetime of the session. Default is 86400.
   lifetime_seconds: 86400
 ui:
-  country_calling_code:
-    # The list of country calling code to show in the phone number input widget.
+  phone_input:
+    # The list of country code to show in the phone number input widget.
     allowlist:
-      - '1'
-      - '852'
-    # The list of country calling code pinned to the top of the list.
+    - 'HK'
+    - 'US'
+    # The list of country code pinned to the top of the list.
     pinned_list:
-      - '852'
+    - 'HK'
+    # Wether preselection of country code by IP address is disabled.
+    # Default is false.
+    preselect_by_ip_disabled: false
   # Whether dark theme is disabled.
   # Default is false.
   dark_theme_disabled: false
+  # Whether watermark is disabled.
+  # Default is false.
+  watermark_disabled: false
   # If it is provided, the web UI will have a "Back to App" link.
   default_client_uri: ""
   # If it is provided, the web UI will redirect to the URI after logout.

@@ -16,6 +16,33 @@ The configuration file is validated against the following JSON Schema:
     "AdminAPIAuthKey": {
       "$ref": "#/$defs/JWS"
     },
+    "AnalyticRedisCredentials": {
+      "additionalProperties": false,
+      "properties": {
+        "redis_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "redis_url"
+      ],
+      "type": "object"
+    },
+    "AuditDatabaseCredentials": {
+      "additionalProperties": false,
+      "properties": {
+        "database_schema": {
+          "type": "string"
+        },
+        "database_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "database_url"
+      ],
+      "type": "object"
+    },
     "CSRFKeyMaterials": {
       "$ref": "#/$defs/JWS"
     },
@@ -33,6 +60,21 @@ The configuration file is validated against the following JSON Schema:
         "database_url"
       ],
       "type": "object"
+    },
+    "ElasticsearchCredentials": {
+      "additionalProperties": false,
+      "properties": {
+        "elasticsearch_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "elasticsearch_url"
+      ],
+      "type": "object"
+    },
+    "ImagesKeyMaterials": {
+      "$ref": "#/$defs/JWS"
     },
     "JWK": {
       "properties": {
@@ -109,7 +151,7 @@ The configuration file is validated against the following JSON Schema:
       ],
       "type": "object"
     },
-    "OIDCKeyMaterials": {
+    "OAuthKeyMaterials": {
       "$ref": "#/$defs/JWS"
     },
     "RedisCredentials": {
@@ -154,7 +196,9 @@ The configuration file is validated against the following JSON Schema:
       },
       "required": [
         "host",
-        "port"
+        "port",
+        "username",
+        "password"
       ],
       "type": "object"
     },
@@ -196,6 +240,38 @@ The configuration file is validated against the following JSON Schema:
           "if": {
             "properties": {
               "key": {
+                "const": "analytic.redis"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/AnalyticRedisCredentials"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "key": {
+                "const": "audit.db"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/AuditDatabaseCredentials"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "key": {
                 "const": "csrf"
               }
             }
@@ -228,6 +304,38 @@ The configuration file is validated against the following JSON Schema:
           "if": {
             "properties": {
               "key": {
+                "const": "elasticsearch"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/ElasticsearchCredentials"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "key": {
+                "const": "images"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "$ref": "#/$defs/ImagesKeyMaterials"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "key": {
                 "const": "mail.smtp"
               }
             }
@@ -244,14 +352,14 @@ The configuration file is validated against the following JSON Schema:
           "if": {
             "properties": {
               "key": {
-                "const": "oidc"
+                "const": "oauth"
               }
             }
           },
           "then": {
             "properties": {
               "data": {
-                "$ref": "#/$defs/OIDCKeyMaterials"
+                "$ref": "#/$defs/OAuthKeyMaterials"
               }
             }
           }
@@ -352,10 +460,14 @@ The configuration file is validated against the following JSON Schema:
     "SecretKey": {
       "enum": [
         "admin-api.auth",
+        "analytic.redis",
+        "audit.db",
         "csrf",
         "db",
+        "elasticsearch",
+        "images",
         "mail.smtp",
-        "oidc",
+        "oauth",
         "redis",
         "sms.nexmo",
         "sms.twilio",
@@ -423,7 +535,19 @@ secrets:
 - key: db
   data:
     database_url: postgresql://
-    database_scheme: app
+    database_scheme: public
+```
+
+### audit.db
+
+`audit.db` defines the database credentials of the instance for storing audit data. Only PostgreSQL database is supported.
+
+```yaml
+secrets:
+- key: audit.db
+  data:
+    database_url: postgresql://
+    database_scheme: public
 ```
 
 ### redis
@@ -435,6 +559,28 @@ secrets:
 - key: redis
   data:
     redis_url: redis://username:password@localhost:6379/0
+```
+
+### analytic.redis
+
+`analytic.redis` defines the Redis credentials of the Redis instance for storing analytics data.
+
+```yaml
+secrets:
+- key: analytic.redis
+  data:
+    redis_url: redis://username:password@localhost:6379/0
+```
+
+### elasticsearch
+
+`elasticsearch` defines the connection information of the Elasticsearch instance.
+
+```yaml
+secrets:
+- key: elasticsearch
+  data:
+    elasticsearch_url: http://localhost:9200
 ```
 
 ### sso.oauth.client
