@@ -56,7 +56,8 @@
 ## APIs
 
 * [API for Client Applications (OIDC 2.0)](apis/api-for-client-applications-oidc-2.0.md)
-* [Admin APIs](apis/admin-apis.md)
+* [Admin APIs](apis/admin-apis/README.md)
+  * [Update user's picture](apis/admin-apis/update-users-picture.md)
 
 ## Webhooks
 
