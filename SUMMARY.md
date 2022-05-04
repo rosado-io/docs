@@ -68,6 +68,7 @@
 * [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
 * [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
 * [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
+* [Flutter SDK Reference](https://authgear.github.io/authgear-sdk-flutter/)
 
 ## Deploy on your Cloud
 
