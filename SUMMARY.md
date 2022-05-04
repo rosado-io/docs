@@ -9,6 +9,7 @@
   * [Cookie-based (Website or Single-page app)](get-started/authentication-approach/cookie-based.md)
 * [Web SDK](get-started/website.md)
 * [React Native SDK](get-started/react-native.md)
+* [Flutter SDK](get-started/flutter.md)
 * [Android SDK](get-started/android/README.md)
   * [Android Kotlin coroutine support](get-started/android/coroutine-support.md)
   * [Android OKHttp Interceptor Extension (Optional)](get-started/android/okhttp-interceptor-extension.md)
