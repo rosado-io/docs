@@ -27,6 +27,21 @@ The following code snippets illustrate the interaction between the SDK and Authg
 {% tabs %}
 {% tab title="React Native" %}
 ```typescript
+const biometricOptions = {
+  ios: {
+    localizedReason: 'Use biometric to authenticate',
+    constraint: 'biometryCurrentSet' as const,
+  },
+  android: {
+    title: 'Biometric Authentication',
+    subtitle: 'Biometric authentication',
+    description: 'Use biometric to authenticate',
+    negativeButtonText: 'Cancel',
+    constraint: ['BIOMETRIC_STRONG' as const],
+    invalidatedByBiometricEnrollment: true,
+  },
+};
+
 async function onClickPerformSensitiveOperation() {
   // Step 1: Refresh the ID token to ensure the claims are up-to-date.
   await authgear.refreshIDToken();
@@ -47,9 +62,12 @@ async function onClickPerformSensitiveOperation() {
   }
 
   // Step 3: The end-user can be reauthenticated.
+  // If your app supports biometric authentication, you can pass
+  // the biometric options to reauthenticate.
+  // If biometric is enabled for the current user, it will be used instead.
   await authgear.reauthenticate({
     redirectURI: THE_REDIRECT_URI,
-  });
+  }, biometricOptions);
 
   // Step 4: If we reach here, the reauthentication was done.
   // The ID token have up-to-date auth_time claim.
@@ -126,7 +144,9 @@ func onClickPerformSensitiveOperation() {
             }
 
             // Step 3: The end-user can be reauthenticated.
-            authgear.reauthenticate(redirectURI: THE_REDIRECT_URI) { result in
+            // By default biometric is used for reauthentication if it is enabled for the current user.
+            // If you do not want biometric to be used, specify skipUsingBiometric: true
+            authgear.reauthenticate(redirectURI: THE_REDIRECT_URI, skipUsingBiometric: false) { result in
                 switch result {
                 case .success:
                     // Step 4: If we reach here, the reauthentication was done.
@@ -149,6 +169,16 @@ func onClickPerformSensitiveOperation() {
 {% tab title="Android" %}
 ```java
 public void onClickPerformSensitiveOperation() {
+    BiometricOptions biometricOptions = new BiometricOptions(
+        activity, // FragmentActivity
+        "Biometric authentication", // title
+        "Biometric authentication", // subtitle
+        "Use biometric to authenticate", // description
+        "Cancel", // negativeButtonText
+        ALLOWED, // allowedAuthenticators
+        true // invalidatedByBiometricEnrollment
+    );
+
     // Step 1: Refresh the ID token to ensure the claims are up-to-date.
     authgear.refreshIDToken(new OnRefreshIDTokenListener() {
         @Override
@@ -173,9 +203,12 @@ public void onClickPerformSensitiveOperation() {
             }
 
             // Step 3: The end-user can be reauthenticated.
+            // If your app supports biometric authentication, you can pass
+            // the biometric options to reauthenticate.
+            // If biometric is enabled for the current user, it will be used.
             ReauthenticateOptions options =
                 new ReauthenticateOptions(THE_REDIRECT_URI);
-            authgear.reauthenticate(options, null, new OnReauthenticateListener() {
+            authgear.reauthenticate(options, biometricOptions, new OnReauthenticateListener() {
                 @Override
                 public void onFailed(Throwable throwable) {
                     // Handle error
