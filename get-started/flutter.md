@@ -127,7 +127,7 @@ Add this code to your app. This snippet configures authgear to connect to an aut
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:flutter_authgear/authgear.dart';
+import 'package:flutter_authgear/flutter_authgear.dart';
 
 void main() {
   runApp(const MyApp());
