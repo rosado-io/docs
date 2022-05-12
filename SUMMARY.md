@@ -9,6 +9,7 @@
   * [Cookie-based (Website or Single-page app)](get-started/authentication-approach/cookie-based.md)
 * [Web SDK](get-started/website.md)
 * [React Native SDK](get-started/react-native.md)
+* [Flutter SDK](get-started/flutter.md)
 * [Android SDK](get-started/android/README.md)
   * [Android Kotlin coroutine support](get-started/android/coroutine-support.md)
   * [Android OKHttp Interceptor Extension (Optional)](get-started/android/okhttp-interceptor-extension.md)
@@ -68,6 +69,7 @@
 * [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
 * [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
 * [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
+* [Flutter SDK Reference](https://authgear.github.io/authgear-sdk-flutter/)
 
 ## Deploy on your Cloud
 

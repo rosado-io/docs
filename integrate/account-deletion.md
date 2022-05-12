@@ -29,6 +29,16 @@ await authgear.open(Page.Settings);
 await authgear.fetchUserInfo();
 ```
 {% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+// This method blocks until the user closes User Settings.
+await authgear.open(SettingsPage.settings);
+// One way to verify the validity of the session is to get User Info once.
+await authgear.getUserInfo();
+```
+{% endtab %}
+
 {% endtabs %}
 
 ## Deactivated User

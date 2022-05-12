@@ -101,6 +101,33 @@ authgear
     });
 ```
 {% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+// We will need the options for the other biometric api
+final ios = BiometricOptionsIOS(
+    localizedReason: "Use biometric to authenticate",
+    constraint: BiometricAccessConstraintIOS.biometryAny,
+);
+final android = BiometricOptionsAndroid(
+    title: "Biometric Authentication",
+    subtitle: "Biometric authentication",
+    description: "Use biometric to authenticate",
+    negativeButtonText: "Cancel",
+    constraint: [BiometricAccessConstraintAndroid.biometricStrong],
+    invalidatedByBiometricEnrollment: false,
+);
+
+try {
+    // check if current device supports biometric login
+    await authgear.checkBiometricSupported(ios: ios, android: android);
+    // biometric login is supported
+} catch (e) {
+    // biometric login is not supported
+}
+```
+{% endtab %}
+
 {% endtabs %}
 
 * Enable biometric login for logged in user
@@ -164,6 +191,17 @@ authgear
     });
 ```
 {% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+try {
+    await authgear.enableBiometric(ios: ios, android: android);
+    // enabled biometric login successfully
+} catch (e) {
+    // failed to enable biometric with error
+}
+```
+{% endtab %}
 {% endtabs %}
 
 * Check if the current device enabled biometric login, we should check this before asking the user to log in with biometric credentials
@@ -194,6 +232,17 @@ authgear
     .catch(() => {
         // failed to check the enabled status
     });
+```
+{% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+try {
+    final enabled = await authgear.isBiometricEnabled();
+    // show if biometric login is enabled
+} catch (e) {
+    // failed to check the enabled status
+}
 ```
 {% endtab %}
 {% endtabs %}
@@ -246,6 +295,17 @@ authgear
     });
 ```
 {% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+try {
+    final userInfo = await authgear.authenticateBiometric(ios: ios, android: android);
+    // logged in successfully
+} catch (e) {
+    // failed to login
+}
+```
+{% endtab %}
 {% endtabs %}
 
 * Disable biometric login in the current device
@@ -283,6 +343,17 @@ authgear
     .catch((err) => {
         // failed to disable biometric login
     });
+```
+{% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+try {
+    await authgear.disableBiometric();
+    // disabled biometric login successfully
+} catch (e) {
+    // failed to disable biometric login
+}
 ```
 {% endtab %}
 {% endtabs %}
@@ -378,5 +449,32 @@ if (e instanceof CancelError) {
 }
 ```
 {% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+try {
+    // ...
+} on CancelException catch (e) {
+    // user cancel
+} on BiometricPrivateKeyNotFoundException catch (e) {
+    // biometric info has changed. e.g. Touch ID or Face ID has changed.
+    // user have to set up biometric authentication again
+} on BiometricNoEnrollmentException catch (e) {
+    // device does not have biometric set up
+    // e.g. have not set up Face ID or Touch ID in the device
+} on BiometricNotSupportedOrPermissionDeniedException catch (e) {
+    // biometric is not supported in the current device
+    // or user has denied the permission of using Face ID
+} on BiometricNoPasscodeException catch (e) {
+    // device does not have unlock credential or passcode set up
+} on BiometricLockoutException catch (e) {
+    // the biometric is locked out due to too many failed attempts
+} catch (e) {
+    // other error
+    // you may consider showing a generic error message to the user
+}
+```
+{% endtab %}
+
 {% endtabs %}
 

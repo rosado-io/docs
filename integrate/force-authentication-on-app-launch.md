@@ -19,6 +19,16 @@ authgear.configure({
 ```
 {% endtab %}
 
+{% tab title="Flutter" %}
+```dart
+final authgear = Authgear(
+    clientID: CLIENT_ID,
+    endpoint: ENDPOINT,
+    tokenStorage: TransientTokenStorage(),
+);
+```
+{% endtab %}
+
 {% tab title="iOS" %}
 ```swift
 Authgear(

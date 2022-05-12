@@ -98,7 +98,7 @@ In the portal, go to "Single-Sign On" page, then do the following:
 * Check the checkbox "Is Sandbox account" if you are using sandbox account.
 * Click save.
 
-## Mobile app (Native iOS app, Native Android app and React Native)
+## Mobile app (Native iOS app, Native Android app, React Native, and Flutter)
 
 ### Overview of Setting Up Wechat
 
@@ -109,7 +109,7 @@ Wechat integration is a bit more complicated then other social login, here are t
 * Include Authgear SDK on your app.
 * Implement a delegate function to be triggered when user clicks the "Login with WeChat" button during authorization. You need to integrate WeChat SDK to open WeChat app to perform authentication in the delegate function (we have sample code below). After obtaining the authorization code from WeChat, call the Authgear callback with the auth code and complete the "Login With WeChat" process.
 
-Here are the detailed steps for iOS, Android and React Native.
+Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
 ### Prerequisite - Setup the Mobile Application (移动应用)
 
@@ -438,7 +438,7 @@ Here are the detailed steps for iOS, Android and React Native.
         <!-- Other activities or entries -->
 
         <!-- It should be added when setting up Authgear SDK -->
-        <activity android:name="com.oursky.authgear.OauthRedirectActivity"
+        <activity android:name="com.authgear.reactnative.OAuthRedirectActivity"
             android:exported="false"
             android:launchMode="singleTask">
             <intent-filter>
@@ -531,3 +531,101 @@ Here are the detailed steps for iOS, Android and React Native.
         }
       ```
   * Implement the NativeModules to use WeChat SDK to open WeChat app for authorization. Here is the completed [example](https://github.com/authgear/authgear-sdk-js/tree/master/example/reactnative).
+
+#### Flutter
+
+* Setup Authgear SDK
+* Follow [iOS接入指南](https://developers.weixin.qq.com/doc/oplatform/Mobile\_App/Access\_Guide/iOS.html) and [Android接入指南](https://developers.weixin.qq.com/doc/oplatform/Mobile\_App/Access\_Guide/Android.html) to setup WeChat SDK. For the coding part, we will further explain in the below steps.
+* In iOS, after setting up the WechatOpenSDK, universal link should be enabled in your application. We will need two links for the setup. One is for the WeChat SDK used, another is for the Authgear SDK to trigger delegate function when user click "Login with WeChat" button. Here are the suggestion of the links.
+  * **IOS\_WECHAT\_UNIVERICAL\_LINK**: `https://{YOUR_DOMAIN}/wechat`
+  * **IOS\_WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR**: `https://{YOUR_DOMAIN}/open_wechat_app`
+* In android, you need to sign your app to use WeChat SDK. Obtain your application signature by running command `keytool -list -v -keystore YOUR_KEYSTORE_FILE_PATH` with your keystore file. WeChat needs the certificate fingerprint in MD5, remove `:` in the fingerprint. It should be string in length 32.
+* Login WeChat Open platform, open the application detail page, update the development information iOS and Android sections.
+
+![](<../../.gitbook/assets/wechat-development-information (5) (5) (5) (5) (1) (2) (7).png>)
+
+* In iOS
+  * Fill in "Bundle ID" field with your app bundle id.
+  * Fill in "Universal Links" with "IOS\_WECHAT\_UNIVERICAL\_LINK" above.
+* In Android
+  * Fill in application signature.
+  * Fill in your package name
+* For android, we will need to define a custom url for Authgear SDK to trigger delegate function when user click "Login with WeChat" button. Here is the example, you should update it with your own scheme.
+  * **ANDROID\_WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR**: `com.myapp://host/open_wechat_app`
+* Login Authgear portal, go to "Single-Sign On" page, then do the following:
+  * Enable "Sign in with WeChat (Mobile/移动应用)"
+  * Fill in "Client ID" with the WeChat "AppID".
+  * Fill in "Client Secret" with the WeChat "AppSecret".
+  * Fill in "原始 ID" with the WeChat "原始 ID".
+  * Add "IOS\_WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR" and "ANDROID\_WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR" above into "WeChat redirect URIs"&#x20;
+  * Click save.
+* Update the code
+  *   In Android, Update application `AndroidManifest.xml`.
+
+      ```markup
+        <!-- Your application configuration. Omitted here for brevity -->
+        <application>
+        <!-- Other activities or entries -->
+
+        <!-- It should be added when setting up Authgear SDK -->
+        <activity android:name="com.authgear.flutter.OAuthRedirectActivity"
+            android:exported="false"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- This is the redirectURI, It should be added when setting up Authgear SDK -->
+                <data android:scheme="com.myapp"
+                    android:host="host"
+                    android:pathPrefix="/path"/>
+                <!-- Add this for WeChat setup, this should match the WECHAT_REDICRECT_URI_FOR_AUTHGEAR defined above -->
+                <data android:scheme="com.myapp"
+                    android:host="host"
+                    android:pathPrefix="/open_wechat_app"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Add this for WeChat SDK setup, replace YOUR_PACKAGE_NAME-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity="YOUR_PACKAGE_NAME"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        </application>
+      ```
+  *   Provide `wechatRedirectURI`.
+
+      ```dart
+        // REPLACE IOS_WECHAT_REDICRECT_URI_FOR_AUTHGEAR and ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR
+        var wechatRedirectURI = "";
+        if (Platform.isIOS) {
+            wechatRedirectURI = 'IOS_WECHAT_REDICRECT_URI_FOR_AUTHGEAR';
+        } else if (Platform.isAndroid) {
+            wechatRedirectURI = 'ANDROID_WECHAT_REDICRECT_URI_FOR_AUTHGEAR';
+        }
+
+        await authgear.authenticate(redirectURI: "REDIRECT_URI", wechatRedirectURI: wechatRedirectURI);
+
+        // For anonymous user support only
+        await authgear.promoteAnonymousUser(redirectURI: "REDIRECT_URI", wechatRedirectURI: wechatRedirectURI);
+
+        // Open setting page
+        await authgear.open(SettingsPage.settings, wechatRedirectURI: wechatRedirectURI);
+      ```
+  *   Provide sendWechatAuthRequest
+
+      ```dart
+      final authgear = Authgear(
+          sendWechatAuthRequest: sendWechatAuthRequest,
+      );
+
+      Future<void> sendWechatAuthRequest(state: String) async {
+          // Implement your platform specific code to use WeChat SDK to open WeChat app.
+          // After success, pass the code back to Authgear.
+          await authgear.wechatAuthCallback(state: state, code: code);
+      }
+      ```
+  * Implement the platform specific code to use WeChat SDK to open WeChat app for authorization. Here is the completed [example](https://github.com/authgear/authgear-sdk-flutter/tree/main/example).
