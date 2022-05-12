@@ -22,7 +22,7 @@ After that, we will need to create an application in Authgear.
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input the name of your application, this is for reference only
-4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp://host/path_\).
+4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp.example://host/path_\).
 5. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 
 {% hint style="info" %}
@@ -37,7 +37,7 @@ oauth:
     - name: your_app_name
       client_id: a_random_generated_string
       redirect_uris:
-        - "com.myapp://host/path"
+        - "com.myapp.example://host/path"
       grant_types:
         - authorization_code
         - refresh_token
