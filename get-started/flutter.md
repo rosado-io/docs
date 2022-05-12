@@ -150,20 +150,26 @@ class _MyAppState extends State<MyApp> {
     _init();
   }
 
-  Future<void> _init() {
+  Future<void> _init() async {
     _authgear = Authgear(endpoint: "ENDPOINT", clientID: "CLIENT_ID");
     await _authgear.configure();
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      child: Text("Authenticate"),
-      onPressed: _onPressedAuthenticate,
+    return MaterialApp(
+      title: "MyApp",
+      home: Scaffold(
+        appBar: AppBar(title: const Text("MyApp")),
+        body: TextButton(
+          child: Text("Authenticate"),
+          onPressed: _onPressedAuthenticate,
+        ),
+      ),
     );
   }
 
-  _Future<void> _onPressedAuthenticate() {
+  Future<void> _onPressedAuthenticate() async {
     try {
       await _authgear.authenticate(redirectURI: "REDIRECT_URI");
     } on CancelException {
