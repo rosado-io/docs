@@ -38,6 +38,18 @@ authgear
 
 {% endtab %}
 
+{% tab title="Flutter" %}
+```dart
+try {
+    final userInfo = await authgear.authenticateAnonymously();
+    // Logged in as anonymous user successfully
+} catch (e) {
+    // Handle the error
+}
+```
+
+{% endtab %}
+
 {% tab title="iOS" %}
 ```swift
 authgear.authenticateAnonymously { result in
@@ -114,6 +126,17 @@ authgear
     .catch((e) => {
         // Handle the error
     });
+```
+{% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+try {
+    final userInfo = await authgear.promoteAnonymousUser(redirectURI: THE_REDIRECT_URI);
+    // Promote anonymous user successfully
+} catch (e) {
+    // Handle the error
+}
 ```
 {% endtab %}
 

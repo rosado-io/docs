@@ -60,6 +60,14 @@ function SettingsScreen() {
 ```
 {% endtab %}
 
+{% tab title="Flutter" %}
+```dart
+Future<void> onPressOpenSettingsPage() async {
+  await authgear.open(SettingsPage.settings);
+}
+```
+{% endtab %}
+
 {% tab title="iOS" %}
 ```swift
 func onPressOpenSettingsPage(sender: UIButton, forEvent event: UIEvent) {
