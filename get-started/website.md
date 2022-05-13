@@ -272,3 +272,7 @@ To protect your application server from unauthorized access. You will need to **
 {% content-ref url="backend-integration/" %}
 [backend-integration](backend-integration/)
 {% endcontent-ref %}
+
+## JavaScript SDK Reference
+
+For detailed documentation on the JavaScript Web SDK, visit [@authgear/web Reference](https://authgear.github.io/authgear-sdk-js/docs/web/)

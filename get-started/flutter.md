@@ -11,7 +11,7 @@ This guide provides instructions to integrate Authgear with a Flutter app. Suppo
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a project. Or you can use your self-deployed Authgear.
 
 After that, we will need to create an application in Authgear.
 
@@ -22,7 +22,7 @@ After that, we will need to create an application in Authgear.
 1. Go to "Applications".
 2. Click "Add Application" in the top right corner
 3. Input the name of your application, this is for reference only
-4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". \(e.g. _com.myapp.example://host/path_\).
+4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". (e.g. _com.myapp.example://host/path_).
 5. Click "Save" and keep the client id. You can also obtain the client id from the list later.
 
 {% hint style="info" %}
@@ -30,7 +30,7 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 {% endhint %}
 {% endtab %}
 
-{% tab title="authgear.yaml \(self-deployed\)" %}
+{% tab title="authgear.yaml (self-deployed)" %}
 ```javascript
 oauth:
   clients:
@@ -201,5 +201,10 @@ await authgear.logout();
 
 To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
 
-{% page-ref page="backend-integration/" %}
+{% content-ref url="backend-integration/" %}
+[backend-integration](backend-integration/)
+{% endcontent-ref %}
 
+## Flutter SDK Reference
+
+For detailed documentation on the Flutter SDK, visit [Flutter SDK Reference](https://authgear.github.io/authgear-sdk-flutter/)

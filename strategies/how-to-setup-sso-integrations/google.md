@@ -14,11 +14,11 @@ Create a project on Google Cloud Platform through [console](https://console.clou
 
 ### Create OAuth Consent Screen
 
-After creating a new project, you will need to configure the OAuth consent screen. Press the ![](../../.gitbook/assets/Google-hamburger-menu.png) button on the top-left and go to **APIs & Services** -> **OAuth consent screen** and follow the instruction to create the consent screen.
+After creating a new project, you will need to configure the OAuth consent screen. Press the <img src="../../.gitbook/assets/Google-hamburger-menu.png" alt="" data-size="line"> button on the top-left and go to **APIs & Services** -> **OAuth consent screen** and follow the instruction to create the consent screen.
 
 ### Create OAuth client ID
 
-1. Go to ![](../../.gitbook/assets/Google-hamburger-menu.png) -> **APIs & services** -> **Credentials**
+1. Go to <img src="../../.gitbook/assets/Google-hamburger-menu.png" alt="" data-size="line"> -> **APIs & services** -> **Credentials**
 2. Click **Create Credentials** -> **OAuth client ID**
 3. Choose **Web application** in **Application type** and assign a name as reference. You should _always choose Web application_ here regardless of the platform of the app you are creating. It is because this OAuth Client ID is used by your Authgear services, which is a web application in Google’s classification.
 4. Add `https://<YOUR_AUTHGEAR_ENDPOINT>/sso/oauth2/callback/google` to **redirect URIs**.
