@@ -15,16 +15,21 @@ The minimum supported version of Kubernetes is 1.19.
 Authgear does not store persist data on disk.
 It stores data in a PostgreSQL database and a Redis.
 
+Authgear allows the end-user to upload their profile image.
+This feature is disabled by default.
+If you enable it, then Authgear requires a cloud object store.
+The supported cloud object store are AWS S3, GCP GCS, and Azure Blob Storage.
+
 ### CPU requirements
 
 The CPU requirements depend on the number of users, workload and how active the users are.
-There are 4 scalable pods plus 1 non-scalable pod in the basic setup.
-The scalable pods have a limit of `500m` CPU, while the non-scalable one has `300m`.
+There are 4 scalable pods, 1 non-scalable pod and 1 images server in the basic setup.
+The scalable pods have a limit of `500m` CPU, the non-scalable one has `300m`, the images server has `1000m`.
 2 Cores is recommended for the basic setup.
 
 ### Memory requirements
 
-The scalable pods have a limit of `256MiB` of memory, while the non-scalable one has `64MiB`.
+The scalable pods have a limit of `256MiB` of memory, the non-scalable one has `64MiB`, the images server have a limit of `1GiB` of memory.
 1 GB of memory is recommended for the basic setup.
 
 ### Database requirements
@@ -134,6 +139,20 @@ Refer to the [Redis requirements](#redis-requirements) to configure the instance
 
 You should reserve 1 Redis database for Authgear.
 
+### Provision the cloud object store
+
+> This step is optional if you do not enable profile image.
+
+Follow the corresponding guide of supported cloud object stores to create and configure.
+
+For S3, Authgear needs the region, bucket name, access key ID and secret access key.
+
+For GCS, Authgear needs the bucket name, service account and the credential JSON file.
+
+For Azure Blob Storage, Authgear needs the storage account, container and access key.
+
+It is recommended that you configure the object store to be non-public.
+
 ### Provision the SMTP server
 
 If you have a SMTP server already, you can skip this step.
@@ -195,6 +214,9 @@ So there are 4 issuers you need to create in total.
 
 ```sh
 $ docker run --rm -it quay.io/theauthgear/authgear-server authgear database migrate up \
+  --database-url DATABASE_URL \
+  --database-schema public
+$ docker run --rm -it quay.io/theauthgear/authgear-server authgear images database migrate up \
   --database-url DATABASE_URL \
   --database-schema public
 $ docker run --rm -it quay.io/theauthgear/authgear-portal authgear-portal database migrate up \
@@ -333,6 +355,18 @@ which means older version of Authgear can run with a higher version of database 
 |`authgear.adminServer.resources`|Object|No|Kubernetes ResourceRequirements for the admin API  server|
 |`authgear.resolverServer.resources`|Object|No|Kubernetes ResourceRequirements for the resolver server|
 |`authgear.background.resources`|Object|No|Kubernetes ResourceRequirements for the background daemon|
+|`authgear.imagesServer.cdn.host`|String|No|The CDN host for serving images|
+|`authgear.imagesServer.objectStore.type`|String|No|The object store type. Valid values are `GCP_GCS`, `AWS_S3`, and `AZURE_BLOB_STORAGE`.|
+|`authgear.imagesServer.objectStore.awsS3.region`|String|No|The S3 region|
+|`authgear.imagesServer.objectStore.awsS3.bucketName`|String|No|The S3 bucket name|
+|`authgear.imagesServer.objectStore.awsS3.accessKeyID`|String|No|The S3 access key ID|
+|`authgear.imagesServer.objectStore.awsS3.secretAccessKey`|String|No|The S3 secret access key|
+|`authgear.imagesServer.objectStore.gcpGCS.bucketName`|String|No|The GCS bucket name|
+|`authgear.imagesServer.objectStore.gcpGCS.serviceAccount`|String|No|The GCS service account. Typically in form of an email address.|
+|`authgear.imagesServer.objectStore.gcpGCS.credentialsJSONContent`|String|No|The content of the GCS credential JSON.|
+|`authgear.imagesServer.objectStore.azureBlobStorage.storageAccount`|String|No|The name of the storage account|
+|`authgear.imagesServer.objectStore.azureBlobStorage.container`|String|No|The name of the container|
+|`authgear.imagesServer.objectStore.azureBlobStorage.accessKey`|String|No|The access key|
 |`authgear.portalServerProxy.image`|String|No|The Nginx sidecar image|
 |`authgear.portalServer.image`|String|Yes|The Authgear portal server image|
 |`authgear.portalServer.email.sender`|String|No|The email header Sender|
