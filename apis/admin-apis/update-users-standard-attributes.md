@@ -9,37 +9,9 @@ To update the user's standard attributes:
 
 ## API Details
 
-### Generate the node ID for fetching the user object
+### Generate the user node id
 
-Admin GraphQL API allows you to query different type of objects by using the node query with the node id. The node id is an [base64url](https://datatracker.ietf.org/doc/html/rfc4648#section-5) encoded string with format of `<NODE_TYPE>:<ID>`. 
-
-Generate user's node id examples:
-
-{% tabs %}
-{% tab title="Go" %}
-```go
-package main
-
-import (
-	"encoding/base64"
-	"fmt"
-)
-
-func main() {
-	rawStdEncoding := base64.StdEncoding.WithPadding(base64.NoPadding)
-	nodeID := rawStdEncoding.EncodeToString([]byte("User:97b1c929-842c-415c-a7df-6967efdda160"))
-	fmt.Println(nodeID)
-}
-```
-{% endtab %}
-{% tab title="Python" %}
-```python
-import base64
-
-base64.urlsafe_b64encode(b'User:97b1c929-842c-415c-a7df-6967efdda160').replace(b'=', b'')
-```
-{% endtab %}
-{% endtabs %}
+Follow the document [here](./node-id) to generate the user node id.
 
 ### Fetch the user's standard attributes by query
 
