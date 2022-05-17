@@ -88,6 +88,21 @@ You need to install the following tools on your local machine.
 
 - `kubectl` with a version matching the Kubernetes server version. For example, if the server is 1.21, then you should be using the latest version of `kubectl` 1.21.x.
 - Helm v3. You should use the latest version.
+- Docker daemon. You need to be able to run Docker container on your local machine. If Docker daemon is unavailable, you need to download the binary release of Authgear to proceed. See [Download binary release](#down-binary-release) for details.
+
+### Download binary release
+
+> This step is optional if your local machine has a running Docker daemon.
+
+If for some reason your local machine cannot have Docker daemon running, you can download the binary release of Authgear.
+
+- Visit [https://github.com/authgear/authgear-server/releases](https://github.com/authgear/authgear-server/releases) to download the binary.
+- You should choose a release closest to your intended version of Authgear.
+- Currently, the binary is built for linux amd64 only.
+- The name of the binary is in the format `authgear-<platform>-<arch>-<tag>` and `authgear-portal-<platform>-<arch>-<tag>`.
+- You need to download both.
+
+The following guide assumes you have downloaded the binary to your working directory and renamed them to `./authgear` and `./authgear-portal` respectively.
 
 ### Obtain a domain name
 
@@ -212,6 +227,9 @@ So there are 4 issuers you need to create in total.
 
 #### Run database migration
 
+{% tabs %}
+
+{% tab title="Docker" %}
 ```sh
 $ docker run --rm -it quay.io/theauthgear/authgear-server authgear database migrate up \
   --database-url DATABASE_URL \
@@ -223,15 +241,45 @@ $ docker run --rm -it quay.io/theauthgear/authgear-portal authgear-portal databa
   --database-url DATABASE_URL \
   --database-schema public
 ```
+{% endtab %}
+
+{% tab title="Binary" %}
+```sh
+$ ./authgear database migrate up \
+  --database-url DATABASE_URL \
+  --database-schema public
+$ ./authgear images database migrate up \
+  --database-url DATABASE_URL \
+  --database-schema public
+$ ./authgear-portal database migrate up \
+  --database-url DATABASE_URL \
+  --database-schema public
+```
+{% endtab %}
+
+{% endtabs %}
 
 #### Create Elasticsearch index
 
 > This step is optional if you do not enable Elasticsearch.
 
+{% tabs %}
+
+{% tab title="Docker" %}
 ```sh
 $ docker run --rm -it quay.io/theauthgear/authgear-server authgear internal elasticsearch create-index \
   --elasticsearch-url ELASTICSEARCH_URL
 ```
+{% endtab %}
+
+{% tab title="Binary" %}
+```sh
+$ ./authgear internal elasticsearch create-index \
+  --elasticsearch-url ELASTICSEARCH_URL
+```
+{% endtab %}
+
+{% endtabs %}
 
 #### Create deployment-specific authgear.secrets.yaml
 
@@ -261,17 +309,34 @@ $ mkdir -p resources/authgear
 Generate the `authgear.yaml`.
 Save the output to `resources/authgear/authgear.yaml`.
 
+{% tabs %}
+
+{% tab title="Docker" %}
 ```sh
 $ docker run --rm -it quay.io/theauthgear/authgear-server authgear init authgear.yaml -o -
 App ID (default 'my-app'): accounts
 HTTP origin of authgear (default 'http://localhost:3000'): https://accounts.portal.myapp.com
 ```
+{% endtab %}
+
+{% tab title="Binary" %}
+```sh
+$ ./authgear init authgear.yaml -o -
+App ID (default 'my-app'): accounts
+HTTP origin of authgear (default 'http://localhost:3000'): https://accounts.portal.myapp.com
+```
+{% endtab %}
+
+{% endtabs %}
 
 Generate the `authgear.secrets.yaml`.
 Save the output to `resources/authgear/authgear.secrets.yaml`.
 You must remove the `"db"`, `"redis"` and `"elasticsearch"` items from it.
 These items are included in the Secret you created in the previous step.
 
+{% tabs %}
+
+{% tab title="Docker" %}
 ```sh
 $ docker run --rm -it quay.io/theauthgear/authgear-server authgear init authgear.secrets.yaml -o -
 Database URL (default 'postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable'):
@@ -279,9 +344,25 @@ Database schema (default 'public'):
 Elasticsearch URL (default 'http://localhost:9200'):
 Redis URL (default 'redis://localhost'):
 ```
+{% endtab %}
+
+{% tab title="Binary" %}
+```sh
+$ ./authgear init authgear.secrets.yaml -o -
+Database URL (default 'postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable'):
+Database schema (default 'public'):
+Elasticsearch URL (default 'http://localhost:9200'):
+Redis URL (default 'redis://localhost'):
+```
+{% endtab %}
+
+{% endtabs %}
 
 Create the "accounts" app
 
+{% tabs %}
+
+{% tab title="Docker" %}
 ```sh
 $ docker run -v "$PWD"/resources:/app/resources quay.io/theauthgear/authgear-portal authgear-portal internal setup-portal ./resources/authgear \
   --database-url DATABASE_URL \
@@ -289,6 +370,19 @@ $ docker run -v "$PWD"/resources:/app/resources quay.io/theauthgear/authgear-por
   --default-authgear-domain accounts.myapp.com \
   --custom-authgear-domain accounts.portal.myapp.com
 ```
+{% endtab %}
+
+{% tab title="Binary" %}
+```sh
+$ ./authgear-portal internal setup-portal ./resources/authgear \
+  --database-url DATABASE_URL \
+  --database-schema public \
+  --default-authgear-domain accounts.myapp.com \
+  --custom-authgear-domain accounts.portal.myapp.com
+```
+{% endtab %}
+
+{% endtabs %}
 
 #### Install your Helm chart
 
