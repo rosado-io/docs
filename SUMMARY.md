@@ -10,6 +10,7 @@
 * [Web SDK](get-started/website.md)
 * [React Native SDK](get-started/react-native.md)
 * [Flutter SDK](get-started/flutter.md)
+* [Xamarin SDK](get-started/xamarin.md)
 * [Android SDK](get-started/android/README.md)
   * [Android Kotlin coroutine support](get-started/android/coroutine-support.md)
   * [Android OKHttp Interceptor Extension (Optional)](get-started/android/okhttp-interceptor-extension.md)
@@ -72,6 +73,7 @@
 * [iOS SDK Reference](https://authgear.github.io/authgear-sdk-ios/)
 * [Android SDK Reference](https://authgear.github.io/authgear-sdk-android/)
 * [Flutter SDK Reference](https://authgear.github.io/authgear-sdk-flutter/)
+* [Xamarin SDK Reference](https://authgear.github.io/authgear-sdk-xamarin/)
 
 ## Deploy on your Cloud
 
