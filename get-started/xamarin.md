@@ -57,6 +57,7 @@ oauth:
 ## Install the SDK
 
 - Search for "Authgear.Xamarin" on nuget.org and add it to your base project.
+- Authgear.Xamarin targets MonoAndroid 12.0 on android, and Xamarin.iOS10 on iOS. Update the target framework of the android and ios projects to match Authgear.Xamarin's target frameworks.
 
 ## Platform Integration
 
