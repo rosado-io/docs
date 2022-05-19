@@ -297,6 +297,25 @@ To log out the user from the current app session, you need to invoke the`logout`
 await authgear.LogoutAsync();
 ```
 
+## Calling An API
+
+To include the access token to the HTTP requests to your application server, you set the bearer token manually by using `authgear.AccessToken`.
+
+### Using HttpClient
+
+You can get the access token through `authgear.AccessToken`. Call `RefreshAccessTokenIfNeededAsync` every time before using the access token, the function will check and make the network call only if the access token has expired. Then, include the access token into the Authorization header of the http request.
+
+```csharp
+await authgear.RefreshAccessTokenIfNeededAsync();
+// Access token is ready to use
+// AccessToken can be string or undefined
+// It will be empty if user is not logged in or session is invalid
+var accessToken = authgear.AccessToken;
+var client = GetHttpClient();  // Get the re-used http client of your app, as per recommendation.
+var httpRequestMessage = new HttpRequestMessage(myHttpMethod, myUrl);
+httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+```
+
 ## Next steps
 
 To protect your application server from unauthorized access. You will need to **integrate your backend with Authgear**.
