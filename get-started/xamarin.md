@@ -265,6 +265,30 @@ namespace MyApp
 }
 ```
 
+## Get the Logged In State
+
+The `SessionState` reflects the user logged in state in the SDK locally on the device. That means even the `SessionState` is `Authenticated`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `FetchUserInfoAsync` to update the `SessionState` as soon as it is proper to do so.
+
+```csharp
+// value can be NoSession or Authenticated
+// After Authgear.ConfigureAsync, it only reflects local state.
+var sessionState = authgear.SessionState;
+
+if (sessionState == SessionState.Authenticated)
+{
+    try
+    {
+        var userInfo = await authgear.FetchUserInfoAsync();
+        // sessionState is now up to date
+    }
+    catch (Exception ex)
+    {
+        // sessionState is now up to date
+        // it will change to NoSession if the session is invalid
+    }
+}
+```
+
 ## Logout
 
 To log out the user from the current app session, you need to invoke the`logout`function.
