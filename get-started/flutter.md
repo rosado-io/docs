@@ -31,7 +31,7 @@ If you want to validate JWT access token in your server, select **Issue JWT as a
 {% endtab %}
 
 {% tab title="authgear.yaml (self-deployed)" %}
-```javascript
+```yaml
 oauth:
   clients:
     - name: your_app_name
