@@ -68,6 +68,15 @@ Future<void> onPressOpenSettingsPage() async {
 ```
 {% endtab %}
 
+{% tab title="Xamarin" %}
+```csharp
+async void OnOpenSettingsClicked(object sender, EventArgs args)
+{
+  await authgear.OpenAsync(SettingsPage.Settings);
+}
+```
+{% endtab %}
+
 {% tab title="iOS" %}
 ```swift
 func onPressOpenSettingsPage(sender: UIButton, forEvent event: UIEvent) {
