@@ -29,6 +29,17 @@ final authgear = Authgear(
 ```
 {% endtab %}
 
+{% tab title="Xamarin" %}
+```csharp
+var authgear = new AuthgearSdk(new AuthgearOptions
+{
+    ClientId = CLIENT_ID,
+    AuthgearEndpoint = ENDPOINT,
+    TokenStorage: new TransientTokenStorage(),
+});
+```
+{% endtab %}
+
 {% tab title="iOS" %}
 ```swift
 Authgear(
