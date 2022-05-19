@@ -143,10 +143,13 @@ var android = new BiometricOptionsAndroid {
     Constraint = BiometricAccessConstraintAndroid.BiometricOnly,
     InvalidatedByBiometricEnrollment = false,
 };
-
+var biometricOptions = new BiometricOptions {
+    Ios = ios, 
+    Android = android
+};
 try {
     // check if current device supports biometric login
-    await authgear.checkBiometricSupported(ios: ios, android: android);
+    authgear.EnsureBiometricIsSupported(biometricOptions);
     // biometric login is supported
 } catch (e) {
     // biometric login is not supported
@@ -228,6 +231,20 @@ try {
 }
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+try
+{
+    await authgear.EnableBiometricAsync(biometricOptions);
+    // enabled biometric login successfully
+}
+catch
+{
+    // failed to enable biometric with error
+}
+```
+{% endtab %}
 {% endtabs %}
 
 * Check if the current device enabled biometric login, we should check this before asking the user to log in with biometric credentials
@@ -271,6 +288,21 @@ try {
 }
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+try
+{
+    var enabled = await authgear.GetIsBiometricEnabledAsync();
+    // show if biometric login is enabled
+}
+catch
+{
+    // failed to check the enabled status
+}
+```
+{% endtab %}
+
 {% endtabs %}
 
 * Login with biometric credentials
@@ -332,6 +364,20 @@ try {
 }
 ```
 {% endtab %}
+
+{% tab title="Xamrin" %}
+```csharp
+try
+{
+    var userInfo = await authgear.AuthenticateBiometricAsync(biometricOptions);
+    // logged in successfully
+}
+catch
+{
+    // failed to login
+}
+```
+{% endtab %}
 {% endtabs %}
 
 * Disable biometric login in the current device
@@ -382,6 +428,21 @@ try {
 }
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+try
+{
+    await authgear.DisableBiometricAsync();
+    // disabled biometric login successfully
+}
+catch
+{
+    // failed to disable biometric login
+}
+```
+{% endtab %}
+
 {% endtabs %}
 
 * Error handling
@@ -496,6 +557,47 @@ try {
 } on BiometricLockoutException catch (e) {
     // the biometric is locked out due to too many failed attempts
 } catch (e) {
+    // other error
+    // you may consider showing a generic error message to the user
+}
+```
+{% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+try 
+{
+    // ...
+}
+catch (OperationCanceledException ex)
+{
+    // user cancel
+}
+catch (BiometricPrivateKeyNotFoundException ex)
+{
+    // biometric info has changed. e.g. Touch ID or Face ID has changed.
+    // user have to set up biometric authentication again
+}
+catch (BiometricNoEnrollmentException ex)
+{
+    // device does not have biometric set up
+    // e.g. have not set up Face ID or Touch ID in the device
+}
+catch (BiometricNotSupportedOrPermissionDeniedException ex)
+{
+    // biometric is not supported in the current device
+    // or user has denied the permission of using Face ID
+}
+catch (BiometricNoPasscodeException ex)
+{
+    // device does not have unlock credential or passcode set up
+}
+catch (BiometricLockoutException ex)
+{
+    // the biometric is locked out due to too many failed attempts
+}
+catch
+{
     // other error
     // you may consider showing a generic error message to the user
 }
