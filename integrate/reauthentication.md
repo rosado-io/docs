@@ -130,6 +130,62 @@ Future<void> onClickPerformSensitiveOperation() async {
 ```
 {% endtab %}
 
+{% tab title="Xamarin" %}
+```csharp
+var ios = new BiometricOptionsIos {
+    LocalizedReason = "Use biometric to authenticate",
+    AccessConstraint = BiometricAccessConstraintIos.BiometryAny,
+};
+var android = new BiometricOptionsAndroid {
+    Title = "Biometric Authentication",
+    Subtitle = "Biometric authentication",
+    Description = "Use biometric to authenticate",
+    NegativeButtonText = "Cancel",
+    AccessConstraint = BiometricAccessConstraintAndroid.BiometricOnly,
+    InvalidatedByBiometricEnrollment = false,
+};
+
+async void OnPerformSensitiveOperationClicked(object sender, EventArgs args)
+{
+    // Step 1: Refresh the ID token to ensure the claims are up-to-date.
+    await authgear.RefreshIdTokenAsync();
+
+    // Step 2: Check if the end-user can be reauthenticated.
+    var canReauthenticate = authgear.CanReauthenticate;
+    if (!canReauthenticate)
+    {
+        // Step 2.1: Depending on your business need, you may want to allow
+        // the end-user to proceed.
+        // Here we assume you want to proceed.
+        var idTokenHint = authgear.IdTokenHint;
+
+        // Step 2.2: Call the sensitive endpoint with the ID token.
+        // It is still required to pass the ID token to the endpoint so that
+        // the endpoint can know the end-user CANNOT be reauthenticated.
+        await CallMySensitiveEndpointAsync(idTokenHint);
+        return;
+    }
+
+    // Step 3: The end-user can be reauthenticated.
+    // If your app supports biometric authentication, you can pass
+    // the biometric options to reauthenticate.
+    // If biometric is enabled for the current user, it will be used instead.
+    await authgear.ReauthenticateAsync(new ReauthenticateOptions
+    {
+        redirectURI: THE_REDIRECT_URI,
+    }, new BiometricOptions {
+        Ios = ios,
+        Android = android,
+    });
+
+    // Step 4: If we reach here, the reauthentication was done.
+    // The ID token have up-to-date auth_time claim.
+    var idTokenHint = authgear.IdTokenHint;
+    await CallMySensitiveEndpointAsync(idTokenHint);
+}
+```
+{% endtab %}
+
 {% tab title="Web" %}
 ```typescript
 async function onClickPerformSensitiveOperation() {
@@ -358,6 +414,28 @@ public void onClickPerformSensitiveOperation() {
 }
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+public async void OnPerformSensitiveOperationClicked(object sender, EventArgs args)
+{
+    await authgear.RefreshIdTokenAsync();
+    var authTime = authgear.AuthTime;
+    if (authTime != null)
+    {
+        var now = DateTimeOffset.UtcNow;
+        var timedelta = now - authTime.Value;
+        if (timedelta < TimeSpan.FromSeconds(5))
+        {
+            var idTokenHint = authgear.IdTokenHint;
+            callMySensitiveEndpoint(idTokenHint);
+            return;
+        }
+    }
+}
+```
+{% endtab %}
+
 {% endtabs %}
 
 ## Backend Integration
