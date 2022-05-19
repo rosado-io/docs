@@ -132,11 +132,13 @@ Future<void> onClickPerformSensitiveOperation() async {
 
 {% tab title="Xamarin" %}
 ```csharp
-var ios = new BiometricOptionsIos {
+var ios = new BiometricOptionsIos
+{
     LocalizedReason = "Use biometric to authenticate",
-    AccessConstraint = BiometricAccessConstraintIos.BiometryAny,
+    AccessConstraint = BiometricAccessConstraintIos.BiometricAny,
 };
-var android = new BiometricOptionsAndroid {
+var android = new BiometricOptionsAndroid
+{
     Title = "Biometric Authentication",
     Subtitle = "Biometric authentication",
     Description = "Use biometric to authenticate",
@@ -172,8 +174,9 @@ async void OnPerformSensitiveOperationClicked(object sender, EventArgs args)
     // If biometric is enabled for the current user, it will be used instead.
     await authgear.ReauthenticateAsync(new ReauthenticateOptions
     {
-        redirectURI: THE_REDIRECT_URI,
-    }, new BiometricOptions {
+        RedirectURI: THE_REDIRECT_URI,
+    }, new BiometricOptions
+    {
         Ios = ios,
         Android = android,
     });
@@ -425,7 +428,7 @@ public async void OnPerformSensitiveOperationClicked(object sender, EventArgs ar
     {
         var now = DateTimeOffset.UtcNow;
         var timedelta = now - authTime.Value;
-        if (timedelta < TimeSpan.FromSeconds(5))
+        if (timedelta < TimeSpan.FromMinutes(5))
         {
             var idTokenHint = authgear.IdTokenHint;
             callMySensitiveEndpoint(idTokenHint);
