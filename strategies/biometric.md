@@ -131,27 +131,33 @@ try {
 {% tab title="Xamarin" %}
 ```csharp
 // We will need the options for the other biometric api
-var ios = new BiometricOptionsIos {
+var ios = new BiometricOptionsIos
+{
     LocalizedReason = "Use biometric to authenticate",
-    Constraint = BiometricAccessConstraintIos.BiometryAny,
+    AccessConstraint = BiometricAccessConstraintIos.BiometricAny,
 };
-var android = new BiometricOptionsAndroid {
+var android = new BiometricOptionsAndroid
+{
     Title = "Biometric Authentication",
     Subtitle = "Biometric authentication",
     Description = "Use biometric to authenticate",
     NegativeButtonText = "Cancel",
-    Constraint = BiometricAccessConstraintAndroid.BiometricOnly,
+    AccessConstraint = BiometricAccessConstraintAndroid.BiometricOnly,
     InvalidatedByBiometricEnrollment = false,
 };
-var biometricOptions = new BiometricOptions {
+var biometricOptions = new BiometricOptions
+{
     Ios = ios, 
     Android = android
 };
-try {
+try
+{
     // check if current device supports biometric login
     authgear.EnsureBiometricIsSupported(biometricOptions);
     // biometric login is supported
-} catch (e) {
+}
+catch
+{
     // biometric login is not supported
 }
 ```
