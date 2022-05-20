@@ -46,7 +46,7 @@ Choose your platform below:
 
 {% page-ref page="../ios.md" %}
 
-{% page-ref page="../flutter/" %}
+{% page-ref page="../flutter.md" %}
 
 {% page-ref page="../xamarin.md" %}
 
