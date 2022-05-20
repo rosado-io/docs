@@ -44,11 +44,9 @@ var authgearOptions = new AuthgearOptions
 };
 // Android
 #if __ANDROID__
-var activity = GetActivity();
-var authgear = new AuthgearSdk(activity.ApplicationContext, authgearOptions);
+var authgear = new AuthgearSdk(GetActivity().ApplicationContext, authgearOptions);
 #else
 #if __IOS__
-// iOS
 var authgear = new AuthgearSdk(UIKit.UIApplication.SharedApplication, authgearOptions);
 #endif
 #endif
