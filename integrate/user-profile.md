@@ -60,6 +60,21 @@ authgear.fetchUserInfo(new OnFetchUserInfoListener() {
 });
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+try
+{
+    var userInfo = await authgear.FetchUserInfoAsync()
+}
+catch
+{
+    // failed to fetch user info
+    // the refresh token maybe expired or revoked
+}
+```
+{% endtab %}
+
 {% endtabs %}
 
 ## Standard Attributes
