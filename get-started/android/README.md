@@ -6,7 +6,7 @@ description: How to use authgear android SDK
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a project. Or you can use your self-deployed Authgear.
 
 After that, we will need to create an application in Authgear.
 

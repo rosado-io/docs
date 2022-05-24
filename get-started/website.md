@@ -6,7 +6,7 @@ description: Integrate Authgear to your website with the Web SDK
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com) and create a Project. Or you can use your self-deployed Authgear.
+Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a Project. Or you can use your self-deployed Authgear.
 
 After that, we will need to create an Application in the Project Portal.
 
@@ -232,7 +232,7 @@ To include the access token to the HTTP requests to your application server, the
 
 #### Option 1: Using fetch function provided by Authgear SDK
 
-Authgear SDK provides the `fetch` function for you to call your application server. This `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. The `authgear.fetch` implements [fetch](https://fetch.spec.whatwg.org).
+Authgear SDK provides the `fetch` function for you to call your application server. This `fetch` function will include the Authorization header in your application request, and handle refresh access token automatically. The `authgear.fetch` implements [fetch](https://fetch.spec.whatwg.org/).
 
 ```javascript
 authgear

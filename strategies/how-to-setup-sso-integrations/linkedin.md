@@ -2,7 +2,7 @@
 
 ## Prerequisite
 
-1. Create an app in the [Linkedin Developers Portal](https://developer.linkedin.com).
+1. Create an app in the [Linkedin Developers Portal](https://developer.linkedin.com/).
 2. In the "Products" section, choose "Sign In with LinkedIn"
 3. In the details page of the created app, click the "Auth" tab
 4. Take notes of "Client ID" and "Client Secret", add `https://<YOUR_AUTHGEAR_ENDPOINT>/sso/oauth2/callback/linkedin` to "Redirect URLs" in "OAuth 2.0 settings" section

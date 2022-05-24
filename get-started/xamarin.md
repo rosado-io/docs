@@ -50,15 +50,16 @@ oauth:
 
 ## Create a Xamarin app
 
-- Open Visual Studio
-- Create a new project
-- Choose the Xamarin.Forms template
+* Open Visual Studio
+* Create a new project
+* Choose the Xamarin.Forms template
 
 ## Install the SDK
 
-- Search for "Authgear.Xamarin" on nuget.org and add it to your base project.
-- Authgear.Xamarin targets MonoAndroid 12.0 on Android, and Xamarin.iOS10 on iOS. Update the target framework of the Android and iOS projects to match Authgear.Xamarin's target frameworks.
-- Update Android and iOS project's Xamarin.Essentials to 1.7.2.
+* Search for "Authgear.Xamarin" on nuget.org and add it to your base project.\
+  [https://www.nuget.org/packages/Authgear.Xamarin/](https://www.nuget.org/packages/Authgear.Xamarin/)
+* Authgear.Xamarin targets MonoAndroid 12.0 on Android, and Xamarin.iOS10 on iOS. Update the target framework of the Android and iOS projects to match Authgear.Xamarin's target frameworks.
+* Update Android and iOS project's Xamarin.Essentials to 1.7.2.
 
 ## Platform Integration
 
