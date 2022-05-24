@@ -46,6 +46,10 @@ Choose your platform below:
 
 {% page-ref page="../ios.md" %}
 
+{% page-ref page="../flutter.md" %}
+
+{% page-ref page="../xamarin.md" %}
+
 ### 2. Backend Integration
 
 {% page-ref page="../backend-integration/" %}

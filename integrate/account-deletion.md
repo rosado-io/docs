@@ -39,6 +39,15 @@ await authgear.getUserInfo();
 ```
 {% endtab %}
 
+{% tab title="Xamarin" %}
+```csharp
+// This method blocks until the user closes User Settings.
+await authgear.OpenAsync(SettingsPage.Settings);
+// One way to verify the validity of the session is to get User Info once.
+await authgear.FetchUserInfoAsync();
+```
+{% endtab %}
+
 {% endtabs %}
 
 ## Deactivated User

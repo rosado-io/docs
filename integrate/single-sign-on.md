@@ -34,6 +34,25 @@ final authgear = Authgear(
 ```
 {% endtab %}
 
+{% tab title="Xamarin" %}
+```csharp
+var authgearOptions = new AuthgearOptions
+{
+    ClientId = CLIENT_ID,
+    AuthgearEndpoint = ENDPOINT,
+    ShareSessionWithSystemBrowser = true,
+};
+// Android
+#if __ANDROID__
+var authgear = new AuthgearSdk(GetActivity().ApplicationContext, authgearOptions);
+#else
+#if __IOS__
+var authgear = new AuthgearSdk(UIKit.UIApplication.SharedApplication, authgearOptions);
+#endif
+#endif
+```
+{% endtab %}
+
 {% tab title="iOS" %}
 ```swift
 Authgear(

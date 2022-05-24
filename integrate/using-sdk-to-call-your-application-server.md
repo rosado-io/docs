@@ -71,6 +71,25 @@ authgear.configure(configureOptions, new OnConfigureListener() {
 });
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+var authgearOptions = new AuthgearOptions
+{
+    ClientId = "<YOUR_APPLICATION_CLIENT_ID>",
+    AuthgearEndpoint: "<YOUR_AUTHGEAR_ENDPOINT>",
+};
+#if __ANDROID__
+var authgear = new AuthgearSdk(GetActivity().ApplicationContext, authgearOptions);
+#else
+#if __IOS__
+var authgear = new AuthgearSdk(UIKit.UIApplication.SharedApplication, authgearOptions);
+#endif
+#endif
+await authgear.ConfigureAsync();
+```
+{% endtab %}
+
 {% endtabs %}
 
 ### Get the latest session state
@@ -146,6 +165,29 @@ if (sessionState == SessionState.AUTHENTICATED) {
 }
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+// value can be NoSession or Authenticated
+// After Authgear.ConfigureAsync, it only reflects local state.
+var sessionState = authgear.SessionState;
+
+if (sessionState == SessionState.Authenticated)
+{
+    try
+    {
+        var userInfo = await authgear.FetchUserInfoAsync();
+        // sessionState is now up to date
+    }
+    catch (Exception ex)
+    {
+        // sessionState is now up to date
+        // it will change to NoSession if the session is invalid
+    }
+}
+```
+{% endtab %}
+
 {% endtabs %}
 
 ## Calling an API
@@ -222,22 +264,42 @@ authgear.refreshAccessTokenIfNeeded() { result in
 try {
     authgear.refreshAccessTokenIfNeededSync();
 } catch (OauthException e) {
-    // The token is expired.
+    // failed to refresh access token
+    // the refresh token maybe expired or revoked
 }
+// access token is ready to use
+// accessToken can be string or undefined
+// it will be empty if user is not logged in or session is invalid
 String accessToken = authgear.getAccessToken();
-if (accessToken == null) {
-    // The user is not logged in, or the token is expired.
-    // It is up to the caller to decide how to handle this situation. Typically, the request could be aborted
-    // immediately as the response would be 401 anyways.
-    return;
-}
-
 HashMap<String, String> headers = new HashMap<>();
 headers.put("authorization", "Bearer " + accessToken);
 
 // Submit the request with the headers...
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+try
+{
+    await authgear.RefreshAccessTokenIfNeededAsync();
+}
+catch (OauthException ex)
+{
+    // failed to refresh access token
+    // the refresh token maybe expired or revoked
+}
+// access token is ready to use
+// accessToken can be string or undefined
+// it will be empty if user is not logged in or session is invalid
+var accessToken = authgear.AccessToken;
+var client = GetHttpClient();  // Get the re-used http client of your app, as per recommendation.
+var httpRequestMessage = new HttpRequestMessage(myHttpMethod, myUrl);
+httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+// Send the request with the headers...
+```
+{% endtab %}
+
 {% endtabs %}
 
 ### Handle revoked sessions
@@ -293,13 +355,28 @@ if let response = response as? HTTPURLResponse {
 // example only
 // if your application server return HTTP status code 401 for unauthorized request
 responseCode = httpConn.getResponseCode();
-if (responseCode != HttpURLConnection.Unauthorized) {
+if (responseCode == HttpURLConnection.Unauthorized) {
 
     // if you want to clear the session state locally, call clearSessionState
-    // ` authgear.getSessionState()` will become `NO_SESSION` after calling
+    // `authgear.getSessionState()` will become `NO_SESSION` after calling
     authgear.clearSessionState();
 }
 ```
 {% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+// example only
+// if your application server return HTTP status code 401 for unauthorized request
+statusCode = httpResponseMessage.StatusCode;
+if (statusCode == HttpStatusCode.Unauthorized)
+{
+    // if you want to clear the session state locally, call ClearSessionState
+    // `authgear.SessionState` will become `NoSession` after calling
+    authgear.ClearSessionState();
+}
+```
+{% endtab %}
+
 {% endtabs %}
 

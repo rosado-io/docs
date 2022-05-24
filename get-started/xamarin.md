@@ -265,12 +265,55 @@ namespace MyApp
 }
 ```
 
+## Get the Logged In State
+
+The `SessionState` reflects the user logged in state in the SDK locally on the device. That means even the `SessionState` is `Authenticated`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `FetchUserInfoAsync` to update the `SessionState` as soon as it is proper to do so.
+
+```csharp
+// value can be NoSession or Authenticated
+// After Authgear.ConfigureAsync, it only reflects local state.
+var sessionState = authgear.SessionState;
+
+if (sessionState == SessionState.Authenticated)
+{
+    try
+    {
+        var userInfo = await authgear.FetchUserInfoAsync();
+        // sessionState is now up to date
+    }
+    catch (Exception ex)
+    {
+        // sessionState is now up to date
+        // it will change to NoSession if the session is invalid
+    }
+}
+```
+
 ## Logout
 
 To log out the user from the current app session, you need to invoke the`logout`function.
 
 ```csharp
 await authgear.LogoutAsync();
+```
+
+## Calling An API
+
+To include the access token to the HTTP requests to your application server, you set the bearer token manually by using `authgear.AccessToken`.
+
+### Using HttpClient
+
+You can get the access token through `authgear.AccessToken`. Call `RefreshAccessTokenIfNeededAsync` every time before using the access token, the function will check and make the network call only if the access token has expired. Then, include the access token into the Authorization header of the http request.
+
+```csharp
+await authgear.RefreshAccessTokenIfNeededAsync();
+// Access token is ready to use
+// AccessToken can be string or undefined
+// It will be empty if user is not logged in or session is invalid
+var accessToken = authgear.AccessToken;
+var client = GetHttpClient();  // Get the re-used http client of your app, as per recommendation.
+var httpRequestMessage = new HttpRequestMessage(myHttpMethod, myUrl);
+httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 ```
 
 ## Next steps
