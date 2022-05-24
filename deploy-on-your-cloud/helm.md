@@ -99,7 +99,7 @@ If for some reason your local machine cannot have Docker daemon running, you can
 - Visit [https://github.com/authgear/authgear-server/releases](https://github.com/authgear/authgear-server/releases) to download the binary.
 - You should choose a release closest to your intended version of Authgear.
 - Currently, the binary is built for linux amd64 only.
-- The name of the binary is in the format `authgear-<platform>-<arch>-<tag>` and `authgear-portal-<platform>-<arch>-<tag>`.
+- The name of the binary is in the format `authgear-lite-<platform>-<arch>-<tag>` and `authgear-portal-lite-<platform>-<arch>-<tag>`.
 - You need to download both.
 
 The following guide assumes you have downloaded the binary to your working directory and renamed them to `./authgear` and `./authgear-portal` respectively.
