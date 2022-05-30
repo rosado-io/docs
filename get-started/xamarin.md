@@ -19,14 +19,21 @@ After that, we will need to create an application in Authgear.
 {% tab title="Portal" %}
 **Create an application**
 
-1. Go to "Applications".
-2. Click "Add Application" in the top right corner
-3. Input the name of your application, this is for reference only
-4. Defining a custom scheme that the users will be redirected back to your app after they have authenticated with Authgear. Add the URI to "Redirect URIs". (e.g. _com.myapp.example://host/path_).
-5. Click "Save" and keep the client id. You can also obtain the client id from the list later.
+1. From the Project listing, select an existing Project or Create a new Project with the button at the bottom.
+2. Go to "Applications" on the left menu bar.
+3. Click "⊕Add Application" in the top tool bar.
+4. Input the name of your application, e.g. "MyAwesomeApp".
+5. Under "Authorized Redirect URIs", Click "⊕Add URI"
+6. In your IDE (e.g. Visual Studio), define a custom URI scheme that the users will be redirected back to your app after they have authenticated with Authgear.[^1]
+7. Head back to Authgear Portal, fill in the URI that you have defined in the previous steps, e.g. `com.myapp.example://host/path`
+8. Click "Save" in the top tool bar. 
+9. Make a note of the generated "Client ID". You can also obtain the "Client ID" from the application list again.
+10. (Optional) Click "Edit" if you 
+
+![](<../.gitbook/assets/create-application-app.png>)
 
 {% hint style="info" %}
-If you want to validate JWT access token in your server, select **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
+If you wish to [validate JSON Web Token (JWT) in your own application server](../backend-integration/jwt), select "Issue JWT as access token".[^2] If you wish to [forward authentication requests to Authgear Resolver Endpoint](../backend-integration/nginx), leave this unchecked. See comparisons in [Backend Integration](../backend-integration/).
 {% endhint %}
 {% endtab %}
 
@@ -328,3 +335,7 @@ To protect your application server from unauthorized access. You will need to **
 ## Xamarin SDK Reference
 
 For detailed documentation on the Xamarin SDK, visit [Xamarin SDK Reference](https://authgear.github.io/authgear-sdk-xamarin/)
+
+### Footnote
+[^1]: For futher instruction on setting up custom URI scheme in Xamarin, see [https://www.xamarinhelp.com/uri-scheme/](https://www.xamarinhelp.com/uri-scheme/)
+[^2]: For more explaination on JWT, see [https://en.wikipedia.org/wiki/JSON_Web_Token](https://en.wikipedia.org/wiki/JSON_Web_Token)

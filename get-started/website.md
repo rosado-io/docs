@@ -150,7 +150,7 @@ authgear
   
 ```
 
-By default, Authgear will not ask user to login again if user has already logged in. You can optionally set `prompt` to `login` if you you want the user always reach the login page and login again.
+By default, Authgear will not ask user to login again if user has already logged in. You can optionally set `prompt` to `login` if you want the user always reach the login page and login again.
 
 ### Step 2: Handling auth result in the redirectURI
 
@@ -172,7 +172,7 @@ authgear.finishAuthorization().then(
 );
 ```
 
-Now, your user is now logged in!&#x20;
+Now, your user is logged in!&#x20;
 
 ## Get the Logged In State
 
