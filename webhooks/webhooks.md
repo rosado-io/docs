@@ -20,7 +20,7 @@ There are two kinds of events, **Blocking** and **Non-blocking** events.
 
 {% tabs %}
 {% tab title="Portal" %}
-1. In the portal, go to **Settings** > **Webhooks**.
+1. In the portal, go to **Advanced** > **Webhooks**.
 2. Add your webhook endpoints in **Blocking Events** and **Non-Blocking Events**, depending on which event you want to listen to.
 3. Click **Save**.
 {% endtab %}
