@@ -12,7 +12,7 @@ Accessing the Admin API GraphQL endpoint requires your server to generate a vali
 
 ### Obtaining the private key for signing JWT
 
-* Go to **Settings** -&gt; **Admin API**
+* Go to **Settings** -> **Admin API**
 * Click **Download** to download the private key. Make it available to your server.
 * **Copy** the key ID. Make it available to your server.
 
@@ -83,13 +83,44 @@ func main() {
 }
 ```
 {% endtab %}
+
+{% tab title="Python" %}
+```python
+import jwt
+from datetime import datetime, timedelta
+
+private_key = open("private-key.pem", "r").read()
+
+APP_ID = "myapp"
+KID = "mykid"
+
+now = datetime.now()
+
+payload = {
+    "aud": [APP_ID],
+    "iat": int(now.timestamp()),
+    "exp": int((now + timedelta(minutes=5)).timestamp()),
+}
+
+token = jwt.encode(
+    payload,
+    private_key,
+    "RS256",
+    headers={
+        "kid": KID,
+    },
+)
+
+print(token)
+```
+{% endtab %}
 {% endtabs %}
 
 ### Including the JWT in the HTTP request
 
 After generating the JWT, you must include it in **EVERY** request you send to the Admin API endpoint. Here is how it looks like
 
-```text
+```
 Authorization: Bearer <JWT>
 ```
 
@@ -107,10 +138,9 @@ The GraphiQL tool is NOT a sandbox environment and all changes will be made on r
 
 The above instruction is for server-side integration. If you want to explore what it can do, you can visit the GraphiQL tool.
 
-* Go to **Settings** -&gt; **Admin API**
+* Go to **Settings** -> **Admin API**
 * Click on the **GraphiQL tool** link
 
 ### Inspecting the GraphQL schema
 
 In the GraphiQL tool, you can toggle the schema documentation by pressing the Docs button in the top right corner.
-
