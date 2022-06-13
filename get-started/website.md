@@ -6,19 +6,22 @@ description: Integrate Authgear to your website with the Web SDK
 
 ## Setup Application in Authgear
 
-Signup for an account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/) and create a Project. Or you can use your self-deployed Authgear.
+Signup for an Authgear Portal account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/). Or you can use your self-deployed Authgear.
 
-After that, we will need to create an Application in the Project Portal.
+From the Project listing, create a new Project or select an existing Project. After that, we will need to create an application in the project.
 
 {% tabs %}
 {% tab title="Portal" %}
 **Step 1: Create an application in the Portal**
 
-1. Go to **Applications** in your project portal.
-2. Click **Add Application** in the top command bar.
-3. Input the name of your application. This is for reference only.&#x20;
-4. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. Add the URI to **Redirect URIs**. e.g.`https://yourdomain.com/auth-redirect` , or `http://localhost:4000/auth-redirect` for local development.
-5. Click "Save" and keep the **Client ID**. You can also obtain it from the Applications list later.
+1. Go to **Applications** on the left menu bar.
+2. Click **⊕Add Application** in the top tool bar.
+3. Input the name of your application, e.g. "MyAwesomeApp".
+4. Under **Authorized Redirect URIs**, Click "⊕Add URI".
+5. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. e.g.`https://yourdomain.com/auth-redirect` , or `http://localhost:4000/auth-redirect` for local development.
+6. Fill in the Redirect URI that you have defined in the previous steps.
+7. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the Applications list later.
+8. (Optional) Click "Edit" if you wish to configure more authentication settings.
 
 ![](<../.gitbook/assets/create-application (1).png>)
 
@@ -43,7 +46,7 @@ After that, we will need to create an Application in the Project Portal.
 4. Click "Activate" to change the domain status to "Active". The custom domain will be your new Authgear endpoint.
 
 {% hint style="info" %}
-For cookie-based authentication, users will log in via the custom domain e.g. _"auth.yourdomain.com"_ . So that a session cookie of your domain is set for the client and all your websites under _"\*.yourdomain.com"_ would share the same session cookies automatically.&#x20;
+For cookie-based authentication, users will log in via the custom domain e.g. _"auth.yourdomain.com"_ . So that a session cookie of your domain is set for the client and all your websites under _"\*.yourdomain.com"_ would share the same session cookies automatically.
 {% endhint %}
 {% endtab %}
 
@@ -154,7 +157,7 @@ By default, Authgear will not ask user to login again if user has already logged
 
 ### Step 2: Handling auth result in the redirectURI
 
-After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. This will attempt to exchange the `code` for the access token and user info.&#x20;
+After the user authenticates on the login page, the user will be redirected to the `redirectURI` with a `code` parameter in the URL query. In the `redirectURI` of your application, make a **finish authorization** call to handle the authentication result. This will attempt to exchange the `code` for the access token and user info.
 
 Once authorization succeed, the application should navigate the user to other URL such as the user's home page and remove the `code` query parameters.
 
@@ -172,7 +175,7 @@ authgear.finishAuthorization().then(
 );
 ```
 
-Now, your user is logged in!&#x20;
+Now, your user is logged in!
 
 ## Get the Logged In State
 
