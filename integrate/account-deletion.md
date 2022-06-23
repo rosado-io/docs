@@ -47,7 +47,6 @@ await authgear.OpenAsync(SettingsPage.Settings);
 await authgear.FetchUserInfoAsync();
 ```
 {% endtab %}
-
 {% endtabs %}
 
 ## Deactivated User
@@ -66,7 +65,7 @@ An end-user account can also be deleted using the **Portal**. In the **User Mana
 
 ## Initiate Deletion from Admin API
 
-Alternatively, if you did not enable the "Delete Account" button in **User Settings**, you can implement the button in your app by yourself. Your backend server can invoke the mutation `scheduleAccountDeletion` with the [Admin API](../apis/admin-apis.md) to initiate the account deletion.
+Alternatively, if you did not enable the "Delete Account" button in **User Settings**, you can implement the button in your app by yourself. Your backend server can invoke the mutation `scheduleAccountDeletion` with the [Admin API](../apis/admin-apis/) to initiate the account deletion.
 
 Here is an example of how to invoke the mutation.
 
@@ -104,4 +103,4 @@ You may listen to the following events to integrate the deletion behavior to you
 
 * `user.pre_schedule_deletion`
 
-See the event details in [Webhooks](broken-reference).
+See the event details in [Webhooks](broken-reference/).
