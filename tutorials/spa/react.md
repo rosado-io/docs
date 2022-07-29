@@ -4,7 +4,28 @@ description: >-
   application
 ---
 
-# React Tutorial
+# React Tutorial: User Auth with Authgear SDK
+
+Authgear helps you add user logins to your React apps. It provides prebuilt login page and user settings page that accelerate the development.
+
+Follow this :clock1: **15 minutes** tutorial to create a simple app using React with Authgear SDK.
+
+{% hint style="info" %}
+**Check out and clone** [<mark style="color:orange;">**the Sample Project on GitHub**</mark>](https://github.com/authgear/authgear-example-react)**.**
+{% endhint %}
+
+**Table of Content**
+
+* [Setup Application in Authgear](react.md#setup-application-in-authgear)
+* [Create a simple React project](react.md#step-1-create-a-simple-react-project)
+* [Install Authgear SDK to the project](react.md#step-2-install-authgear-sdk-to-the-project)
+* [Implement Context Provider](react.md#step-4-implementing-the-context-provider)
+* [Add a Login button](react.md#step-5-add-a-login-button)
+* [Implement the Auth Redirect page](react.md#step-6-implementing-the-auth-redirect)
+* [Show the user information](react.md#step-7-show-the-user-information)
+* [Add a Logout button](react.md#step-8-add-an-logout-button)
+* [Open User Settings](react.md#step-9-open-user-settings)
+* [Calling an API](react.md#finally-calling-an-api)
 
 ## Setup Application in Authgear
 
@@ -38,7 +59,7 @@ Save the configuration before next steps.
 
 Here are some recommended steps to scaffold a React project. You can skip this part if you are adding Authgear to an existing project. See [#install-authgear-sdk-to-the-project](react.md#install-authgear-sdk-to-the-project "mention") in the next section.
 
-### Install basic project dependencies
+#### Install basic project dependencies
 
 Create the project folder and install the dependencies. We will use `parcel` as the build tool and `react-router-dom`, `react` , and `react-dom`.
 
@@ -57,7 +78,7 @@ npm install --save-dev --save-exact parcel react-router-dom
 npm install --save-exact react react-dom
 ```
 
-### Add script for launching the app
+#### Add script for launching the app
 
 In the `package.json` file, add these two lines to the `script` section
 
@@ -68,7 +89,7 @@ In the `package.json` file, add these two lines to the `script` section
 
 The `start` script run the app in development mode on port 4000. The `build` script build the app for production to the `dist/` folder.
 
-### Create the `index.html` file
+#### Create the `index.html` file
 
 In `src/`, create a new file called `index.html` for parcel to bundle the app:&#x20;
 
@@ -89,9 +110,9 @@ In `src/`, create a new file called `index.html` for parcel to bundle the app:&#
 
 ```
 
-### Create the `App.tsx` file
+#### Create the `App.tsx` file
 
-Create a new file called App.tsx with simply showing `Hello World` in the screen:&#x20;
+Create a new file called `App.tsx` with simply showing `Hello World` in the screen:&#x20;
 
 ```javascript
 // src/App.tsx
@@ -105,7 +126,7 @@ export default App;
 
 ```
 
-### Create the `index.tsx` file
+#### Create the `index.tsx` file
 
 Create a new file called `index.tsx` as the entry point of the application.
 
@@ -353,7 +374,7 @@ export default Home;
 
 You can now run `npm start` and you will be direct to the Authgear Login Portal when you click the Login button.
 
-## Step 6: Implementing the Auth Redirect
+## Step 6: Implement the Auth Redirect
 
 Call the Authgear `finishAuthentication()` function in the Auth Redirect component to send a token back to Authgear server in exchange for access token and refresh token. Don't worry about the technical jargons, `finishAuthentication()` will do all the hard work for you and and save the authentication data.
 
@@ -478,7 +499,7 @@ export default Home;
 
 Run the app again, the User ID (sub) of the user should be printed on the Home page.
 
-## Step 8: Add an Logout button
+## Step 8: Add a Logout button
 
 Finally, let's add an Logout button when user is logged in.&#x20;
 
