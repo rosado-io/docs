@@ -134,7 +134,7 @@ When the user clicks login/signup on your website, make a **start authorization*
 import authgear from "@authgear/web";
 
 authgear
-  .startAuthorization({
+  .startAuthentication({
     // configure redirectURI which users will be redirected to
     // after they have authenticated with Authgear
     // you can use any path in your website
@@ -164,7 +164,7 @@ Once authorization succeed, the application should navigate the user to other UR
 ```javascript
 import authgear from "@authgear/web";
 
-authgear.finishAuthorization().then(
+authgear.finishAuthentication().then(
   (userInfo) => {
     // authorized successfully
     // you should navigate the user to another path

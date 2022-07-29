@@ -23,15 +23,15 @@ From the Project listing, create a new Project or select an existing Project. Af
 2. Click **⊕Add Application** in the top tool bar.
 3. Input the name of your application, e.g. "MyAwesomeApp".
 4. Under **Authorized Redirect URIs**, Click "⊕Add URI".
-5. In your IDE, define a custom URI scheme that the users will be redirected back to your app after they have authenticated with Authgear, e.g. `com.myapp.example://host/path`.[^1]
+5. In your IDE, define a custom URI scheme that the users will be redirected back to your app after they have authenticated with Authgear, e.g. `com.myapp.example://host/path`.\[^1]
 6. Head back to Authgear Portal, fill in the URI that you have defined in the previous steps.
 7. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the Applications list later.
 8. (Optional) Click "Edit" if you wish to configure more authentication settings.
 
-![](<../.gitbook/assets/create-application-app.png>)
+![](../.gitbook/assets/create-application-app.png)
 
 {% hint style="info" %}
-If you wish to [validate JSON Web Token (JWT) in your own application server](../backend-integration/jwt), select "Issue JWT as access token".[^2] If you wish to [forward authentication requests to Authgear Resolver Endpoint](../backend-integration/nginx), leave this unchecked. See comparisons in [Backend Integration](../backend-integration/).
+If you wish to [validate JSON Web Token (JWT) in your own application server](../backend-integration/jwt/), select "Issue JWT as access token".\[^2] If you wish to [forward authentication requests to Authgear Resolver Endpoint](../backend-integration/nginx/), leave this unchecked. See comparisons in [Backend Integration](../backend-integration/).
 {% endhint %}
 {% endtab %}
 
@@ -188,7 +188,7 @@ function LoginScreen() {
       })
       .then(() => {
         authgear
-          .authorize({
+          .authenticate({
             redirectURI: "com.myapp.example://host/path",
           })
           .then(({ userInfo }) => {
@@ -265,5 +265,5 @@ To protect your application server from unauthorized access. You will need to **
 For detailed documentation on the JavaScript React Native SDK, visit [@authgear/react-native Reference](https://authgear.github.io/authgear-sdk-js/docs/react-native/)
 
 ### Footnote
-[^1]: For futher instruction on setting up custom URI scheme in React Native, see [https://reactnative.dev/docs/linking](https://reactnative.dev/docs/linking)
-[^2]: For more explaination on JWT, see [https://en.wikipedia.org/wiki/JSON_Web_Token](https://en.wikipedia.org/wiki/JSON_Web_Token)
+
+\[^1]: For futher instruction on setting up custom URI scheme in React Native, see [https://reactnative.dev/docs/linking](https://reactnative.dev/docs/linking) \[^2]: For more explaination on JWT, see [https://en.wikipedia.org/wiki/JSON\_Web\_Token](https://en.wikipedia.org/wiki/JSON\_Web\_Token)
