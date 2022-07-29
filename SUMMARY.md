@@ -92,6 +92,6 @@
 ## tutorials
 
 * [Single-Page App](tutorials/spa/README.md)
-  * [React](tutorials/spa/react.md)
+  * [React Tutorial](tutorials/spa/react.md)
 * [Local Development Setup](tutorials/local-setup/README.md)
   * [Cookie-based Authorization](tutorials/local-setup/local-cookie-based-web-setup.md)
