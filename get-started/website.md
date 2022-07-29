@@ -203,19 +203,16 @@ The [`UserInfo`](../integrate/user-profile.md) object provides the unique identi
 
 ## Log the user out
 
-If you are using **Token-based** authentication, the `logout` API will revoke the user app session only. The promise will be resolved after logout and no redirection will occur.
-
-If you are using **Cookie-based** authentication , the user will be redirected to your Authgear endpoint to log out their session. You should provide the `redirectURI` to which user will be redirected after logout.
+Use the `logout` function to log out the user. The user will be redirected to your Authgear endpoint to log out their session. You should provide the `redirectURI` for the user to return to your app.
 
 ```javascript
 import authgear from "@authgear/web";
 
 authgear
   .logout({
-    // redirectURI is useful only when sessionType is cookie
-    // to which users will be redirected after logout
+    // user will navigate to the redirectURI after logged out
     // make sure it is in the "Post Logout Redirect URIs" in the application portal
-    // redirectURI: "https://yourdomain.com",
+    redirectURI: "https://yourdomain.com",
   })
   .then(
     () => {
