@@ -289,7 +289,7 @@ src
 └── index.tsx
 ```
 
-## Step 4: Implementing the Context Provider
+## Step 4: Implement the Context Provider
 
 In `UserProvider.tsx`, it will have a `isLoggedIn` boolean and a `setIsLoggedIn` function. The is `LoggedIn` boolean state can be auto updated using the `onSessionStateChange` callback. This callback can be stored in `delegate` which is in the local SDK container.&#x20;
 
