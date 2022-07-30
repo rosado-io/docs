@@ -101,7 +101,7 @@ authgear
     // default domain should be something like: https://<yourapp>.authgearapps.com
     endpoint: "<your_app_endpoint>",
     // Client ID of your application
-    clientID: "<your_api_key>",
+    clientID: "<your_client_id>",
     // sessionType can be "refresh_token" or "cookie", default "refresh_token"
     sessionType: "refresh_token",
   })
