@@ -20,8 +20,8 @@ Follow this :clock1: **15 minutes** tutorial to create a simple app using React 
 * [Create a simple React project](react.md#step-1-create-a-simple-react-project)
 * [Install Authgear SDK to the project](react.md#step-2-install-authgear-sdk-to-the-project)
 * [Implement Context Provider](react.md#step-4-implementing-the-context-provider)
-* [Add a Login button](react.md#step-5-add-a-login-button)
-* [Implement the Auth Redirect page](react.md#step-6-implementing-the-auth-redirect)
+* [Implement the Auth Redirect page](react.md#step-5-implement-the-auth-redirect)
+* [Add a Login button](react.md#step-6-add-a-login-button)
 * [Show the user information](react.md#step-7-show-the-user-information)
 * [Add a Logout button](react.md#step-8-add-an-logout-button)
 * [Open User Settings](react.md#step-9-open-user-settings)
@@ -53,7 +53,7 @@ The Post Logout Redirect URI is the URL users will be redirected after they have
 
 For this tutorial, add `http://localhost:4000/` to Post Logout Redirect URIs.
 
-Save the configuration before next steps.
+**Save** the configuration before next steps.
 
 ![Configure Authorized Redirect URIs and Post Logout Redirect URIs.](../../.gitbook/assets/application-config-spa-react.jpg)
 
@@ -95,8 +95,9 @@ The `start` script run the app in development mode on port 4000. The `build` scr
 
 In `src/`, create a new file called `index.html` for parcel to bundle the app:&#x20;
 
+`src/index.html`:
+
 ```html
-// src/index.html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -167,6 +168,8 @@ my-app
     └── index.tsx
 ```
 
+Run `npm start` now to run the project and you will see "Hello World" on `http://localhost:4000`.
+
 ## Step 2: Install Authgear SDK to the project
 
 Run the following command within your React project directory to install the Authgear Web SDK
@@ -207,11 +210,17 @@ The Authgear container instance takes `endpoint` and `clientID` as parameters. T
 
 It is recommend to render the app after `configure()` resolves. So by the time the app is rendered, Authgear is ready to use.&#x20;
 
+{% hint style="info" %}
+Run ** `npm start` ** now and you should see a page with "Hello World" and no error message in the console if Authgear SDK is configured successfully
+{% endhint %}
+
 ## Step 3: Add Routes and Context Provider to the App
 
 Next, we will add two pages to the app, a "Home" page and a "AuthRedirect" page for handling the authentication result after the user have been authenticated by Authgear.
 
-Create `Home.tsx` and `AuthRedirect.tsx` component files in the `src/` folder. Then import them as routes.&#x20;
+Create `Home.tsx` and `AuthRedirect.tsx` component files in the `src/` folder.&#x20;
+
+Then import them as routes.&#x20;
 
 ```javascript
 // src/App.tsx
@@ -220,7 +229,7 @@ import Home from './Home';
 import AuthRedirect from './AuthRedirect';
 ```
 
-Next, we will add these Routes to the JSX part.
+Next, we will add these Routes to the elements.
 
 ```tsx
 // src/App.tsx
@@ -234,7 +243,11 @@ Next, we will add these Routes to the JSX part.
 
 Since we want to reference the logged in state in anywhere of the app, let's put the state in a **context provider** with `UserProvider.tsx` in the `/src/context` folder.&#x20;
 
-Create and import **UserContextProvider**, we will implement the component later. Then we will wrap the JSX above with `<UserContextProvider>`.
+Create and import **UserContextProvider**, we will implement the component later. Then we will wrap the elements with `<UserContextProvider>`.
+
+```tsx
+import UserContextProvider from './context/UserProvider';
+```
 
 Your final `App.tsx` should look like this:
 
@@ -335,50 +348,7 @@ export default UserContextProvider;
 
 ```
 
-## Step 5: Add a Login button
-
-First we will import the Authgear dependency and the React Hook that we will use to `Home.tsx`. Then add the login button which will call `startAuthentication(ConfigureOptions)` through `startLogin` callback on click. This will redirect the user to the login page.
-
-```tsx
-// src/Home.tsx
-import React, { useEffect, useState, useCallback, useContext } from 'react';
-import authgear from '@authgear/web';
-
-const Home: React.FC = () => {
-  const startLogin = useCallback(() => {
-    authgear
-      .startAuthentication({
-        redirectURI: 'http://localhost:4000/auth-redirect',
-        prompt: 'login'
-      })
-      .then(
-        () => {
-          // started authentication, user should be redirected to Authgear
-        },
-        err => {
-          // failed to start authentication
-        }
-      );
-  }, []);
-  return (
-    <div>
-      <h1>Home Page</h1>
-      <div>
-        <button onClick={startLogin}>Login</button>
-      </div>
-    </div>
-  );
-}
-
-export default Home;
-
-```
-
-You can now run `npm start` and you will be direct to the Authgear Login page when you click the Login button.
-
-![User will be redirected to the Authgear login page by clicking the login button](../../.gitbook/assets/spa-react-sample-login.png)
-
-## Step 6: Implement the Auth Redirect
+## Step 5: Implement the Auth Redirect
 
 Call the Authgear `finishAuthentication()` function in the Auth Redirect component to send a token back to Authgear server in exchange for access token and refresh token. Don't worry about the technical jargons, `finishAuthentication()` will do all the hard work for you and and save the authentication data.
 
@@ -425,7 +395,48 @@ Since in React 18, useEffect will be fired twice in development mode, we need to
 Without a cleanup function, an`useEffect`Hook will be fired twice and hence `finishAuthentication() will` send the token back to Authgear Endpoint for two times, which the second one will result in "Invalid Token" error since the token can only be used once.
 {% endhint %}
 
-Now run the App again, you should be able to login in Authgear Portal and redirected back to `/auth-redirect` and thus back to Home after `finishAuthentication()`.
+## Step 6: Add a Login button
+
+First we will import the Authgear dependency and the React Hook that we will use to `Home.tsx`. Then add the login button which will call `startAuthentication(ConfigureOptions)` through `startLogin` callback on click. This will redirect the user to the login page.
+
+```tsx
+// src/Home.tsx
+import React, { useEffect, useState, useCallback, useContext } from 'react';
+import authgear from '@authgear/web';
+
+const Home: React.FC = () => {
+  const startLogin = useCallback(() => {
+    authgear
+      .startAuthentication({
+        redirectURI: 'http://localhost:4000/auth-redirect',
+        prompt: 'login'
+      })
+      .then(
+        () => {
+          // started authentication, user should be redirected to Authgear
+        },
+        err => {
+          // failed to start authentication
+        }
+      );
+  }, []);
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <div>
+        <button onClick={startLogin}>Login</button>
+      </div>
+    </div>
+  );
+}
+
+export default Home;
+
+```
+
+You can now run **`npm start`** and you will be redirected to the Authgear Login page when you click the Login button.
+
+![User will be redirected to the Authgear login page by clicking the login button](../../.gitbook/assets/spa-react-sample-login.png)
 
 ## Step 7: Show the user information
 
@@ -533,7 +544,7 @@ const logout = useCallback(() => {
         console.error(err);
       }
   );
-}, [setIsLoggedIn]);
+}, []);
 ```
 
 Run the app again, we can now logout by clicking the logout button.
@@ -560,7 +571,7 @@ And add the `userSetting` callback:
   const userSetting = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    authgear.openURL(`${endpoint}/settings`);
+    authgear.openURL("<your_app_endpoint>/settings");
   }, []);
 ```
 
@@ -571,7 +582,6 @@ This the the resulting `Home.tsx`:
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { UserContext } from "./context/UserProvider";
 import authgear from "@authgear/web";
-import { endpoint } from ".";
 
 const Home: React.FC = () => {
   const [greetingMessage, setGreetingMessage] = useState<string>("");
@@ -631,7 +641,7 @@ const Home: React.FC = () => {
   const userSetting = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    authgear.openURL(`${endpoint}/settings`);
+    authgear.openURL("<your_app_endpoint>/settings");
   }, []);
 
   return (
@@ -667,9 +677,9 @@ export default Home;
 
 ![Show the User ID, a link to User Settings and a logout button after login](../../.gitbook/assets/spa-react-sample-screenshot.png)
 
-## Finally, Calling an API
+## Next steps, Calling an API
 
-To access restricted resources on your application server, the HTTP requests should include the access token in their Authorization headers. The Web SDK provides a `fetch` function which automatically handle this, or you can get the token with `authgear.accessToken`.
+To access restricted resources on your backend application server, the HTTP requests should include the access token in their Authorization headers. The Web SDK provides a `fetch` function which automatically handle this, or you can get the token with `authgear.accessToken`.
 
 #### Option 1: Using fetch function provided by Authgear SDK
 
