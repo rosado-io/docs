@@ -55,6 +55,8 @@ For this tutorial, add `http://localhost:4000/` to Post Logout Redirect URIs.
 
 Save the configuration before next steps.
 
+![Configure Authorized Redirect URIs and Post Logout Redirect URIs.](../../.gitbook/assets/application-config-spa-react.jpg)
+
 ## Step 1: Create a simple React project
 
 Here are some recommended steps to scaffold a React project. You can skip this part if you are adding Authgear to an existing project. See [#install-authgear-sdk-to-the-project](react.md#install-authgear-sdk-to-the-project "mention") in the next section.
@@ -372,7 +374,9 @@ export default Home;
 
 ```
 
-You can now run `npm start` and you will be direct to the Authgear Login Portal when you click the Login button.
+You can now run `npm start` and you will be direct to the Authgear Login page when you click the Login button.
+
+![User will be redirected to the Authgear login page by clicking the login button](../../.gitbook/assets/spa-react-sample-login.png)
 
 ## Step 6: Implement the Auth Redirect
 
@@ -660,6 +664,8 @@ const Home: React.FC = () => {
 
 export default Home;
 ```
+
+![Show the User ID, a link to User Settings and a logout button after login](../../.gitbook/assets/spa-react-sample-screenshot.png)
 
 ## Finally, Calling an API
 
