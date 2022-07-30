@@ -518,7 +518,7 @@ Run the app again, the User ID (sub) of the user should be printed on the Home p
 
 Finally, let's add an Logout button when user is logged in.&#x20;
 
-We will add a conditional elements in the TSX:
+In `Home.tsx`, we will add a conditional elements in the elements:
 
 ```tsx
 {isLoggedIn && (
@@ -528,7 +528,7 @@ We will add a conditional elements in the TSX:
 )}
 ```
 
-And in the Home component, add the `logout` callback:
+And add the `logout` callback:
 
 ```tsx
 const logout = useCallback(() => {
@@ -553,9 +553,9 @@ Run the app again, we can now logout by clicking the logout button.
 
 Authgear provide a built-in UI for the users to set their attributes and change security settings.&#x20;
 
-Use the `openURL` function to open the setting page at `${endpoint}/settings`.&#x20;
+Use the `openURL` function to open the setting page at `<your_app_endpoint>/settings`
 
-Add a conditional link in the TSX.
+In `Home.tsx` Add a conditional link to the elements.
 
 ```tsx
 {isLoggedIn && (
