@@ -568,11 +568,12 @@ In `Home.tsx` Add a conditional link to the elements.
 And add the `userSetting` callback:
 
 ```tsx
-  const userSetting = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+import authgear, { Page } from "@authgear/web";
+const userSetting = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    authgear.openURL("<your_app_endpoint>/settings");
-  }, []);
+    authgear.open(Page.Settings);
+}, []);
 ```
 
 This the the resulting `Home.tsx`:
@@ -581,7 +582,7 @@ This the the resulting `Home.tsx`:
 // src/Home.tsx
 import React, { useEffect, useState, useCallback, useContext } from "react";
 import { UserContext } from "./context/UserProvider";
-import authgear from "@authgear/web";
+import authgear, { Page } from "@authgear/web";
 
 const Home: React.FC = () => {
   const [greetingMessage, setGreetingMessage] = useState<string>("");
@@ -641,7 +642,7 @@ const Home: React.FC = () => {
   const userSetting = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    authgear.openURL("<your_app_endpoint>/settings");
+    authgear.open(Page.Settings);
   }, []);
 
   return (

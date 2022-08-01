@@ -17,18 +17,16 @@ The end-user can perform the following actions on the setting page:
 * Enable or disable 2-step verification.
 * and many more.
 
-## Open the settings page directly in websites
+## Open the settings page in websites
 
-In case your application is a website, the web SDK does not provide a method to open the settings page. However, you can construct the URL to the settings page as follows:
+Use the **open** method to open the built-in settings page
 
-`https://<your-app-endpoint>/settings`
+```tsx
+import authgear, { Page } from "@authgear/web";
 
-And then you can just set this as the `href` of your anchor tag
-
-```html
-<div>
-    <a href="https://<your-app-endpoint>/settings">Open Settings Page</a>
-</div>
+const openSettings = () = {
+    authgear.open(Page.Settings)
+}
 ```
 
 ## Open the settings page with the SDK in mobile apps
