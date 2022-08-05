@@ -19,8 +19,8 @@ Follow this :clock1: **15 minutes** tutorial to create a simple app using React 
 * [Setup Application in Authgear](react.md#setup-application-in-authgear)
 * [Create a simple React project](react.md#step-1-create-a-simple-react-project)
 * [Install Authgear SDK to the project](react.md#step-2-install-authgear-sdk-to-the-project)
-* [Implement Context Provider](react.md#step-4-implementing-the-context-provider)
-* [Implement the Auth Redirect page](react.md#step-5-implement-the-auth-redirect)
+* [Implement Context Provider](react.md#step-3-implement-the-context-provider)
+* [Implement the Auth Redirect page](react.md#step-4-implement-the-auth-redirect)
 * [Add a Login button](react.md#step-6-add-a-login-button)
 * [Show the user information](react.md#step-7-show-the-user-information)
 * [Add a Logout button](react.md#step-8-add-an-logout-button)
@@ -214,82 +214,9 @@ It is recommend to render the app after `configure()` resolves. So by the time t
 Run ** `npm start` ** now and you should see a page with "Hello World" and no error message in the console if Authgear SDK is configured successfully
 {% endhint %}
 
-## Step 3: Add Routes and Context Provider to the App
-
-Next, we will add two pages to the app, a "Home" page and a "AuthRedirect" page for handling the authentication result after the user have been authenticated by Authgear.
-
-Create `Home.tsx` and `AuthRedirect.tsx` component files in the `src/` folder.&#x20;
-
-Then import them as routes.&#x20;
-
-```javascript
-// src/App.tsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Home';
-import AuthRedirect from './AuthRedirect';
-```
-
-Next, we will add these Routes to the elements.
-
-```tsx
-// src/App.tsx
-<Router>
-  <Routes>
-    <Route path="/auth-redirect" element={<AuthRedirect />} />
-    <Route path="/" element={<Home />} />
-  </Routes>
-</Router>
-```
+## Step 3: Implement the Context Provider
 
 Since we want to reference the logged in state in anywhere of the app, let's put the state in a **context provider** with `UserProvider.tsx` in the `/src/context` folder.&#x20;
-
-Create and import **UserContextProvider**, we will implement the component later. Then we will wrap the elements with `<UserContextProvider>`.
-
-```tsx
-import UserContextProvider from './context/UserProvider';
-```
-
-Your final `App.tsx` should look like this:
-
-```tsx
-// src/App.tsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Home';
-import AuthRedirect from './AuthRedirect';
-import UserContextProvider from './context/UserProvider';
-
-const App: React.FC = () => {
-  return (
-    <UserContextProvider>
-      <Router>
-        <Routes>
-          <Route path="/auth-redirect" element={<AuthRedirect />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
-    </UserContextProvider>
-  );
-}
-
-export default App;
-
-```
-
-The file structure should now look like
-
-```
-src
-├── App.tsx
-├── AuthRedirect.tsx
-├── Home.tsx
-├── context
-│   └── UserProvider.tsx
-├── index.html
-└── index.tsx
-```
-
-## Step 4: Implement the Context Provider
 
 In `UserProvider.tsx`, it will have a `isLoggedIn` boolean and a `setIsLoggedIn` function. The is `LoggedIn` boolean state can be auto updated using the `onSessionStateChange` callback. This callback can be stored in `delegate` which is in the local SDK container.&#x20;
 
@@ -345,10 +272,13 @@ const UserContextProvider: React.FC<UserContextProviderProps> = ({
 
 export default UserContextProvider;
 
-
 ```
 
-## Step 5: Implement the Auth Redirect
+## Step 4: Implement the Auth Redirect
+
+Next, we will add an "AuthRedirect" page for handling the authentication result after the user have been authenticated by Authgear.
+
+Create the `AuthRedirect.tsx` component file in the `src/` folder.&#x20;
 
 Call the Authgear `finishAuthentication()` function in the Auth Redirect component to send a token back to Authgear server in exchange for access token and refresh token. Don't worry about the technical jargons, `finishAuthentication()` will do all the hard work for you and and save the authentication data.
 
@@ -394,6 +324,50 @@ Since in React 18, useEffect will be fired twice in development mode, we need to
 
 Without a cleanup function, an`useEffect`Hook will be fired twice and hence `finishAuthentication() will` send the token back to Authgear Endpoint for two times, which the second one will result in "Invalid Token" error since the token can only be used once.
 {% endhint %}
+
+## Step 5: Add Routes and Context Provider to the App
+
+Next, we will add a "Home" page . Create a `Home.tsx` component file the `src/` folder.&#x20;
+
+Then import **Home** and **AuthRedirect** as routes. And Import **UserContextProvider** and wrap the routes with it.
+
+Your final `App.tsx` should look like this:
+
+<pre class="language-tsx"><code class="lang-tsx">// src/App.tsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import AuthRedirect from './AuthRedirect';
+import UserContextProvider from './context/UserProvider';
+
+const App: React.FC = () => {
+  return (
+    &#x3C;UserContextProvider>
+      &#x3C;Router>
+<strong>        &#x3C;Routes>
+</strong>          &#x3C;Route path="/auth-redirect" element={&#x3C;AuthRedirect />} />
+          &#x3C;Route path="/" element={&#x3C;Home />} />
+        &#x3C;/Routes>
+      &#x3C;/Router>
+    &#x3C;/UserContextProvider>
+  );
+}
+
+export default App;
+</code></pre>
+
+The file structure should now look like
+
+```
+src
+├── App.tsx
+├── AuthRedirect.tsx
+├── Home.tsx
+├── context
+│   └── UserProvider.tsx
+├── index.html
+└── index.tsx
+```
 
 ## Step 6: Add a Login button
 
