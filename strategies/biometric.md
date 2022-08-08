@@ -2,10 +2,14 @@
 
 ## Overview
 
-Authgear supports enabling biometric login in the native mobile application. To set this up, you will need to
+Authgear supports enabling biometric login in the native mobile application. You will need to
 
-1. Enable biometric login in your application.
-2. Sign up or log in a user in your mobile application, use the mobile SDK to enable biometric login.
+1. Enable biometric login in your application via the portal.
+2. In the mobile app, use the mobile SDK to enable biometric login for your users.
+
+A pair of cryptographic keys will be generated upon registering biometric login. The private key will be stored securely in the device (using Keystore in Android and Keychain in iOS), while the public key is stored in the Authgear server. To authenticate the user, fingerprint or face is presented to unlock the private key, and a digital signed message is sent to the server to proof the authenticity of the user.&#x20;
+
+Sounds overwhelming? Authgear's magic handle all these for you. Follow this guide to enable biometric login in your app with a few lines of code.
 
 ## Enable biometric login in your application
 
@@ -35,7 +39,37 @@ identity:
 
 In the following section, we will show you how to use biometric login in the SDK. In the SDK code snippet, `authgear` is referring to the configured Authgear container.
 
-* Check if the current device supports biometric login before calling any biometric API.
+### Biometric options
+
+In the SDKs, a set of biometric options is required to check the support or enable biometric on the device.&#x20;
+
+#### iOS
+
+There are two options on iOS:
+
+* `localizedReason` is the message string the user will see when FaceID or TouchID is presented
+* `constraint` is an enum that constraint the access of key stored under different conditions:
+  * `biometryAny`: The key is still accessible by Touch ID if fingers are added or removed, or by Face ID if the user is re-enrolled
+  * `BiometricCurrentSet`: The key is invalidated if fingers are added or removed for Touch ID, or if the user re-enrolls for Face ID
+
+See reference in Apple Developers Doc on [biometryAny](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags/2937191-biometryany) and [biometryCurrentSet](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags/2937192-biometrycurrentset).
+
+#### Android
+
+There are 6 options on Android:
+
+* `title` is the Title of the biometric dialog presented to the users
+* `subtitle` is the subtitle of the biometric dialog presented to the users
+* `description` is the description of the biometric dialog presented to the users
+* `negativeButtonText` is what the dismiss button says in the biometric dialog
+* `constraint` is an array defines the requirement of security level, which can be `BIOMETRIC_STRONG`, `BIOMETRIC_WEAK`, `DEVICE_CREDENTIAL`. See reference in Android developers documentation on [`BiometricManager.Authenticators`](https://developer.android.com/reference/android/hardware/biometrics/BiometricManager.Authenticators)``
+* `invalidatedByBiometricEnrollment` is a boolean that controls if the key pair will be invalidated if a new biometric is enrolled, or when all existing biometrics are deleted. See reference in Android developers documentation on [`KeyGenParameterSpec.Builder`](https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment\(boolean\)).
+
+### Code examples
+
+#### Check support
+
+Always check if the current device supports biometric login before calling any biometric API, including before enabling biometric login and before using biometric to login.&#x20;
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -162,10 +196,11 @@ catch
 }
 ```
 {% endtab %}
-
 {% endtabs %}
 
-* Enable biometric login for logged in user
+#### Enable biometric login
+
+Enable biometric login for logged in user
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -253,7 +288,11 @@ catch
 {% endtab %}
 {% endtabs %}
 
-* Check if the current device enabled biometric login, we should check this before asking the user to log in with biometric credentials
+#### Check if biometric has been enabled before
+
+Before asking the user to log in with biometric, Check if biometric login has been enabled on the current device. I.e. Is the key pair exist on the device (Keystore in Android and Keychain in iOS).
+
+This method will still return true even if all the fingerprint and facial data has been removed from the device. Before this method, you should use the "checkBiometricSupported" to check if biometry is supported in the device level.
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -308,10 +347,11 @@ catch
 }
 ```
 {% endtab %}
-
 {% endtabs %}
 
-* Login with biometric credentials
+#### Login with biometric credentials
+
+If biometric is supported and enabled, you can use the Authenticate Biometric method to log the user in. If the key pair is invalidated due to changes in the biometry settings, e.g added fingerprint or re-enrolled face data, the `biometricPrivateKeyNotFound` will be thrown. You should handle the error by the Disable Biometric method, and ask the user to register biometric login again.
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -386,7 +426,7 @@ catch
 {% endtab %}
 {% endtabs %}
 
-* Disable biometric login in the current device
+#### Disable biometric login on the current device
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -448,10 +488,11 @@ catch
 }
 ```
 {% endtab %}
-
 {% endtabs %}
 
-* Error handling
+#### Error handling
+
+In all methods related to biometric, the SDK may throw the following errors that describe the status of the biometry enrollment or the key pair stored on the device.
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -609,6 +650,4 @@ catch
 }
 ```
 {% endtab %}
-
 {% endtabs %}
-
