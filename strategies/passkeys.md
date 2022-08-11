@@ -41,6 +41,6 @@ If you want to use ONLY passkeys in your app, it's perfectly supported too! Just
 See the list of Passkey support via Authgear on different platforms.
 
 * macOS 12: Passkey is supported on major browsers. However the credentials are deleted when clearing browser data.
-* iOS 15.5: Passkey is supported on Safari and stored locally on device. Credential will be deleted by "Settings -> Safari -> Clear History and Website Data"
-* iOS 16 Beta 3: Passkey synced with iCloud Keychain. The individual credentials can be viewed  and managed in "**Settings -> Passwords**"
+* iOS 15.5: Passkey is supported on Safari and stored locally on device. Credential will be deleted by "Settings > Safari > Clear History and Website Data"
+* iOS 16 Beta 3: Passkey synced with iCloud Keychain. The individual credentials can be viewed  and managed in "Settings > Passwords"
 * Android 12: Not supported
