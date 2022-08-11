@@ -22,6 +22,7 @@
 ## Strategies
 
 * [User, Identity and Authenticator](strategies/user-identity-and-authenticator.md)
+* [Passkeys](strategies/passkeys.md)
 * [WhatsApp OTP Login](strategies/whatsapp-otp-login.md)
 * [Social & Enterprise Identity Providers](strategies/how-to-setup-sso-integrations/README.md)
   * [Connect Apps to Apple](strategies/how-to-setup-sso-integrations/apple.md)
