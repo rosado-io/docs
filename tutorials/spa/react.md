@@ -63,7 +63,7 @@ Here are some recommended steps to scaffold a React project. You can skip this p
 
 #### Install basic project dependencies
 
-Create the project folder and install the dependencies. We will use `parcel` as the build tool and `react-router-dom`, `react` , and `react-dom`.
+Create the project folder and install the dependencies. We will use `parcel` as the build tool and the `react-router-dom`, `react` , and `react-dom` packages. Also, we will use TypeScript in this tutorial.&#x20;
 
 ```bash
 # Create a new folder for your project
@@ -74,10 +74,12 @@ cd my-app
 mkdir src
 # Create a brand new package.json file
 npm init -y
-# Install parcel and react router
-npm install --save-dev --save-exact parcel react-router-dom
-# Install react and react-dom
-npm install --save-exact react react-dom
+# Install parcel
+npm install --save-dev --save-exact parcel
+# Install react, react-dom and react router
+npm install --save-exact react react-dom react-router-dom
+# Install TypeScript and related types
+npm install --save-dev --save-exact typescript @types/react @types/react-dom @types/react-router-dom
 ```
 
 #### Add script for launching the app
@@ -85,8 +87,8 @@ npm install --save-exact react react-dom
 In the `package.json` file, add these two lines to the `script` section
 
 ```bash
-"start": "parcel serve --port 4000 --no-cache './src/*.html'",
-"build": "parcel build --no-cache './src/*.html'"
+"start": "parcel serve --port 4000 --no-cache ./src/index.html",
+"build": "parcel build --no-cache ./src/index.html"
 ```
 
 The `start` script run the app in development mode on port 4000. The `build` script build the app for production to the `dist/` folder.
