@@ -37,8 +37,10 @@ import (
     "github.com/lestrrat-go/jwx/jwt"
 )
 
-// Replace "myapp" with your app ID here.
-const AppID = "myapp"
+// Replace "myapp" with your project ID here. 
+// It is the first part of your Authgear endpoint. 
+// e.g. The project ID is "myapp" for "https://myapp.authgearapps.com"
+const ProjectID = "myapp"
 
 // Replace "mykid" with the key ID you see in the portal.
 const KeyID = "mykid"
@@ -58,7 +60,7 @@ func main() {
 
     now := time.Now().UTC()
     payload := jwt.New()
-    _ = payload.Set(jwt.AudienceKey, AppID)
+    _ = payload.Set(jwt.AudienceKey, ProjectID)
     _ = payload.Set(jwt.IssuedAtKey, now.Unix())
     _ = payload.Set(jwt.ExpirationKey, now.Add(5*time.Minute).Unix())
 
@@ -91,13 +93,18 @@ from datetime import datetime, timedelta
 
 private_key = open("private-key.pem", "r").read()
 
-APP_ID = "myapp"
-KID = "mykid"
+# Replace "myapp" with your project ID here. 
+# It is the first part of your Authgear endpoint. 
+# e.g. The project ID is "myapp" for "https://myapp.authgearapps.com"
+PROJECT_ID = "myapp"
+
+# Replace "mykid" with the key ID you see in the portal.
+KEY_ID = "mykid"
 
 now = datetime.now()
 
 payload = {
-    "aud": [APP_ID],
+    "aud": [PROJECT_ID],
     "iat": int(now.timestamp()),
     "exp": int((now + timedelta(minutes=5)).timestamp()),
 }
@@ -107,7 +114,7 @@ token = jwt.encode(
     private_key,
     "RS256",
     headers={
-        "kid": KID,
+        "kid": KEY_ID,
     },
 )
 
