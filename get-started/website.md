@@ -16,29 +16,30 @@ From the Project listing, create a new Project or select an existing Project. Af
 
 1. Go to **Applications** on the left menu bar.
 2. Click **⊕Add Application** in the top tool bar.
-3. Input the name of your application, e.g. "MyAwesomeApp".
-4. Under **Authorized Redirect URIs**, Click "⊕Add URI".
-5. Decide a path in your website that users will be redirected to after they have authenticated with Authgear. e.g.`https://yourdomain.com/auth-redirect` , or `http://localhost:4000/auth-redirect` for local development.
-6. Fill in the Redirect URI that you have defined in the previous steps.
-7. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the Applications list later.
-8. (Optional) Click "Edit" if you wish to configure more authentication settings.
+3. Input the name of your application and select the application type **Single Page Application** or **Traditional Web Application**. Click "Save".
 
-![](<../.gitbook/assets/create-application (1).png>)
+![](<../.gitbook/assets/create-application-1.png>)
+
+4. You will see a list of guides that can help you for setting up, then click "Next".
+5. Decide the paths in your website that users will be redirected to after they have authenticated or logged out with Authgear.
+    - For after authentication (**Authorized Redirect URIs**). e.g.`https://yourdomain.com/after-authentication` , or `http://localhost:4000/after-authentication` for local development.
+    - For after logging out (**Post Logout Redirect URIs**). e.g.`https://yourdomain.com/after-logout` , or `http://localhost:4000/after-logout` for local development.
+
+6. Fill in the **Authorized Redirect URIs** and **Post Logout Redirect URIs** that you have defined in the previous steps.
+
+![](<../.gitbook/assets/edit-application-1.png>)
+
+7. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the applications list later.
+8. (Optional) Click the item in the applications list if you wish to configure more authentication settings.
 
 **Step 2: Configure the application**
 
-1. In **Edit Application**, if you are using [cookie-based authentication](authentication-approach/cookie-based.md), you can decide the path that the user redirects to after logout. Add the URI to **Post Logout Redirect URIs.**
-2. If you want to validate JWT access token in your server, under **Token Settings**, select **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
+1. Click the item in the applications list to enter **Edit Application** page.
+2. If you want to validate JWT access token in your server, under **Access Token**, turn on **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
 
-![](<../.gitbook/assets/edit-application (1).png>)
+![](<../.gitbook/assets/application-jwt.png>)
 
-**Step 3: Add your website to allowed origins**
-
-1. Go to **Applications** > **Allowed Origins**.
-2. Add your website origin to the allowed origins. e.g. `yourdomain.com` or `localhost:4000` for local development.
-3. Click "Save".
-
-**Step 4: Setup a custom domain (Required for** [**Cookie-based authentication**](authentication-approach/cookie-based.md)**)**
+**Step 3: Setup a custom domain (Required for** [**Cookie-based authentication**](authentication-approach/cookie-based.md)**)**
 
 1. Go to **Custom Domains**
 2. Add your custom domain in **Input New Domain**
@@ -52,16 +53,14 @@ For cookie-based authentication, users will log in via the custom domain e.g. _"
 
 {% tab title="authgear.yaml (self-deployed)" %}
 ```
-http:
-  allowed_origins:
-    - "yourdomain.com"
-    - "loclhost:4000" # example for local development
 oauth:
   clients:
     - name: mywebsite
       client_id: a_random_generated_string
       redirect_uris:
         - "https://yourdomain.com/auth-redirect"
+      post_logout_redirect_uris:
+        - "https://yourdomain.com/after-logout"
       grant_types:
         - authorization_code
         - refresh_token
