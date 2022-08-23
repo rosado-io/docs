@@ -28,7 +28,6 @@ From the Project listing, create a new Project or select an existing Project. Af
     - For after logging out (**Post Logout Redirect URIs**). e.g.`https://yourdomain.com/after-logout` , or `http://localhost:4000/after-logout` for local development.
 1. Fill in the **Authorized Redirect URIs** and **Post Logout Redirect URIs** that you have defined in the previous steps.
 1. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the applications list later.
-1. (Optional) Click the item in the applications list if you wish to configure more authentication settings.
 
 ![Edit an application](<../.gitbook/assets/edit-application-1.png>)
 

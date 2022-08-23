@@ -31,7 +31,6 @@ From the Project listing, create a new Project or select an existing Project. Af
 1. In your IDE, define a custom URI scheme that the users will be redirected back to your app after they have authenticated with Authgear, e.g. `com.myapp.example://host/path`.[^1]
 1. Head back to Authgear Portal, fill in the Redirect URI that you have defined in the previous steps.
 1. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the Applications list later.
-1. (Optional) Click the item in the applications list if you wish to configure more authentication settings.
 
 ![Edit an application](<../.gitbook/assets/edit-application-app.png>)
 
