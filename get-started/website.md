@@ -15,27 +15,26 @@ From the Project listing, create a new Project or select an existing Project. Af
 **Step 1: Create an application in the Portal**
 
 1. Go to **Applications** on the left menu bar.
-2. Click **⊕Add Application** in the top tool bar.
-3. Input the name of your application and select the application type **Single Page Application** or **Traditional Web Application**. Click "Save".
+1. Click **⊕Add Application** in the top tool bar.
+1. Input the name of your application and select the application type **Single Page Application** or **Traditional Web Application**. Click "Save".
+1. You will see a list of guides that can help you for setting up, then click "Next".
 
-![](<../.gitbook/assets/create-application-1.png>)
-
-4. You will see a list of guides that can help you for setting up, then click "Next".
-5. Decide the paths in your website that users will be redirected to after they have authenticated or logged out with Authgear.
-    - For after authentication (**Authorized Redirect URIs**). e.g.`https://yourdomain.com/after-authentication` , or `http://localhost:4000/after-authentication` for local development.
-    - For after logging out (**Post Logout Redirect URIs**). e.g.`https://yourdomain.com/after-logout` , or `http://localhost:4000/after-logout` for local development.
-
-6. Fill in the **Authorized Redirect URIs** and **Post Logout Redirect URIs** that you have defined in the previous steps.
-
-![](<../.gitbook/assets/edit-application-1.png>)
-
-7. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the applications list later.
-8. (Optional) Click the item in the applications list if you wish to configure more authentication settings.
+![Create an application](<../.gitbook/assets/create-application-1.png>)
 
 **Step 2: Configure the application**
 
-1. Click the item in the applications list to enter **Edit Application** page.
-2. If you want to validate JWT access token in your server, under **Access Token**, turn on **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
+1. Decide the paths in your website that users will be redirected to after they have authenticated or logged out with Authgear.
+    - For after authentication (**Authorized Redirect URIs**). e.g.`https://yourdomain.com/after-authentication` , or `http://localhost:4000/after-authentication` for local development.
+    - For after logging out (**Post Logout Redirect URIs**). e.g.`https://yourdomain.com/after-logout` , or `http://localhost:4000/after-logout` for local development.
+1. Fill in the **Authorized Redirect URIs** and **Post Logout Redirect URIs** that you have defined in the previous steps.
+1. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the applications list later.
+1. (Optional) Click the item in the applications list if you wish to configure more authentication settings.
+
+![Edit an application](<../.gitbook/assets/edit-application-1.png>)
+
+{% hint style="info" %}
+If you want to validate JWT access token in your server, under **Access Token**, turn on **Issue JWT as access token**. If you will forward incoming requests to Authgear Resolver Endpoint for authentication, leave this unchecked. See comparisons in [Backend Integration](backend-integration/).
+{% endhint %}
 
 ![](<../.gitbook/assets/application-jwt.png>)
 
