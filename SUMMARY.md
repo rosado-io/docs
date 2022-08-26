@@ -96,5 +96,6 @@
 * [Passwordless demo user for Apple App Review](tutorials/passwordless-demo-user-for-apple-app-review.md)
 * [Single-Page App](tutorials/spa/README.md)
   * [React Tutorial: User Auth with Authgear SDK](tutorials/spa/react.md)
+  * [Vue Tutorial: User Auth with Authgear SDK](tutorials/spa/vue.md)
 * [Local Development Setup](tutorials/local-setup/README.md)
   * [Cookie-based Authorization](tutorials/local-setup/local-cookie-based-web-setup.md)
