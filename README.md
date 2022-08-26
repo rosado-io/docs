@@ -8,7 +8,7 @@ description: Authgear is an authentication server for web and mobile apps.
 
 ### Quickstart guides
 
-Adding Authgear to your single-page app? Follow these tutorials to integrate Authgear with your favorite front-end frameworks.
+Adding Authgear to your single-page web app? Follow these tutorials to integrate Authgear with your favorite front-end frameworks.
 
 * [React](tutorials/spa/react.md)
 * [Vue](tutorials/spa/vue.md)
