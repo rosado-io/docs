@@ -120,7 +120,7 @@ When the user clicks login/signup on your app, you can use the following code to
 ```swift
 // your_redirect_uri is redirect uri registered on the applications page
 // e.g. com.myapp://host/path
-authgear.authorize(redirectURI: "{your_redirect_uri}", handler: { result in
+authgear.authenticate(redirectURI: "{your_redirect_uri}", handler: { result in
     switch result {
     case let .success(authResult):
         let userInfo = authResult.userInfo

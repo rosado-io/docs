@@ -234,11 +234,11 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
             }
         }
       ```
-  *   Provide `wechatRedirectURI` when calling `authorize` and `promoteAnonymousUser` in authgear sdk
+  *   Provide `wechatRedirectURI` when calling `authenticate` and `promoteAnonymousUser` in authgear sdk
 
       ```swift
         // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
-        container?.authorize(
+        container?.authenticate(
             redirectURI: "REDIRECT_URI",
             prompt: "login",
             wechatRedirectURI: "WECHAT_REDICRECT_URI_FOR_AUTHGEAR"
