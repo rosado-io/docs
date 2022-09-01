@@ -6,10 +6,6 @@ description: >-
 
 # Passkeys
 
-{% hint style="warning" %}
-This is a future in the roadmap planed to be released by the end of August.
-{% endhint %}
-
 Passkeys replace password and other passwordless login methods. It is built on the WebAuthn standard (also known as FIDO Sign-in), which uses public key cryptography to authenticate the user. With 1 click, Authgear upgrades your app to support this cutting-edge auth technology.
 
 #### Platform support and Multi-devices

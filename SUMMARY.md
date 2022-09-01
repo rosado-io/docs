@@ -19,6 +19,14 @@
   * [Validate JWT in your application server](get-started/backend-integration/jwt.md)
   * [Forward Authentication to Authgear Resolver Endpoint](get-started/backend-integration/nginx.md)
 
+## tutorials
+
+* [Single-Page App](tutorials/spa/README.md)
+  * [React Tutorial: User Auth with Authgear SDK](tutorials/spa/react.md)
+  * [Vue Tutorial: User Auth with Authgear SDK](tutorials/spa/vue.md)
+* [Local Development Setup](tutorials/local-setup/README.md)
+  * [Cookie-based Authorization](tutorials/local-setup/local-cookie-based-web-setup.md)
+
 ## Strategies
 
 * [User, Identity and Authenticator](strategies/user-identity-and-authenticator.md)
@@ -36,6 +44,7 @@
   * [Connect Apps to WeChat](strategies/how-to-setup-sso-integrations/wechat.md)
 * [Biometric login](strategies/biometric.md)
 * [Anonymous Users](strategies/anonymous-users.md)
+* [Passwordless Login for Apple App Store Review](strategies/passwordless-demo-user-for-apple-app-review.md)
 
 ## Integrate
 
@@ -90,11 +99,3 @@
 ## Security Concerns
 
 * [Non-HTTP scheme redirect URI](security-concerns/redirect-uri.md)
-
-## tutorials
-
-* [Passwordless demo user for Apple App Review](tutorials/passwordless-demo-user-for-apple-app-review.md)
-* [Single-Page App](tutorials/spa/README.md)
-  * [React Tutorial: User Auth with Authgear SDK](tutorials/spa/react.md)
-* [Local Development Setup](tutorials/local-setup/README.md)
-  * [Cookie-based Authorization](tutorials/local-setup/local-cookie-based-web-setup.md)

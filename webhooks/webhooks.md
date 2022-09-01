@@ -191,9 +191,38 @@ Occurs right before the user creation. User can be created by user signup, user 
 
 ```json
 {
+  "type": "user.pre_create",
   "payload": {
-    "user": { /* ... */ },
-    "identities": [ { /* ... */ } ]
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identities": [
+      {
+        "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+        "created_at": "2006-01-02T03:04:05.123456Z",
+        "updated_at": "2006-01-02T03:04:05.123456Z",
+        "type": "login_id",
+        "claims": {
+          "email": "user@example.com",
+          "https://authgear.com/claims/login_id/key": "email",
+          "https://authgear.com/claims/login_id/original_value": "user@example.com",
+          "https://authgear.com/claims/login_id/type": "email",
+          "https://authgear.com/claims/login_id/value": "user@example.com"
+        }
+      }
+    ]
   }
 }
 ```
@@ -204,12 +233,24 @@ Occurs right before the update of the user profile.
 
 ```json
 {
+  "type": "user.profile.pre_update",
   "payload": {
     "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
       "standard_attributes": {
-        /* ... */ 
+        "email": "user@example.com",
+        "email_verified": true,
+        "name": "Chris",
+        "updated_at": 1136171045
       }
-      /* ... */ 
     }
   }
 }
@@ -221,8 +262,25 @@ Occurs right before account deletion is scheduled.
 
 ```json
 {
+  "type": "user.pre_schedule_deletion",
   "payload": {
-    "user": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": true,
+      "is_deactivated": true,
+      "delete_at": "2022-09-30T15:18:19.040081Z",
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    }
   }
 }
 ```
@@ -233,9 +291,39 @@ Occurs after a new user is created. User can be created by user signup, user sig
 
 ```json
 {
+  "type": "user.created",
   "payload": {
-    "user": { /* ... */ },
-    "identities": [ { /* ... */ } ]
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identities": [
+      {
+        "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+        "created_at": "2006-01-02T03:04:05.123456Z",
+        "updated_at": "2006-01-02T03:04:05.123456Z",
+        "type": "login_id",
+        "claims": {
+          "email": "user@example.com",
+          "https://authgear.com/claims/login_id/key": "email",
+          "https://authgear.com/claims/login_id/original_value": "user@example.com",
+          "https://authgear.com/claims/login_id/type": "email",
+          "https://authgear.com/claims/login_id/value": "user@example.com"
+        }
+      }
+    ]
   }
 }
 ```
@@ -246,12 +334,24 @@ Occurs when the user profile is updated.
 
 ```json
 {
+  "type": "user.profile.updated",
   "payload": {
-    "user" : { 
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
       "standard_attributes": {
-        /* ... */ 
+        "email": "user@example.com",
+        "email_verified": true,
+        "name": "Chris",
+        "updated_at": 1136171045
       }
-      /* ... */ 
     }
   }
 }
@@ -263,9 +363,37 @@ Occurs after the user logged in.
 
 ```json
 {
+  "type": "user.authenticated",
   "payload": {
-    "user": { /* ... */ },
-    "session": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "session": {
+      "id": "6e6e5d9b-7f85-4a8f-a157-2de94694dfea",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "idp",
+      "amr": ["pwd"],
+      "lastAccessedAt": "2006-01-02T03:04:05.123456Z",
+      "createdByIP": "127.0.0.1",
+      "lastAccessedByIP": "127.0.0.1",
+      "lastAccessedByIPCountryCode": "",
+      "lastAccessedByIPEnglishCountryName": "",
+      "displayName": "Chrome 104.0.0"
+    }
   }
 }
 ```
@@ -276,8 +404,24 @@ Occurs when the user was disabled.
 
 ```json5
 {
+  "type": "user.disabled",
   "payload": {
-    "user": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": true,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    }
   }
 }
 ```
@@ -288,8 +432,24 @@ Occurs when the user was re-enabled.
 
 ```json5
 {
+  "type": "user.reenabled",
   "payload": {
-    "user": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    }
   }
 }
 ```
@@ -300,10 +460,55 @@ Occurs whenever an anonymous user is promoted to a normal user.
 
 ```json
 {
+  "type": "user.anonymous.promoted",
   "payload": {
-    "anonymous_user": { /* ... */ },
-    "user": { /* ... */ },
-    "identities": [{ /* ... */ }]
+    "anonymous_user": {
+      "id": "7a009f88-c636-4245-91ec-7b174dc6a1a1",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "user": {
+      "id": "7a009f88-c636-4245-91ec-7b174dc6a1a1",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identities": [
+      {
+        "id": "1450234b-5e2c-4aa0-b400-f2d9d70a2f45",
+        "created_at": "2006-01-02T03:04:05.123456Z",
+        "updated_at": "2006-01-02T03:04:05.123456Z",
+        "type": "login_id",
+        "claims": {
+          "email": "user@example.com",
+          "https://authgear.com/claims/login_id/key": "email",
+          "https://authgear.com/claims/login_id/original_value": "user@example.com",
+          "https://authgear.com/claims/login_id/type": "email",
+          "https://authgear.com/claims/login_id/value": "user@example.com"
+        }
+      }
+    ]
   }
 }
 ```
@@ -314,8 +519,25 @@ Occurs when an account deletion was scheduled.
 
 ```json5
 {
+  "type": "user.deletion_scheduled",
   "payload": {
-    "user": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": true,
+      "is_deactivated": true,
+      "delete_at": "2006-01-02T03:04:05.123456Z",
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    }
   }
 }
 ```
@@ -326,8 +548,24 @@ Occurs when an account deletion was unscheduled.
 
 ```json5
 {
+  "type": "user.deletion_unscheduled",
   "payload": {
-    "user": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    }
   }
 }
 ```
@@ -338,8 +576,24 @@ Occurs when the user was deleted.
 
 ```json5
 {
+  "type": "user.deleted",
   "payload": {
-    "user": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": false,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": false,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": false,
+        "updated_at": 1136171045
+      }
+    }
   }
 }
 ```
@@ -350,9 +604,39 @@ Occurs when a new email is added to an existing user. Email can be added by the 
 
 ```json
 {
+  "type": "identity.email.added",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "phone_number": "+447400123456",
+        "phone_number_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "a0c55481-147e-4a58-876e-10dffedfd5cd",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/original_value": "user@example.com",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user@example.com"
+      }
+    }
   }
 }
 ```
@@ -363,9 +647,37 @@ Occurs when an email address is removed from an existing user. Email can be remo
 
 ```json
 {
+  "type": "identity.email.removed",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "phone_number": "+447400123456",
+        "phone_number_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/original_value": "user@example.com",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user@example.com"
+      }
+    }
   }
 }
 ```
@@ -376,10 +688,50 @@ Occurs when an email address is updated. Email can be updated by the user on the
 
 ```json
 {
+  "type": "user.email.updated",
   "payload": {
-    "user": { /* ... */ },
-    "old_identity": { /* ... */ },
-    "new_identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user3@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "new_identity": {
+      "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user3@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/original_value": "user3@example.com",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user3@example.com"
+      }
+    },
+    "old_identity": {
+      "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/original_value": "user@example.com",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user@example.com"
+      }
+    }
   }
 }
 ```
@@ -390,9 +742,39 @@ Occurs when a new phone number is added to an existing user. Phone numbers can b
 
 ```json
 {
+  "type": "user.phone.added",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "phone_number": "+447400123456",
+        "phone_number_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "9fa5668d-a796-4817-93e1-d4096e5966ac",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "phone",
+        "https://authgear.com/claims/login_id/original_value": "+447400123456",
+        "https://authgear.com/claims/login_id/type": "phone",
+        "https://authgear.com/claims/login_id/value": "+447400123456",
+        "phone_number": "+447400123456"
+      }
+    }
   }
 }
 ```
@@ -403,9 +785,37 @@ Occurs when a phone number is removed from an existing user. Phone numbers can b
 
 ```json
 {
+  "type": "identity.phone.removed",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "9fa5668d-a796-4817-93e1-d4096e5966ac",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "phone",
+        "https://authgear.com/claims/login_id/original_value": "+447400123455",
+        "https://authgear.com/claims/login_id/type": "phone",
+        "https://authgear.com/claims/login_id/value": "+447400123455",
+        "phone_number": "+447400123455"
+      }
+    }
   }
 }
 ```
@@ -416,12 +826,55 @@ Occurs when a phone number is updated. Phone numbers can be updated by the user 
 
 ```json
 {
+  "type": "identity.phone.updated",
   "payload": {
-    "user": { /* ... */ },
-    "old_identity": { /* ... */ },
-    "new_identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "phone_number": "+447400123455",
+        "phone_number_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "new_identity": {
+      "id": "9fa5668d-a796-4817-93e1-d4096e5966ac",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "phone",
+        "https://authgear.com/claims/login_id/original_value": "+447400123455",
+        "https://authgear.com/claims/login_id/type": "phone",
+        "https://authgear.com/claims/login_id/value": "+447400123455",
+        "phone_number": "+447400123455"
+      }
+    },
+    "old_identity": {
+      "id": "9fa5668d-a796-4817-93e1-d4096e5966ac",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "phone",
+        "https://authgear.com/claims/login_id/original_value": "+447400123456",
+        "https://authgear.com/claims/login_id/type": "phone",
+        "https://authgear.com/claims/login_id/value": "+447400123456",
+        "phone_number": "+447400123456"
+      }
+    }
   }
 }
+
 ```
 
 #### identity.username.added
@@ -430,11 +883,41 @@ Occurs when a new username is added to an existing user. Username can be added b
 
 ```json
 {
+  "type": "identity.username.added",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "preferred_username": "user01",
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "38683500-f6ce-477d-b944-1f915a451995",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "username",
+        "https://authgear.com/claims/login_id/original_value": "user01",
+        "https://authgear.com/claims/login_id/type": "username",
+        "https://authgear.com/claims/login_id/value": "user01",
+        "preferred_username": "user01"
+      }
+    }
   }
 }
+
 ```
 
 #### identity.username.removed
@@ -443,9 +926,37 @@ Occurs when the username is removed from an existing user. The username can be r
 
 ```json
 {
+  "type": "identity.username.removed",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "38683500-f6ce-477d-b944-1f915a451995",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "username",
+        "https://authgear.com/claims/login_id/original_value": "user02",
+        "https://authgear.com/claims/login_id/type": "username",
+        "https://authgear.com/claims/login_id/value": "user02",
+        "preferred_username": "user02"
+      }
+    }
   }
 }
 ```
@@ -456,10 +967,51 @@ Occurs when the username is updated. The username can be updated by the user on 
 
 ```json
 {
+  "type": "identity.username.updated",
   "payload": {
-    "user": { /* ... */ },
-    "old_identity": { /* ... */ },
-    "new_identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "preferred_username": "user02",
+        "updated_at": 1136171045
+      }
+    },
+    "new_identity": {
+      "id": "38683500-f6ce-477d-b944-1f915a451995",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "username",
+        "https://authgear.com/claims/login_id/original_value": "user02",
+        "https://authgear.com/claims/login_id/type": "username",
+        "https://authgear.com/claims/login_id/value": "user02",
+        "preferred_username": "user02"
+      }
+    },
+    "old_identity": {
+      "id": "38683500-f6ce-477d-b944-1f915a451995",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "username",
+        "https://authgear.com/claims/login_id/original_value": "user01",
+        "https://authgear.com/claims/login_id/type": "username",
+        "https://authgear.com/claims/login_id/value": "user01",
+        "preferred_username": "user01"
+      }
+    }
   }
 }
 ```
@@ -470,11 +1022,62 @@ Occurs when a user has connected to a new OAuth provider.
 
 ```json
 {
+  "type": "identity.oauth.connected",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "f22425cf-68b2-45f8-936d-3c54c9cdf5c7",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "oauth",
+      "claims": {
+        "email": "xxx@gmail.com",
+        "email_verified": true,
+        "family_name": "",
+        "given_name": "",
+        "https://authgear.com/claims/oauth/profile": {
+          "at_hash": "",
+          "aud": ["xxx.apps.googleusercontent.com"],
+          "azp": "xxx.apps.googleusercontent.com",
+          "email": "xxx@gmail.com",
+          "email_verified": true,
+          "exp": "2006-01-02T03:04:05Z",
+          "family_name": "",
+          "given_name": "",
+          "iat": "2006-01-02T03:04:05Z",
+          "iss": "https://accounts.google.com",
+          "locale": "en",
+          "name": "",
+          "nonce": "",
+          "picture": "https://lh3.googleusercontent.com/a/xxx",
+          "sub": ""
+        },
+        "https://authgear.com/claims/oauth/provider_alias": "google",
+        "https://authgear.com/claims/oauth/provider_type": "google",
+        "https://authgear.com/claims/oauth/subject_id": "",
+        "locale": "en",
+        "name": "",
+        "picture": "https://lh3.googleusercontent.com/a/xxx"
+      }
+    }
   }
 }
+
 ```
 
 #### identity.oauth.disconnected
@@ -483,9 +1086,59 @@ Occurs when a user is disconnected from an OAuth provider. It can be done by the
 
 ```json
 {
+  "type": "identity.oauth.disconnected",
   "payload": {
-    "user": { /* ... */ },
-    "identity": { /* ... */ }
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "f22425cf-68b2-45f8-936d-3c54c9cdf5c7",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "oauth",
+      "claims": {
+        "email": "xxx@gmail.com",
+        "email_verified": true,
+        "family_name": "",
+        "given_name": "",
+        "https://authgear.com/claims/oauth/profile": {
+          "at_hash": "",
+          "aud": ["xxx.apps.googleusercontent.com"],
+          "azp": "xxx.apps.googleusercontent.com",
+          "email": "xxx@gmail.com",
+          "email_verified": true,
+          "exp": "2006-01-02T03:04:05Z",
+          "family_name": "",
+          "given_name": "",
+          "iat": "2006-01-02T03:04:05Z",
+          "iss": "https://accounts.google.com",
+          "locale": "en",
+          "name": "",
+          "nonce": "",
+          "picture": "https://lh3.googleusercontent.com/a/xxx",
+          "sub": ""
+        },
+        "https://authgear.com/claims/oauth/provider_alias": "google",
+        "https://authgear.com/claims/oauth/provider_type": "google",
+        "https://authgear.com/claims/oauth/subject_id": "",
+        "locale": "en",
+        "name": "",
+        "picture": "https://lh3.googleusercontent.com/a/xxx"
+      }
+    }
   }
 }
 ```
