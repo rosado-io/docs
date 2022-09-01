@@ -196,6 +196,8 @@ if (sessionState === "AUTHENTICATED") {
 }
 ```
 
+The value of `sessionState` can be `UNKNOWN`, `NO_SESSION` or `AUTHENTICATED`. Initially the `sessionState` is `UNKNOWN`. After a call to `authgear.configure`, the session state would become `AUTHENTICATED` if a previous session was found, or `NO_SESSION` if such session was not found. 
+
 The [`UserInfo`](../integrate/user-profile.md) object provides the unique identifier of the user from your Authgear project. See more details [here](../integrate/user-profile.md).
 
 ## Log the user out
