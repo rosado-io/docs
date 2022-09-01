@@ -20,27 +20,27 @@ From the Project listing, create a new Project or select an existing Project. Af
 **Step 1: Create an application in the Portal**
 
 1. Go to **Applications** on the left menu bar.
-1. Click **⊕Add Application** in the top tool bar.
-1. Input the name of your application and select **Native App** as the application type. Click "Save".
-1. You will see a list of guides that can help you for setting up, then click "Next".
+2. Click **⊕Add Application** in the top tool bar.
+3. Input the name of your application and select **Native App** as the application type. Click "Save".
+4. You will see a list of guides that can help you for setting up, then click "Next".
 
 ![Create an application](../.gitbook/assets/create-application-app-1.png)
 
 **Step 2: Configure the application**
 
-1. In your IDE, define a custom URI scheme that the users will be redirected back to your app after they have authenticated with Authgear, e.g. `com.myapp.example://host/path`.\[^1]
-1. Head back to Authgear Portal, fill in the URI that you have defined in the previous steps.
-1. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the Applications list later.
+1. In your IDE, define a custom URI scheme that the users will be redirected back to your app after they have authenticated with Authgear, e.g. `com.myapp.example://host/path`. For futher instruction on setting up custom URI scheme in React Native, see [https://reactnative.dev/docs/linking](https://reactnative.dev/docs/linking)
+2. Head back to Authgear Portal, fill in the URI that you have defined in the previous steps.
+3. Click "Save" in the top tool bar and keep the **Client ID**. You can also obtain it again from the Applications list later.
 
 ![Edit an application](../.gitbook/assets/edit-application-app.png)
 
 {% hint style="info" %}
-If you wish to [validate JSON Web Token (JWT) in your own application server](../backend-integration/jwt/), turn on "Issue JWT as access token".\[^2] If you wish to [forward authentication requests to Authgear Resolver Endpoint](../backend-integration/nginx/), leave this unchecked. See comparisons in [Backend Integration](../backend-integration/).
+If you wish to [validate JSON Web Token (JWT) in your own application server](../backend-integration/jwt/), turn on "Issue JWT as access token". If you wish to [forward authentication requests to Authgear Resolver Endpoint](../backend-integration/nginx/), leave this unchecked. See comparisons in [Backend Integration](../backend-integration/). For more explanation on JWT, see [https://en.wikipedia.org/wiki/JSON\_Web\_Token](https://en.wikipedia.org/wiki/JSON\_Web\_Token)
 {% endhint %}
 
 ![](../.gitbook/assets/application-jwt.png)
-
 {% endtab %}
+
 {% tab title="authgear.yaml (self-deployed)" %}
 ```yaml
 oauth:
@@ -269,7 +269,3 @@ To protect your application server from unauthorized access. You will need to **
 ## JavaScript SDK Reference
 
 For detailed documentation on the JavaScript React Native SDK, visit [@authgear/react-native Reference](https://authgear.github.io/authgear-sdk-js/docs/react-native/)
-
-### Footnote
-
-\[^1]: For futher instruction on setting up custom URI scheme in React Native, see [https://reactnative.dev/docs/linking](https://reactnative.dev/docs/linking) \[^2]: For more explaination on JWT, see [https://en.wikipedia.org/wiki/JSON\_Web\_Token](https://en.wikipedia.org/wiki/JSON\_Web\_Token)
