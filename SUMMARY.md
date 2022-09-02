@@ -24,6 +24,7 @@
 * [Single-Page App](tutorials/spa/README.md)
   * [React Tutorial: User Auth with Authgear SDK](tutorials/spa/react.md)
   * [Vue Tutorial: User Auth with Authgear SDK](tutorials/spa/vue.md)
+  * [Angular Tutorial: User Auth with Authgear SDK](tutorials/spa/angular.md)
 * [Local Development Setup](tutorials/local-setup/README.md)
   * [Cookie-based Authorization](tutorials/local-setup/local-cookie-based-web-setup.md)
 

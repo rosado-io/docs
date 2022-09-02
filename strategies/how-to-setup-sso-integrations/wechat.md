@@ -13,7 +13,7 @@ To create a website application in WeChat, you can choose to setup a website app
 * View the application detail page, obtain the "AppID" and "AppSecret" on the top of the application page.
 * Go to Account Center > Basic information, to obtain the "原始ID".
 
-![](../../.gitbook/assets/wechat-account-id.png)
+![](<../../.gitbook/assets/wechat-account-id (1).png>)
 
 ### Setup the Sandbox Application (微信公众平台接口测试帐号)
 
@@ -121,7 +121,7 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
 * Go to Account Center > Basic information, to obtain the "原始ID".
 
-![](../../.gitbook/assets/wechat-account-id.png)
+![](<../../.gitbook/assets/wechat-account-id (1).png>)
 
 * Save those values, we will need them in the section below.
 

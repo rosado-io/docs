@@ -15,3 +15,7 @@ description: >-
 {% content-ref url="vue.md" %}
 [vue.md](vue.md)
 {% endcontent-ref %}
+
+{% content-ref url="angular.md" %}
+[angular.md](angular.md)
+{% endcontent-ref %}
