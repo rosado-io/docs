@@ -74,6 +74,7 @@
   * [Generate the node id](apis/admin-apis/node-id.md)
   * [Update user's standard attributes](apis/admin-apis/update-users-standard-attributes.md)
   * [Update user's picture](apis/admin-apis/update-users-picture.md)
+  * [Search for users](apis/admin-apis/search-for-users.md)
 
 ## Webhooks
 
