@@ -2,6 +2,12 @@
 
 ## Overview
 
+{% hint style="info" %}
+Biometric login is supported for the following operating systems:
+- iOS 11.3 or higher
+- Android 6.0 (API 23) or higher
+{% endhint %}
+
 Authgear supports enabling biometric login in the native mobile application. You will need to
 
 1. Enable biometric login in your application via the portal.
