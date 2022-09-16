@@ -6,8 +6,7 @@ description: How to integrate with a Flutter app
 
 This guide provides instructions to integrate Authgear with a Flutter app. Supported platforms include:
 
-* Android
-* iOS
+* Flutter 2.5.0 or higher
 
 ## Setup Application in Authgear
 
