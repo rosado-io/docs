@@ -4,6 +4,12 @@ description: Integrate Authgear to your website with the Web SDK
 
 # Web SDK
 
+This guide provides instructions to integrate Authgear with a Web app. Supported platforms include:
+
+* Last 2 Firefox major versions
+* Last 2 Chrome major versions
+* Last 3 iOS major versions
+
 ## Setup Application in Authgear
 
 Signup for an Authgear Portal account in [https://portal.authgearapps.com/](https://portal.authgearapps.com/). Or you can use your self-deployed Authgear.
