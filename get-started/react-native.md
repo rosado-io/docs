@@ -9,7 +9,8 @@ This guide provides instructions on integrating Authgear with a React Native app
 * React Native 0.60.0 or higher
 
 {% hint style="info" %}
-React Native have released the [New Architecture](https://reactnative.dev/docs/new-architecture-intro) since 0.68. Unfortunately, we do not yet support this architecture at this moment.
+React Native have opt-in support for the [New Architecture](https://reactnative.dev/docs/new-architecture-intro) since 0.68.
+Given that the New Architecture is still considered as unstable, we do not support it at the moment.
 {% endhint %}
 
 ## Setup Application in Authgear
