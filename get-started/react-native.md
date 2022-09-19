@@ -4,7 +4,7 @@ description: How to integrate with a React Native app
 
 # React Native SDK
 
-This guide provides instructions to integrate Authgear with a React Native app. Supported platforms include:
+This guide provides instructions on integrating Authgear with a React Native app. Supported platforms include:
 
 * React Native 0.60.0 or higher
 

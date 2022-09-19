@@ -4,7 +4,7 @@ description: How to integrate with a Xamarin app
 
 # Xamarin SDK
 
-This guide provides instructions to integrate Authgear with a Xamarin app. Supported packages include:
+This guide provides instructions on integrating Authgear with a Xamarin app. Supported packages include:
 
 * Xamarin.Essentials 1.7.2 or higher
 * Xamarin.Forms 5.0.0.2401 or higher

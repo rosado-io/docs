@@ -4,7 +4,7 @@ description: Integrate your iOS application with Authgear iOS SDK
 
 # iOS SDK
 
-This guide provides instructions to integrate Authgear with an iOS app. Supported platforms include:
+This guide provides instructions on integrating Authgear with an iOS app. Supported platforms include:
 
 * iOS 11.0 or higher
 

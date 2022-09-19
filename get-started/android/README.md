@@ -4,7 +4,7 @@ description: How to use authgear android SDK
 
 # Android SDK
 
-This guide provides instructions to integrate Authgear with an Android app. Supported platforms include:
+This guide provides instructions on integrating Authgear with an Android app. Supported platforms include:
 
 * Android 5.0 (API 21) or higher
 
