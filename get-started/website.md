@@ -8,7 +8,8 @@ This guide provides instructions to integrate Authgear with a Web app. Supported
 
 * Last 2 Firefox major versions
 * Last 2 Chrome major versions
-* Last 3 iOS major versions
+* Last 2 Edge major versions
+* Last 3 Safari major versions
 
 ## Setup Application in Authgear
 
