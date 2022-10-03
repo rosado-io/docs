@@ -130,7 +130,7 @@ print(token)
 ```json
 {
   "alg": "RS256",
-  "kid": "THE_KEY_ID",
+  "kid": "REPLACE_YOUR_KEY_ID_HERE",
   "typ": "JWT"
 }
 ```
@@ -140,7 +140,7 @@ print(token)
 ```json
 {
   "aud": [
-    "THE_APP_ID"
+    "REPLACE_YOUR_PROJECT_ID_HERE"
   ],
   "exp": 1136257445,
   "iat": 1136171045
