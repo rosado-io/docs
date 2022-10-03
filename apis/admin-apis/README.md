@@ -18,6 +18,8 @@ Accessing the Admin API GraphQL endpoint requires your server to generate a vali
 
 ### Generating the JWT with the private key
 
+#### Sample code to generate the JWT
+
 Here is the sample code of how to generate the JWT with the private key.
 
 {% tabs %}
@@ -122,6 +124,28 @@ print(token)
 ```
 {% endtab %}
 {% endtabs %}
+
+#### Example of the JWT header
+
+```json
+{
+  "alg": "RS256",
+  "kid": "THE_KEY_ID",
+  "typ": "JWT"
+}
+```
+
+#### Example of the JWT payload
+
+```json
+{
+  "aud": [
+    "THE_APP_ID"
+  ],
+  "exp": 1136257445,
+  "iat": 1136171045
+}
+```
 
 ### Including the JWT in the HTTP request
 
