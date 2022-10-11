@@ -19,21 +19,13 @@ cd myapp
 
 First, we need to create authgear.yaml and authgear.secrets.yaml. Authgear itself is a CLI program capable of generating a minimal configuration file.
 
-Run the following command to generate a minimal authgear.yaml:
+Run the following command to generate minimal authgear.yaml and authgear.secrets.yaml:
 
 ```bash
-docker run --rm -it -w "/work" -v "$PWD:/work" quay.io/theauthgear/authgear-server authgear init config
+docker run --rm -it -w "/work" -v "$PWD:/work" quay.io/theauthgear/authgear-server authgear init
 ```
 
-authgear.yaml is generated in your working directory.
-
-Run the following command to generate a minimal authgear.secrets.yaml:
-
-```bash
-docker run --rm -it -w "/work" -v "$PWD:/work" quay.io/theauthgear/authgear-server authgear init secrets
-```
-
-authgear.secrets.yaml is now generated in your working directory.
+authgear.yaml and authgear.secrets.yaml are generated in your working directory.
 
 ## Create docker-compose.yaml
 
