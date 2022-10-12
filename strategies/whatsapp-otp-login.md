@@ -10,12 +10,8 @@ Upgrade to **Developers** plan or higher to use this feature.
 
 To enable this feature from the Portal:
 
-1. In "**Authentication > Login ID**", enable **Phone Number**. So the users can login with their phone numbers.
-2. In "**Authentication > Authenticators**", under "**Primary Authenticator**", enable "**Passwordless via Phone**".
-3. In "**Authentication > Verification**", make sure users can verify their phone number by WhatsApp.
-
-![Enable Phone number as Login IDs](../.gitbook/assets/Iogin-id-phone.png)
-
-![Activate "Passwordless via Phone" in Primary Authenticators](<../.gitbook/assets/authenticators-passwordless-via-phone (1).png>)
-
-![Verify Phone number by WhatsApp](../.gitbook/assets/phone-no-verify-whatsapp.png)
+1. Go to **Authentication > Login Methods**, we are going make few changes on this page.
+2. In the top section of **Select Login Methods**, select **Mobile**.
+3. In **Authentication** of **Select Login Methods**, select **Passwordless**.
+4. In the tabs section below, switch to the tab **Verification and OTP**.
+5. In the dropdown **Verify phone number by**, select either **WhatsApp or SMS** or **WhatsApp only**.
