@@ -19,6 +19,7 @@ To assist you in building the greatest NFT-gated application ever, Authgear adds
 At the current stage, the following token types are supported:
 
 * [ERC-721](https://eips.ethereum.org/EIPS/eip-721)
+* [ERC-1155](https://eips.ethereum.org/EIPS/eip-1155)
 
 **UserInfo**
 
@@ -38,19 +39,21 @@ At the current stage, the following token types are supported:
           {
             "contract": {
               "name": "ExampleCollection",
-              "address": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
+              "address": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85",
+              "type": "erc1155"
             },
-            "balance": 1,
             "tokens": [
               {
                 "token_id": 1,
                 "transaction_identifier": {
-                  "hash": "0x1a2bed0813d524955926eb190018d9d8738836265b352e1c43dc2d5762f9c20B"
+                  "hash": "0x1a2bed0813d524955926eb190018d9d8738836265b352e1c43dc2d5762f9c20B",
+                  "index": 20
                 },
                 "block_identifier": {
                   "index": 12961059,
                   "timestamp": "2022-09-01T08:17:50Z"
-                }
+                },
+                "balance": "200"
               }
             ]
           }
@@ -68,7 +71,7 @@ To enable "Sign In With Ethereum" to your apps and websites:
 1. In your project portal, go to "**Authentication > Ethereum & NFT**"
 2. Turn on the "**Login With Ethereum**" toggle
 3. Select your favourite blockchain network from the "**Network**" dropdown below
-4. Press "Save" and "Confirm" and :tada: now your app supports sign in with ethereum!
+4. Press "**Save**" then "**Confirm**" and :tada: now your app supports sign in with ethereum!
 
 {% hint style="info" %}
 To prevent Web2 and Web3 identities being mixed together, Authgear has made it so that enabling "Sign In With Ethereum" would disable all your previously enabled identities and primary authenticators.
@@ -85,8 +88,16 @@ To populate user info with NFT tokens from the collections of your choice:
 3. Select the blockchain network from the "**Network**" for where your NFT collection is based on
 4. In the "**NFT Collections**" section, press "**Add Collection**", this will add an extra text field to the section
 5. Enter the contract address of the NFT collections in the "**Contract Address**" text field
-6. Press "Add" and :tada: your app is now monitoring the NFT collection!
+6. Select the token type of the contract address
+  1. In the case of an ERC-1155 being selected, you will be prompted with a token tracking dialog
+  2. Enter the desire token IDs and press "**Continue**"
+7. Press "**Add**" and you will see your collection is now in the pending collection list
+8. Press "**Save**" then "**Confirm**" and :tada: your app is now monitoring the NFT collection!
 
 {% hint style="info" %}
-It will take a few minutes for Authgear to index the NFT tokens for your collections. You may see the synchronization progress from the "**Detail**" modal that can be opened from the collection list item. Once the "**Block Height**" of the collection reaches the current height of the blockchain, it is fully synchronized and indexed. 
+Authgear sticks close to the ERC-721 and ERC-1155 standard implementation. If an error is shown that states that your NFT collection is not supported, it is possible that the collection has an alternative implementation of the ERC-721 or ERC-1155 standard
+{% endhint %}
+
+{% hint style="info" %}
+Once the collection starts being monitored, it will take a few minutes for Authgear to synchronize the NFT tokens for your users.
 {% endhint %}
