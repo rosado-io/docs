@@ -22,14 +22,14 @@ Besides the built-in support of all major desktop and mobile platforms, passkeys
 
 Authgear add passkey feature to your apps and websites instantly. To enable it:
 
-1. In your project portal, go to "**Authentication > Authenticators**"
-2. In the "**Primary Authenticator**" section, turn on the "**Login with Passkeys**" toggle.
+1. In your project portal, go to **Authentication > Login Methods**.
+2. In the **Select Login Methods** section, turn on the **Enable passkey support for compatible devices.** toggle.
 3. Press "Save" and :tada: your app now support passkey login!
 
 {% hint style="info" %}
 It will take time for the passkey technology to be available on everyone devices. In the transition stage, it is recommended to enable "Password" or "Passwordless via Email/Phone" in your project so users with non-compatible devices can access your app.
 
-If you want to use ONLY passkeys in your app, it's perfectly supported too! Just turn off all "Primary Authenticators" and leave "**Login with Passkeys**" on.
+If you want to use ONLY passkeys in your app, it's perfectly supported too! Select **Custom** and deactivate all authenticators in the **Custom Login Methods** tab. Remember to keep **Enable passkey support for compatible devices.** turned on.
 {% endhint %}
 
 ## Support on different platforms
