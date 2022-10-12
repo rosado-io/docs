@@ -17,17 +17,18 @@
 
 If you have finished the above prerequisite, you should have the following information:
 
-1. The tenant name, obtained in Step 2
-2. The application (client) ID, obtained in Step 5
-3. The policy (user flow) name, obtained in Step 7
+1. The **Tenant Name**, obtained in Step 2
+2. The **Application (Client) ID**, obtained in Step 5
+3. The **Policy (User flow) Name**, obtained in Step 7
 
-Then in Authgear portal, go to "Single-Sign On" page, and do the following:
+Then in Authgear portal, do the following:
 
-1. Enable "Sign in with Microsoft Azure AD B2C".
-2. Fill in "Client ID" with the application (client) ID above.
-3. Fill in "Client secret" with the client secret you get when you create the app registration.
-4. Fill in "Tenant" with the Azure AD B2C tenant name.
-5. Fill in "Policy" with the policy (user flow) name. It starts with `b2c_1_`.
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with Microsoft Azure AD B2C**.
+2. Fill in **Client ID** with the **Application (Client) ID** above.
+3. Fill in **Client secret** with the client secret you get when you create the app registration.
+4. Fill in **Tenant** with the Azure AD B2C **Tenant Name**.
+5. Fill in **Policy** with the **Policy (User Flow) Name**. Normally it starts with `b2c_`.
 6. **Save** the changes
 
 🎉 Done! You have just added Azure AD B2C Login to your apps!

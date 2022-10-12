@@ -11,10 +11,9 @@ Redirect URI has the form of `/sso/oauth2/callback/:alias`. The `alias` is used 
 
 ## Configure Sign in with Microsoft AD FS through the portal
 
-In Authgear portal, go to "Single-Sign On" page, then do the following:
-
-1. Enable "Sign in with Microsoft AD FS"
-2. Fill in "Client ID", "Client Secret" and "Discovery Document Endpoint"
-3. **Save** the settings.
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with Microsoft AD FS**.
+3. Fill in **Client ID**, **Client Secret** and **Discovery Document Endpoint**.
+4. **Save** the settings.
 
 🎉 Done! You have just added Microsoft AD FS Login to your apps!

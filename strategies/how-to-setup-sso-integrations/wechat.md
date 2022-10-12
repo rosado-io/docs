@@ -89,14 +89,15 @@ func main() {
 
 ### Configure Sign in with WeChat through the Authgear portal
 
-In the portal, go to "Single-Sign On" page, then do the following:
+In the portal, do the following:
 
-* Enable "Sign in with WeChat (Web/网站应用)"
-* Fill in "Client ID" with the "AppID".
-* Fill in "Client Secret" with the "AppSecret".
-* Fill in "原始 ID" with the "原始 ID".
-* Check the checkbox "Is Sandbox account" if you are using sandbox account.
-* Click save.
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with WeChat (Web/网站应用)**.
+3. Fill in **Client ID** with the **AppID**.
+4. Fill in **Client Secret** with the **AppSecret**.
+5. Fill in **原始 ID** with the **原始 ID**.
+6. Check the checkbox **Is Sandbox account** if you are using sandbox account.
+7. **Save** the settings.
 
 ## Mobile app (Native iOS app, Native Android app, React Native, and Flutter)
 
@@ -151,13 +152,14 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
 * Fill in "Bundle ID" field with your app bundle id.
 * Fill in "Universal Links" with "WECHAT\_UNIVERICAL\_LINK" above.
-* Login Authgear portal, go to "Single-Sign On" page, then do the following:
-  * Enable "Sign in with WeChat (Mobile/移动应用)"
-  * Fill in "Client ID" with the WeChat "AppID".
-  * Fill in "Client Secret" with the WeChat "AppSecret".
-  * Fill in "原始 ID" with the WeChat "原始 ID".
-  * Add "WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR" above into "WeChat redirect URIs"
-  * Click save.
+* Go to Authgear portal, do the following:
+  * In the portal, go to **Authentication > Social / Enterprise Login**.
+  * Enable **Sign in with WeChat (Mobile/移动应用)**.
+  * Fill in **Client ID** with the **AppID**.
+  * Fill in **Client Secret** with the **AppSecret**.
+  * Fill in **原始 ID** with the **原始 ID**.
+  * Add **WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR** above in **WeChat redirect URIs**.
+  * **Save** the settings.
 * Update the code
   *   Setup WeChat SDK when app launch
 
@@ -274,13 +276,14 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 * Fill in your package name
 * We will need to define a custom url for Authgear SDK to trigger delegate function when user click "Login with WeChat" button. Here is the example, you should update it with your own scheme.
   * **"WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR"**: `com.myapp://host/open_wechat_app`
-* Login Authgear portal, go to "Single-Sign On" page, then do the following:
-  * Enable "Sign in with WeChat (Mobile/移动应用)"
-  * Fill in "Client ID" with the WeChat "AppID".
-  * Fill in "Client Secret" with the WeChat "AppSecret".
-  * Fill in "原始 ID" with the WeChat "原始 ID".
-  * Add "WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR" above into "WeChat redirect URIs"
-  * Click save.
+* Go to Authgear portal, do the following:
+  * In the portal, go to **Authentication > Social / Enterprise Login**.
+  * Enable **Sign in with WeChat (Mobile/移动应用)**.
+  * Fill in **Client ID** with the **AppID**.
+  * Fill in **Client Secret** with the **AppSecret**.
+  * Fill in **原始 ID** with the **原始 ID**.
+  * Add **WECHAT\_REDICRECT\_URI\_FOR\_AUTHGEAR** above in **WeChat redirect URIs**.
+  * **Save** the settings.
 * Update the code
   *   Update application `AndroidManifest.xml`
 

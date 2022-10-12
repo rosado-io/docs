@@ -21,20 +21,14 @@ Redirect URI has the form of `/sso/oauth2/callback/:alias`. The `alias` is used 
 
 ## Configure Sign in with Microsoft through the portal
 
-In the Azure portal, go to the details page of your app, you can find:
-
-1. Application (client) ID
-2. Directory (tenant) ID
-
-Then in Authgear portal, go to "Single-Sign On" page, and do the following:
-
-1. Enable "Sign in with Microsoft"
-2. Fill in "Client ID" with "Application (client) ID" above
-3. Fill in "Client secret" with the secret you get after creating a client secret for your app.
-4. For "Tenant" field:
-   * If single tenant (first option) is chosen, input the "Directory (tenant) ID"
-   * If multi tenant (second option) is chosen, input the string "organizations"
-   * If multi tenant and personal account (third option) is chosen, input the string "common"
-5. **Save** the settings
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with Microsoft**
+3. Fill in **Client ID** with **Application (client) ID** of your just created Azure AD application.
+4. Fill in **Client Secret**" with the secret you get after creating a client secret for your Azure AD application.
+5. For **Tenant** field:
+   * If **single tenant (first option)** is chosen, fill in the **Directory (tenant) ID** of your Azure AD application.
+   * If **multi tenant (second option)** is chosen, fill in the string literal `organizations`.
+   * If **multi tenant and personal account (third option)** is chosen, fill in the string literal `common`.
+6. **Save** the settings.
 
 🎉 Done! You have just added Azure Active Directory (Azure AD) Login to your apps!
