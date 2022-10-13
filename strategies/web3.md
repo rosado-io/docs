@@ -46,8 +46,7 @@ At the current stage, the following token types are supported:
               {
                 "token_id": 1,
                 "transaction_identifier": {
-                  "hash": "0x1a2bed0813d524955926eb190018d9d8738836265b352e1c43dc2d5762f9c20B",
-                  "index": 20
+                  "hash": "0x1a2bed0813d524955926eb190018d9d8738836265b352e1c43dc2d5762f9c20B"
                 },
                 "block_identifier": {
                   "index": 12961059,
