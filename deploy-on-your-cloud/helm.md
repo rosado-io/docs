@@ -206,13 +206,44 @@ It is recommended to create these 2 namespaces.
 - `authgear`: Install the helm chart in this namespace
 - `authgear-apps`: Authgear-generated resources are in this namespace.
 
+```sh
+$ kubectl create namespace authgear
+$ kubectl create namespace authgear-apps
+```
+
 ### Create your own Helm chart
 
 You need to create a few Kubernetes resources to support the Authgear Helm chart.
 So the best way is to create your own Helm chart and make the Authgear Helm chart a dependency.
 
-Create your Helm chart with `helm create authgear-deploy`.
-Remove the generated boilerplate `.yaml` in the `templates/` directory.
+#### Create the Helm chart
+
+Create your Helm chart and then remove the generated boilerplate `.yaml` in the `templates/` directory.
+
+```sh
+$ helm create authgear-deploy
+$ cd authgear-deploy/templates
+$ rm -r test/ NOTES.txt deployment.yaml hpa.yaml ingress.yaml service.yaml serviceaccount.yaml
+$ cd -
+```
+
+#### Add Authgear as dependency
+
+Open `Chart.yaml` with your editor and make the following changes.
+The latest version can be found [here](https://github.com/authgear/helm-charts/releases).
+
+```diff
+--- a/authgear-deploy/Chart.yaml
++++ b/authgear-deploy/Chart.yaml
+@@ -3,3 +3,7 @@ name: authgear-deploy
+ type: application
+ version: 0.1.0
+ appVersion: 0.1.0
++dependencies:
++- name: authgear
++  version: "USE_LATEST_VERSION_HERE"
++  repository: "https://authgear.github.io/helm-charts"
+```
 
 #### Prepare the values.yaml
 
