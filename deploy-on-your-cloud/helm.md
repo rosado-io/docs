@@ -237,6 +237,9 @@ $ docker run --rm -it quay.io/theauthgear/authgear-server authgear database migr
 $ docker run --rm -it quay.io/theauthgear/authgear-server authgear images database migrate up \
   --database-url DATABASE_URL \
   --database-schema public
+$ docker run --rm -it quay.io/theauthgear/authgear-server authgear audit database migrate up \
+  --database-url DATABASE_URL \
+  --database-schema public
 $ docker run --rm -it quay.io/theauthgear/authgear-portal authgear-portal database migrate up \
   --database-url DATABASE_URL \
   --database-schema public
@@ -249,6 +252,9 @@ $ ./authgear database migrate up \
   --database-url DATABASE_URL \
   --database-schema public
 $ ./authgear images database migrate up \
+  --database-url DATABASE_URL \
+  --database-schema public
+$ ./authgear audit database migrate up \
   --database-url DATABASE_URL \
   --database-schema public
 $ ./authgear-portal database migrate up \
