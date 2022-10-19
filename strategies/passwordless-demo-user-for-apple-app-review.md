@@ -12,9 +12,12 @@ However passwordless login via email/phone OTP cannot be used in the review beca
 
 You can create a demo account with email/phone and password by turning password on temporarily. In the project portal:
 
-1. Go to "**Authentication > Authenticators**" and turn on "**Password**"
-2. In "**User Management**", press "**Add User**" in the command bar.
-3. **Create the demo user** by inputing the email address and password
-4. Go to "**Authentication > Authenticators**" and turn off "**Password**"
-5. Now you can login as the demo user in your app with the email and password
+1. Go to **Authentication > Login Methods**.
+2. In **Select Login Methods**, select **Custom**.
+3. In the tabs section below, select the tab **Custom Login Methods**.
+4. In **Custom Login Methods**, activate **Password**.
+5. Go to **User Management**, press **Add User** in the command bar.
+3. **Create the demo user** by entering the email address and password
+4. Go to where you were in Step 4, deactivate **Password**.
+5. Now you can login as the demo user in your app with the email and password.
 6. Submit your app for review with the credentials.

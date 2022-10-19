@@ -44,12 +44,10 @@ You will need the values of **Client ID**, **Client secret** to configure Google
 
 ### Configure in Authgear Portal
 
-![](../../.gitbook/assets/authgear\_sso\_google.png)
-
-1. In the portal, go to **Single-Sign On** page in your project
-2. Enable **Sign in with Google**
-3. Fill in the **Client ID** and **Client Secret** with the values obtained from the previous step
-4. **Save** the settings
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with Google**.
+3. Fill in the **Client ID** and **Client Secret** with the values obtained from the previous step.
+4. **Save** the settings.
 
 🎉Done! You have just added Google Sign In to your apps!
 

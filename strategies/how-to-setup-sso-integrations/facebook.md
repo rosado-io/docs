@@ -42,13 +42,11 @@ Your will need the **App ID** and **App Secret** to configure Facebook Login.
 
 ### Configure in Authgear Portal
 
-![](../../.gitbook/assets/authgear_sso_facebook.png)
-
-1. In the portal, go to **Single-Sign On** page in your project
-2. Enable **Login with Facebook**
-3. Fill in the **Client ID** with the **App ID** obtained from the previous step
-4. Fill in the **Client Secret** with the **App Secret** obtained from the previous step
-5. **Save** the settings
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Login with Facebook**.
+3. Fill in the **Client ID** with the **App ID** obtained from the previous step.
+4. Fill in the **Client Secret** with the **App Secret** obtained from the previous step.
+5. **Save** the settings.
 
 🎉 Done! You have just added Facebook Login to your apps!
 
@@ -57,4 +55,3 @@ Your end-users can now sign in with Facebook on Authgear pre-built Log In and Si
 ![&quot;Login with Facebook&quot; in Log in and Sign up page](../../.gitbook/assets/facebook_sign_in.png)
 
 ![Your end-users can connect to their Facebook account in User Settings page](../../.gitbook/assets/connect_with_facebook.png)
-

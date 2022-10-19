@@ -17,13 +17,13 @@ A pair of cryptographic keys will be generated upon registering biometric login.
 
 Sounds overwhelming? Authgear's magic handle all these for you. Follow this guide to enable biometric login in your app with a few lines of code.
 
-## Enable biometric login in your application
+## Enable biometric authentication for your project
 
 {% tabs %}
 {% tab title="Portal" %}
-1. In the portal, go to "Biometric Authentication".
-2. Turn on "Enable biometric authentication".
-3. Click "Save".
+1. In the portal, go to **Authentication > Biometric**.
+2. Turn on **Enable biometric authentication**.
+3. **Save** the settings.
 {% endtab %}
 
 {% tab title="authgear.yaml" %}

@@ -13,10 +13,10 @@ Redirect URI has the form of `/sso/oauth2/callback/:alias`. The `alias` is used 
 
 ## Configure Sign in with LinkedIn through the portal
 
-In Authgear portal, go to the "Single-Sign On" page, then do the following:
-
-1. Enable "Sign in with LinkedIn"
-2. Fill in "Client ID" and "Client Secret" obtained above
-3. **Save** the settings
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with LinkedIn**.
+3. Fill in **Client ID**.
+4. Fill in **Client Secret**.
+5. **Save** the settings.
 
 🎉 Done! You have just added Linkedin Login to your apps!

@@ -8,11 +8,10 @@
 
 ## Configure Sign in with GitHub through the portal
 
-Go to "Single-Sign On" page, and do the following:
-
-1. Enable "Sign in with GitHub"
-2. Fill in "Client ID".
-3. Fill in "Client Secret".
+1. In the portal, go to **Authentication > Social / Enterprise Login**.
+2. Enable **Sign in with GitHub**.
+2. Fill in **Client ID**.
+3. Fill in **Client Secret**.
 4. **Save** the changes.
 
 🎉 Done! You have just added GitHub integration to your apps!
