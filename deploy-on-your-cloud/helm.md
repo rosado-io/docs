@@ -343,53 +343,32 @@ Create the following directory structure
 $ mkdir -p resources/authgear
 ```
 
-Generate the `authgear.yaml`.
-Save the output to `resources/authgear/authgear.yaml`.
+Generate the `authgear.yaml` and `authgear.secrets.yaml`.
+Save the files to `resources/authgear` folder.
 
 {% tabs %}
 
 {% tab title="Docker" %}
 ```sh
-$ docker run --rm -it quay.io/theauthgear/authgear-server authgear init authgear.yaml -o -
+$ docker run -v "$PWD"/resources:/app/resources --rm -it authgear-server authgear init \
+  --output-folder=resources/authgear \
+  --for-helm-chart
 App ID (default 'my-app'): accounts
 HTTP origin of authgear (default 'http://localhost:3000'): https://accounts.portal.myapp.com
+HTTP origin of portal (default 'http://portal.localhost:8000'): https://portal.myapp.com
+Would you like to turn off email verification? (In case you don't have SMTP credentials in your initial setup) [Y/N] (default 'false'): N
 ```
 {% endtab %}
 
 {% tab title="Binary" %}
 ```sh
-$ ./authgear init authgear.yaml -o -
+$ ./authgear init \
+  --output-folder=resources/authgear \
+  --for-helm-chart
 App ID (default 'my-app'): accounts
 HTTP origin of authgear (default 'http://localhost:3000'): https://accounts.portal.myapp.com
-```
-{% endtab %}
-
-{% endtabs %}
-
-Generate the `authgear.secrets.yaml`.
-Save the output to `resources/authgear/authgear.secrets.yaml`.
-You must remove the `"db"`, `"redis"` and `"elasticsearch"` items from it.
-These items are included in the Secret you created in the previous step.
-
-{% tabs %}
-
-{% tab title="Docker" %}
-```sh
-$ docker run --rm -it quay.io/theauthgear/authgear-server authgear init authgear.secrets.yaml -o -
-Database URL (default 'postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable'):
-Database schema (default 'public'):
-Elasticsearch URL (default 'http://localhost:9200'):
-Redis URL (default 'redis://localhost'):
-```
-{% endtab %}
-
-{% tab title="Binary" %}
-```sh
-$ ./authgear init authgear.secrets.yaml -o -
-Database URL (default 'postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable'):
-Database schema (default 'public'):
-Elasticsearch URL (default 'http://localhost:9200'):
-Redis URL (default 'redis://localhost'):
+HTTP origin of portal (default 'http://portal.localhost:8000'): https://portal.myapp.com
+Would you like to turn off email verification? (In case you don't have SMTP credentials in your initial setup) [Y/N] (default 'false'): N
 ```
 {% endtab %}
 
