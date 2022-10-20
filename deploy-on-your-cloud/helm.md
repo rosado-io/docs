@@ -245,6 +245,12 @@ The latest version can be found [here](https://github.com/authgear/helm-charts/r
 +  repository: "https://authgear.github.io/helm-charts"
 ```
 
+Run the following to download dependencies.
+
+```sh
+$ helm dependency update ./authgear-deploy
+```
+
 #### Prepare the values.yaml
 
 Refer to [Helm chart values reference](#helm-chart-values-reference) and
