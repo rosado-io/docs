@@ -251,11 +251,6 @@ Run the following to download dependencies.
 $ helm dependency update ./authgear-deploy
 ```
 
-#### Prepare the values.yaml
-
-Refer to [Helm chart values reference](#helm-chart-values-reference) and
-prepare the `./authgear-deploy/values.yaml`.
-
 #### Create cert-manager HTTP01 issuer and DNS01 issuer
 
 You need to create a [HTTP01 issuer](https://cert-manager.io/docs/configuration/acme/http01/) and
@@ -405,6 +400,13 @@ $ ./authgear-portal internal setup-portal ./resources/authgear \
 {% endtab %}
 
 {% endtabs %}
+
+#### Prepare the values.yaml
+
+Refer to [Helm chart values reference](#helm-chart-values-reference) and
+prepare the `./authgear-deploy/values.yaml`.
+
+Remember to provide the correct client ID. The client ID can be found in the generated `authgear.yaml`.
 
 #### Install your Helm chart
 
