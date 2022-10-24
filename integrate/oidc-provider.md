@@ -39,6 +39,7 @@ In this section, we are going to demonstrate how to use Authgear as the OIDC pro
         - Example: `https://{AUTHGEAR_APP_DOMAIN}/oauth2/userinfo`.
     1. **Token Validation Endpoint URL**: Obtain **Token Endpoint** from the **Endpoints** section.
         - Example: `https://{AUTHGEAR_APP_DOMAIN}/oauth2/token`.
+    1. **End Session Endpoint URL**: Keep it empty.
     1. **Identity Key**: Where in the user claim to find the user's identification data.
         - Suggest to use `sub` which is the user id in Authgear.
     1. Setup the user claim keys based on your project login method setting.
