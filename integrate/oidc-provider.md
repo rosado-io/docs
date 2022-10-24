@@ -41,6 +41,14 @@ In this section, we are going to demonstrate how to use Authgear as the OIDC pro
         - Example: `https://{AUTHGEAR_APP_DOMAIN}/oauth2/token`.
     1. **Identity Key**: Where in the user claim to find the user's identification data.
         - Suggest to use `sub` which is the user id in Authgear.
-    1. **Nickname Key**: Where in the user claim array to find the user's nickname.
-        - Depending on the project setup, this key must exist otherwise the login will fail. e.g. If the project is using email login, set this value to `email`.
+    1. Setup the user claim keys based on your project login method setting.
+        - If your project is using **email** to login
+            - **Nickname Key**: Set it to `email`.
+            - **Email Formatting**: Set it to `{email}`.
+        - If your project is using **phone** to login
+            - **Nickname Key**: Set it to `phone_number`.
+            - **Email Formatting**: Clear it.
+        - If your project is using **username** to login
+            - **Nickname Key**: Set it to `preferred_username`.
+            - **Email Formatting**: Clear it.
 1. At the bottom of the plugin settings page, you will be able to obtain the **Redirect URI**. Go to Authgear portal, add the uri to the **Authorized Redirect URIs**.
