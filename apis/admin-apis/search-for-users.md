@@ -4,7 +4,11 @@ Authgear Admin GraphQL API supports searching user by keywords. Keywords include
 
 ## Search users by email
 
-The following example shows how to search for users by email, you can adjust the keywords and fields based on your needs.
+You can use the user search query to search user by email and obtains the user details.
+
+In the following example, the project wants to search the user by email and check if they haven't set up the TOTP authenticator.
+
+You can adjust the fields in the query based on your needs. To explore more supporting fields, you can [try it out via the GraphiQL tool](/apis/admin-apis/README.md#trying-out-the-admin-api-graphql-endpoint).
 
 The query has a maximum limit of 20, pagination parameters should be provided to obtain all the results. See [detail](#pagination).
 
@@ -28,23 +32,13 @@ query (
         isDeactivated
         deleteAt
         standardAttributes
-        identities {
-          edges {
-            node {
-              id
-              type
-              claims
-            }
-          }
+        loginIDs {
+          id
+          claims
         }
-        authenticators {
-          edges {
-            node {
-              id
-              type
-              claims
-            }
-          }
+        secondaryTOTPAuthenticators {
+          id
+          claims
         }
       }
     }
@@ -71,8 +65,8 @@ query (
         {
           "node": {
             "id": "VXNlcjphZTNjMGFiZS02YjdkLTQ1ZjktOWIzZS1jMDUwYjVmY2Q3NjI",
-            "createdAt": "2006-01-02T03:04:05.123456Z",
             "lastLoginAt": "2006-01-02T03:04:05.123456Z",
+            "createdAt": "2006-01-02T03:04:05.123456Z",
             "deleteAt": null,
             "isDisabled": false,
             "disableReason": null,
@@ -80,38 +74,30 @@ query (
             "isDeactivated": false,
             "standardAttributes": {
               "email": "user@example.com",
-              "email_verified": false,
+              "email_verified": true,
               "name": "user01",
               "updated_at": 1136171045
             },
-            "identities": {
-              "edges": [
-                {
-                  "node": {
-                    "claims": {
-                      "email": "user@example.com",
-                      "https://authgear.com/claims/login_id/key": "email",
-                      "https://authgear.com/claims/login_id/original_value": "user@example.com",
-                      "https://authgear.com/claims/login_id/type": "email",
-                      "https://authgear.com/claims/login_id/value": "user@example.com"
-                    },
-                    "id": "SWRlbnRpdHk6NDNhMzZhMTEtM2VkNS00YjczLWE0ZjktMjQ1MWYyMzM5MmVj",
-                    "type": "LOGIN_ID"
-                  }
-                }
-              ]
-            },
-            "authenticators": {
-              "edges": [
-                {
-                  "node": {
-                    "claims": {},
-                    "id": "QXV0aGVudGljYXRvcjo0YTIwMmYzMy03YmFhLTQzNWItYmE2NC02NDZkNmQ0YzRiNmE",
-                    "type": "PASSWORD"
-                  }
-                }
-              ]
-            }
+            "loginIDs": [
+              {
+                "claims": {
+                  "email": "user@example.com",
+                  "https://authgear.com/claims/login_id/key": "email",
+                  "https://authgear.com/claims/login_id/original_value": "user@example.com",
+                  "https://authgear.com/claims/login_id/type": "email",
+                  "https://authgear.com/claims/login_id/value": "user@example.com"
+                },
+                "id": "SWRlbnRpdHk6NDNhMzZhMTEtM2VkNS00YjczLWE0ZjktMjQ1MWYyMzM5MmVj"
+              }
+            ],
+            "secondaryTOTPAuthenticators": [
+              {
+                "claims": {
+                  "https://authgear.com/claims/totp/display_name": "TOTP @ 2006-01-02T03:04:05Z"
+                },
+                "id": "QXV0aGVudGljYXRvcjo3NGY0NWUzNi0xMGEyLTQ0MjctYjMxYS0yY2Q3NjBjZDU4MTc"
+              }
+            ]
           }
         }
       ],
