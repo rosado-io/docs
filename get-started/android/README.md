@@ -176,6 +176,38 @@ class MyAwesomeViewModel extends AndroidViewModel {
 
 The above call of `authorize` passes in the exact redirect URI as configured in the applications and manifest, the callback then indicates authorization success or failure. By default, the callback is called on the main thread.
 
+Now, your user is logged in!
+
+## Get the Logged In State
+
+When you start launching the application. You may want to know if the user has logged in. (e.g. Show users the login page if they haven't logged in). The `SessionState` reflects the user logged in state in the SDK local state. That means even the `SessionState` is `AUTHENTICATED`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `fetchUserInfo` to update the `SessionState` as soon as it is proper to do so.
+
+```java
+// After authgear.configure, it only reflect SDK local state.
+// value can be NO_SESSION or AUTHENTICATED
+SessionState state = mAuthgear.getSessionState();
+
+mAuthgear.fetchUserInfo(new OnFetchUserInfoListener() {
+    @Override
+    public void onFetchedUserInfo(@NonNull UserInfo userInfo) {
+        // sessionState is now up to date
+        // read the userInfo if needed
+    }
+
+    @Override
+    public void onFetchingUserInfoFailed(@NonNull Throwable throwable) {
+        // sessionState is now up to date
+        // it will change to NO_SESSION if the session is invalid
+    }
+});
+```
+
+The value of `SessionState` can be `UNKNOWN`, `NO_SESSION` or `AUTHENTICATED`. Initially, the `sessionState` is `UNKNOWN`. After a call to `authgear.configure`, the session state would become `AUTHENTICATED` if a previous session was found, or `NO_SESSION` if such session was not found. 
+
+## Fetching User Info
+
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
+
 ## Using the Access Token in HTTP Requests
 
 Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of your application request. If you are using OKHttp in your project, you can also use the interceptor extension provided by the SDK, see [detail](okhttp-interceptor-extension.md).
