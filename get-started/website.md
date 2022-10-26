@@ -183,11 +183,11 @@ Now, your user is logged in!
 
 ## Get the Logged In State
 
-The `sessionState` reflects the user logged in state in the SDK local state. That means even the`sessionState` is `AUTHENTICATED`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `fetchUserInfo` to update the `sessionState` as soon as it is proper to do so.
+When you start launching the application. You may want to know if the user has logged in. (e.g. Redirect users to log in if they haven't logged in). The `sessionState` reflects the user logged in state in the SDK local state. That means even the`sessionState` is `AUTHENTICATED`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `fetchUserInfo` to update the `sessionState` as soon as it is proper to do so.
 
 ```javascript
-// value can be NO_SESSION or AUTHENTICATED
 // After authgear.configure, it only reflect SDK local state.
+// value can be NO_SESSION or AUTHENTICATED
 let sessionState = authgear.sessionState;
 
 if (sessionState === "AUTHENTICATED") {
@@ -205,7 +205,9 @@ if (sessionState === "AUTHENTICATED") {
 
 The value of `sessionState` can be `UNKNOWN`, `NO_SESSION` or `AUTHENTICATED`. Initially the `sessionState` is `UNKNOWN`. After a call to `authgear.configure`, the session state would become `AUTHENTICATED` if a previous session was found, or `NO_SESSION` if such session was not found. 
 
-The [`UserInfo`](../integrate/user-profile.md) object provides the unique identifier of the user from your Authgear project. See more details [here](../integrate/user-profile.md).
+## Fetching User Info
+
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
 
 ## Log the user out
 
