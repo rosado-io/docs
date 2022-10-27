@@ -280,7 +280,7 @@ namespace MyApp
 
 ## Get the Logged In State
 
-The `SessionState` reflects the user logged in state in the SDK locally on the device. That means even the `SessionState` is `Authenticated`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `FetchUserInfoAsync` to update the `SessionState` as soon as it is proper to do so.
+When you start launching the application. You may want to know if the user has logged in. (e.g. Show users the login page if they haven't logged in). The `SessionState` reflects the user logged in state in the SDK locally on the device. That means even the `SessionState` is `Authenticated`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `FetchUserInfoAsync` to update the `SessionState` as soon as it is proper to do so.
 
 ```csharp
 // value can be NoSession or Authenticated
@@ -301,6 +301,12 @@ if (sessionState == SessionState.Authenticated)
     }
 }
 ```
+
+The value of `SessionState` can be `Unknown`, `NoSession` or `Authenticated`. Initially, the `SessionState` is `Unknown`. After a call to `authgear.configure`, the session state would become `Authenticated` if a previous session was found, or `NoSession` if such session was not found. 
+
+## Fetching User Info
+
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `FetchUserInfoAsync` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
 
 ## Logout
 
