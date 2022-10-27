@@ -135,7 +135,7 @@ In `Info.plist`, add the matching redirect URI.
 
 ## Try authenticate
 
-Add this code to your app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authorization, and then upon success redirects to the app via the `redirectURI` specified.
+Add this code to your app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authentication, and then upon success redirects to the app via the `redirectURI` specified.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -189,6 +189,37 @@ class _MyAppState extends State<MyApp> {
   }
 }
 ```
+
+Now, your user is logged in!
+
+## Get the Logged In State
+
+When you start launching the application. You may want to know if the user has logged in. (e.g. Show users the login page if they haven't logged in). The `sessionState` reflects the user logged in state in the SDK local state. That means even the `sessionState` is `SessionState.authenticated`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `fetchUserInfo` to update the `sessionState` as soon as it is proper to do so.
+
+```dart
+// After authgear.configure, it only reflect SDK local state.
+// value can be SessionState.noSession or SessionState.authenticated
+SessionState state = authgear.sessionState;
+
+UserInfo? userInfo;
+try {
+  userInfo = await authgear.getUserInfo();
+  // read the userInfo if needed
+} catch (e) {
+  // failed to fetch user info
+  // the refresh token maybe expired or revoked
+}
+// sessionState is now up to date
+// it will change to SessionState.noSession if the session is invalid
+state = authgear.sessionState;
+```
+
+The value of `sessionState` can be `SessionState.unknown`, `SessionState.noSession` or `SessionState.authenticated`. Initially, the `sessionState` is `SessionState.unknown`. After a call to `authgear.configure`, the session state would become `SessionState.authenticated` if a previous session was found, or `SessionState.noSession` if such session was not found. 
+
+
+## Fetching User Info
+
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
 
 ## Using the Access Token in HTTP Requests
 
