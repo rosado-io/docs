@@ -61,6 +61,20 @@ authgear.fetchUserInfo(new OnFetchUserInfoListener() {
 ```
 {% endtab %}
 
+{% tab title="Flutter" %}
+```dart
+try {
+  UserInfo userInfo = await authgear.getUserInfo();
+  // read the userInfo if needed
+} catch (e) {
+  // failed to fetch user info
+  // the refresh token maybe expired or revoked
+}
+// sessionState is now up to date
+SessionState state = authgear.sessionState;
+```
+{% endtab %}
+
 {% tab title="Xamarin" %}
 ```csharp
 try

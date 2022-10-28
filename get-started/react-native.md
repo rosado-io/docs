@@ -181,7 +181,7 @@ In `AppDelegate.m`, add the following code snippet.
 
 ## Try authenticate
 
-Add this code to your react native app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authorization, and then upon success redirects to the app via the `redirectURI` specified.
+Add this code to your react native app. This snippet configures authgear to connect to an authgear server deployed at `endpoint` with the client you have just setup via `clientID`, opens a browser for authentication, and then upon success redirects to the app via the `redirectURI` specified.
 
 ```javascript
 import React, { useCallback } from "react";
@@ -214,6 +214,36 @@ function LoginScreen() {
   );
 }
 ```
+
+Now, your user is logged in!
+
+## Get the Logged In State
+
+When you start launching the application. You may want to know if the user has logged in. (e.g. Show users the login page if they haven't logged in). The `sessionState` reflects the user logged in state in the SDK local state. That means even the `sessionState` is `AUTHENTICATED`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `fetchUserInfo` to update the `sessionState` as soon as it is proper to do so.
+
+```javascript
+// After authgear.configure, it only reflect SDK local state.
+// value can be NO_SESSION or AUTHENTICATED
+let sessionState = authgear.sessionState;
+
+if (sessionState === "AUTHENTICATED") {
+    authgear
+        .fetchUserInfo()
+        .then((userInfo) => {
+            // sessionState is now up to date
+        })
+        .catch((e) => {
+            // sessionState is now up to date
+            // it will change to NO_SESSION if the session is invalid
+        });
+}
+```
+
+The value of `sessionState` can be `UNKNOWN`, `NO_SESSION` or `AUTHENTICATED`. Initially the `sessionState` is `UNKNOWN`. After a call to `authgear.configure`, the session state would become `AUTHENTICATED` if a previous session was found, or `NO_SESSION` if such session was not found. 
+
+## Fetching User Info
+
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
 
 ## Using the Access Token in HTTP Requests
 
@@ -252,7 +282,7 @@ authgear
 
 ## Logout
 
-To log out the user from the current app session, you need to invoke the`logout`function.
+To log out the user from the current app session, you need to invoke the `logout` function.
 
 ```javascript
 authgear

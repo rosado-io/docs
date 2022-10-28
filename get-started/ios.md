@@ -137,6 +137,36 @@ authgear.authenticate(redirectURI: "{your_redirect_uri}", handler: { result in
 
 Your user is now logged in!
 
+## Get the Logged In State
+
+When you start launching the application. You may want to know if the user has logged in. (e.g. Show users the login page if they haven't logged in). The `sessionState` reflects the user logged in state in the SDK local state. That means even the `sessionState` is `.authenticated`, the session may be invalid if it is revoked remotely. After initializing the Authgear SDK, call `fetchUserInfo` to update the `sessionState` as soon as it is proper to do so.
+
+```swift
+// After authgear.configure, it only reflect SDK local state.
+// value can be .noSession or .authenticated
+let sessionState = authgear.sessionState
+
+authgear.fetchUserInfo { userInfoResult in
+    // sessionState is now up to date
+    // it will change to .noSession if the session is invalid
+    sessionState = authgear.sessionState
+
+    switch userInfoResult {
+    case let .success(userInfo):
+        // read the userInfo if needed
+    case let .failure(error):
+        // failed to fetch user info
+        // the refresh token maybe expired or revoked
+}
+```
+
+
+The value of `sessionState` can be `.unknown`, `.noSession` or `.authenticated`. Initially, the `sessionState` is `.unknown`. After a call to `authgear.configure`, the session state would become `.authenticated` if a previous session was found, or `.noSession` if such session was not found. 
+
+## Fetching User Info
+
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
+
 ## Using the Access Token in HTTP Requests
 
 Call `refreshAccessTokenIfNeeded` every time before using the access token, the function will check and make the network call only if the access token has expired. Include the access token into the Authorization header of your application request.
