@@ -46,7 +46,7 @@
 * [Biometric login](strategies/biometric.md)
 * [Anonymous Users](strategies/anonymous-users.md)
 * [Passwordless Login for Apple App Store Review](strategies/passwordless-demo-user-for-apple-app-review.md)
-* [Ethereum & NFT](strategies/web3.md)
+* [Login with Ethereum & NFT](strategies/web3.md)
 
 ## Integrate
 
