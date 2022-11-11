@@ -14,7 +14,7 @@ The Admin API GraphQL endpoint is at `/_api/admin/graphql`. For example, if your
 
 Accessing the Admin API GraphQL endpoint requires your server to generate a valid JWT and include it as `Authorization` HTTP header.
 
-See [authorization-and-security.md](authorization-and-security.md "mention")to learn how to access the Admin API securely.
+See [authentication-and-security.md](authentication-and-security.md "mention")to learn how to access the Admin API securely.
 
 ## API Explorer
 
