@@ -1,4 +1,4 @@
-# Update user's standard attributes through Admin GraphQL API
+# Update user's standard attributes
 
 ## Overview
 
@@ -11,7 +11,7 @@ To update the user's standard attributes:
 
 ### Generate the user node id
 
-Follow the document [here](./node-id.md) to generate the user node id.
+Follow the document [here](../node-id.md) to generate the user node id.
 
 ### Fetch the user's standard attributes by query
 
