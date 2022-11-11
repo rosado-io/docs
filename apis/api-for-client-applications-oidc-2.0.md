@@ -34,7 +34,7 @@ User settings UI
 
 ## /\_api/admin/graphql
 
-Admin GraphQL API endpoint. For usage details, please check [Admin APIs](admin-apis/).
+Admin GraphQL API endpoint. For usage details, please check [Admin APIs](admin-api/).
 
 ## /oauth2/userinfo
 

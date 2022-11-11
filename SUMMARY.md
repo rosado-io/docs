@@ -72,14 +72,14 @@
 ## APIs
 
 * [API for Client Applications (OIDC 2.0)](apis/api-for-client-applications-oidc-2.0.md)
-* [Admin APIs](apis/admin-apis/README.md)
-  * [Authentication and Security](apis/admin-apis/authentication-and-security.md)
-  * [API Schema](apis/admin-apis/api-schema.md)
-  * [Generate the node id](apis/admin-apis/node-id.md)
-  * [API Examples](apis/admin-apis/api-examples/README.md)
-    * [Search for users](apis/admin-apis/api-examples/search-for-users.md)
-    * [Update user's standard attributes](apis/admin-apis/api-examples/update-users-standard-attributes.md)
-    * [Update user's picture](apis/admin-apis/api-examples/update-users-picture.md)
+* [Admin API](apis/admin-api/README.md)
+  * [Authentication and Security](apis/admin-api/authentication-and-security.md)
+  * [API Schema](apis/admin-api/api-schema.md)
+  * [Generate the node id](apis/admin-api/node-id.md)
+  * [API Examples](apis/admin-api/api-examples/README.md)
+    * [Search for users](apis/admin-api/api-examples/search-for-users.md)
+    * [Update user's standard attributes](apis/admin-api/api-examples/update-users-standard-attributes.md)
+    * [Update user's picture](apis/admin-api/api-examples/update-users-picture.md)
 
 ## Webhooks
 

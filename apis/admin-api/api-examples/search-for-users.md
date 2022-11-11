@@ -8,9 +8,9 @@ You can use the user search query to search user by email and obtains the user d
 
 In the following example, the project wants to search the user by email and check if they haven't set up the TOTP authenticator.
 
-You can adjust the fields in the query based on your needs. To explore more supporting fields, you can [try it out via the GraphiQL tool](/apis/admin-apis/README.md#trying-out-the-admin-api-graphql-endpoint).
+You can adjust the fields in the query based on your needs. To explore more supporting fields, you can [try it out via the GraphiQL tool](../#trying-out-the-admin-api-graphql-endpoint).
 
-The query has a maximum limit of 20, pagination parameters should be provided to obtain all the results. See [detail](#pagination).
+The query has a maximum limit of 20, pagination parameters should be provided to obtain all the results. See [detail](search-for-users.md#pagination).
 
 ### The query
 
@@ -135,7 +135,6 @@ query (
     totalCount
   }
 }
-
 ```
 
 ### The variables
@@ -196,8 +195,8 @@ query (
 
 #### Parameters
 
-- `searchKeyword`: Search for users by specified keyword.
-- `pageSize`: The page size indicates the limit on the number of items to be returned. Maximum is `20`.
-- `cursor`: A cursor for use in pagination. You can pass the cursor value of the last edges item to a subsequent call to fetch the next page of results.
-- `sortBy`: The field in which to order users. Supported values: `CREATED_AT` or `LAST_LOGIN_AT`.
-- `sortDirection`: The direction in which to order users by the specified field. Supported values: `ASC` or `DESC`.
+* `searchKeyword`: Search for users by specified keyword.
+* `pageSize`: The page size indicates the limit on the number of items to be returned. Maximum is `20`.
+* `cursor`: A cursor for use in pagination. You can pass the cursor value of the last edges item to a subsequent call to fetch the next page of results.
+* `sortBy`: The field in which to order users. Supported values: `CREATED_AT` or `LAST_LOGIN_AT`.
+* `sortDirection`: The direction in which to order users by the specified field. Supported values: `ASC` or `DESC`.

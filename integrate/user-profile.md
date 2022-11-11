@@ -4,7 +4,7 @@ The user profiles contain information about your end-users such as name, email, 
 
 ## UserInfo Endpoint
 
-The UserInfo endpoint returns the Claims about the authenticated end-user, including the standard profile and custom attributes.&#x20;
+The UserInfo endpoint returns the Claims about the authenticated end-user, including the standard profile and custom attributes.
 
 The `userInfo` object is returned from calling **fetch user info** function which contains a unique identifier of the user.
 
@@ -88,7 +88,6 @@ catch
 }
 ```
 {% endtab %}
-
 {% endtabs %}
 
 ## Standard Attributes
@@ -173,7 +172,7 @@ These are the parties that have access to the user profile:
 
 ### The Admin API
 
-Through [the Admin API](../apis/admin-apis/), developers **ALWAYS** have **full access** to **ALL** the standard attributes and custom attributes. The Admin API allows the developer to view or edit the standard attributes and the custom attributes.&#x20;
+Through [the Admin API](../apis/admin-api/), developers **ALWAYS** have **full access** to **ALL** the standard attributes and custom attributes. The Admin API allows the developer to view or edit the standard attributes and the custom attributes.
 
 ### The Portal
 
@@ -181,7 +180,7 @@ The admin user can view or edit the standard attributes via the Authgear Portal.
 
 ### The Session Bearer
 
-The session bearer is someone who has a valid session cookie or a valid access token. The standard attributes of the end-user whom the session represents can be viewed by accessing [the UserInfo endpoint](user-profile.md#userinfo-endpoint) and [the resolver endpoint](https://docs.authgear.com/get-started/backend-integration/nginx). The session bearer can be the end-user, the client mobile app, or the client website.&#x20;
+The session bearer is someone who has a valid session cookie or a valid access token. The standard attributes of the end-user whom the session represents can be viewed by accessing [the UserInfo endpoint](user-profile.md#userinfo-endpoint) and [the resolver endpoint](https://docs.authgear.com/get-started/backend-integration/nginx). The session bearer can be the end-user, the client mobile app, or the client website.
 
 ### The End-user
 

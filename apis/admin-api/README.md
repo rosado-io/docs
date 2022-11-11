@@ -2,7 +2,7 @@
 description: The Admin API allows your server to manage users via a GraphQL endpoint.
 ---
 
-# Admin APIs
+# Admin API
 
 The Admin API allows your server to manage users via a GraphQL endpoint. You can list users, search users, view user details, and many more. In fact, the user management part of the portal is built with the Admin API.
 
@@ -29,3 +29,15 @@ If you want to explore what the Admin API can do, you can visit the GraphiQL too
 {% hint style="danger" %}
 The GraphiQL tool is NOT a sandbox environment and all changes will be made on **real, live, production data**. Use with care!
 {% endhint %}
+
+## API Schema
+
+{% content-ref url="api-schema.md" %}
+[api-schema.md](api-schema.md)
+{% endcontent-ref %}
+
+## API Examples
+
+{% content-ref url="api-examples/" %}
+[api-examples](api-examples/)
+{% endcontent-ref %}
