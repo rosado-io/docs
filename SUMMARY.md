@@ -75,7 +75,7 @@
 * [Admin API](apis/admin-api/README.md)
   * [Authentication and Security](apis/admin-api/authentication-and-security.md)
   * [API Schema](apis/admin-api/api-schema.md)
-  * [Generate the node id](apis/admin-api/node-id.md)
+  * [Using global node IDs](apis/admin-api/node-id.md)
   * [API Examples](apis/admin-api/api-examples/README.md)
     * [Search for users](apis/admin-api/api-examples/search-for-users.md)
     * [Update user's standard attributes](apis/admin-api/api-examples/update-users-standard-attributes.md)
