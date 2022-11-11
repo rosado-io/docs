@@ -16,17 +16,16 @@ Accessing the Admin API GraphQL endpoint requires your server to generate a vali
 
 See [authorization-and-security.md](authorization-and-security.md "mention")to learn how to access the Admin API securely.
 
-## Trying out the Admin API GraphQL endpoint
+## API Explorer
 
-{% hint style="danger" %}
-The GraphiQL tool is NOT a sandbox environment and all changes will be made on real data. Use with care!
-{% endhint %}
-
-The above instruction is for server-side integration. If you want to explore what it can do, you can visit the GraphiQL tool.
+If you want to explore what the Admin API can do, you can visit the GraphiQL tool. The GraphQL schema can also be found there.
 
 * Go to **Settings** -> **Admin API**
 * Click on the **GraphiQL tool** link
+* Toggle the **schema** documentation by pressing the Docs button in the top left corner.
 
-### Inspecting the GraphQL schema
+<figure><img src="../../.gitbook/assets/GraphiQL Explorer.png" alt=""><figcaption><p>Explor the Admin API with GraphiQL tool from the Admin Portal</p></figcaption></figure>
 
-In the GraphiQL tool, you can toggle the schema documentation by pressing the Docs button in the top right corner.
+{% hint style="danger" %}
+The GraphiQL tool is NOT a sandbox environment and all changes will be made on **real, live, production data**. Use with care!
+{% endhint %}
