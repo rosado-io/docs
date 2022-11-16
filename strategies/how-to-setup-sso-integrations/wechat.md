@@ -294,7 +294,7 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
         <!-- It should be added when setting up Authgear SDK -->
         <activity android:name="com.oursky.authgear.OauthRedirectActivity"
-            android:exported="false"
+            android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -442,7 +442,7 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
         <!-- It should be added when setting up Authgear SDK -->
         <activity android:name="com.authgear.reactnative.OAuthRedirectActivity"
-            android:exported="false"
+            android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -572,7 +572,7 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
         <!-- It should be added when setting up Authgear SDK -->
         <activity android:name="com.authgear.flutter.OAuthRedirectActivity"
-            android:exported="false"
+            android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

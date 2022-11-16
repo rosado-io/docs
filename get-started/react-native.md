@@ -94,6 +94,8 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
 
   <!-- Add the following activity -->
   <activity android:name="com.authgear.reactnative.OAuthRedirectActivity"
+            <!-- https://developer.android.com/about/versions/12/behavior-changes-12#exported -->
+            android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
