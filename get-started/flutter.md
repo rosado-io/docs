@@ -89,8 +89,9 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
   <!-- Other activities or entries -->
 
   <!-- Add the following activity -->
+  <!-- android:exported="true" is required -->
+  <!-- See https://developer.android.com/about/versions/12/behavior-changes-12#exported -->
   <activity android:name="com.authgear.flutter.OAuthRedirectActivity"
-            <!-- https://developer.android.com/about/versions/12/behavior-changes-12#exported -->
             android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
