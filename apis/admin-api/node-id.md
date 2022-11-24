@@ -17,8 +17,7 @@ import (
 )
 
 func main() {
-	rawStdEncoding := base64.StdEncoding.WithPadding(base64.NoPadding)
-	nodeID := rawStdEncoding.EncodeToString([]byte("User:97b1c929-842c-415c-a7df-6967efdda160"))
+	nodeID := base64.RawURLEncoding.EncodeToString([]byte("User:97b1c929-842c-415c-a7df-6967efdda160"))
 	fmt.Println(nodeID)
 }
 ```
