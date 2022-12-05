@@ -488,7 +488,7 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
         });
 
         authgear
-            .authorize({
+            .authenticate({
                 redirectURI: "REDIRECT_URI",
                 wechatRedirectURI: wechatRedirectURI
 
