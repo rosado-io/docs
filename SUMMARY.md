@@ -55,7 +55,7 @@
 * [User Profile](integrate/user-profile.md)
 * [Reauthentication](integrate/reauthentication.md)
 * [How Authgear integrate with your applications](integrate/how-authgear-integrate-with-your-applications.md)
-* [Single Sign-on on mobile devices](integrate/single-sign-on.md)
+* [Single Sign-on](integrate/single-sign-on.md)
 * [Force authentication on app launch](integrate/force-authentication-on-app-launch.md)
 * [Account Deletion](integrate/account-deletion.md)
 * [Using Authgear as an OpenID Connect Provider](integrate/oidc-provider.md)

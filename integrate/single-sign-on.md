@@ -4,22 +4,41 @@ description: >-
   sign-on feature.
 ---
 
-# Single Sign-on on mobile devices
+# Single Sign-on
 
-On mobile devices, Authgear uses a webview that can be configured to share the cookie with the system browser. The system browser is Safari on iOS, while the system browser is Chrome on Android. If you have both a mobile application and a website, you can enable the Single Sign-on feature so that
+Single sign-on (SSO) is defined as login once, logged in all apps. If you have multiple mobile apps or websites that use the same Authgear project. You can configure your apps to turn on the SSO feature, so the end-users only have to enter their authentication credentials once.
 
-1. **From Apps to Website:** The end-user installs your app and signs in. Later on, when they visit your website with the system browser, they will be already signed in.
-2. **From Website to Apps:** The end-user has been using your website. One day they decided to install your app. When they log in to the app, they will see a **continue screen** so that they can log in with just a click, without authenticating themselves again.
+If you are building cookie-based websites with the same root domain (e.g. `app1.example.com` / `app2.example.com`), you can skip this section. Sessions are shared among `*.example.com` automatically, see [detail](../get-started/authentication-approach/cookie-based.md).
 
-You can turn on this feature when you configure the SDK by setting the `shareSessionWithSystemBrowser` option to `true`.
+If you are building token-based websites or mobile apps, you can enable the SSO feature via the SDK.
+
+When SSO-enabled is ON, the end-user will need to enter their authentication credentials when they login to the first app. Later on, when they login to the second app, they will see a **continue screen** so that they can log in with just a click, without authenticating themselves again.
+
+{% hint style="info" %}
+It is important that when the SSO feature is ON, don't set the `prompt` parameter when authenticating (e.g. `prompt=login`). Otherwise, the end-user will need to login again.
+{% endhint %}
+
+When the end-user logout the SSO-enabled app, all the apps will be logged out at the same time.
+
+You can turn on this feature when you configure the SDK by setting the **is sso enabled** option to `true`.
 
 {% tabs %}
+{% tab title="Web" %}
+```typescript
+authgear.configure({
+    clientID: CLIENT_ID,
+    endpoint: ENDPOINT,
+    sessionType: "refresh_token",
+    isSSOEnabled: true,
+});
+```
+{% endtab %}
 {% tab title="React Native" %}
 ```typescript
 authgear.configure({
     clientID: CLIENT_ID,
     endpoint: ENDPOINT,
-    shareSessionWithSystemBrowser: true,
+    isSSOEnabled: true,
 });
 ```
 {% endtab %}
@@ -29,7 +48,7 @@ authgear.configure({
 final authgear = Authgear(
     clientID: CLIENT_ID,
     endpoint: ENDPOINT,
-    shareSessionWithSystemBrowser: true,
+    isSsoEnabled: true,
 );
 ```
 {% endtab %}
@@ -40,7 +59,7 @@ var authgearOptions = new AuthgearOptions
 {
     ClientId = CLIENT_ID,
     AuthgearEndpoint = ENDPOINT,
-    ShareSessionWithSystemBrowser = true,
+    IsSsoEnabled = true,
 };
 // Android
 #if __ANDROID__
@@ -58,7 +77,7 @@ var authgear = new AuthgearSdk(UIKit.UIApplication.SharedApplication, authgearOp
 Authgear(
     clientId: CLIENT_ID,
     endpoint: ENDPOINT,
-    shareSessionWithSystemBrowser: true,
+    isSSOEnabled: true,
 )
 ```
 {% endtab %}
@@ -70,7 +89,7 @@ new Authgear(
     CLIENT_ID,
     ENDPOINT,
     null, // tokenStorage = default
-    true // shareSessionWithSystemBrowser = true
+    true // isSsoEnabled = true
 );
 ```
 {% endtab %}
