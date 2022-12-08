@@ -356,6 +356,7 @@ const App: React.FC = () => {
 }
 
 export default App;
+
 </code></pre>
 
 The file structure should now look like

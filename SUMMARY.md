@@ -85,6 +85,10 @@
 
 * [Webhooks](webhooks/webhooks.md)
 
+## Monitor
+
+* [Audit Log](monitor/audit-log.md)
+
 ## Client App SDKs
 
 * [Javascript SDK Reference](https://authgear.github.io/authgear-sdk-js/docs/)
