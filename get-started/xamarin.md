@@ -102,6 +102,22 @@ namespace MyApp.Droid
 }
 ```
 
+#### Targeting API level 30 or above (Android 11 or above)
+
+If your Android app is targeting API level 30 or above (Android 11 or above), you need to add a `queries` section to `AndroidManifest.xml`.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- Other elements such <application> -->
+  <queries>
+    <intent>
+      <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
+  </queries>
+</manifest>
+```
+
 #### Initialize a global AuthgearSdk instance
 
 In your MainActivity.cs
