@@ -87,6 +87,41 @@ Only `standard_attributes` and `custom_attributes` of the user object are mutabl
 > You must include the **WHOLE** `standard_attributes` or `custom_attributes` when
 > you specify the mutations. Otherwise, missing attributes **WILL BE** deleted.
 
+#### Mutations on the JWT payload
+
+When a blocking event supports mutations on the JWT payload,
+your hooks can respond a JSON document to allow the operation,
+and specify additional fields that you want to include in the JWT payload.
+However, you **MUST NOT** change or remove any existing fields in the JWT payload,
+as they are essential to the validity of the JWT.
+
+```json5
+{
+  "is_allowed": true,
+  "mutations": {
+    "jwt": {
+      "payload": {
+        // The original payload you get from the event object.
+        "iss": "https://myapp.authgearapps.com",
+        "aud": ["YOUR_CLIENT_ID"],
+        "sub": "THE_USER_ID",
+        // Other essential JWT fields that you MUST retain.
+
+        // Additional fields that you want to add.
+        "https://myapp.com": {
+          "custom_field": "custom_value"
+        }
+      }
+    }
+  }
+}
+```
+
+To add additional fields to the JWT payload, include `jwt.payload` inside `mutations`.
+You **MUST** add your own fields only.
+
+> You must include the **WHOLE** `jwt.payload` from the event object when you specify the mutations.
+
 ## Non-blocking Events
 
 Non-blocking events are triggered after the operation is performed.

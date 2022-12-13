@@ -8,6 +8,7 @@ description: >-
 * [user.pre\_create](#user.pre\_create)
 * [user.profile.pre\_update](#user.profile.pre\_update)
 * [user.pre\_schedule\_deletion](#user.pre\_schedule\_deletion)
+* [user.session.jwt.pre\_create](#user.session.jwt.pre\_create)
 
 # Non-blocking Events
 
@@ -134,6 +135,45 @@ This event does not support mutations.
         "email": "user@example.com",
         "email_verified": true,
         "updated_at": 1136171045
+      }
+    }
+  }
+}
+```
+
+## user.session.jwt.pre\_create
+
+Occurs right before the access token is issued.
+Use this event to add custom fields to the JWT access token.
+
+This event supports [Mutations on the JWT payload](./index.md#mutations-on-the-jwt-payload)
+
+```json
+{
+  "type": "user.pre_schedule_deletion",
+  "payload": {
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": true,
+      "is_deactivated": true,
+      "delete_at": "2022-09-30T15:18:19.040081Z",
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "jwt": {
+      "payload": {
+        "iss": "https://myapp.authgearapps.com",
+        "aud": ["YOUR_CLIENT_ID"],
+        "sub": "338deafa-400b-4589-a922-2c92d670b757"
       }
     }
   }
