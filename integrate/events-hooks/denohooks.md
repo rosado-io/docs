@@ -3,7 +3,7 @@ description: >-
   Deno Hooks is one of the supported hooks to receive events.
 ---
 
-# Deno Hooks
+# Deno Hooks (JavaScript / TypeScript)
 
 Deno Hooks are a JavaScript / TypeScript module. The module is executed by [Deno](https://deno.land/).
 

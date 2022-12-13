@@ -62,7 +62,7 @@
 * [Events and Hooks](integrate/events-hooks/index.md)
   * [Event List](integrate/events-hooks/event-list.md)
   * [Webhooks](integrate/events-hooks/webhooks.md)
-  * [Deno Hooks](integrate/events-hooks/denohooks.md)
+  * [Deno Hooks (JavaScript / TypeScript)](integrate/events-hooks/denohooks.md)
 
 ## Customize
 
