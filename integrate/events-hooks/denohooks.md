@@ -1,37 +1,37 @@
 ---
 description: >-
-  Deno Hooks is one of the supported hooks to receive events.
+  JavaScript / TypeScript Hooks is one of the supported hooks to receive events.
 ---
 
-# Deno Hooks (JavaScript / TypeScript)
+# JavaScript / TypeScript Hooks
 
-Deno Hooks are a JavaScript / TypeScript module. The module is executed by [Deno](https://deno.land/).
+JavaScript / TypeScript Hooks are written as a [ES2015 module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). The module is executed by [Deno](https://deno.land/).
 
 The module **MUST** have a [default export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#description) of a function taking 1 argument.
 The argument is the [event](./README.md#event-shape).
 The function can either be synchronous or asynchronous.
 
-If the Deno Hook is registered for a blocking event, the function **MUST** return a value according to the [specification](./README.md#blocking-events).
+If the Hook is registered for a blocking event, the function **MUST** return a value according to the [specification](./README.md#blocking-events).
 
-Deno Hooks **DO NOT** have access to file, or environment.
+The Hooks **DO NOT** have access to file, or environment.
 They only have access to external network.
 
-The stdout and the stderr of Deno Hooks are both ignored.
+The stdout and the stderr of the Hooks are both ignored.
 Your hooks **MUST NOT** assume anything on the arguments and the stdin of the module.
 
-## Configure Authgear to deliver events to your Deno Hooks
+## Configure Authgear to deliver events to your Hooks
 
 {% tabs %}
 {% tab title="Portal" %}
 1. In the portal, go to **Advanced** > **Hooks**.
-2. Add your Deno Hooks in **Blocking Events** and **Non-Blocking Events**, depending on which event you want to listen to.
+2. Add your Hooks in **Blocking Events** and **Non-Blocking Events**, depending on which event you want to listen to.
 3. Click **Save**.
 {% endtab %}
 {% endtabs %}
 
 ## Examples
 
-Here is an example of a Deno Hook for a blocking event.
+Here is an example of a Hook for a blocking event.
 
 ```typescript
 import { HookEvent, HookResponse } from "https://deno.land/x/authgear_deno_hook@v0.2.0/mod.ts";
@@ -41,7 +41,7 @@ export default async function(e: HookEvent): Promise<HookResponse> {
 }
 ```
 
-Here is an example of a Deno Hook for a non-blocking event.
+Here is an example of a Hook for a non-blocking event.
 
 ```typescript
 import { HookEvent } from "https://deno.land/x/authgear_deno_hook@v0.2.0/mod.ts";
@@ -52,7 +52,7 @@ export default async function(e: HookEvent): Promise<void> {
 
 ## TypeScript Definition
 
-[https://deno.land/x/authgear_deno_hook](https://deno.land/x/authgear_deno_hook) is a TypeScript definition that aids you in writing a Deno Hook.
+[https://deno.land/x/authgear_deno_hook](https://deno.land/x/authgear_deno_hook) is a TypeScript definition that aids you in writing a Hook.
 You can see the full definition at [https://deno.land/x/authgear_deno_hook/mod.ts](https://deno.land/x/authgear_deno_hook/mod.ts)
 
 If you are a Visual Studio Code user, you can [set up your editor](https://deno.land/manual@v1.27.2/references/vscode_deno) to take full advantage of the definition.
