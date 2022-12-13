@@ -34,7 +34,7 @@ Your hooks **MUST NOT** assume anything on the arguments and the stdin of the mo
 Here is an example of a Hook for a blocking event.
 
 ```typescript
-import { HookEvent, HookResponse } from "https://deno.land/x/authgear_deno_hook@v0.2.0/mod.ts";
+import { HookEvent, HookResponse } from "https://deno.land/x/authgear_deno_hook@v0.3.0/mod.ts";
 export default async function(e: HookEvent): Promise<HookResponse> {
   // This hook simply allows the operation, which is identical to no-op.
   return { is_allowed: true };
@@ -44,7 +44,7 @@ export default async function(e: HookEvent): Promise<HookResponse> {
 Here is an example of a Hook for a non-blocking event.
 
 ```typescript
-import { HookEvent } from "https://deno.land/x/authgear_deno_hook@v0.2.0/mod.ts";
+import { HookEvent } from "https://deno.land/x/authgear_deno_hook@v0.3.0/mod.ts";
 export default async function(e: HookEvent): Promise<void> {
   // This hook does nothing, which is identical to no-op.
 }
