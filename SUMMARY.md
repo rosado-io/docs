@@ -59,7 +59,7 @@
 * [Force authentication on app launch](integrate/force-authentication-on-app-launch.md)
 * [Account Deletion](integrate/account-deletion.md)
 * [Using Authgear as an OpenID Connect Provider](integrate/oidc-provider.md)
-* [Events and Hooks](integrate/events-hooks/index.md)
+* [Events and Hooks](integrate/events-hooks/README.md)
   * [Event List](integrate/events-hooks/event-list.md)
   * [Webhooks](integrate/events-hooks/webhooks.md)
   * [Deno Hooks (JavaScript / TypeScript)](integrate/events-hooks/denohooks.md)

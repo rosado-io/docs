@@ -8,10 +8,10 @@ description: >-
 Deno Hooks are a JavaScript / TypeScript module. The module is executed by [Deno](https://deno.land/).
 
 The module **MUST** have a [default export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export#description) of a function taking 1 argument.
-The argument is the [event](./index.md#event-shape).
+The argument is the [event](./README.md#event-shape).
 The function can either be synchronous or asynchronous.
 
-If the Deno Hook is registered for a blocking event, the function **MUST** return a value according to the [specification](./index.md#blocking-events).
+If the Deno Hook is registered for a blocking event, the function **MUST** return a value according to the [specification](./README.md#blocking-events).
 
 Deno Hooks **DO NOT** have access to file, or environment.
 They only have access to external network.
