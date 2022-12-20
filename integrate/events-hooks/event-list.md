@@ -1,45 +1,46 @@
 ---
-description: >-
-  The full list of events
+description: The full list of events
 ---
 
-# Blocking Events
+# Event List
 
-* [user.pre\_create](#user.pre\_create)
-* [user.profile.pre\_update](#user.profile.pre\_update)
-* [user.pre\_schedule\_deletion](#user.pre\_schedule\_deletion)
-* [user.session.jwt.pre\_create](#user.session.jwt.pre\_create)
+## Blocking Events
 
-# Non-blocking Events
+* [user.pre\_create](event-list.md#user.pre\_create)
+* [user.profile.pre\_update](event-list.md#user.profile.pre\_update)
+* [user.pre\_schedule\_deletion](event-list.md#user.pre\_schedule\_deletion)
+* [user.session.jwt.pre\_create](event-list.md#user.session.jwt.pre\_create)
 
-* [user.created](#user.created)
-* [user.profile.updated](#user.profile.updated)
-* [user.authenticated](#user.authenticated)
-* [user.disabled](#user.disabled)
-* [user.reenabled](#user.reenabled)
-* [user.anonymous.promoted](#user.anonymous.promoted)
-* [user.deletion\_scheduled](#user.deletion\_scheduled)
-* [user.deletion\_unscheduled](#user.deletion\_unscheduled)
-* [user.deleted](#user.deleted)
-* [identity.email.added](#identity.email.added)
-* [identity.email.removed](#identity.email.removed)
-* [identity.email.updated](#identity.email.updated)
-* [identity.phone.added](#identity.phone.added)
-* [identity.phone.removed](#identity.phone.removed)
-* [identity.phone.updated](#identity.phone.updated)
-* [identity.username.added](#identity.username.added)
-* [identity.username.removed](#identity.username.removed)
-* [identity.username.updated](#identity.username.updated)
-* [identity.oauth.connected](#identity.oauth.connected)
-* [identity.oauth.disconnected](#identity.oauth.disconnected)
-* [identity.biometric.enabled](#identity.biometric.enabled)
-* [identity.biometric.disabled](#identity.biometric.disabled)
+## Non-blocking Events
 
-## user.pre\_create
+* [user.created](event-list.md#user.created)
+* [user.profile.updated](event-list.md#user.profile.updated)
+* [user.authenticated](event-list.md#user.authenticated)
+* [user.disabled](event-list.md#user.disabled)
+* [user.reenabled](event-list.md#user.reenabled)
+* [user.anonymous.promoted](event-list.md#user.anonymous.promoted)
+* [user.deletion\_scheduled](event-list.md#user.deletion\_scheduled)
+* [user.deletion\_unscheduled](event-list.md#user.deletion\_unscheduled)
+* [user.deleted](event-list.md#user.deleted)
+* [identity.email.added](event-list.md#identity.email.added)
+* [identity.email.removed](event-list.md#identity.email.removed)
+* [identity.email.updated](event-list.md#identity.email.updated)
+* [identity.phone.added](event-list.md#identity.phone.added)
+* [identity.phone.removed](event-list.md#identity.phone.removed)
+* [identity.phone.updated](event-list.md#identity.phone.updated)
+* [identity.username.added](event-list.md#identity.username.added)
+* [identity.username.removed](event-list.md#identity.username.removed)
+* [identity.username.updated](event-list.md#identity.username.updated)
+* [identity.oauth.connected](event-list.md#identity.oauth.connected)
+* [identity.oauth.disconnected](event-list.md#identity.oauth.disconnected)
+* [identity.biometric.enabled](event-list.md#identity.biometric.enabled)
+* [identity.biometric.disabled](event-list.md#identity.biometric.disabled)
+
+### user.pre\_create
 
 Occurs right before the user creation. User can be created by user signup, user signup as an anonymous user, or created by the admin via the Portal or Admin API.
 
-This event supports [Mutations on the user object](./index.md#mutations-on-the-user-object)
+This event supports [Mutations on the user object](./#mutations-on-the-user-object)
 
 ```json
 {
@@ -79,11 +80,11 @@ This event supports [Mutations on the user object](./index.md#mutations-on-the-u
 }
 ```
 
-## user.profile.pre\_update
+### user.profile.pre\_update
 
 Occurs right before the update of the user profile.
 
-This event supports [Mutations on the user object](./index.md#mutations-on-the-user-object)
+This event supports [Mutations on the user object](./#mutations-on-the-user-object)
 
 ```json
 {
@@ -110,7 +111,7 @@ This event supports [Mutations on the user object](./index.md#mutations-on-the-u
 }
 ```
 
-## user.pre\_schedule\_deletion
+### user.pre\_schedule\_deletion
 
 Occurs right before account deletion is scheduled.
 
@@ -141,12 +142,11 @@ This event does not support mutations.
 }
 ```
 
-## user.session.jwt.pre\_create
+### user.session.jwt.pre\_create
 
-Occurs right before the access token is issued.
-Use this event to add custom fields to the JWT access token.
+Occurs right before the access token is issued. Use this event to add custom fields to the JWT access token.
 
-This event supports [Mutations on the JWT payload](./index.md#mutations-on-the-jwt-payload)
+This event supports [Mutations on the JWT payload](./#mutations-on-the-jwt-payload)
 
 ```json
 {
@@ -180,7 +180,7 @@ This event supports [Mutations on the JWT payload](./index.md#mutations-on-the-j
 }
 ```
 
-## user.created
+### user.created
 
 Occurs after a new user is created. User can be created by user signup, user signup as an anonymous user, or created by the admin via the Portal or Admin API.
 
@@ -223,7 +223,7 @@ Occurs after a new user is created. User can be created by user signup, user sig
 }
 ```
 
-## user.profile.updated
+### user.profile.updated
 
 Occurs when the user profile is updated.
 
@@ -252,7 +252,7 @@ Occurs when the user profile is updated.
 }
 ```
 
-## user.authenticated
+### user.authenticated
 
 Occurs after the user logged in.
 
@@ -293,7 +293,7 @@ Occurs after the user logged in.
 }
 ```
 
-## user.disabled
+### user.disabled
 
 Occurs when the user was disabled.
 
@@ -321,7 +321,7 @@ Occurs when the user was disabled.
 }
 ```
 
-## user.reenabled
+### user.reenabled
 
 Occurs when the user was re-enabled.
 
@@ -349,7 +349,7 @@ Occurs when the user was re-enabled.
 }
 ```
 
-## user.anonymous.promoted
+### user.anonymous.promoted
 
 Occurs whenever an anonymous user is promoted to a normal user.
 
@@ -408,7 +408,7 @@ Occurs whenever an anonymous user is promoted to a normal user.
 }
 ```
 
-## user.deletion\_scheduled
+### user.deletion\_scheduled
 
 Occurs when an account deletion was scheduled.
 
@@ -437,7 +437,7 @@ Occurs when an account deletion was scheduled.
 }
 ```
 
-## user.deletion\_unscheduled
+### user.deletion\_unscheduled
 
 Occurs when an account deletion was unscheduled.
 
@@ -465,7 +465,7 @@ Occurs when an account deletion was unscheduled.
 }
 ```
 
-## user.deleted
+### user.deleted
 
 Occurs when the user was deleted.
 
@@ -493,7 +493,7 @@ Occurs when the user was deleted.
 }
 ```
 
-## identity.email.added
+### identity.email.added
 
 Occurs when a new email is added to an existing user. Email can be added by the user in the setting page, added by the admin through the Admin API or Portal.
 
@@ -536,7 +536,7 @@ Occurs when a new email is added to an existing user. Email can be added by the 
 }
 ```
 
-## identity.email.removed
+### identity.email.removed
 
 Occurs when an email address is removed from an existing user. Email can be removed by the user in the setting page, removed by admin through admin API or Portal.
 
@@ -577,7 +577,7 @@ Occurs when an email address is removed from an existing user. Email can be remo
 }
 ```
 
-## identity.email.updated
+### identity.email.updated
 
 Occurs when an email address is updated. Email can be updated by the user on the setting page.
 
@@ -631,7 +631,7 @@ Occurs when an email address is updated. Email can be updated by the user on the
 }
 ```
 
-## identity.phone.added
+### identity.phone.added
 
 Occurs when a new phone number is added to an existing user. Phone numbers can be added by the user in the setting page, added by admin through admin API or Portal.
 
@@ -674,7 +674,7 @@ Occurs when a new phone number is added to an existing user. Phone numbers can b
 }
 ```
 
-## identity.phone.removed
+### identity.phone.removed
 
 Occurs when a phone number is removed from an existing user. Phone numbers can be removed by the user on the setting page, removed by admin through admin API or Portal.
 
@@ -715,7 +715,7 @@ Occurs when a phone number is removed from an existing user. Phone numbers can b
 }
 ```
 
-## identity.phone.updated
+### identity.phone.updated
 
 Occurs when a phone number is updated. Phone numbers can be updated by the user on the setting page.
 
@@ -771,7 +771,7 @@ Occurs when a phone number is updated. Phone numbers can be updated by the user 
 }
 ```
 
-## identity.username.added
+### identity.username.added
 
 Occurs when a new username is added to an existing user. Username can be added by the user in setting page, added by admin through Admin API or Portal.
 
@@ -813,7 +813,7 @@ Occurs when a new username is added to an existing user. Username can be added b
 }
 ```
 
-## identity.username.removed
+### identity.username.removed
 
 Occurs when the username is removed from an existing user. The username can be removed by the user on the setting page, removed by admin through admin API or Portal.
 
@@ -854,7 +854,7 @@ Occurs when the username is removed from an existing user. The username can be r
 }
 ```
 
-## identity.username.updated
+### identity.username.updated
 
 Occurs when the username is updated. The username can be updated by the user on the setting page.
 
@@ -909,7 +909,7 @@ Occurs when the username is updated. The username can be updated by the user on 
 }
 ```
 
-## identity.oauth.connected
+### identity.oauth.connected
 
 Occurs when a user has connected to a new OAuth provider.
 
@@ -972,7 +972,7 @@ Occurs when a user has connected to a new OAuth provider.
 }
 ```
 
-## identity.oauth.disconnected
+### identity.oauth.disconnected
 
 Occurs when a user is disconnected from an OAuth provider. It can be done by the user disconnecting their OAuth provider in the setting page, or the admin removing the OAuth identity through admin API or Portal.
 
@@ -1035,7 +1035,7 @@ Occurs when a user is disconnected from an OAuth provider. It can be done by the
 }
 ```
 
-## identity.biometric.enabled
+### identity.biometric.enabled
 
 Occurs when the user enabled biometric login.
 
@@ -1103,7 +1103,7 @@ Occurs when the user enabled biometric login.
 }
 ```
 
-## identity.biometric.disabled
+### identity.biometric.disabled
 
 Occurs when biometric login is disabled. It will be triggered only when the user disabled it from the settings page or the admin disabled it from the Admin API or portal.
 
@@ -1171,11 +1171,11 @@ Occurs when biometric login is disabled. It will be triggered only when the user
 }
 ```
 
-# Object Reference
+## Object Reference
 
 The event may contain different objects. You can refer to the below for their attributes.
 
-## The user object
+### The user object
 
 ```json5
 "payload":{
