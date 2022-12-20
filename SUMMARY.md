@@ -59,6 +59,10 @@
 * [Force authentication on app launch](integrate/force-authentication-on-app-launch.md)
 * [Account Deletion](integrate/account-deletion.md)
 * [Using Authgear as an OpenID Connect Provider](integrate/oidc-provider.md)
+* [Events and Hooks](integrate/events-hooks/README.md)
+  * [Event List](integrate/events-hooks/event-list.md)
+  * [Webhooks](integrate/events-hooks/webhooks.md)
+  * [JavaScript / TypeScript Hooks](integrate/events-hooks/denohooks.md)
 
 ## Customize
 
@@ -80,10 +84,6 @@
     * [Search for users](apis/admin-api/api-examples/search-for-users.md)
     * [Update user's standard attributes](apis/admin-api/api-examples/update-users-standard-attributes.md)
     * [Update user's picture](apis/admin-api/api-examples/update-users-picture.md)
-
-## Webhooks
-
-* [Webhooks](webhooks/webhooks.md)
 
 ## Monitor
 
