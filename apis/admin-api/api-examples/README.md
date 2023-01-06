@@ -17,3 +17,7 @@ description: Learn how to perform common actions from the examples
 {% content-ref url="update-users-picture.md" %}
 [update-users-picture.md](update-users-picture.md)
 {% endcontent-ref %}
+
+{% content-ref url="generate-otp-code.md" %}
+[generate-otp-code.md](generate-otp-code.md)
+{% endcontent-ref %}
