@@ -146,7 +146,7 @@ When you start launching the application. You may want to know if the user has l
 ```swift
 // After authgear.configure, it only reflect SDK local state.
 // value can be .noSession or .authenticated
-let sessionState = authgear.sessionState
+var sessionState = authgear.sessionState
 
 authgear.fetchUserInfo { userInfoResult in
     // sessionState is now up to date
@@ -187,10 +187,11 @@ authgear.refreshAccessTokenIfNeeded() { result in
             urlRequest.setValue(
                 "Bearer \(accessToken)", forHTTPHeaderField: "authorization")
             // ... continue making your request
+        } else {
+            // The user is not logged in, or the token is expired.
         }
     case let .failure(error):
-        // failed to refresh access token
-        // the refresh token maybe expired or revoked
+        // Something went wrong
     }
 }
 ```

@@ -236,7 +236,7 @@ Call `refreshAccessTokenIfNeeded` every time before using the access token, the 
 try {
     authgear.refreshAccessTokenIfNeededSync();
 } catch (OAuthException e) {
-    // The token is expired.
+    // Something went wrong
 }
 String accessToken = authgear.getAccessToken();
 if (accessToken == null) {
