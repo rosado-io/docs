@@ -371,15 +371,15 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
 
       ```java
         // Replace "WECHAT_REDICRECT_URI_FOR_AUTHGEAR" with link defined above
-        AuthorizeOptions options = new AuthorizeOptions(AUTHGEAR_REDIRECT_URI);
+        AuthenticateOptions options = new AuthenticateOptions(AUTHGEAR_REDIRECT_URI);
         options.setWechatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
-        mAuthgear.authorize(options, new OnAuthorizeListener() {
+        mAuthgear.authenticate(options, new OnAuthenticateListener() {
             @Override
-            public void onAuthorized(@Nullable AuthorizeResult result) {
+            public void onAuthenticated(@Nullable UserInfo userInfo) {
             }
 
             @Override
-            public void onAuthorizationFailed(@NonNull Throwable throwable) {
+            public void onAuthenticationFailed(@NonNull Throwable throwable) {
             }
         });
 
@@ -389,7 +389,7 @@ Here are the detailed steps for iOS, Android, React Native, and Flutter.
         options.setWechatRedirectURI(WECHAT_REDICRECT_URI_FOR_AUTHGEAR);
         mAuthgear.promoteAnonymousUser(options, new OnPromoteAnonymousUserListener() {
             @Override
-            public void onPromoted(@NonNull AuthorizeResult result) {
+            public void onPromoted(@NonNull UserInfo userInfo) {
             }
 
             @Override

@@ -16,7 +16,7 @@ class MyAwesomeViewModel(application: MyAwesomeApplication) : AndroidViewModel(a
             withContext(Dispatchers.IO) {
                 try {
                     val app = getApplication<MyAwesomeApplication>()
-                    val state = app.authgear.authorize(AuthorizeOptions(redirectUri = "com.myapp://host/path"))
+                    val state = app.authgear.authenticate(AuthenticateOptions(redirectUri = "com.myapp://host/path"))
                     // User is logged in!
                 } catch (e: Throwable) {
                     // Something went wrong.

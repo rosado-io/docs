@@ -162,7 +162,7 @@ authgear.promoteAnonymousUser(
 PromoteOptions options = new PromoteOptions(THE_REDIRECT_URI);
 authgear.promoteAnonymousUser(options, new OnPromoteAnonymousUserListener() {
     @Override
-    public void onPromoted(@NonNull AuthorizeResult result) {
+    public void onPromoted(@NonNull UserInfo userInfo) {
         // Promote anonymous user successfully
     }
     @Override

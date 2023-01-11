@@ -100,7 +100,7 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Configure data to be the exact redirect URI your app uses. -->
                 <!-- Here, we are using com.myapp://host/path as configured in authgear.yaml. -->
-                <!-- NOTE: The redirectURI supplied in AuthorizeOptions *has* to match as well -->
+                <!-- NOTE: The redirectURI supplied in AuthenticateOptions *has* to match as well -->
                 <data android:scheme="com.myapp"
                     android:host="host"
                     android:pathPrefix="/path"/>
@@ -159,7 +159,7 @@ public class MyAwesomeApplication extends Application {
 }
 ```
 
-## Authorize a user
+## Authenticate a user
 
 Add the following code to your view model. Do _NOT_ call these codes in activity as this can lead to memory leak when your activity instance is destroyed. You can read more on the view model in the official documentation [here](https://developer.android.com/topic/libraries/architecture/viewmodel).
 
@@ -170,21 +170,20 @@ class MyAwesomeViewModel extends AndroidViewModel {
     // This is called when login button is clicked.
     public void login() {
         MyAwesomeApplication app = getApplication();
-        app.getAuthgear().authorize(new AuthorizeOptions(
-                "com.myapp://host/path",
-                null,
-                null,
-                null,
-                null
-        ), new OnAuthorizeListener() {
+        AuthenticateOptions options = new AuthenticateOptions("com.myapp://host/path");
+        app.getAuthgear().authenticate(options, new OnAuthenticateListener() {
             @Override
-            public void onAuthorized(@Nullable String state) {
+            public void onAuthenticated(@Nullable UserInfo userInfo) {
                 // The user is logged in!
             }
 
             @Override
-            public void onAuthorizationFailed(@NonNull Throwable throwable) {
-                // Something went wrong.
+            public void onAuthenticationFailed(@NonNull Throwable throwable) {
+                if (throwable instanceof CancelException) {
+                    // User cancel
+                } else {
+                    // Something went wrong.
+                }
             }
         });
     }
@@ -236,7 +235,7 @@ Call `refreshAccessTokenIfNeeded` every time before using the access token, the 
 
 try {
     authgear.refreshAccessTokenIfNeededSync();
-} catch (OauthException e) {
+} catch (OAuthException e) {
     // The token is expired.
 }
 String accessToken = authgear.getAccessToken();
@@ -265,7 +264,7 @@ class MyAwesomeViewModel extends AndroidViewModel {
     // This is called when logout button is clicked.
     public void logout() {
         MyAwesomeApplication app = getApplication();
-        app.getAuthgear().logout(.logout(new OnLogoutListener() {
+        app.getAuthgear().logout(new OnLogoutListener() {
             @Override
             public void onLogout() {
                 // Logout successfully
