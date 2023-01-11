@@ -55,8 +55,7 @@ try {
 ```swift
 authgear.authenticateAnonymously { result in
     switch result {
-    case let .success(authResult):
-        let userInfo = authResult.userInfo
+    case let .success(userInfo):
         // Logged in as anonymous user successfully
     case let .failure(error):
         // Handle the error
@@ -147,8 +146,7 @@ authgear.promoteAnonymousUser(
     redirectURI: THE_REDIRECT_URI
 ) { result in
     switch result {
-    case let .success(authResult):
-        let userInfo = authResult.userInfo
+    case let .success(userInfo):
         // Promote anonymous user successfully
     case let .failure(error):
         // Handle the error

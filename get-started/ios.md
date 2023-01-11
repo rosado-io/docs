@@ -125,11 +125,14 @@ When the user clicks login/signup on your app, you can use the following code to
 // e.g. com.myapp://host/path
 authgear.authenticate(redirectURI: "{your_redirect_uri}", handler: { result in
     switch result {
-    case let .success(authResult):
-        let userInfo = authResult.userInfo
+    case let .success(userInfo):
         // login successfully
     case let .failure(error):
-        // failed to login
+        if let authgearError = error as? AuthgearError, case .cancel = authgearError {
+            // user cancel
+        } else {
+            // Something went wrong
+        }
     }
 })
 ```
