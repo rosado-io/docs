@@ -57,7 +57,7 @@ authgear.configure() { result in
 {% tab title="Android" %}
 ```java
 ConfigureOptions configureOptions = new ConfigureOptions();
-Authgear authgear = new Authgear(getApplication(), clientID, endpoint, null);
+Authgear authgear = new Authgear(getApplication(), clientID, endpoint);
 authgear.configure(configureOptions, new OnConfigureListener() {
     @Override
     public void onConfigured() {

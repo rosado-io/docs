@@ -83,12 +83,12 @@ Authgear(
 {% endtab %}
 
 {% tab title="Android" %}
-```kotlin
+```java
 new Authgear(
-    application,
+    getApplication(),
     CLIENT_ID,
     ENDPOINT,
-    null, // tokenStorage = default
+    new PersistentTokenStorage(getApplication()),
     true // isSsoEnabled = true
 );
 ```
