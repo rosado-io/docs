@@ -325,7 +325,7 @@ public void onClickPerformSensitiveOperation() {
                     // Handle error
                 }
                 @Override
-                public void onFinished(ReauthenticateResult) {
+                public void onFinished(UserInfo userInfo) {
                     // Step 4: If we reach here, the reauthentication was done.
                     // The ID token have up-to-date auth_time claim.
                     String idTokenHint = authgear.getIDTokenHint();

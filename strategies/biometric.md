@@ -364,8 +364,8 @@ If biometric is supported and enabled, you can use the Authenticate Biometric me
 ```swift
 authgear.authenticateBiometric { result in
     switch result {
-        case let .success(authResult):
-            let userInfo = authResult.userInfo
+        case let .success(userInfo):
+            let userInfo = userInfo
             // logged in successfully
         case let .failure(error):
             // failed to login

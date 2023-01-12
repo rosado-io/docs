@@ -104,7 +104,7 @@ Add the following activity entry to the `AndroidManifest.xml` of your app. The i
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Configure data to be the exact redirect URI your app uses. -->
                 <!-- Here, we are using com.authgear.example://host/path as configured in authgear.yaml. -->
-                <!-- NOTE: The redirectURI supplied in AuthorizeOptions *has* to match as well -->
+                <!-- NOTE: The redirectURI supplied in AuthenticateOptions *has* to match as well -->
                 <data android:scheme="com.myapp.example"
                     android:host="host"
                     android:pathPrefix="/path"/>
