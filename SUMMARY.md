@@ -75,7 +75,7 @@
 
 ## APIs
 
-* [API for Client Applications](apis/api-for-client-applications-oidc-2.0.md)
+* [API for Client Applications](apis/api-for-client-applications.md)
 * [Admin API](apis/admin-api/README.md)
   * [Authentication and Security](apis/admin-api/authentication-and-security.md)
   * [API Schema](apis/admin-api/api-schema.md)
