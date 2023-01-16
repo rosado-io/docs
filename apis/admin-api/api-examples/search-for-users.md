@@ -15,11 +15,9 @@ The query has a maximum limit of 20, pagination parameters should be provided to
 ### The query
 
 ```graphql
-query (
-  $searchKeyword: String!
-) {
+query {
   users(
-    searchKeyword: $searchKeyword
+    searchKeyword: "user@example.com"
   ) {
     edges {
       node {
@@ -44,14 +42,6 @@ query (
     }
     totalCount
   }
-}
-```
-
-### The variables
-
-```json
-{
-  "searchKeyword": "user@example.com"
 }
 ```
 
@@ -112,19 +102,13 @@ query (
 ### The query
 
 ```graphql
-query (
-  $searchKeyword: String!
-  $pageSize: Int!,
-  $cursor: String,
-  $sortBy: UserSortBy,
-  $sortDirection: SortDirection
-) {
+query {
   users(
-    first: $pageSize
-    after: $cursor
-    searchKeyword: $searchKeyword
-    sortBy: $sortBy
-    sortDirection: $sortDirection
+    first: 5
+    after: "b2Zmc2V0OjQ"
+    searchKeyword: ""
+    sortBy: CREATED_AT
+    sortDirection: DESC
   ) {
     edges {
       node {
@@ -137,17 +121,6 @@ query (
 }
 ```
 
-### The variables
-
-```json
-{
-  "searchKeyword": "",
-  "pageSize": 5,
-  "cursor": "b2Zmc2V0OjQ",
-  "sortBy": "CREATED_AT",
-  "sortDirection": "DESC"
-}
-```
 
 ### The sample response
 
@@ -196,7 +169,7 @@ query (
 #### Parameters
 
 * `searchKeyword`: Search for users by specified keyword.
-* `pageSize`: The page size indicates the limit on the number of items to be returned. Maximum is `20`.
-* `cursor`: A cursor for use in pagination. You can pass the cursor value of the last edges item to a subsequent call to fetch the next page of results.
+* `first`: The number of items to be returned. Maximum is `20`.
+* `after`: A cursor for use in pagination. You can pass the cursor value of the last edges item to a subsequent call to fetch the next page of results.
 * `sortBy`: The field in which to order users. Supported values: `CREATED_AT` or `LAST_LOGIN_AT`.
 * `sortDirection`: The direction in which to order users by the specified field. Supported values: `ASC` or `DESC`.

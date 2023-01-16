@@ -18,20 +18,12 @@ Follow the document [here](../node-id.md) to generate the user node id.
 The query:
 
 ```graphql
-query ($userID: ID!) {
-  node(id: $userID) {
+query {
+  node(id: "<BASE64URL_ENCODED_USER_NODE_ID>") {
     ... on User {
       standardAttributes
     }
   }
-}
-```
-
-The variables:
-
-```json
-{
-  "userID": "<BASE64URL_ENCODED_USER_NODE_ID>"
 }
 ```
 
