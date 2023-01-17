@@ -36,20 +36,12 @@ base64.urlsafe_b64encode(b'User:97b1c929-842c-415c-a7df-6967efdda160').replace(b
 The query:
 
 ```graphql
-query ($userID: ID!) {
-  node(id: $userID) {
+query {
+  node(id: "<BASE64URL_ENCODED_USER_NODE_ID>") {
     ... on User {
       id
       standardAttributes
     }
   }
-}
-```
-
-The variables:
-
-```json
-{
-  "userID": "<BASE64URL_ENCODED_USER_NODE_ID>"
 }
 ```
