@@ -84,6 +84,7 @@
     * [Search for users](apis/admin-api/api-examples/search-for-users.md)
     * [Update user's standard attributes](apis/admin-api/api-examples/update-users-standard-attributes.md)
     * [Update user's picture](apis/admin-api/api-examples/update-users-picture.md)
+    * [Generate OTP code](apis/admin-api/api-examples/generate-otp-code.md)
 
 ## Monitor
 
