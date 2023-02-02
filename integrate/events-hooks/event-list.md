@@ -9,7 +9,7 @@ description: The full list of events
 * [user.pre\_create](event-list.md#user.pre\_create)
 * [user.profile.pre\_update](event-list.md#user.profile.pre\_update)
 * [user.pre\_schedule\_deletion](event-list.md#user.pre\_schedule\_deletion)
-* [user.session.jwt.pre\_create](event-list.md#user.session.jwt.pre\_create)
+* [oidc.jwt.pre\_create](event-list.md#oidc.jwt.pre\_create)
 
 ## Non-blocking Events
 
@@ -142,7 +142,7 @@ This event does not support mutations.
 }
 ```
 
-### user.session.jwt.pre\_create
+### oidc.jwt.pre\_create
 
 Occurs right before the access token is issued. Use this event to add custom fields to the JWT access token.
 
@@ -150,7 +150,7 @@ This event supports [Mutations on the JWT payload](./#mutations-on-the-jwt-paylo
 
 ```json
 {
-  "type": "user.pre_schedule_deletion",
+  "type": "oidc.jwt.pre_create",
   "payload": {
     "user": {
       "id": "338deafa-400b-4589-a922-2c92d670b757",
