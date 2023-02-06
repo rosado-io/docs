@@ -25,9 +25,13 @@ description: The full list of events
 * [identity.email.added](event-list.md#identity.email.added)
 * [identity.email.removed](event-list.md#identity.email.removed)
 * [identity.email.updated](event-list.md#identity.email.updated)
+* [identity.email.verified](event-list.md#identity.email.verified)
+* [identity.email.unverified](event-list.md#identity.email.unverified)
 * [identity.phone.added](event-list.md#identity.phone.added)
 * [identity.phone.removed](event-list.md#identity.phone.removed)
 * [identity.phone.updated](event-list.md#identity.phone.updated)
+* [identity.phone.verified](event-list.md#identity.phone.verified)
+* [identity.phone.unverified](event-list.md#identity.phone.unverified)
 * [identity.username.added](event-list.md#identity.username.added)
 * [identity.username.removed](event-list.md#identity.username.removed)
 * [identity.username.updated](event-list.md#identity.username.updated)
@@ -631,6 +635,86 @@ Occurs when an email address is updated. Email can be updated by the user on the
 }
 ```
 
+### identity.email.verified
+
+Occurs when an email address is verified. Email can be verified by the user on the setting page.
+
+```json
+{
+  "type": "identity.email.verified",
+  "payload": {
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user@example.com"
+      }
+    }
+  }
+}
+```
+
+### identity.email.unverified
+
+Occurs when an email address is unverified. Email can be unverified using Admin API.
+
+```json
+{
+  "type": "identity.email.unverified",
+  "payload": {
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": false,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": false,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user@example.com"
+      }
+    }
+  }
+}
+```
+
 ### identity.phone.added
 
 Occurs when a new phone number is added to an existing user. Phone numbers can be added by the user in the setting page, added by admin through admin API or Portal.
@@ -765,6 +849,90 @@ Occurs when a phone number is updated. Phone numbers can be updated by the user 
         "https://authgear.com/claims/login_id/type": "phone",
         "https://authgear.com/claims/login_id/value": "+447400123456",
         "phone_number": "+447400123456"
+      }
+    }
+  }
+}
+```
+
+### identity.phone.verified
+
+Occurs when a phone number is verified. Phone numbers can be verified by the user on the setting page.
+
+```json
+{
+  "type": "identity.phone.verified",
+  "payload": {
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "phone_number": "+447400123455",
+        "phone_number_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "9fa5668d-a796-4817-93e1-d4096e5966ac",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "phone",
+        "https://authgear.com/claims/login_id/type": "phone",
+        "https://authgear.com/claims/login_id/value": "+447400123455",
+        "phone_number": "+447400123455"
+      }
+    }
+  }
+}
+```
+
+### identity.phone.unverified
+
+Occurs when a phone number is unverified. Phone numbers can be unverified using Admin API.
+
+```json
+{
+  "type": "identity.phone.unverified",
+  "payload": {
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": false,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
+        "phone_number": "+447400123455",
+        "phone_number_verified": false,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "9fa5668d-a796-4817-93e1-d4096e5966ac",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "https://authgear.com/claims/login_id/key": "phone",
+        "https://authgear.com/claims/login_id/type": "phone",
+        "https://authgear.com/claims/login_id/value": "+447400123455",
+        "phone_number": "+447400123455"
       }
     }
   }
