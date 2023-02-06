@@ -583,7 +583,7 @@ Occurs when an email address is updated. Email can be updated by the user on the
 
 ```json
 {
-  "type": "user.email.updated",
+  "type": "identity.email.updated",
   "payload": {
     "user": {
       "id": "338deafa-400b-4589-a922-2c92d670b757",
