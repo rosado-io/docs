@@ -25,6 +25,7 @@ description: The full list of events
 * [identity.email.added](event-list.md#identity.email.added)
 * [identity.email.removed](event-list.md#identity.email.removed)
 * [identity.email.updated](event-list.md#identity.email.updated)
+* [identity.email.verified](event-list.md#identity.email.verified)
 * [identity.phone.added](event-list.md#identity.phone.added)
 * [identity.phone.removed](event-list.md#identity.phone.removed)
 * [identity.phone.updated](event-list.md#identity.phone.updated)
@@ -557,6 +558,47 @@ Occurs when an email address is removed from an existing user. Email can be remo
       "standard_attributes": {
         "phone_number": "+447400123456",
         "phone_number_verified": true,
+        "updated_at": 1136171045
+      }
+    },
+    "identity": {
+      "id": "239d585d-9b90-4148-9aa2-2e3131b5847a",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "type": "login_id",
+      "claims": {
+        "email": "user@example.com",
+        "https://authgear.com/claims/login_id/key": "email",
+        "https://authgear.com/claims/login_id/original_value": "user@example.com",
+        "https://authgear.com/claims/login_id/type": "email",
+        "https://authgear.com/claims/login_id/value": "user@example.com"
+      }
+    }
+  }
+}
+```
+
+### identity.email.verified
+
+Occurs when an email address is change from unverified to verified for an existing user. Email can be verified by the user in the setting page, mark verified by admin through admin API or Portal.
+
+```json
+{
+  "type": "identity.email.verified",
+  "payload": {
+    "user": {
+      "id": "338deafa-400b-4589-a922-2c92d670b757",
+      "created_at": "2006-01-02T03:04:05.123456Z",
+      "updated_at": "2006-01-02T03:04:05.123456Z",
+      "last_login_at": "2006-01-02T03:04:05.123456Z",
+      "is_anonymous": false,
+      "is_verified": true,
+      "is_disabled": false,
+      "is_deactivated": false,
+      "can_reauthenticate": true,
+      "standard_attributes": {
+        "email": "user@example.com",
+        "email_verified": true,
         "updated_at": 1136171045
       }
     },
