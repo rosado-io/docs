@@ -4,8 +4,9 @@
 
 {% hint style="info" %}
 Biometric login is supported for the following operating systems:
-- iOS 11.3 or higher
-- Android 6.0 (API 23) or higher
+
+* iOS 11.3 or higher
+* Android 6.0 (API 23) or higher
 {% endhint %}
 
 Authgear supports enabling biometric login in the native mobile application. You will need to
@@ -13,7 +14,7 @@ Authgear supports enabling biometric login in the native mobile application. You
 1. Enable biometric login in your application via the portal.
 2. In the mobile app, use the mobile SDK to enable biometric login for your users.
 
-A pair of cryptographic keys will be generated upon registering biometric login. The private key will be stored securely in the device (using Keystore in Android and Keychain in iOS), while the public key is stored in the Authgear server. To authenticate the user, fingerprint or face is presented to unlock the private key, and a digital signed message is sent to the server to proof the authenticity of the user.&#x20;
+A pair of cryptographic keys will be generated upon registering biometric login. The private key will be stored securely in the device (using Keystore in Android and Keychain in iOS), while the public key is stored in the Authgear server. To authenticate the user, fingerprint or face is presented to unlock the private key, and a digital signed message is sent to the server to proof the authenticity of the user.
 
 Sounds overwhelming? Authgear's magic handle all these for you. Follow this guide to enable biometric login in your app with a few lines of code.
 
@@ -41,13 +42,170 @@ identity:
 {% endtab %}
 {% endtabs %}
 
+## Set reasonably short token lifetimes for client applications
+
+Biometric login is usually used when you want the user to re-login after a relatively short period of time. For sensitive applications such as financial apps, it's _**recommended**_ to use a short refresh token lifetime and a short idle timeout.
+
+1. In the Authgear Portal, go to **Applications**
+2. Select the client application that represent the integration with the mobile app
+3. Set a short **Refresh Token Lifetime** to say 3,600 seconds (1 hour)
+4. Enable **Expire after idling**
+5. Set a short **Idle Timeout**, to say 1,800 seconds (30 minutes)
+
+By doing so, the end-user's session will be expired 1 hour after their login, or after 30 minutes of inactivity. The end-user will need to authenticate themself again with biometric, even if the app process has not yet been killed.
+
+## Configure SDK so users must re-login after app closed
+
+Apart from the short token lifetimes, it's also common for sensitive apps to ask the user to re-login by biometric after the app process is killed and relaunched.
+
+&#x20;The SDK should be configured to use `transientTokenStorage` so the tokens are stored in memory, and will be cleared when the app is closed.
+
+{% tabs %}
+{% tab title="iOS" %}
+{% code fullWidth="true" %}
+```swift
+let authgear = Authgear(
+    clientId: "{your_clien_id}", 
+    endpoint: "{your_app_endpoint}",
+    tokenStorage: TransientTokenStorage)
+authgear.configure() { result in
+    switch result {
+    case .success():
+        // configured successfully
+    case let .failure(error):
+        // failed to configured
+    }
+}
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Android" %}
+```kotlin
+public class MyAwesomeApplication extends Application {
+    // The client ID of the oauth client.
+    private static final String CLIENT_ID = "a_random_generated_string"
+    // Deployed authgear's endpoint
+    private static final String AUTHGEAR_ENDPOINT = "http://<myapp>.authgearapps.com/"
+    private Authgear mAuthgear;
+    public void onCreate() {
+        super.onCreate();
+        mAuthgear = new Authgear(this, CLIENT_ID, AUTHGEAR_ENDPOINT, TransientTokenStorage);
+        mAuthgear.configure(new OnConfigureListener() {
+            @Override
+            public void onConfigured() {
+                // Authgear can be used.
+            }
+
+            @Override
+            public void onConfigurationFailed(@NonNull Throwable throwable) {
+                Log.d(TAG, throwable.toString());
+                // Something went wrong, check the client ID or endpoint.
+            }
+        });
+    }
+
+    public Authgear getAuthgear() {
+        return mAuthgear;
+    }
+}
+```
+{% endtab %}
+
+{% tab title="React Native" %}
+```javascript
+import React, { useCallback } from "react";
+import { View, Button } from "react-native";
+import authgear from "@authgear/react-native";
+
+function LoginScreen() {
+  const onPress = useCallback(() => {
+    // Normally you should only configure once when the app launches.
+    authgear
+      .configure({
+        clientID: "client_id",
+        endpoint: "http://<myapp>.authgearapps.com",
+        tokenStorage: TransientTokenStorage
+      })
+      .then(() => {
+        authgear
+          .authenticate({
+            redirectURI: "com.myapp.example://host/path",
+          })
+          .then(({ userInfo }) => {
+            console.log(userInfo);
+          });
+      });
+  }, []);
+
+  return (
+    <View>
+      <Button onPress={onPress} title="Authenticate" />
+    </View>
+  );
+}
+```
+{% endtab %}
+
+{% tab title="Flutter" %}
+```dart
+Future<void> _init() async {
+    _authgear = Authgear(
+        endpoint: "ENDPOINT", 
+        clientID: "CLIENT_ID", 
+        tokenStorage: TransientTokenStorage
+    );
+    await _authgear.configure();
+}
+```
+{% endtab %}
+
+{% tab title="Xamarin" %}
+```csharp
+using System;
+
+using Android.App;
+using Android.Content.PM;
+using Android.Runtime;
+using Android.OS;
+
+using Xamarin.Forms;
+using Authgear.Xamarin;
+
+namespace MyApp.Droid
+{
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            // ...
+
+            var authgear = new AuthgearSdk(this, new AuthgearOptions
+            {
+                ClientId = CLIENT_ID,
+                AuthgearEndpoint = ENDPOINT,
+                TokenStorage = TransientTokenStorage
+            });
+            DependencyService.RegisterSingleton<AuthgearSdk>(authgear);
+            LoadApplication(new App());
+
+            // ...
+        }
+
+        // other methods are omitted for brevity.
+    }
+}
+```
+{% endtab %}
+{% endtabs %}
+
 ## Enable biometric login in mobile SDK
 
 In the following section, we will show you how to use biometric login in the SDK. In the SDK code snippet, `authgear` is referring to the configured Authgear container.
 
 ### Biometric options
 
-In the SDKs, a set of biometric options is required to check the support or enable biometric on the device.&#x20;
+In the SDKs, a set of biometric options is required to check the support or enable biometric on the device.
 
 #### iOS
 
@@ -68,14 +226,14 @@ There are 6 options on Android:
 * `subtitle` is the subtitle of the biometric dialog presented to the users
 * `description` is the description of the biometric dialog presented to the users
 * `negativeButtonText` is what the dismiss button says in the biometric dialog
-* `constraint` is an array defines the requirement of security level, which can be `BIOMETRIC_STRONG`, `BIOMETRIC_WEAK`, `DEVICE_CREDENTIAL`. See reference in Android developers documentation on [`BiometricManager.Authenticators`](https://developer.android.com/reference/android/hardware/biometrics/BiometricManager.Authenticators)``
+* `constraint` is an array defines the requirement of security level, which can be `BIOMETRIC_STRONG`, `BIOMETRIC_WEAK`, `DEVICE_CREDENTIAL`. See reference in Android developers documentation on [`BiometricManager.Authenticators`](https://developer.android.com/reference/android/hardware/biometrics/BiometricManager.Authenticators)\`\`
 * `invalidatedByBiometricEnrollment` is a boolean that controls if the key pair will be invalidated if a new biometric is enrolled, or when all existing biometrics are deleted. See reference in Android developers documentation on [`KeyGenParameterSpec.Builder`](https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment\(boolean\)).
 
 ### Code examples
 
 #### Check support
 
-Always check if the current device supports biometric login before calling any biometric API, including before enabling biometric login and before using biometric to login.&#x20;
+Always check if the current device supports biometric login before calling any biometric API, including before enabling biometric login and before using biometric to login.
 
 {% tabs %}
 {% tab title="iOS" %}

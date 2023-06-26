@@ -9,8 +9,7 @@ This guide provides instructions on integrating Authgear with a React Native app
 * React Native 0.60.0 or higher
 
 {% hint style="info" %}
-React Native have opt-in support for the [New Architecture](https://reactnative.dev/docs/new-architecture-intro) since 0.68.
-Given that the New Architecture is still considered as unstable, we do not support it at the moment.
+React Native have opt-in support for the [New Architecture](https://reactnative.dev/docs/new-architecture-intro) since 0.68. Given that the New Architecture is still considered as unstable, we do not support it at the moment.
 {% endhint %}
 
 ## Setup Application in Authgear
@@ -212,7 +211,7 @@ function LoginScreen() {
     // Normally you should only configure once when the app launches.
     authgear
       .configure({
-        clientID: "a_random_generated_string",
+        clientID: "client_id",
         endpoint: "http://<myapp>.authgearapps.com",
       })
       .then(() => {
@@ -258,11 +257,11 @@ if (sessionState === "AUTHENTICATED") {
 }
 ```
 
-The value of `sessionState` can be `UNKNOWN`, `NO_SESSION` or `AUTHENTICATED`. Initially the `sessionState` is `UNKNOWN`. After a call to `authgear.configure`, the session state would become `AUTHENTICATED` if a previous session was found, or `NO_SESSION` if such session was not found. 
+The value of `sessionState` can be `UNKNOWN`, `NO_SESSION` or `AUTHENTICATED`. Initially the `sessionState` is `UNKNOWN`. After a call to `authgear.configure`, the session state would become `AUTHENTICATED` if a previous session was found, or `NO_SESSION` if such session was not found.
 
 ## Fetching User Info
 
-In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint). 
+In some cases, you may need to obtain current user info through the SDK. (e.g. Display email address in the UI). Use the `fetchUserInfo` function to obtain the user info, see [example](../integrate/user-profile.md#userinfo-endpoint).
 
 ## Using the Access Token in HTTP Requests
 
