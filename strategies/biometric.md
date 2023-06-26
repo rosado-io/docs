@@ -58,7 +58,7 @@ By doing so, the end-user's session will be expired 1 hour after their login, or
 
 Apart from the short token lifetimes, it's also common for sensitive apps to ask the user to re-login by biometric after the app process is killed and relaunched.
 
-&#x20;The SDK should be configured to use `transientTokenStorage` so the tokens are stored in memory, and will be cleared when the app is closed.
+&#x20;The SDK should be configured to use `transientTokenStorage` so the tokens are stored in memory, and will be cleared when the app is closed. So the end-users must authenticate with biometrics again.
 
 {% tabs %}
 {% tab title="iOS" %}
