@@ -58,7 +58,7 @@ By doing so, the end-user's session will be expired 1 hour after their login, or
 
 Apart from the short token lifetimes, it's also common for sensitive apps to ask the user to re-login by biometric after the app process is killed and relaunched.
 
-&#x20;The SDK should be configured to use `transientTokenStorage` so the tokens are stored in memory, and will be cleared when the app is closed. So the end-users must authenticate with biometrics again.
+The SDK should be configured to use TransientTokenStorage so the tokens are stored in memory, and will be cleared when the app is closed. So the end-users must authenticate with biometrics again.
 
 {% tabs %}
 {% tab title="iOS" %}
@@ -67,7 +67,7 @@ Apart from the short token lifetimes, it's also common for sensitive apps to ask
 let authgear = Authgear(
     clientId: "{your_clien_id}", 
     endpoint: "{your_app_endpoint}",
-    tokenStorage: TransientTokenStorage)
+    tokenStorage: TransientTokenStorage())
 authgear.configure() { result in
     switch result {
     case .success():
@@ -90,7 +90,7 @@ public class MyAwesomeApplication extends Application {
     private Authgear mAuthgear;
     public void onCreate() {
         super.onCreate();
-        mAuthgear = new Authgear(this, CLIENT_ID, AUTHGEAR_ENDPOINT, TransientTokenStorage);
+        mAuthgear = new Authgear(this, CLIENT_ID, AUTHGEAR_ENDPOINT, new TransientTokenStorage());
         mAuthgear.configure(new OnConfigureListener() {
             @Override
             public void onConfigured() {
@@ -116,7 +116,7 @@ public class MyAwesomeApplication extends Application {
 ```javascript
 import React, { useCallback } from "react";
 import { View, Button } from "react-native";
-import authgear from "@authgear/react-native";
+import authgear, { TransientTokenStorage } from "@authgear/react-native";
 
 function LoginScreen() {
   const onPress = useCallback(() => {
@@ -125,7 +125,7 @@ function LoginScreen() {
       .configure({
         clientID: "client_id",
         endpoint: "http://<myapp>.authgearapps.com",
-        tokenStorage: TransientTokenStorage
+        tokenStorage: new TransientTokenStorage()
       })
       .then(() => {
         authgear
@@ -153,7 +153,7 @@ Future<void> _init() async {
     _authgear = Authgear(
         endpoint: "ENDPOINT", 
         clientID: "CLIENT_ID", 
-        tokenStorage: TransientTokenStorage
+        tokenStorage: TransientTokenStorage()
     );
     await _authgear.configure();
 }
@@ -184,7 +184,7 @@ namespace MyApp.Droid
             {
                 ClientId = CLIENT_ID,
                 AuthgearEndpoint = ENDPOINT,
-                TokenStorage = TransientTokenStorage
+                TokenStorage = new TransientTokenStorage()
             });
             DependencyService.RegisterSingleton<AuthgearSdk>(authgear);
             LoadApplication(new App());
