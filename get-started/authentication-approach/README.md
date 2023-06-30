@@ -21,7 +21,7 @@ In Token-based authentication, Authgear returns the `access token` and `refresh 
 
 The client SDK will automatically renew the `access token` with the `refresh token` for you, so you don't have to worry about it.
 
-Your client app should call your backend with the access token in the Authorization header, and you can verify the access token by integrating Authgear with your backend. The HTTP requests can be authenticated by [**Forwarding to Authgear Resolver Endpoint**](../backend-integration/nginx.md) **** or **** [**Validating JWT in your application server**](../backend-integration/jwt.md).
+Your client app should call your backend with the access token in the Authorization header, and you can verify the access token by integrating Authgear with your backend. The HTTP requests can be authenticated by [**Forwarding to Authgear Resolver Endpoint**](../backend-integration/nginx.md) or [**Validating JWT in your application server**](../backend-integration/jwt.md).
 
 Request example:
 

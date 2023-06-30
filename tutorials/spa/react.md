@@ -213,7 +213,7 @@ The Authgear container instance takes `endpoint` and `clientID` as parameters. T
 It is recommend to render the app after `configure()` resolves. So by the time the app is rendered, Authgear is ready to use.&#x20;
 
 {% hint style="info" %}
-Run ** `npm start` ** now and you should see a page with "Hello World" and no error message in the console if Authgear SDK is configured successfully
+Run **`npm start`** now and you should see a page with "Hello World" and no error message in the console if Authgear SDK is configured successfully
 {% endhint %}
 
 ## Step 3: Implement the Context Provider
