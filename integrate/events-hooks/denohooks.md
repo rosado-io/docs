@@ -29,7 +29,7 @@ The stdout and the stderr of the Hooks are both ignored. Your hooks **MUST NOT**
 Here is an example of a Hook for a blocking event.
 
 ```typescript
-import { HookEvent, HookResponse } from "https://deno.land/x/authgear_deno_hook@v0.3.0/mod.ts";
+import { HookEvent, HookResponse } from "https://deno.land/x/authgear_deno_hook@v1.0.0/mod.ts";
 export default async function(e: HookEvent): Promise<HookResponse> {
   // This hook simply allows the operation, which is identical to no-op.
   return { is_allowed: true };
@@ -39,9 +39,9 @@ export default async function(e: HookEvent): Promise<HookResponse> {
 An example to mutate a JWT token
 
 ```typescript
-import {HookResponse, EventUserSessionJWTPreCreate } from "https://deno.land/x/authgear_deno_hook@v0.3.0/mod.ts";
+import {HookResponse, EventOIDCJWTPreCreate } from "https://deno.land/x/authgear_deno_hook@v1.0.0/mod.ts";
 
-export default async function(event: EventUserSessionJWTPreCreate): Promise<HookResponse> {
+export default async function(event: EventOIDCJWTPreCreate): Promise<HookResponse> {
   return { 
     is_allowed: true,
     mutations: {
