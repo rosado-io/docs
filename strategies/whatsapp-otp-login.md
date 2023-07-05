@@ -10,10 +10,6 @@ description: >-
 
 Authgear let your users login passwordlessly with WhatsApp OTP.
 
-{% hint style="info" %}
-This is a feature under development, stay tuned!
-{% endhint %}
-
 To enable this feature from the Portal:
 
 1. Go to **Authentication > Login Methods**, we are going make few changes on this page.

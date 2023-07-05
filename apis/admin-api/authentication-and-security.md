@@ -4,7 +4,7 @@ description: >-
   valid JWT to authorize your request in this article.
 ---
 
-# Authorization and Security
+# Authentication and Security
 
 ## Accessing the Admin API GraphQL endpoint
 
@@ -160,3 +160,15 @@ The header is the standard Authorization HTTP header. The token type **MUST** be
 ## Optional: Caching the JWT
 
 As you can see in the sample code, you expiration time of the JWT is 5 minutes. You make it last longer and cache it to avoid generating it on every request.
+
+## Admin API Key rotation
+
+You should regularly change the API key used to authenticate API requests. It enhances security by minimizing the impact of compromised keys.
+
+To rotate the API key
+
+1. Go to **Portal** > **Advanced** > **Admin API**
+2. Under "List of Admin API keys", click "Generate new key pair"
+3. At this point both keys can be used to authenticate the admin API requests.
+4. Make sure all your systems is updated to use the new key
+5. Delete the old API key
