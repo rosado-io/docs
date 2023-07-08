@@ -10,10 +10,6 @@ Authgear helps you add user logins to your Angular apps. It provides prebuilt lo
 
 Follow this :clock1: **15 minutes** tutorial to create a simple app using Angular with Authgear SDK.
 
-{% hint style="info" %}
-**Check out and clone** [<mark style="color:orange;">**the Sample Project on GitHub**</mark>](https://github.com/authgear/authgear-example-angular)**.**
-{% endhint %}
-
 **Table of Content**
 
 * [Setup Application in Authgear](angular.md#setup-application-in-authgear)
